@@ -30,8 +30,8 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "gaiareplay",
-	Short: "Replay gaia transactions",
+	Use:   "colorreplay",
+	Short: "Replay color transactions",
 	Run: func(cmd *cobra.Command, args []string) {
 		run(rootDir)
 	},
