@@ -30,7 +30,7 @@ var configDefaults = map[string]string{
 func ConfigCmd(defaultCLIHome string) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "config <key> [value]",
-		Short: "Create or query a Gaia CLI configuration file",
+		Short: "Create or query a Color CLI configuration file",
 		RunE:  runConfigCmd,
 		Args:  cobra.RangeArgs(0, 2),
 	}

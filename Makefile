@@ -74,11 +74,11 @@ ci: tools install test_cover lint test
 
 build: go.sum
 ifeq ($(OS),Windows_NT)
-	go build -mod=readonly $(BUILD_FLAGS) -o build/gaiad.exe ./cmd/gaia/cmd/gaiad
-	go build -mod=readonly $(BUILD_FLAGS) -o build/gaiacli.exe ./cmd/gaia/cmd/gaiacli
+	go build -mod=readonly $(BUILD_FLAGS) -o build/colord.exe ./cmd/gaia/cmd/colord
+	go build -mod=readonly $(BUILD_FLAGS) -o build/colorcli.exe ./cmd/gaia/cmd/colorcli
 else
-	go build -mod=readonly $(BUILD_FLAGS) -o build/gaiad ./cmd/gaia/cmd/gaiad
-	go build -mod=readonly $(BUILD_FLAGS) -o build/gaiacli ./cmd/gaia/cmd/gaiacli
+	go build -mod=readonly $(BUILD_FLAGS) -o build/colord ./cmd/gaia/cmd/colord
+	go build -mod=readonly $(BUILD_FLAGS) -o build/colorcli ./cmd/gaia/cmd/colorcli
 	go build -mod=readonly $(BUILD_FLAGS) -o build/gaiareplay ./cmd/gaia/cmd/gaiareplay
 	go build -mod=readonly $(BUILD_FLAGS) -o build/gaiakeyutil ./cmd/gaia/cmd/gaiakeyutil
 endif
@@ -90,8 +90,8 @@ update_gaia_lite_docs:
 	@statik -src=client/lcd/swagger-ui -dest=client/lcd -f
 
 install: go.sum check-ledger update_gaia_lite_docs
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/gaiad
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/gaiacli
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/colord
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/colorcli
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/gaiareplay
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/gaiakeyutil
 

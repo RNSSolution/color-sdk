@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/crypto/encoding/amino"
+	cryptoAmino "github.com/tendermint/tendermint/crypto/encoding/amino"
 
 	"github.com/tendermint/tendermint/libs/bech32"
 )
@@ -18,7 +18,7 @@ const (
 	// AddrLen defines a valid address length
 	AddrLen = 20
 	// Bech32PrefixAccAddr defines the Bech32 prefix of an account's address
-	Bech32MainPrefix = "cosmos"
+	Bech32MainPrefix = "colors"
 
 	// PrefixAccount is the prefix for account keys
 	PrefixAccount = "acc"
