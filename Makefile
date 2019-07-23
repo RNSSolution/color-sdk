@@ -79,8 +79,8 @@ ifeq ($(OS),Windows_NT)
 else
 	go build -mod=readonly $(BUILD_FLAGS) -o build/colord ./cmd/gaia/cmd/colord
 	go build -mod=readonly $(BUILD_FLAGS) -o build/colorcli ./cmd/gaia/cmd/colorcli
-	go build -mod=readonly $(BUILD_FLAGS) -o build/gaiareplay ./cmd/gaia/cmd/gaiareplay
-	go build -mod=readonly $(BUILD_FLAGS) -o build/gaiakeyutil ./cmd/gaia/cmd/gaiakeyutil
+	go build -mod=readonly $(BUILD_FLAGS) -o build/colorreplay ./cmd/gaia/cmd/colorreplay
+	go build -mod=readonly $(BUILD_FLAGS) -o build/colorkeyutil ./cmd/gaia/cmd/colorkeyutil
 endif
 
 build-linux: go.sum
@@ -92,11 +92,11 @@ update_gaia_lite_docs:
 install: go.sum check-ledger update_gaia_lite_docs
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/colord
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/colorcli
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/gaiareplay
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/gaiakeyutil
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/colorreplay
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/colorkeyutil
 
 install_debug: go.sum
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/gaiadebug
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/colordebug
 
 dist:
 	@bash publish/dist.sh

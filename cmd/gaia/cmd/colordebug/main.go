@@ -35,14 +35,14 @@ func init() {
 }
 
 var rootCmd = &cobra.Command{
-	Use:          "gaiadebug",
-	Short:        "Gaia debug tool",
+	Use:          "colordebug",
+	Short:        "Color debug tool",
 	SilenceUsage: true,
 }
 
 var txCmd = &cobra.Command{
 	Use:   "tx",
-	Short: "Decode a gaia tx from hex or base64",
+	Short: "Decode a color tx from hex or base64",
 	RunE:  runTxCmd,
 }
 
