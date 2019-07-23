@@ -5,7 +5,7 @@ services:
     container_name: colordnode0
     image: "tendermint/colordnode"
     ports:
-      - "26657-26657"
+      - "26657:26657"
     environment:
       - ID=0
       - LOG=${LOG:-colord.log}
@@ -19,7 +19,7 @@ services:
     container_name: colordnode1
     image: "tendermint/colordnode"
     ports:
-      - "26658-26657"
+      - "26658:26657"
     environment:
       - ID=1
       - LOG=${LOG:-colord.log}
@@ -36,7 +36,7 @@ services:
       - ID=2
       - LOG=${LOG:-colord.log}
     ports:
-      - "26659-26657"
+      - "26659:26657"
     volumes:
       - ./build:/colord:Z
     networks:
@@ -50,7 +50,7 @@ services:
       - ID=3
       - LOG=${LOG:-colord.log}
     ports:
-      - "26660-26657"
+      - "26660:26657"
     volumes:
       - ./build:/colord:Z
     networks:
@@ -65,4 +65,3 @@ networks:
       config:
       -
         subnet: 192.168.10.0/16
-
