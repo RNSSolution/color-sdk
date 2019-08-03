@@ -3,10 +3,10 @@
 ## Evidence handling
 
 Tendermint blocks can include
-[Evidence](https://github.com/tendermint/tendermint/blob/develop/docs/spec/blockchain/blockchain.md#evidence), which indicates that a validator
+[Evidence](https://github.com/ColorPlatform/prism/blob/develop/docs/spec/blockchain/blockchain.md#evidence), which indicates that a validator
 committed malicious behavior. The relevant information is forwarded to the
 application as [ABCI
-Evidence](https://github.com/tendermint/tendermint/blob/develop/abci/types/types.proto#L259) in `abci.RequestBeginBlock`
+Evidence](https://github.com/ColorPlatform/prism/blob/develop/abci/types/types.proto#L259) in `abci.RequestBeginBlock`
 so that the validator an be accordingly punished.
 
 For some `evidence` to be valid, it must satisfy:

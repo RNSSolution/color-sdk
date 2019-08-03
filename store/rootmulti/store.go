@@ -5,10 +5,10 @@ import (
 	"io"
 	"strings"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-	"github.com/tendermint/tendermint/crypto/merkle"
-	"github.com/tendermint/tendermint/crypto/tmhash"
-	dbm "github.com/tendermint/tendermint/libs/db"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	"github.com/ColorPlatform/prism/crypto/merkle"
+	"github.com/ColorPlatform/prism/crypto/tmhash"
+	dbm "github.com/ColorPlatform/prism/libs/db"
 
 	"github.com/cosmos/cosmos-sdk/store/cachemulti"
 	"github.com/cosmos/cosmos-sdk/store/dbadapter"

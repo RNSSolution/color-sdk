@@ -6,7 +6,7 @@ import (
 	"os"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/tendermint/tendermint/libs/bech32"
+	"github.com/ColorPlatform/prism/libs/bech32"
 )
 
 var bech32Prefixes = []string{

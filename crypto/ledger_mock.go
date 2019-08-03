@@ -13,8 +13,8 @@ import (
 	"github.com/cosmos/go-bip39"
 
 	secp256k1 "github.com/tendermint/btcd/btcec"
-	"github.com/tendermint/tendermint/crypto"
-	tmsecp256k1 "github.com/tendermint/tendermint/crypto/secp256k1"
+	"github.com/ColorPlatform/prism/crypto"
+	tmsecp256k1 "github.com/ColorPlatform/prism/crypto/secp256k1"
 )
 
 // If ledger support (build tag) has been enabled, which implies a CGO dependency,

@@ -79,7 +79,7 @@ If those seeds aren't working, you can find more seeds and persistent peers on a
 
 You can also ask for peers on the [Validators Riot Room](https://riot.im/app/#/room/#cosmos-validators:matrix.org)
 
-For more information on seeds and peers, you can [read this](https://github.com/tendermint/tendermint/blob/develop/docs/tendermint-core/using-tendermint.md#peers).
+For more information on seeds and peers, you can [read this](https://github.com/ColorPlatform/prism/blob/develop/docs/tendermint-core/using-tendermint.md#peers).
 
 ## A Note on Gas and Fees
 

@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	tmtime "github.com/tendermint/tendermint/types/time"
+	tmtime "github.com/ColorPlatform/prism/types/time"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"

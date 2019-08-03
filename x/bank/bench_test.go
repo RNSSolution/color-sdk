@@ -7,7 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/mock"
 
-	abci "github.com/tendermint/tendermint/abci/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
 )
 
 // getBenchmarkMockApp initializes a mock application for this module, for purposes of benchmarking

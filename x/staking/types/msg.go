@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/tendermint/tendermint/crypto"
+	"github.com/ColorPlatform/prism/crypto"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

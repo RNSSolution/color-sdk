@@ -9,9 +9,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/crypto/secp256k1"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/crypto/secp256k1"
 )
 
 type (

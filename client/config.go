@@ -7,7 +7,7 @@ import (
 	"path"
 	"strconv"
 
-	"github.com/tendermint/tendermint/libs/cli"
+	"github.com/ColorPlatform/prism/libs/cli"
 
 	toml "github.com/pelletier/go-toml"
 	"github.com/spf13/cobra"

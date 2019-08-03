@@ -6,8 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/keys"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/mintkey"
 	"github.com/stretchr/testify/require"
-	cryptoAmino "github.com/tendermint/tendermint/crypto/encoding/amino"
-	"github.com/tendermint/tendermint/crypto/secp256k1"
+	cryptoAmino "github.com/ColorPlatform/prism/crypto/encoding/amino"
+	"github.com/ColorPlatform/prism/crypto/secp256k1"
 )
 
 func TestArmorUnarmorPrivKey(t *testing.T) {

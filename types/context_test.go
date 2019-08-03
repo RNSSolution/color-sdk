@@ -5,10 +5,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	dbm "github.com/tendermint/tendermint/libs/db"
-	"github.com/tendermint/tendermint/libs/log"
+	dbm "github.com/ColorPlatform/prism/libs/db"
+	"github.com/ColorPlatform/prism/libs/log"
 
-	abci "github.com/tendermint/tendermint/abci/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
 
 	"github.com/cosmos/cosmos-sdk/store"
 	"github.com/cosmos/cosmos-sdk/types"

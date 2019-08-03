@@ -71,7 +71,7 @@ See [testnets repo](https://github.com/cosmos/testnets).
 - Released gaia
   [v0.18.0](https://github.com/cosmos/cosmos-sdk/releases/tag/v0.18.0) with
   update for Tendermint
-  [v0.20.0](https://github.com/tendermint/tendermint/releases/tag/v0.20.0)
+  [v0.20.0](https://github.com/ColorPlatform/prism/releases/tag/v0.20.0)
 - Includes bug fix for declaring candidacy from the command line
 
 ## *June 8, 2018, 23:30 EST* - Gaia-6001 is making blocks
@@ -99,7 +99,7 @@ See [testnets repo](https://github.com/cosmos/testnets).
 - Released gaia
   [v0.17.5](https://github.com/cosmos/cosmos-sdk/releases/tag/v0.17.5) 
   with update for Tendermint
-  [v0.19.9](https://github.com/tendermint/tendermint/releases/tag/v0.19.9)
+  [v0.19.9](https://github.com/ColorPlatform/prism/releases/tag/v0.19.9)
 - Fixes many bugs!
     - evidence gossipping 
     - mempool deadlock

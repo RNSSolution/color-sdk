@@ -10,7 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
-	ctypes "github.com/tendermint/tendermint/rpc/core/types"
+	ctypes "github.com/ColorPlatform/prism/rpc/core/types"
 )
 
 // SearchTxs performs a search for transactions for a given set of tags via

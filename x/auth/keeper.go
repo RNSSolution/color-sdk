@@ -3,7 +3,7 @@ package auth
 import (
 	"fmt"
 
-	"github.com/tendermint/tendermint/crypto"
+	"github.com/ColorPlatform/prism/crypto"
 
 	codec "github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"

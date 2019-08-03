@@ -13,12 +13,12 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	abci "github.com/tendermint/tendermint/abci/types"
-	"github.com/tendermint/tendermint/crypto/ed25519"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	"github.com/ColorPlatform/prism/crypto/ed25519"
 
-	cmn "github.com/tendermint/tendermint/libs/common"
-	dbm "github.com/tendermint/tendermint/libs/db"
-	"github.com/tendermint/tendermint/libs/log"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	dbm "github.com/ColorPlatform/prism/libs/db"
+	"github.com/ColorPlatform/prism/libs/log"
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"

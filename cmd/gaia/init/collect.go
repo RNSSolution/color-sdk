@@ -8,10 +8,10 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	cfg "github.com/tendermint/tendermint/config"
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/libs/cli"
-	"github.com/tendermint/tendermint/types"
+	cfg "github.com/ColorPlatform/prism/config"
+	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/libs/cli"
+	"github.com/ColorPlatform/prism/types"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"

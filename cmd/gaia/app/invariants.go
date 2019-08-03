@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	abci "github.com/tendermint/tendermint/abci/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

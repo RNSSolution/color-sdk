@@ -7,10 +7,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/crypto/ed25519"
-	"github.com/tendermint/tendermint/crypto/secp256k1"
-	tmtypes "github.com/tendermint/tendermint/types"
+	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/crypto/ed25519"
+	"github.com/ColorPlatform/prism/crypto/secp256k1"
+	tmtypes "github.com/ColorPlatform/prism/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"

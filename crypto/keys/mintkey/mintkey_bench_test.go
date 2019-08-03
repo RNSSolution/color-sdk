@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/tendermint/tendermint/crypto"
+	"github.com/ColorPlatform/prism/crypto"
 )
 
 func BenchmarkBcryptGenerateFromPassword(b *testing.B) {

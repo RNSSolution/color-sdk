@@ -3,7 +3,7 @@ package mock
 import (
 	"io"
 
-	dbm "github.com/tendermint/tendermint/libs/db"
+	dbm "github.com/ColorPlatform/prism/libs/db"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

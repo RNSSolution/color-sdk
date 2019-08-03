@@ -4,10 +4,10 @@ import (
 	"math/rand"
 	"testing"
 
-	dbm "github.com/tendermint/tendermint/libs/db"
-	"github.com/tendermint/tendermint/libs/log"
+	dbm "github.com/ColorPlatform/prism/libs/db"
+	"github.com/ColorPlatform/prism/libs/log"
 
-	abci "github.com/tendermint/tendermint/abci/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
 
 	"github.com/stretchr/testify/require"
 

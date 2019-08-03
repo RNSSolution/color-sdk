@@ -5,7 +5,7 @@ package rest
 import (
 	"errors"
 	"fmt"
-	"github.com/tendermint/tendermint/types"
+	"github.com/ColorPlatform/prism/types"
 	"io/ioutil"
 	"net/http"
 	"net/url"

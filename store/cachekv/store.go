@@ -7,8 +7,8 @@ import (
 	"sort"
 	"sync"
 
-	cmn "github.com/tendermint/tendermint/libs/common"
-	dbm "github.com/tendermint/tendermint/libs/db"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	dbm "github.com/ColorPlatform/prism/libs/db"
 
 	"github.com/cosmos/cosmos-sdk/store/types"
 

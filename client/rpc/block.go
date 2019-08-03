@@ -13,7 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/types/rest"
 
-	tmliteProxy "github.com/tendermint/tendermint/lite/proxy"
+	tmliteProxy "github.com/ColorPlatform/prism/lite/proxy"
 )
 
 //BlockCommand returns the verified block data for a given heights

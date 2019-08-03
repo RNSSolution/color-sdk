@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/crypto/multisig"
-	"github.com/tendermint/tendermint/crypto/secp256k1"
+	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/crypto/multisig"
+	"github.com/ColorPlatform/prism/crypto/secp256k1"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"

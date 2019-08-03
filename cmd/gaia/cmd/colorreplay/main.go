@@ -12,12 +12,12 @@ import (
 	cpm "github.com/otiai10/copy"
 	"github.com/spf13/cobra"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-	bcm "github.com/tendermint/tendermint/blockchain"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	"github.com/tendermint/tendermint/proxy"
-	tmsm "github.com/tendermint/tendermint/state"
-	tm "github.com/tendermint/tendermint/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	bcm "github.com/ColorPlatform/prism/blockchain"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	"github.com/ColorPlatform/prism/proxy"
+	tmsm "github.com/ColorPlatform/prism/state"
+	tm "github.com/ColorPlatform/prism/types"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"

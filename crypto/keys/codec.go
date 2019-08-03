@@ -2,7 +2,7 @@ package keys
 
 import (
 	amino "github.com/tendermint/go-amino"
-	cryptoAmino "github.com/tendermint/tendermint/crypto/encoding/amino"
+	cryptoAmino "github.com/ColorPlatform/prism/crypto/encoding/amino"
 
 	"github.com/cosmos/cosmos-sdk/crypto/keys/hd"
 )

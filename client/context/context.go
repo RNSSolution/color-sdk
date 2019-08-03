@@ -17,11 +17,11 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/tendermint/tendermint/libs/cli"
-	"github.com/tendermint/tendermint/libs/log"
-	tmlite "github.com/tendermint/tendermint/lite"
-	tmliteProxy "github.com/tendermint/tendermint/lite/proxy"
-	rpcclient "github.com/tendermint/tendermint/rpc/client"
+	"github.com/ColorPlatform/prism/libs/cli"
+	"github.com/ColorPlatform/prism/libs/log"
+	tmlite "github.com/ColorPlatform/prism/lite"
+	tmliteProxy "github.com/ColorPlatform/prism/lite/proxy"
+	rpcclient "github.com/ColorPlatform/prism/rpc/client"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

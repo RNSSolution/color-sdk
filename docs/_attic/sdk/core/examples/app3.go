@@ -1,10 +1,10 @@
 package app
 
 import (
-	cryptoAmino "github.com/tendermint/tendermint/crypto/encoding/amino"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	dbm "github.com/tendermint/tendermint/libs/db"
-	"github.com/tendermint/tendermint/libs/log"
+	cryptoAmino "github.com/ColorPlatform/prism/crypto/encoding/amino"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	dbm "github.com/ColorPlatform/prism/libs/db"
+	"github.com/ColorPlatform/prism/libs/log"
 
 	bapp "github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"

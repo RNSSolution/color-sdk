@@ -22,11 +22,11 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	tmconfig "github.com/tendermint/tendermint/config"
-	"github.com/tendermint/tendermint/crypto"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	"github.com/tendermint/tendermint/types"
-	tmtime "github.com/tendermint/tendermint/types/time"
+	tmconfig "github.com/ColorPlatform/prism/config"
+	"github.com/ColorPlatform/prism/crypto"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	"github.com/ColorPlatform/prism/types"
+	tmtime "github.com/ColorPlatform/prism/types/time"
 
 	"github.com/cosmos/cosmos-sdk/server"
 )

@@ -3,7 +3,7 @@ package app
 import (
 	"testing"
 
-	"github.com/tendermint/tendermint/crypto/ed25519"
+	"github.com/ColorPlatform/prism/crypto/ed25519"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 

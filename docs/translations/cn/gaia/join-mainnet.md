@@ -77,7 +77,7 @@ gaiad start
 
 你还可以到[验证人Riot聊天室](https://riot.im/app/#/room/#cosmos-validators:matrix.org)里询问可用节点。
 
-你可以阅读[这里](https://github.com/tendermint/tendermint/blob/develop/docs/tendermint-core/using-tendermint.md#peers)了解更多伙伴节点和种子节点的信息。
+你可以阅读[这里](https://github.com/ColorPlatform/prism/blob/develop/docs/tendermint-core/using-tendermint.md#peers)了解更多伙伴节点和种子节点的信息。
 
 ::: 警告
 在Cosmos Hub主网中，可接受的币种是`uatom`,`1atom = 1.000.000uatom`

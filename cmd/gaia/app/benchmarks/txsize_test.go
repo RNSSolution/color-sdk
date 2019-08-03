@@ -3,7 +3,7 @@ package app
 import (
 	"fmt"
 
-	"github.com/tendermint/tendermint/crypto/secp256k1"
+	"github.com/ColorPlatform/prism/crypto/secp256k1"
 
 	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
 	sdk "github.com/cosmos/cosmos-sdk/types"

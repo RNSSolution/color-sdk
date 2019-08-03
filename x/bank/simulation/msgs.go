@@ -6,7 +6,7 @@ import (
 	"math/big"
 	"math/rand"
 
-	"github.com/tendermint/tendermint/crypto"
+	"github.com/ColorPlatform/prism/crypto"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"

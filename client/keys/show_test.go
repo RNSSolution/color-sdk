@@ -10,10 +10,10 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/crypto/multisig"
-	"github.com/tendermint/tendermint/crypto/secp256k1"
-	"github.com/tendermint/tendermint/libs/cli"
+	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/crypto/multisig"
+	"github.com/ColorPlatform/prism/crypto/secp256k1"
+	"github.com/ColorPlatform/prism/libs/cli"
 )
 
 func Test_multiSigKey_Properties(t *testing.T) {

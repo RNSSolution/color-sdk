@@ -17,9 +17,9 @@ import (
 
 	bip39 "github.com/cosmos/go-bip39"
 
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/crypto/multisig"
-	"github.com/tendermint/tendermint/libs/cli"
+	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/crypto/multisig"
+	"github.com/ColorPlatform/prism/libs/cli"
 )
 
 const (

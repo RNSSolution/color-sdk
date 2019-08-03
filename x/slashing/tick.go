@@ -3,8 +3,8 @@ package slashing
 import (
 	"fmt"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-	tmtypes "github.com/tendermint/tendermint/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	tmtypes "github.com/ColorPlatform/prism/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
