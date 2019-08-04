@@ -3,6 +3,7 @@ module github.com/cosmos/cosmos-sdk
 require (
 	bou.ke/monkey v1.0.1 // indirect
 	github.com/ColorPlatform/prism v0.0.0-20190603094734-d7a6196c61b7
+	github.com/RNSSolution/iavl v0.0.1
 	github.com/VividCortex/gohistogram v1.0.0 // indirect
 	github.com/bartekn/go-bip39 v0.0.0-20171116152956-a05967ea095d
 	github.com/bgentry/speakeasy v0.1.0

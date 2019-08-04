@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/tendermint/iavl"
+	"github.com/RNSSolution/iavl"
 	abci "github.com/ColorPlatform/prism/abci/types"
 	cmn "github.com/ColorPlatform/prism/libs/common"
 	dbm "github.com/ColorPlatform/prism/libs/db"

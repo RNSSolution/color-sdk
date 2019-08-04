@@ -91,7 +91,7 @@ Before we delve into the keeper itself, let us see what objects we need to store
 
 Notice the quote mark on `'proposals'` and `'votes'`. They indicate that these are constant keywords. So, for example, the option casted by voter with address `0x01` on proposal `0101` will be stored at index `'proposals'|0101|'votes'|0x01`.
 
-These keywords are used to faciliate range queries. Range queries (TODO: Link to formal spec) allow developer to query a subspace of the store, and return an iterator. They are made possible by the nice properties of the [IAVL+ tree](https://github.com/tendermint/iavl) that is used in the background. In practice, this means that it is possible to store and query a Key-Value pair in O(1), while still being able to iterate over a given subspace of Key-Value pairs. For example, we can query all the addresses that voted on a given proposal, along with their votes, by calling `rangeQuery(SimpleGovStore, <proposalID|'addresses'>)`.
+These keywords are used to faciliate range queries. Range queries (TODO: Link to formal spec) allow developer to query a subspace of the store, and return an iterator. They are made possible by the nice properties of the [IAVL+ tree](https://github.com/RNSSolution/iavl) that is used in the background. In practice, this means that it is possible to store and query a Key-Value pair in O(1), while still being able to iterate over a given subspace of Key-Value pairs. For example, we can query all the addresses that voted on a given proposal, along with their votes, by calling `rangeQuery(SimpleGovStore, <proposalID|'addresses'>)`.
 
 ### Keepers for our app
 
