@@ -225,10 +225,15 @@ func InitializeTestLCD(t *testing.T, nValidators int, initAddrs []sdk.AccAddress
 	cdc = gapp.MakeCodec()
 
 	genesisFile := config.GenesisFile()
+	leaguesFile := config.LeaguesFile()
 	genDoc, err := tmtypes.GenesisDocFromFile(genesisFile)
-	require.Nil(t, err)
+	leagueDoc, err := tmtypes.LeaguesDocFromFile(leaguesFile)
+	//require.Nil(t, errleague)leagueDoc
+	//	require.Nil(t, err)genDoc
 	genDoc.Validators = nil
+	leagueDoc.Leagues = 0
 	require.NoError(t, genDoc.SaveAs(genesisFile))
+	require.NoError(t, leagueDoc.SaveAs(genesisFile))
 	genTxs := []json.RawMessage{}
 
 	// append any additional (non-proposing) validators
@@ -329,7 +334,7 @@ func InitializeTestLCD(t *testing.T, nValidators int, initAddrs []sdk.AccAddress
 	// TODO Set to false once the upstream Tendermint proof verification issue is fixed.
 	viper.Set(client.FlagTrustNode, true)
 
-	node, err := startTM(config, logger, genDoc, privVal, app)
+	node, err := startTM(config, logger, genDoc, leagueDoc, privVal, app)
 	require.NoError(t, err)
 
 	tests.WaitForNextHeightTM(tests.ExtractPortFromAddress(config.RPC.ListenAddress))
@@ -355,11 +360,12 @@ func InitializeTestLCD(t *testing.T, nValidators int, initAddrs []sdk.AccAddress
 //
 // TODO: Clean up the WAL dir or enable it to be not persistent!
 func startTM(
-	tmcfg *tmcfg.Config, logger log.Logger, genDoc *tmtypes.GenesisDoc,
+	tmcfg *tmcfg.Config, logger log.Logger, genDoc *tmtypes.GenesisDoc, leagueDoc *tmtypes.LeaguesDoc,
 	privVal tmtypes.PrivValidator, app abci.Application,
 ) (*nm.Node, error) {
 
 	genDocProvider := func() (*tmtypes.GenesisDoc, error) { return genDoc, nil }
+	leagueDocProvider := func() (*tmtypes.LeaguesDoc, error) { return leagueDoc, nil }
 	dbProvider := func(*nm.DBContext) (dbm.DB, error) { return dbm.NewMemDB(), nil }
 	nodeKey, err := p2p.LoadOrGenNodeKey(tmcfg.NodeKeyFile())
 	if err != nil {
@@ -370,6 +376,7 @@ func startTM(
 		privVal,
 		nodeKey,
 		proxy.NewLocalClientCreator(app),
+		leagueDocProvider,
 		genDocProvider,
 		dbProvider,
 		nm.DefaultMetricsProvider(tmcfg.Instrumentation),
