@@ -59,6 +59,17 @@ ldflags := $(strip $(ldflags))
 
 BUILD_FLAGS := -tags "$(build_tags)" -ldflags '$(ldflags)'
 
+# Total number of leagues
+LOCALNET_LEAGUES?=3
+# Number of nodes in a league
+LOCALNET_NODES?=3
+# The local IP network
+LOCALNET_NETWORK?="192.165.0.0/24"
+# The starting IP address assigned to Docker containers
+LOCALNET_STARTING_IP?="192.165.0.2"
+# The starting port for forwarding ports of Prism executable from Docker
+LOCALNET_STARTING_PORT?=26656
+
 all: tools install lint test
 
 # The below include contains the tools target.
@@ -245,10 +256,19 @@ devdoc_update:
 build-docker-colordnode:
 	$(MAKE) -C networks/local
 
-# Run a 4-node testnet locally
-localnet-start: localnet-stop
-	@if ! [ -f build/node0/colord/config/genesis.json ]; then docker run --rm -v $(CURDIR)/build:/colord:Z tendermint/colordnode testnet --v 4 -o . --starting-ip-address 192.168.10.2 ; fi
-	docker-compose up -d
+# Run testnet locally
+localnet-start: docker-compose.yml localnet-stop
+	@if ! [ -f build/node0/config/genesis.json ]; then \
+		docker run --rm -v $(CURDIR)/build:/colord:Z tendermint/colordnode testnet --l $(LOCALNET_LEAGUES) --v $(LOCALNET_NODES) \
+			--o . --populate-persistent-peers \
+			--starting-ip-address $(LOCALNET_STARTING_IP) ; \
+		echo Init done; \
+	fi
+	docker-compose up
+
+
+docker-compose.yml: Makefile
+	python3 networks/local/generate-docker-compose-yml.py $(LOCALNET_LEAGUES) $(LOCALNET_NODES) $(LOCALNET_NETWORK) $(LOCALNET_STARTING_IP) $(LOCALNET_STARTING_PORT) > docker-compose.yml
 
 # Stop testnet
 localnet-stop:
