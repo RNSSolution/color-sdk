@@ -260,11 +260,10 @@ build-docker-colordnode:
 localnet-start: docker-compose.yml localnet-stop
 	@if ! [ -f build/node0/config/genesis.json ]; then \
 		docker run --rm -v $(CURDIR)/build:/colord:Z tendermint/colordnode testnet --l $(LOCALNET_LEAGUES) --v $(LOCALNET_NODES) \
-			--o . --populate-persistent-peers \
 			--starting-ip-address $(LOCALNET_STARTING_IP) ; \
 		echo Init done; \
 	fi
-	docker-compose up
+	 docker-compose up
 
 
 docker-compose.yml: Makefile

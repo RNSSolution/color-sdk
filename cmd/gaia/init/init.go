@@ -72,6 +72,7 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command { // nolint: 
 			config.Consensus.NodeId = 0
 
 			var appState json.RawMessage
+
 			genFile := config.GenesisFile()
 
 			if appState, err = initializeEmptyGenesis(cdc, genFile, chainID,

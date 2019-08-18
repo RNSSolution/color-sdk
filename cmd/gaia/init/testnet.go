@@ -72,7 +72,7 @@ Example:
 	cmd.Flags().Int(flagNumValidators, 3,
 		"Number of validators to initialize the testnet with",
 	)
-	cmd.Flags().StringP(flagOutputDir, "o", "./mytestnet",
+	cmd.Flags().StringP(flagOutputDir, "o", ".",
 		"Directory to store initialization data for the testnet",
 	)
 	cmd.Flags().String(flagNodeDirPrefix, "node",
