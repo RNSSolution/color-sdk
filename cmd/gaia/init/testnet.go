@@ -8,6 +8,8 @@ import (
 	"net"
 	"os"
 	"path/filepath"
+	"strconv"
+	"time"
 
 	"github.com/cosmos/cosmos-sdk/client/keys"
 
@@ -23,6 +25,7 @@ import (
 	tmconfig "github.com/ColorPlatform/prism/config"
 	"github.com/ColorPlatform/prism/crypto"
 	cmn "github.com/ColorPlatform/prism/libs/common"
+	"github.com/ColorPlatform/prism/p2p"
 	"github.com/ColorPlatform/prism/types"
 	tmtime "github.com/ColorPlatform/prism/types/time"
 	"github.com/spf13/cobra"
@@ -275,7 +278,45 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 	fmt.Printf("Successfully initialized %d node directories\n", numValidators*numLeagues)
 	fmt.Printf("Default password is := 12345678 \n")
 
+	// Create league docs and fill it
+	leaguesDoc := &types.LeaguesDoc{
+		Leagues: numLeagues,
+		Peers:   fillLeagues(nodes, config),
+	}
+
+	for _, node := range nodes {
+		if err := leaguesDoc.SaveAs(filepath.Join(node.nodeDir, config.BaseConfig.Leagues)); err != nil {
+			_ = os.RemoveAll(outDir)
+			return err
+		}
+	}
+
 	return nil
+}
+
+// function to fill leagues with nodes
+func fillLeagues(nodes []nodeInfo, config *tmconfig.Config) []types.LeaguePeer {
+	result := make([]types.LeaguePeer, len(nodes))
+	for i := range result {
+		node := nodes[i]
+		result[i] = types.LeaguePeer{
+			League:   node.league,
+			NodeId:   node.nodeId,
+			PubKey:   readPubKey(node.nodeDir, config),
+			Hostname: "node" + strconv.FormatInt(int64(i), 10),
+		}
+	}
+	return result
+}
+
+// function to read public keys of nodes (to add in leagues.json file)
+func readPubKey(cfgDir string, config *tmconfig.Config) crypto.PubKey {
+	config.SetRoot(cfgDir)
+	nodeKey, err := p2p.LoadNodeKey(config.NodeKeyFile())
+	if err != nil {
+		panic(fmt.Sprintf("Failed to read node key: %s", config.NodeKeyFile()))
+	}
+	return nodeKey.PubKey()
 }
 
 func initGenFiles(
@@ -325,6 +366,9 @@ func collectGenFiles(
 		config.Consensus.UseLeagues = true
 		config.Consensus.League = nodes[i].league
 		config.Consensus.NodeId = i
+		config.Consensus.CreateEmptyBlocksInterval = 0 * time.Second
+		config.P2P.AddrBookStrict = false
+		config.P2P.AllowDuplicateIP = true
 
 		config.SetRoot(nodeDir)
 
