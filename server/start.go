@@ -37,7 +37,7 @@ func StartCmd(ctx *Context, appCreator AppCreator) *cobra.Command {
 				return startStandAlone(ctx, appCreator)
 			}
 
-			ctx.Logger.Info("Starting ABCI with Tendermint")
+			ctx.Logger.Info("Starting ABCI with Prism")
 
 			_, err := startInProcess(ctx, appCreator)
 			return err

@@ -6,11 +6,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 	cfg "github.com/ColorPlatform/prism/config"
 	"github.com/ColorPlatform/prism/libs/cli"
 	"github.com/ColorPlatform/prism/libs/common"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
@@ -67,6 +67,9 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command { // nolint: 
 			}
 
 			config.Moniker = args[0]
+			config.Consensus.UseLeagues = true
+			config.Consensus.League = 0
+			config.Consensus.NodeId = 0
 
 			var appState json.RawMessage
 			genFile := config.GenesisFile()
