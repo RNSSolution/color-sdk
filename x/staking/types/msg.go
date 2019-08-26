@@ -29,6 +29,8 @@ type MsgCreateValidator struct {
 	ValidatorAddress  sdk.ValAddress `json:"validator_address"`
 	PubKey            crypto.PubKey  `json:"pubkey"`
 	Value             sdk.Coin       `json:"value"`
+	League            sdk.Int        `json:"league"`
+	NodeID            sdk.Int        `json:"node_id"`
 }
 
 type msgCreateValidatorJSON struct {
@@ -39,12 +41,14 @@ type msgCreateValidatorJSON struct {
 	ValidatorAddress  sdk.ValAddress `json:"validator_address"`
 	PubKey            string         `json:"pubkey"`
 	Value             sdk.Coin       `json:"value"`
+	League            sdk.Int        `json:"league"`
+	NodeID            sdk.Int        `json:"node_id"`
 }
 
 // Default way to create validator. Delegator address and validator address are the same
 func NewMsgCreateValidator(
 	valAddr sdk.ValAddress, pubKey crypto.PubKey, selfDelegation sdk.Coin,
-	description Description, commission CommissionMsg, minSelfDelegation sdk.Int,
+	description Description, commission CommissionMsg, minSelfDelegation sdk.Int, league sdk.Int, nodeID sdk.Int,
 ) MsgCreateValidator {
 
 	return MsgCreateValidator{
@@ -55,6 +59,8 @@ func NewMsgCreateValidator(
 		Value:             selfDelegation,
 		Commission:        commission,
 		MinSelfDelegation: minSelfDelegation,
+		League:            league,
+		NodeID:            nodeID,
 	}
 }
 
@@ -86,6 +92,8 @@ func (msg MsgCreateValidator) MarshalJSON() ([]byte, error) {
 		PubKey:            sdk.MustBech32ifyConsPub(msg.PubKey),
 		Value:             msg.Value,
 		MinSelfDelegation: msg.MinSelfDelegation,
+		League:            msg.League,
+		NodeID:            msg.NodeID,
 	})
 }
 
@@ -108,6 +116,8 @@ func (msg *MsgCreateValidator) UnmarshalJSON(bz []byte) error {
 	}
 	msg.Value = msgCreateValJSON.Value
 	msg.MinSelfDelegation = msgCreateValJSON.MinSelfDelegation
+	msg.NodeID = msgCreateValJSON.NodeID
+	msg.League = msgCreateValJSON.League
 
 	return nil
 }
