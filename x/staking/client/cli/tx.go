@@ -251,12 +251,27 @@ func BuildCreateValidatorMsg(cliCtx context.CLIContext, txBldr authtxb.TxBuilder
 	// get the initial validator min self delegation
 	msbStr := viper.GetString(FlagMinSelfDelegation)
 	minSelfDelegation, ok := sdk.NewIntFromString(msbStr)
+
 	if !ok {
 		return txBldr, nil, fmt.Errorf(staking.ErrMinSelfDelegationInvalid(staking.DefaultCodespace).Error())
 	}
 
+	// get the initial league
+	leagueStr := viper.GetString(FlagLeague)
+	league, okLeague := sdk.NewIntFromString(leagueStr)
+	if !okLeague {
+		return txBldr, nil, fmt.Errorf(staking.ErrNilLeague(staking.DefaultCodespace).Error())
+	}
+
+	// get the initial node
+	nodeIDStr := viper.GetString(FlagNode)
+	nodeID, okNode := sdk.NewIntFromString(nodeIDStr)
+	if !okNode {
+		return txBldr, nil, fmt.Errorf(staking.ErrNilNode(staking.DefaultCodespace).Error())
+	}
+
 	msg := staking.NewMsgCreateValidator(
-		sdk.ValAddress(valAddr), pk, amount, description, commissionMsg, minSelfDelegation,
+		sdk.ValAddress(valAddr), pk, amount, description, commissionMsg, minSelfDelegation, league, nodeID,
 	)
 
 	if viper.GetBool(client.FlagGenerateOnly) {

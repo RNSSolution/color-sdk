@@ -95,6 +95,13 @@ func ErrSelfDelegationBelowMinimum(codespace sdk.CodespaceType) sdk.Error {
 	return sdk.NewError(codespace, CodeInvalidValidator, "validator's self delegation must be greater than their minimum self delegation")
 }
 
+func ErrNilLeague(codespace sdk.CodespaceType) sdk.Error {
+	return sdk.NewError(codespace, CodeInvalidValidator, "validator's league cannot be nil")
+}
+func ErrNilNode(codespace sdk.CodespaceType) sdk.Error {
+	return sdk.NewError(codespace, CodeInvalidValidator, "validator's NodeId cannot be nil")
+}
+
 func ErrMinSelfDelegationInvalid(codespace sdk.CodespaceType) sdk.Error {
 	return sdk.NewError(codespace, CodeInvalidValidator, "minimum self delegation must be a positive integer")
 }

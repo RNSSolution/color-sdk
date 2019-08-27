@@ -230,7 +230,7 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 				sdk.NewCoin(sdk.DefaultBondDenom, valTokens),
 				staking.NewDescription(nodeDirName, "", "", ""),
 				staking.NewCommissionMsg(sdk.ZeroDec(), sdk.ZeroDec(), sdk.ZeroDec()),
-				sdk.OneInt(),
+				sdk.OneInt(), sdk.NumberToInt(l), sdk.NumberToInt(i),
 			)
 			kb, err := keys.NewKeyBaseFromDir(clientDir)
 			if err != nil {

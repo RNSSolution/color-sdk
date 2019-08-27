@@ -173,6 +173,9 @@ var (
 	ErrMinSelfDelegationInvalid   = types.ErrMinSelfDelegationInvalid
 	ErrMinSelfDelegationDecreased = types.ErrMinSelfDelegationDecreased
 	ErrSelfDelegationBelowMinimum = types.ErrSelfDelegationBelowMinimum
+
+	ErrNilLeague = types.ErrNilLeague
+	ErrNilNode   = types.ErrNilNode
 )
 
 var (

@@ -25,6 +25,8 @@ const (
 	FlagCommissionMaxRate       = "commission-max-rate"
 	FlagCommissionMaxChangeRate = "commission-max-change-rate"
 
+	FlagLeague            = "league"
+	FlagNode              = "node_id"
 	FlagMinSelfDelegation = "min-self-delegation"
 
 	FlagGenesisFormat = "genesis-format"

@@ -162,6 +162,13 @@ func ZeroInt() Int { return Int{big.NewInt(0)} }
 // OneInt returns Int value with one
 func OneInt() Int { return Int{big.NewInt(1)} }
 
+// OneInt returns Int value with one
+func NumberToInt(x int) Int {
+	var i64 int64
+	i64 = int64(x)
+	return Int{big.NewInt(i64)}
+}
+
 // ToDec converts Int to Dec
 func (i Int) ToDec() Dec {
 	return NewDecFromInt(i)
