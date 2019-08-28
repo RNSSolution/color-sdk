@@ -1,6 +1,7 @@
 package mint
 
 import (
+	"fmt"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -19,6 +20,8 @@ func BeginBlocker(ctx sdk.Context, k Keeper) {
 	minter.WeeklyProvisions = updateWeeklySupply(ctx.BlockHeight(), minter)
 
 	k.SetMinter(ctx, minter)
+	fmt.Println("Next deflation time: ", t2)
+	fmt.Println("Current weekly suuply: ", minter.WeeklyProvisions)
 
 	// mint coins, add to collected fees, update supply
 	mintedCoin := minter.BlockProvision(params)
