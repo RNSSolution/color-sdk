@@ -43,19 +43,5 @@ func updateWeeklySupply(height int64, minter Minter) sdk.Dec {
 // function to update time stamps
 func yeartimeStamp(t1 *time.Time, t2 *time.Time) {
 	*t1 = time.Now().UTC()
-	*t2 = t1.Add(10 * time.Second)
+	*t2 = t1.Add(60 * time.Second)
 }
-
-// totalsupply := sdk.NewInt(300000000000)
-// minter.WeeklyProvisions = sdk.NewDec(100000000000)
-// k.SetMinter(ctx, minter)
-
-// minter.Inflation = sdk.NewDecWithPrec(7, 2)
-// recalculate inflation rate
-// totalSupply := k.sk.TotalTokens(ctx)
-
-// bondedRatio := k.sk.BondedRatio(ctx)
-// minter.Inflation = minter.NextInflationRate(params, bondedRatio)
-
-// minter.WeeklyProvisions = minter.NextWeeklyProvisions(params, totalsupply)
-// k.SetMinter(ctx, minter)
