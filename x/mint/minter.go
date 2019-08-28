@@ -8,23 +8,23 @@ import (
 
 // Minter represents the minting state.
 type Minter struct {
-	Inflation        sdk.Dec `json:"inflation"`         // current annual inflation rate
-	WeeklyProvisions sdk.Dec `json:"weekly_provisions"` // current Weekly expected provisions
+	Deflation        sdk.Dec `json:"deflation"`         // current annual inflation rate
+	WeeklyProvisions sdk.Dec `json:"weekly_provisions"` // current weekly expected provisions
 }
 
 // NewMinter returns a new Minter object with the given inflation and annual
 // provisions values.
-func NewMinter(inflation, weeklyProvisions sdk.Dec) Minter {
+func NewMinter(deflation, weeklyProvisions sdk.Dec) Minter {
 	return Minter{
-		Inflation:        inflation,
+		Deflation:        deflation,
 		WeeklyProvisions: weeklyProvisions,
 	}
 }
 
 // InitialMinter returns an initial Minter object with a given inflation value.
-func InitialMinter(inflation sdk.Dec) Minter {
+func InitialMinter(deflation sdk.Dec) Minter {
 	return NewMinter(
-		inflation,
+		deflation,
 		sdk.NewDec(300000000000),
 	)
 }
@@ -38,16 +38,16 @@ func DefaultInitialMinter() Minter {
 }
 
 func validateMinter(minter Minter) error {
-	if minter.Inflation.LT(sdk.ZeroDec()) {
+	if minter.Deflation.LT(sdk.ZeroDec()) {
 		return fmt.Errorf("mint parameter Inflation should be positive, is %s",
-			minter.Inflation.String())
+			minter.Deflation.String())
 	}
 	return nil
 }
 
 // NextWeeklySupply reduces the amount of weekly supply by 5%
 func (m Minter) NextWeeklySupply() sdk.Dec {
-	return m.WeeklyProvisions.Sub(m.Inflation.Mul(m.WeeklyProvisions))
+	return m.WeeklyProvisions.Sub(m.Deflation.Mul(m.WeeklyProvisions))
 }
 
 // BlockProvision returns the provisions for a block based on the annual

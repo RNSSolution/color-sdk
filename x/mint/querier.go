@@ -48,7 +48,7 @@ func queryParams(ctx sdk.Context, k Keeper) ([]byte, sdk.Error) {
 func queryInflation(ctx sdk.Context, k Keeper) ([]byte, sdk.Error) {
 	minter := k.GetMinter(ctx)
 
-	res, err := codec.MarshalJSONIndent(k.cdc, minter.Inflation)
+	res, err := codec.MarshalJSONIndent(k.cdc, minter.Deflation)
 	if err != nil {
 		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("failed to marshal JSON", err.Error()))
 	}

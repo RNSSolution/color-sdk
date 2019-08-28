@@ -1,7 +1,6 @@
 package mint
 
 import (
-	"fmt"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -23,7 +22,6 @@ func BeginBlocker(ctx sdk.Context, k Keeper) {
 
 	// mint coins, add to collected fees, update supply
 	mintedCoin := minter.BlockProvision(params)
-	fmt.Println("minted Coins: ", mintedCoin)
 	k.fck.AddCollectedFees(ctx, sdk.Coins{mintedCoin})
 	k.sk.InflateSupply(ctx, mintedCoin.Amount)
 }
@@ -43,5 +41,5 @@ func updateWeeklySupply(height int64, minter Minter) sdk.Dec {
 // function to update time stamps
 func yeartimeStamp(t1 *time.Time, t2 *time.Time) {
 	*t1 = time.Now().UTC()
-	*t2 = t1.Add(60 * time.Second)
+	*t2 = t1.AddDate(1, 0, 0)
 }
