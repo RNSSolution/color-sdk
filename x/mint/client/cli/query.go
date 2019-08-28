@@ -66,13 +66,13 @@ func GetCmdQueryInflation(cdc *codec.Codec) *cobra.Command {
 // annual provisions value.
 func GetCmdQueryAnnualProvisions(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "annual-provisions",
-		Short: "Query the current minting annual provisions value",
+		Use:   "weekly-provisions",
+		Short: "Query the current minting weekly provisions value",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
-			route := fmt.Sprintf("custom/%s/%s", mint.QuerierRoute, mint.QueryAnnualProvisions)
+			route := fmt.Sprintf("custom/%s/%s", mint.QuerierRoute, mint.QueryWeeklyProvisions)
 			res, err := cliCtx.QueryWithData(route, nil)
 			if err != nil {
 				return err
