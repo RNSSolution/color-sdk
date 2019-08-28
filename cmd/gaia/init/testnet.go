@@ -13,6 +13,13 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/keys"
 
+	tmconfig "github.com/ColorPlatform/prism/config"
+	"github.com/ColorPlatform/prism/crypto"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	"github.com/ColorPlatform/prism/p2p"
+	"github.com/ColorPlatform/prism/privval"
+	"github.com/ColorPlatform/prism/types"
+	tmtime "github.com/ColorPlatform/prism/types/time"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -21,13 +28,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
 	"github.com/cosmos/cosmos-sdk/x/staking"
-
-	tmconfig "github.com/ColorPlatform/prism/config"
-	"github.com/ColorPlatform/prism/crypto"
-	cmn "github.com/ColorPlatform/prism/libs/common"
-	"github.com/ColorPlatform/prism/p2p"
-	"github.com/ColorPlatform/prism/types"
-	tmtime "github.com/ColorPlatform/prism/types/time"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
@@ -118,7 +118,7 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 	if chainID == "" {
 		chainID = "chain-" + cmn.RandStr(6)
 	}
-
+	genVals := make([]types.GenesisValidator, numValidators*numLeagues)
 	monikers := make([]string, numLeagues*numValidators)
 	nodeIDs := make([]string, numLeagues*numValidators)
 	nodes := make([]nodeInfo, numLeagues*numValidators)
@@ -261,10 +261,23 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 			gaiaConfigFilePath := filepath.Join(nodeDir, "config/colord.toml")
 			srvconfig.WriteConfigFile(gaiaConfigFilePath, gaiaConfig)
 
+			pvKeyFile := filepath.Join(nodeDir, config.BaseConfig.PrivValidatorKey)
+			pvStateFile := filepath.Join(nodeDir, config.BaseConfig.PrivValidatorState)
+
+			pv := privval.LoadFilePV(pvKeyFile, pvStateFile)
+			genVals[l*numValidators+i] = types.GenesisValidator{
+				League:  l,
+				NodeId:  l*numValidators + i,
+				Address: pv.GetPubKey().Address(),
+				PubKey:  pv.GetPubKey(),
+				Power:   1,
+				Name:    nodeDirName,
+			}
+
 		}
 	}
 
-	if err := initGenFiles(cdc, chainID, accs, genFiles, numLeagues*numValidators); err != nil {
+	if err := initGenFiles(cdc, chainID, accs, genFiles, numLeagues*numValidators, genVals); err != nil {
 		return err
 	}
 
@@ -321,7 +334,7 @@ func readPubKey(cfgDir string, config *tmconfig.Config) crypto.PubKey {
 
 func initGenFiles(
 	cdc *codec.Codec, chainID string, accs []app.GenesisAccount,
-	genFiles []string, totalnumValidators int,
+	genFiles []string, totalnumValidators int, genVals []types.GenesisValidator,
 ) error {
 
 	appGenState := app.NewDefaultGenesisState()
@@ -335,7 +348,7 @@ func initGenFiles(
 	genDoc := types.GenesisDoc{
 		ChainID:    chainID,
 		AppState:   appGenStateJSON,
-		Validators: nil,
+		Validators: genVals,
 	}
 
 	// generate empty genesis files for each validator and save

@@ -154,7 +154,12 @@ func run(rootDir string) {
 		if err != nil {
 			panic(err)
 		}
+
+		fmt.Println("Creating new Vlidatorset sdk")
+
+		fmt.Println("==== IN main colord sdk ========")
 		newValidators := tm.NewValidatorSet(newValidatorz)
+		fmt.Println(newValidators)
 
 		// Take the genesis state.
 		state = genState

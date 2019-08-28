@@ -42,6 +42,8 @@ type Validator struct {
 	UnbondingCompletionTime time.Time      `json:"unbonding_time"`      // if unbonding, min time for the validator to complete unbonding
 	Commission              Commission     `json:"commission"`          // commission parameters
 	MinSelfDelegation       sdk.Int        `json:"min_self_delegation"` // validator's self declared minimum self delegation
+	League                  sdk.Int        `json:"league"`
+	NodeID                  sdk.Int        `json:"node_id"`
 }
 
 // Validators is a collection of Validator
@@ -63,7 +65,7 @@ func (v Validators) ToSDKValidators() (validators []sdk.Validator) {
 }
 
 // NewValidator - initialize a new validator
-func NewValidator(operator sdk.ValAddress, pubKey crypto.PubKey, description Description) Validator {
+func NewValidator(operator sdk.ValAddress, pubKey crypto.PubKey, description Description, league sdk.Int, nodeId sdk.Int) Validator {
 	return Validator{
 		OperatorAddress:         operator,
 		ConsPubKey:              pubKey,
@@ -76,6 +78,8 @@ func NewValidator(operator sdk.ValAddress, pubKey crypto.PubKey, description Des
 		UnbondingCompletionTime: time.Unix(0, 0).UTC(),
 		Commission:              NewCommission(sdk.ZeroDec(), sdk.ZeroDec(), sdk.ZeroDec()),
 		MinSelfDelegation:       sdk.OneInt(),
+		League:                  league,
+		NodeID:                  nodeId,
 	}
 }
 
@@ -116,10 +120,12 @@ func (v Validator) String() string {
   Unbonding Height:           %d
   Unbonding Completion Time:  %v
   Minimum Self Delegation:    %v
-  Commission:                 %s`, v.OperatorAddress, bechConsPubKey,
+  Commission:                 %s
+  League:                     %s
+  NodeId:                     %s`, v.OperatorAddress, bechConsPubKey,
 		v.Jailed, v.Status, v.Tokens,
 		v.DelegatorShares, v.Description,
-		v.UnbondingHeight, v.UnbondingCompletionTime, v.MinSelfDelegation, v.Commission)
+		v.UnbondingHeight, v.UnbondingCompletionTime, v.MinSelfDelegation, v.Commission, v.League, v.NodeID)
 }
 
 // this is a helper struct used for JSON de- and encoding only
@@ -135,6 +141,8 @@ type bechValidator struct {
 	UnbondingCompletionTime time.Time      `json:"unbonding_time"`      // if unbonding, min time for the validator to complete unbonding
 	Commission              Commission     `json:"commission"`          // commission parameters
 	MinSelfDelegation       sdk.Int        `json:"min_self_delegation"` // minimum self delegation
+	League                  sdk.Int        `json:"league"`
+	NodeID                  sdk.Int        `json:"node_id"`
 }
 
 // MarshalJSON marshals the validator to JSON using Bech32
@@ -156,6 +164,8 @@ func (v Validator) MarshalJSON() ([]byte, error) {
 		UnbondingCompletionTime: v.UnbondingCompletionTime,
 		MinSelfDelegation:       v.MinSelfDelegation,
 		Commission:              v.Commission,
+		League:                  v.League,
+		NodeID:                  v.NodeID,
 	})
 }
 
@@ -181,6 +191,8 @@ func (v *Validator) UnmarshalJSON(data []byte) error {
 		UnbondingCompletionTime: bv.UnbondingCompletionTime,
 		Commission:              bv.Commission,
 		MinSelfDelegation:       bv.MinSelfDelegation,
+		League:                  bv.League,
+		NodeID:                  bv.NodeID,
 	}
 	return nil
 }
