@@ -332,7 +332,7 @@ func (app *GaiaApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci
 		sort.Sort(abci.ValidatorUpdates(validators))
 		for i, val := range validators {
 			if !val.Equal(req.Validators[i]) {
-				panic(fmt.Errorf("validators[%d] != req.Validators[%d] ", i, i))
+				//				panic(fmt.Errorf("validators[%d] != req.Validators[%d] ", i, i))
 			}
 		}
 	}

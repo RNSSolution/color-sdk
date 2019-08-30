@@ -60,9 +60,9 @@ ldflags := $(strip $(ldflags))
 BUILD_FLAGS := -tags "$(build_tags)" -ldflags '$(ldflags)'
 
 # Total number of leagues
-LOCALNET_LEAGUES?=3
+LOCALNET_LEAGUES?=2
 # Number of nodes in a league
-LOCALNET_NODES?=3
+LOCALNET_NODES?=1
 # The local IP network
 LOCALNET_NETWORK?="192.165.0.0/24"
 # The starting IP address assigned to Docker containers
