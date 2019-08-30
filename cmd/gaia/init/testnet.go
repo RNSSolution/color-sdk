@@ -282,7 +282,7 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 	}
 
 	err := collectGenFiles(
-		cdc, config, chainID, monikers, nodeIDs, valPubKeys, numLeagues*numValidators,
+		cdc, config, chainID, genVals, monikers, nodeIDs, valPubKeys, numLeagues*numValidators,
 		outDir, viper.GetString(flagNodeDirPrefix), viper.GetString(flagNodeDaemonHome), nodes,
 	)
 	if err != nil {
@@ -362,7 +362,7 @@ func initGenFiles(
 }
 
 func collectGenFiles(
-	cdc *codec.Codec, config *tmconfig.Config, chainID string,
+	cdc *codec.Codec, config *tmconfig.Config, chainID string, genvals []types.GenesisValidator,
 	monikers, nodeIDs []string, valPubKeys []crypto.PubKey,
 	totalnumValidators int, outDir, nodeDirPrefix, nodeDaemonHomeName string, nodes []nodeInfo,
 ) error {
@@ -406,7 +406,7 @@ func collectGenFiles(
 		genFile := config.GenesisFile()
 
 		// overwrite each validator's genesis file to have a canonical genesis time
-		err = ExportGenesisFileWithTime(genFile, chainID, nil, appState, genTime)
+		err = ExportGenesisFileWithTime(genFile, chainID, genvals, appState, genTime)
 		if err != nil {
 			return err
 		}
