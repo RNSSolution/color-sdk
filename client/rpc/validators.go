@@ -130,7 +130,7 @@ func GetValidators(cliCtx context.CLIContext, height *int64) (ResultValidatorsOu
 		if err != nil {
 			return ResultValidatorsOutput{}, err
 		}
-		fmt.Println("====== In validators colord sdk =====")
+		fmt.Println("======calling Newvalidator set form colorsdk =====")
 		if !bytes.Equal(check.ValidatorsHash, tmtypes.NewValidatorSet(validatorsRes.Validators).Hash()) {
 			return ResultValidatorsOutput{}, fmt.Errorf("received invalid validatorset")
 		}

@@ -157,7 +157,7 @@ func run(rootDir string) {
 
 		fmt.Println("Creating new Vlidatorset sdk")
 
-		fmt.Println("==== IN main colord sdk ========")
+		fmt.Println("==== calling NewvalidatorSet form main.go ========")
 		newValidators := tm.NewValidatorSet(newValidatorz)
 		fmt.Println(newValidators)
 
