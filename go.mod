@@ -19,6 +19,7 @@ require (
 	github.com/gorilla/mux v1.7.0
 	github.com/gorilla/websocket v1.4.0 // indirect
 	github.com/mattn/go-isatty v0.0.6
+	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/otiai10/copy v0.0.0-20180813032824-7e9a647135a1
 	github.com/otiai10/curr v0.0.0-20150429015615-9b4961190c95 // indirect
 	github.com/otiai10/mint v1.2.3 // indirect

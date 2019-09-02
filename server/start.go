@@ -118,7 +118,6 @@ func startInProcess(ctx *Context, appCreator AppCreator) (*node.Node, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("==== StartInprocess color sdk =====")
 	UpgradeOldPrivValFile(cfg)
 	// create & start tendermint node
 	tmNode, err := node.NewNode(

@@ -138,7 +138,6 @@ func AddCommands(
 		Use:   "tendermint",
 		Short: "Tendermint subcommands",
 	}
-
 	tendermintCmd.AddCommand(
 		ShowNodeIDCmd(ctx),
 		ShowValidatorCmd(ctx),

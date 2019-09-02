@@ -1,7 +1,6 @@
 package staking
 
 import (
-	"fmt"
 	"time"
 
 	abci "github.com/ColorPlatform/prism/abci/types"
@@ -117,12 +116,7 @@ func handleMsgCreateValidator(ctx sdk.Context, msg types.MsgCreateValidator, k k
 		}
 	}
 
-	fmt.Println("MSG LeageID")
-	fmt.Println(msg.League)
-
 	validator := NewValidator(msg.ValidatorAddress, msg.PubKey, msg.Description, msg.League, msg.NodeID)
-	fmt.Println("===========Printing validator in sdk===")
-	fmt.Println(validator)
 	commission := NewCommissionWithTime(
 		msg.Commission.Rate, msg.Commission.MaxRate,
 		msg.Commission.MaxChangeRate, ctx.BlockHeader().Time,
@@ -228,7 +222,6 @@ func handleMsgDelegate(ctx sdk.Context, msg types.MsgDelegate, k keeper.Keeper) 
 		tags.Delegator, msg.DelegatorAddress.String(),
 		tags.DstValidator, msg.ValidatorAddress.String(),
 	)
-
 	return sdk.Result{
 		Tags: tags,
 	}

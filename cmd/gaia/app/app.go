@@ -75,7 +75,6 @@ type GaiaApp struct {
 func NewGaiaApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest bool,
 	invCheckPeriod uint,
 	baseAppOptions ...func(*bam.BaseApp)) *GaiaApp {
-
 	cdc := MakeCodec()
 
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc), baseAppOptions...)
@@ -200,7 +199,6 @@ func NewGaiaApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest b
 			cmn.Exit(err.Error())
 		}
 	}
-
 	return app
 }
 
