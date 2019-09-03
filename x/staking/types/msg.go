@@ -6,7 +6,7 @@ import (
 
 	"github.com/ColorPlatform/prism/crypto"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // ensure Msg interface compliance at compile time

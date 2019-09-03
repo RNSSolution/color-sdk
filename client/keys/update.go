@@ -3,7 +3,7 @@ package keys
 import (
 	"fmt"
 
-	"github.com/RNSSolution/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/client"
 
 	"github.com/spf13/cobra"
 )

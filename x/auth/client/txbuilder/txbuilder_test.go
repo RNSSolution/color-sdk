@@ -8,9 +8,9 @@ import (
 
 	"github.com/ColorPlatform/prism/crypto/ed25519"
 
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
 )
 
 var (

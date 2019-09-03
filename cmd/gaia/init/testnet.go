@@ -11,8 +11,16 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/RNSSolution/color-sdk/client/keys"
+	"github.com/ColorPlatform/color-sdk/client/keys"
 
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/codec"
+	srvconfig "github.com/ColorPlatform/color-sdk/server/config"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	authtx "github.com/ColorPlatform/color-sdk/x/auth/client/txbuilder"
+	"github.com/ColorPlatform/color-sdk/x/staking"
 	tmconfig "github.com/ColorPlatform/prism/config"
 	"github.com/ColorPlatform/prism/crypto"
 	cmn "github.com/ColorPlatform/prism/libs/common"
@@ -20,18 +28,10 @@ import (
 	"github.com/ColorPlatform/prism/privval"
 	"github.com/ColorPlatform/prism/types"
 	tmtime "github.com/ColorPlatform/prism/types/time"
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
-	"github.com/RNSSolution/color-sdk/codec"
-	srvconfig "github.com/RNSSolution/color-sdk/server/config"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	authtx "github.com/RNSSolution/color-sdk/x/auth/client/txbuilder"
-	"github.com/RNSSolution/color-sdk/x/staking"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/RNSSolution/color-sdk/server"
+	"github.com/ColorPlatform/color-sdk/server"
 )
 
 var (
@@ -162,7 +162,7 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 			monikers = append(monikers, nodeDirName)
 			config.Moniker = nodeDirName
 
-			ip, err := getIP(i, viper.GetString(flagStartingIPAddress))
+			ip, err := getIP(id, viper.GetString(flagStartingIPAddress))
 			if err != nil {
 				_ = os.RemoveAll(outDir)
 				return err

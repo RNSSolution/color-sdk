@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/codec"
 
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 // Key for the length of the list

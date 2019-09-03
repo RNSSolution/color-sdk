@@ -6,10 +6,10 @@ import (
 
 	abci "github.com/ColorPlatform/prism/abci/types"
 
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	keep "github.com/RNSSolution/color-sdk/x/staking/keeper"
-	"github.com/RNSSolution/color-sdk/x/staking/types"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	keep "github.com/ColorPlatform/color-sdk/x/staking/keeper"
+	"github.com/ColorPlatform/color-sdk/x/staking/types"
 )
 
 // query endpoints supported by the staking Querier

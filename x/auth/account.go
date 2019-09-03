@@ -7,7 +7,7 @@ import (
 
 	"github.com/ColorPlatform/prism/crypto"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // Account is an interface used to store coins at a given address within state.

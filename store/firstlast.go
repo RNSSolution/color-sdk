@@ -5,7 +5,7 @@ import (
 
 	cmn "github.com/ColorPlatform/prism/libs/common"
 
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 // Gets the first item.

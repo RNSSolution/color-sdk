@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/RNSSolution/color-sdk/store/cachekv"
-	"github.com/RNSSolution/color-sdk/store/tracekv"
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/cachekv"
+	"github.com/ColorPlatform/color-sdk/store/tracekv"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 var _ types.KVStore = Store{}

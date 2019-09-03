@@ -5,8 +5,8 @@ import (
 	"bytes"
 	"fmt"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
 )
 
 // An sdk.Tx which is its own sdk.Msg.

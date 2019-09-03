@@ -3,10 +3,10 @@ package store
 // TODO: make it independent from list
 /*
 import (
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 
-	"github.com/RNSSolution/color-sdk/store/list"
+	"github.com/ColorPlatform/color-sdk/store/list"
 )
 
 // Key for the top element position in the queue

@@ -7,8 +7,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/RNSSolution/color-sdk/client/keys"
-	"github.com/RNSSolution/color-sdk/server"
+	"github.com/ColorPlatform/color-sdk/client/keys"
+	"github.com/ColorPlatform/color-sdk/server"
 )
 
 func TestGenerateCoinKey(t *testing.T) {

@@ -7,9 +7,9 @@ import (
 	"github.com/btcsuite/btcd/btcec"
 	"github.com/pkg/errors"
 
-	"github.com/RNSSolution/color-sdk/crypto/keys/hd"
-	"github.com/RNSSolution/color-sdk/tests"
-	"github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/crypto/keys/hd"
+	"github.com/ColorPlatform/color-sdk/tests"
+	"github.com/ColorPlatform/color-sdk/types"
 	"github.com/cosmos/go-bip39"
 
 	secp256k1 "github.com/tendermint/btcd/btcec"

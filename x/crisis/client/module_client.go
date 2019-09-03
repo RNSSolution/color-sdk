@@ -4,9 +4,9 @@ import (
 	"github.com/spf13/cobra"
 	amino "github.com/tendermint/go-amino"
 
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/x/crisis"
-	"github.com/RNSSolution/color-sdk/x/crisis/client/cli"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/x/crisis"
+	"github.com/ColorPlatform/color-sdk/x/crisis/client/cli"
 )
 
 // ModuleClient exports all client functionality from this module

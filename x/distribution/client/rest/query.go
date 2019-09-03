@@ -6,14 +6,14 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/RNSSolution/color-sdk/x/distribution"
-	"github.com/RNSSolution/color-sdk/x/distribution/client/common"
-	"github.com/RNSSolution/color-sdk/x/distribution/types"
+	"github.com/ColorPlatform/color-sdk/x/distribution"
+	"github.com/ColorPlatform/color-sdk/x/distribution/client/common"
+	"github.com/ColorPlatform/color-sdk/x/distribution/types"
 
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/types/rest"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/types/rest"
 )
 
 func registerQueryRoutes(cliCtx context.CLIContext, r *mux.Router,

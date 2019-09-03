@@ -11,9 +11,9 @@ import (
 
 	ctypes "github.com/ColorPlatform/prism/rpc/core/types"
 
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/types/rest"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/types/rest"
 )
 
 // StatusCommand returns the status of the network

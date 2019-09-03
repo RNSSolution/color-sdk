@@ -1,7 +1,7 @@
 package types
 
 import (
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // starting info for a delegator reward period

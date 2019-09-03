@@ -7,15 +7,15 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/RNSSolution/color-sdk/crypto/keys"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/crypto/keys"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 
 	"github.com/spf13/viper"
 	"github.com/ColorPlatform/prism/libs/cli"
 
-	"github.com/RNSSolution/color-sdk/tests"
+	"github.com/ColorPlatform/color-sdk/tests"
 
-	"github.com/RNSSolution/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/client"
 
 	"github.com/stretchr/testify/assert"
 )

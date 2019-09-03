@@ -7,7 +7,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/RNSSolution/color-sdk/crypto/keys"
+	"github.com/ColorPlatform/color-sdk/crypto/keys"
 )
 
 type testCases struct {

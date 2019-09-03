@@ -10,10 +10,10 @@ import (
 	dbm "github.com/ColorPlatform/prism/libs/db"
 	"github.com/ColorPlatform/prism/libs/log"
 
-	"github.com/RNSSolution/color-sdk/codec"
-	"github.com/RNSSolution/color-sdk/store"
-	"github.com/RNSSolution/color-sdk/store/prefix"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/store"
+	"github.com/ColorPlatform/color-sdk/store/prefix"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 func defaultContext(key sdk.StoreKey, tkey sdk.StoreKey) sdk.Context {

@@ -7,12 +7,12 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	distr "github.com/RNSSolution/color-sdk/x/distribution"
-	"github.com/RNSSolution/color-sdk/x/distribution/client/common"
-	"github.com/RNSSolution/color-sdk/x/distribution/types"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	distr "github.com/ColorPlatform/color-sdk/x/distribution"
+	"github.com/ColorPlatform/color-sdk/x/distribution/client/common"
+	"github.com/ColorPlatform/color-sdk/x/distribution/types"
 )
 
 // GetCmdQueryParams implements the query params command.

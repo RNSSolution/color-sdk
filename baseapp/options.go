@@ -6,8 +6,8 @@ import (
 
 	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	"github.com/RNSSolution/color-sdk/store"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/store"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // File for storing in-package BaseApp optional functions,

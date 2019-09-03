@@ -3,9 +3,9 @@ package transient
 import (
 	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/types"
 
-	"github.com/RNSSolution/color-sdk/store/dbadapter"
+	"github.com/ColorPlatform/color-sdk/store/dbadapter"
 )
 
 var _ types.Committer = (*Store)(nil)

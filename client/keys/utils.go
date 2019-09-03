@@ -7,8 +7,8 @@ import (
 	"github.com/spf13/viper"
 	"github.com/ColorPlatform/prism/libs/cli"
 
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/crypto/keys"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/crypto/keys"
 )
 
 // available output formats.

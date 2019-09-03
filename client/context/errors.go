@@ -3,7 +3,7 @@ package context
 import (
 	"fmt"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // ErrInvalidAccount returns a standardized error reflecting that a given

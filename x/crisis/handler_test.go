@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"testing"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	distr "github.com/RNSSolution/color-sdk/x/distribution"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	distr "github.com/ColorPlatform/color-sdk/x/distribution"
 	"github.com/stretchr/testify/require"
 )
 

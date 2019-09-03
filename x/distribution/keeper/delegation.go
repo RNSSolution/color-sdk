@@ -3,9 +3,9 @@ package keeper
 import (
 	"fmt"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 
-	"github.com/RNSSolution/color-sdk/x/distribution/types"
+	"github.com/ColorPlatform/color-sdk/x/distribution/types"
 )
 
 // initialize starting info for a new delegation

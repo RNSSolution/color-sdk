@@ -2,7 +2,7 @@
 package types
 
 import (
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // Verify interface at compile time

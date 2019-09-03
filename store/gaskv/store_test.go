@@ -6,9 +6,9 @@ import (
 
 	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	"github.com/RNSSolution/color-sdk/store/dbadapter"
-	"github.com/RNSSolution/color-sdk/store/gaskv"
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/dbadapter"
+	"github.com/ColorPlatform/color-sdk/store/gaskv"
+	"github.com/ColorPlatform/color-sdk/store/types"
 
 	"github.com/stretchr/testify/require"
 )

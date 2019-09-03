@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/codec"
-	"github.com/RNSSolution/color-sdk/types/rest"
-	"github.com/RNSSolution/color-sdk/x/mint"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/types/rest"
+	"github.com/ColorPlatform/color-sdk/x/mint"
 	"github.com/gorilla/mux"
 )
 

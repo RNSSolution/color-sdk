@@ -6,10 +6,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
 	ctypes "github.com/ColorPlatform/prism/rpc/core/types"
 )
 

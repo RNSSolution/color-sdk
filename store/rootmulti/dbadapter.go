@@ -1,8 +1,8 @@
 package rootmulti
 
 import (
-	"github.com/RNSSolution/color-sdk/store/dbadapter"
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/dbadapter"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 var commithash = []byte("FAKE_HASH")

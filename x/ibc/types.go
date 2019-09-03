@@ -3,8 +3,8 @@ package ibc
 import (
 	"encoding/json"
 
-	codec "github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	codec "github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 var (

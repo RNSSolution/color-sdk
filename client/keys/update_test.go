@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/RNSSolution/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/client"
 
-	"github.com/RNSSolution/color-sdk/tests"
+	"github.com/ColorPlatform/color-sdk/tests"
 	"github.com/spf13/viper"
 	"github.com/ColorPlatform/prism/libs/cli"
 

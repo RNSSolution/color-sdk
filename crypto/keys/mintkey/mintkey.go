@@ -13,7 +13,7 @@ import (
 
 	cmn "github.com/ColorPlatform/prism/libs/common"
 
-	"github.com/RNSSolution/color-sdk/crypto/keys/keyerror"
+	"github.com/ColorPlatform/color-sdk/crypto/keys/keyerror"
 )
 
 const (

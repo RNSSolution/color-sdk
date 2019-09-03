@@ -10,8 +10,8 @@ import (
 	"github.com/ColorPlatform/prism/crypto"
 	tmtypes "github.com/ColorPlatform/prism/types"
 
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // nolint

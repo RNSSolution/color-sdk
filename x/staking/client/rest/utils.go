@@ -6,13 +6,13 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/client/tx"
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/types/rest"
-	"github.com/RNSSolution/color-sdk/x/staking"
-	"github.com/RNSSolution/color-sdk/x/staking/tags"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/client/tx"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/types/rest"
+	"github.com/ColorPlatform/color-sdk/x/staking"
+	"github.com/ColorPlatform/color-sdk/x/staking/tags"
 )
 
 // contains checks if the a given query contains one of the tx types

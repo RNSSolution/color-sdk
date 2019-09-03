@@ -3,9 +3,9 @@ package keys
 import (
 	"testing"
 
-	"github.com/RNSSolution/color-sdk/crypto/keys"
-	"github.com/RNSSolution/color-sdk/tests"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/crypto/keys"
+	"github.com/ColorPlatform/color-sdk/tests"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"

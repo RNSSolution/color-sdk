@@ -10,12 +10,12 @@ import (
 	dbm "github.com/ColorPlatform/prism/libs/db"
 	"github.com/ColorPlatform/prism/libs/log"
 
-	"github.com/RNSSolution/color-sdk/codec"
-	"github.com/RNSSolution/color-sdk/store"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	"github.com/RNSSolution/color-sdk/x/bank"
-	"github.com/RNSSolution/color-sdk/x/params"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/store"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/x/bank"
+	"github.com/ColorPlatform/color-sdk/x/params"
 )
 
 // AccountKeeper(/Keeper) and IBCMapper should use different StoreKey later

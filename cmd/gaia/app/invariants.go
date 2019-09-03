@@ -6,7 +6,7 @@ import (
 
 	abci "github.com/ColorPlatform/prism/abci/types"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 func (app *GaiaApp) assertRuntimeInvariants() {

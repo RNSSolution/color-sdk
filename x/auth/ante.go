@@ -11,8 +11,8 @@ import (
 	"github.com/ColorPlatform/prism/crypto/multisig"
 	"github.com/ColorPlatform/prism/crypto/secp256k1"
 
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 var (

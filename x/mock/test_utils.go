@@ -5,14 +5,14 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/codec"
 
 	"github.com/stretchr/testify/require"
 	abci "github.com/ColorPlatform/prism/abci/types"
 	"github.com/ColorPlatform/prism/crypto"
 
-	"github.com/RNSSolution/color-sdk/baseapp"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/baseapp"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // BigInterval is a representation of the interval [lo, hi), where

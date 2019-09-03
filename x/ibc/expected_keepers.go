@@ -1,6 +1,6 @@
 package ibc
 
-import sdk "github.com/RNSSolution/color-sdk/types"
+import sdk "github.com/ColorPlatform/color-sdk/types"
 
 // expected bank keeper
 type BankKeeper interface {

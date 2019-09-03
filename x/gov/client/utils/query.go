@@ -3,11 +3,11 @@ package utils
 import (
 	"fmt"
 
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/client/tx"
-	"github.com/RNSSolution/color-sdk/codec"
-	"github.com/RNSSolution/color-sdk/x/gov"
-	"github.com/RNSSolution/color-sdk/x/gov/tags"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/client/tx"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/x/gov"
+	"github.com/ColorPlatform/color-sdk/x/gov/tags"
 )
 
 const (

@@ -7,7 +7,7 @@ import (
 	"github.com/ColorPlatform/prism/crypto/ed25519"
 	"github.com/ColorPlatform/prism/crypto/secp256k1"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // Account contains a privkey, pubkey, address tuple

@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/RNSSolution/color-sdk/tests"
+	"github.com/ColorPlatform/color-sdk/tests"
 )
 
 func Test_openDB(t *testing.T) {

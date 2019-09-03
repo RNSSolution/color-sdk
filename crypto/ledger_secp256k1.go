@@ -7,8 +7,8 @@ import (
 	"github.com/btcsuite/btcd/btcec"
 	"github.com/pkg/errors"
 
-	"github.com/RNSSolution/color-sdk/crypto/keys/hd"
-	"github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/crypto/keys/hd"
+	"github.com/ColorPlatform/color-sdk/types"
 
 	tmbtcec "github.com/tendermint/btcd/btcec"
 	tmcrypto "github.com/ColorPlatform/prism/crypto"

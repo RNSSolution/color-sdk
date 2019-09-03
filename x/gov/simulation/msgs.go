@@ -6,10 +6,10 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/RNSSolution/color-sdk/baseapp"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/gov"
-	"github.com/RNSSolution/color-sdk/x/simulation"
+	"github.com/ColorPlatform/color-sdk/baseapp"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/gov"
+	"github.com/ColorPlatform/color-sdk/x/simulation"
 )
 
 // SimulateSubmittingVotingAndSlashingForProposal simulates creating a msg Submit Proposal

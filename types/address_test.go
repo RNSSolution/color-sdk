@@ -7,7 +7,7 @@ import (
 
 	"strings"
 
-	"github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/types"
 	"github.com/stretchr/testify/require"
 	"github.com/ColorPlatform/prism/crypto/ed25519"
 )

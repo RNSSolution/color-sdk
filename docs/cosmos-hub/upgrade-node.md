@@ -7,7 +7,7 @@ This document describes the upgrade procedure of a `gaiad` full-node to a new ve
 First, stop your instance of `gaiad`. Next, upgrade the software:
 
 ```bash
-cd $GOPATH/src/github.com/RNSSolution/color-sdk
+cd $GOPATH/src/github.com/ColorPlatform/color-sdk
 git fetch --all && git checkout <new_version>
 make tools install
 ```
@@ -16,7 +16,7 @@ make tools install
 *NOTE*: If you have issues at this step, please check that you have the latest stable version of GO installed.
 :::
 
-See the [testnet repo](https://github.com/cosmos/testnets) for details on which version is needed for which public testnet, and the [SDK release page](https://github.com/RNSSolution/color-sdk/releases) for details on each release.
+See the [testnet repo](https://github.com/cosmos/testnets) for details on which version is needed for which public testnet, and the [SDK release page](https://github.com/ColorPlatform/color-sdk/releases) for details on each release.
 
 Your full node has been cleanly upgraded!
 
@@ -60,7 +60,7 @@ cp -f genesis.json new-_enesis.json
 mv new_genesis.json genesis.json
 ```
 
-At this point, you might want to run a script to update the exported genesis into a genesis that is compatible with your new version. For example, the attributes of a the `Account` type changed, a script should query encoded account from the account store, unmarshall them, update their type, re-marhsall and re-store them. You can find an example of such script [here](https://github.com/RNSSolution/color-sdk/blob/develop/contrib/export/v0.33.x-to-v0.34.0.py).
+At this point, you might want to run a script to update the exported genesis into a genesis that is compatible with your new version. For example, the attributes of a the `Account` type changed, a script should query encoded account from the account store, unmarshall them, update their type, re-marhsall and re-store them. You can find an example of such script [here](https://github.com/ColorPlatform/color-sdk/blob/develop/contrib/export/v0.33.x-to-v0.34.0.py).
 
 ## Reset Data
 

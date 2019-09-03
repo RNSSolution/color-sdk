@@ -13,13 +13,13 @@ import (
 	"github.com/ColorPlatform/prism/libs/log"
 	tmtypes "github.com/ColorPlatform/prism/types"
 
-	"github.com/RNSSolution/color-sdk/baseapp"
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
-	gaiaInit "github.com/RNSSolution/color-sdk/cmd/gaia/init"
-	"github.com/RNSSolution/color-sdk/server"
-	"github.com/RNSSolution/color-sdk/store"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/baseapp"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	gaiaInit "github.com/ColorPlatform/color-sdk/cmd/gaia/init"
+	"github.com/ColorPlatform/color-sdk/server"
+	"github.com/ColorPlatform/color-sdk/store"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // gaiad custom flags

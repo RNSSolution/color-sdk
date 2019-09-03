@@ -4,7 +4,7 @@ import (
 	"github.com/ColorPlatform/prism/crypto"
 	"github.com/ColorPlatform/prism/crypto/ed25519"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 var (

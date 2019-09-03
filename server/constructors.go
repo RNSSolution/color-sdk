@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 	abci "github.com/ColorPlatform/prism/abci/types"
 	dbm "github.com/ColorPlatform/prism/libs/db"
 	"github.com/ColorPlatform/prism/libs/log"

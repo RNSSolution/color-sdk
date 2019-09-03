@@ -3,8 +3,8 @@ package context
 import (
 	"fmt"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
 
 	"github.com/pkg/errors"
 
@@ -18,7 +18,7 @@ import (
 	rpcclient "github.com/ColorPlatform/prism/rpc/client"
 	tmtypes "github.com/ColorPlatform/prism/types"
 
-	"github.com/RNSSolution/color-sdk/store/rootmulti"
+	"github.com/ColorPlatform/color-sdk/store/rootmulti"
 )
 
 // GetNode returns an RPC client. If the context's client is not defined, an

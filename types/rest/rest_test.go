@@ -10,7 +10,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/types"
 )
 
 type mockResponseWriter struct{}

@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/codec"
 )
 
 func TestInsertKeyJSON(t *testing.T) {

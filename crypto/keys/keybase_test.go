@@ -7,9 +7,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/RNSSolution/color-sdk/crypto/keys/hd"
-	"github.com/RNSSolution/color-sdk/crypto/keys/mintkey"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/crypto/keys/hd"
+	"github.com/ColorPlatform/color-sdk/crypto/keys/mintkey"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 	"github.com/ColorPlatform/prism/crypto"
 	"github.com/ColorPlatform/prism/crypto/ed25519"
 )

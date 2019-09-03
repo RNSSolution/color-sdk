@@ -1,8 +1,8 @@
 package store
 
 import (
-	"github.com/RNSSolution/color-sdk/store/types"
-	stypes "github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/types"
+	stypes "github.com/ColorPlatform/color-sdk/store/types"
 )
 
 // Import cosmos-sdk/types/store.go for convenience.

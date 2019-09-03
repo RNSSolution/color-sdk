@@ -8,12 +8,12 @@ import (
 
 	"github.com/ColorPlatform/prism/crypto"
 
-	"github.com/RNSSolution/color-sdk/baseapp"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	"github.com/RNSSolution/color-sdk/x/bank"
-	"github.com/RNSSolution/color-sdk/x/mock"
-	"github.com/RNSSolution/color-sdk/x/simulation"
+	"github.com/ColorPlatform/color-sdk/baseapp"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/x/bank"
+	"github.com/ColorPlatform/color-sdk/x/mock"
+	"github.com/ColorPlatform/color-sdk/x/simulation"
 )
 
 // SendTx tests and runs a single msg send where both

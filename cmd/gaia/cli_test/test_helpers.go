@@ -14,18 +14,18 @@ import (
 
 	cmn "github.com/ColorPlatform/prism/libs/common"
 
-	clientkeys "github.com/RNSSolution/color-sdk/client/keys"
-	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
-	appInit "github.com/RNSSolution/color-sdk/cmd/gaia/init"
-	"github.com/RNSSolution/color-sdk/codec"
-	"github.com/RNSSolution/color-sdk/crypto/keys"
-	"github.com/RNSSolution/color-sdk/server"
-	"github.com/RNSSolution/color-sdk/tests"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	"github.com/RNSSolution/color-sdk/x/gov"
-	"github.com/RNSSolution/color-sdk/x/slashing"
-	"github.com/RNSSolution/color-sdk/x/staking"
+	clientkeys "github.com/ColorPlatform/color-sdk/client/keys"
+	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	appInit "github.com/ColorPlatform/color-sdk/cmd/gaia/init"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/crypto/keys"
+	"github.com/ColorPlatform/color-sdk/server"
+	"github.com/ColorPlatform/color-sdk/tests"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/x/gov"
+	"github.com/ColorPlatform/color-sdk/x/slashing"
+	"github.com/ColorPlatform/color-sdk/x/staking"
 )
 
 const (

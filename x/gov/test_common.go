@@ -11,11 +11,11 @@ import (
 	abci "github.com/ColorPlatform/prism/abci/types"
 	"github.com/ColorPlatform/prism/crypto"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	"github.com/RNSSolution/color-sdk/x/bank"
-	"github.com/RNSSolution/color-sdk/x/mock"
-	"github.com/RNSSolution/color-sdk/x/staking"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/x/bank"
+	"github.com/ColorPlatform/color-sdk/x/mock"
+	"github.com/ColorPlatform/color-sdk/x/staking"
 )
 
 // initialize the mock application for this module

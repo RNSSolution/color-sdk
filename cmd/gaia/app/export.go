@@ -7,16 +7,16 @@ import (
 	abci "github.com/ColorPlatform/prism/abci/types"
 	tmtypes "github.com/ColorPlatform/prism/types"
 
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	"github.com/RNSSolution/color-sdk/x/bank"
-	"github.com/RNSSolution/color-sdk/x/crisis"
-	distr "github.com/RNSSolution/color-sdk/x/distribution"
-	"github.com/RNSSolution/color-sdk/x/gov"
-	"github.com/RNSSolution/color-sdk/x/mint"
-	"github.com/RNSSolution/color-sdk/x/slashing"
-	"github.com/RNSSolution/color-sdk/x/staking"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/x/bank"
+	"github.com/ColorPlatform/color-sdk/x/crisis"
+	distr "github.com/ColorPlatform/color-sdk/x/distribution"
+	"github.com/ColorPlatform/color-sdk/x/gov"
+	"github.com/ColorPlatform/color-sdk/x/mint"
+	"github.com/ColorPlatform/color-sdk/x/slashing"
+	"github.com/ColorPlatform/color-sdk/x/staking"
 )
 
 // export the state of gaia for a genesis file

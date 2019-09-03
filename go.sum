@@ -5,6 +5,8 @@ github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/ColorPlatform/prism v0.0.0-20190603094734-d7a6196c61b7 h1:V8tiu0lx66HDI38q/HNWdTKFkBti0Kzcr5aF5QJGq0Q=
 github.com/ColorPlatform/prism v0.0.0-20190603094734-d7a6196c61b7/go.mod h1:Yuqlx5y/iZrgptnHg4JbGb89jGUaTTplywJIYGBo3K4=
+github.com/ColorPlatform/prism v0.31.2-0.20190903121213-aff70e0659f0 h1:NkObWRqFpUMB4ADJ1Qqe6WTETM+UCUUpt5jXAwmcWhM=
+github.com/ColorPlatform/prism v0.31.2-0.20190903121213-aff70e0659f0/go.mod h1:l5cYJUA9InErHUct7QNkjJh5yAwDGBVNnXYf05IiuPM=
 github.com/ColorPlatform/prism v0.31.5 h1:9Uom186abhETNRJ8h3uejwoIcAe2yky5kpAFPlwkujM=
 github.com/ColorPlatform/prism v0.31.5/go.mod h1:Yuqlx5y/iZrgptnHg4JbGb89jGUaTTplywJIYGBo3K4=
 github.com/RNSSolution/iavl v0.0.1 h1:dWB4L7KD3gzIjQ0dy0feCLMKgNCWgTR3kN5vvzHQ9rw=
@@ -207,6 +209,7 @@ golang.org/x/tools v0.0.0-20190114222345-bf090417da8b/go.mod h1:n7NCudcB/nEzxVGm
 google.golang.org/appengine v1.1.0/go.mod h1:EbEs0AVv82hx2wNQdGPgUI5lhzA/G0D9YwlJXL52JkM=
 google.golang.org/genproto v0.0.0-20180817151627-c66870c02cf8 h1:Nw54tB0rB7hY/N0NQvRW8DG4Yk3Q6T9cu9RcFQDu1tc=
 google.golang.org/genproto v0.0.0-20180817151627-c66870c02cf8/go.mod h1:JiN7NxoALGmiZfu7CAH4rXhgtRTLTxftemlI0sWmxmc=
+google.golang.org/genproto v0.0.0-20180831171423-11092d34479b h1:lohp5blsw53GBXtLyLNaTXPXS9pJ1tiTw61ZHUoE9Qw=
 google.golang.org/genproto v0.0.0-20180831171423-11092d34479b/go.mod h1:JiN7NxoALGmiZfu7CAH4rXhgtRTLTxftemlI0sWmxmc=
 google.golang.org/genproto v0.0.0-20181029155118-b69ba1387ce2 h1:67iHsV9djwGdZpdZNbLuQj6FOzCaZe3w+vhLjn5AcFA=
 google.golang.org/genproto v0.0.0-20181029155118-b69ba1387ce2/go.mod h1:JiN7NxoALGmiZfu7CAH4rXhgtRTLTxftemlI0sWmxmc=

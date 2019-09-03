@@ -1,9 +1,9 @@
 package rest
 
 import (
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/codec"
-	"github.com/RNSSolution/color-sdk/crypto/keys"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/crypto/keys"
 
 	"github.com/gorilla/mux"
 )

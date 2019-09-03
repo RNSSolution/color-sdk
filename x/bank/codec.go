@@ -1,7 +1,7 @@
 package bank
 
 import (
-	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/codec"
 )
 
 // Register concrete types on codec codec

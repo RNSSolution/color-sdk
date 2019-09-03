@@ -1,7 +1,7 @@
 package keys
 
 import (
-	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/codec"
 )
 
 var cdc *codec.Codec

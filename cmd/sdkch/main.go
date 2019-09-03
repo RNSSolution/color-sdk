@@ -18,7 +18,7 @@ import (
 const (
 	entriesDirName         = ".pending"
 	ghLinkPattern          = `#([0-9]+)`
-	ghLinkExpanded         = `[\#$1](https://github.com/RNSSolution/color-sdk/issues/$1)`
+	ghLinkExpanded         = `[\#$1](https://github.com/ColorPlatform/color-sdk/issues/$1)`
 	maxEntryFilenameLength = 20
 )
 

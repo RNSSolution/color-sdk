@@ -7,15 +7,15 @@ import (
 	"github.com/spf13/cobra"
 	amino "github.com/tendermint/go-amino"
 
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/types/rest"
-	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/types/rest"
+	"github.com/ColorPlatform/color-sdk/x/auth"
 
 	"io/ioutil"
 
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/client/utils"
-	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/client/utils"
+	"github.com/ColorPlatform/color-sdk/codec"
 )
 
 // BroadcastReq defines a tx broadcasting request.

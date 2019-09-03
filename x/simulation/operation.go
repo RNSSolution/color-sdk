@@ -7,8 +7,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/RNSSolution/color-sdk/baseapp"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/baseapp"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // Operation runs a state machine transition, and ensures the transition

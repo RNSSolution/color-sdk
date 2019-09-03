@@ -15,9 +15,9 @@ import (
 	"github.com/ColorPlatform/prism/privval"
 	"github.com/ColorPlatform/prism/types"
 
-	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
-	"github.com/RNSSolution/color-sdk/codec"
-	"github.com/RNSSolution/color-sdk/server"
+	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/server"
 )
 
 // ExportGenesisFile creates and writes the genesis configuration to disk. An

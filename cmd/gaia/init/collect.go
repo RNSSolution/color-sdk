@@ -13,11 +13,11 @@ import (
 	"github.com/ColorPlatform/prism/libs/cli"
 	"github.com/ColorPlatform/prism/types"
 
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
-	"github.com/RNSSolution/color-sdk/codec"
-	"github.com/RNSSolution/color-sdk/server"
-	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/server"
+	"github.com/ColorPlatform/color-sdk/x/auth"
 )
 
 const (

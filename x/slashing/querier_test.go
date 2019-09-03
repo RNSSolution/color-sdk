@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 	abci "github.com/ColorPlatform/prism/abci/types"
 
-	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/codec"
 )
 
 func TestNewQuerier(t *testing.T) {

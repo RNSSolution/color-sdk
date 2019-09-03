@@ -2,7 +2,7 @@
 
 # change this to a specific release or branch
 BRANCH=master
-REPO=github.com/RNSSolution/color-sdk
+REPO=github.com/ColorPlatform/color-sdk
 
 GO_VERSION=1.12.1
 

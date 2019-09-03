@@ -3,11 +3,11 @@ package cli
 import (
 	"testing"
 
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/client/utils"
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	authtxb "github.com/RNSSolution/color-sdk/x/auth/client/txbuilder"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/client/utils"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	authtxb "github.com/ColorPlatform/color-sdk/x/auth/client/txbuilder"
 	"github.com/stretchr/testify/assert"
 	"github.com/ColorPlatform/prism/crypto/secp256k1"
 )

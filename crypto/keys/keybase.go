@@ -9,11 +9,11 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/RNSSolution/color-sdk/crypto"
-	"github.com/RNSSolution/color-sdk/crypto/keys/hd"
-	"github.com/RNSSolution/color-sdk/crypto/keys/keyerror"
-	"github.com/RNSSolution/color-sdk/crypto/keys/mintkey"
-	"github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/crypto"
+	"github.com/ColorPlatform/color-sdk/crypto/keys/hd"
+	"github.com/ColorPlatform/color-sdk/crypto/keys/keyerror"
+	"github.com/ColorPlatform/color-sdk/crypto/keys/mintkey"
+	"github.com/ColorPlatform/color-sdk/types"
 
 	bip39 "github.com/cosmos/go-bip39"
 

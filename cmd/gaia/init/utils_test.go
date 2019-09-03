@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/RNSSolution/color-sdk/codec"
-	"github.com/RNSSolution/color-sdk/tests"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/tests"
 
 	"github.com/stretchr/testify/require"
 )

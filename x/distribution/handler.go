@@ -1,10 +1,10 @@
 package distribution
 
 import (
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/distribution/keeper"
-	"github.com/RNSSolution/color-sdk/x/distribution/tags"
-	"github.com/RNSSolution/color-sdk/x/distribution/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/distribution/keeper"
+	"github.com/ColorPlatform/color-sdk/x/distribution/tags"
+	"github.com/ColorPlatform/color-sdk/x/distribution/types"
 )
 
 func NewHandler(k keeper.Keeper) sdk.Handler {

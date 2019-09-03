@@ -10,8 +10,8 @@ import (
 
 	abci "github.com/ColorPlatform/prism/abci/types"
 
-	"github.com/RNSSolution/color-sdk/store"
-	"github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/store"
+	"github.com/ColorPlatform/color-sdk/types"
 )
 
 type MockLogger struct {

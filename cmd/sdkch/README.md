@@ -26,7 +26,7 @@ improvements            gaiarest
 
 Flags:
   -d string
-    	entry files directory (default "/home/alessio/work/tendermint/src/github.com/RNSSolution/color-sdk/.pending")
+    	entry files directory (default "/home/alessio/work/tendermint/src/github.com/ColorPlatform/color-sdk/.pending")
   -prune
     	prune old entries after changelog generation
 ```

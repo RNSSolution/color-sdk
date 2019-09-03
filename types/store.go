@@ -3,7 +3,7 @@ package types
 import (
 	cmn "github.com/ColorPlatform/prism/libs/common"
 
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 // nolint - reexport

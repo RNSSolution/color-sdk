@@ -3,8 +3,8 @@ package slashing
 import (
 	abci "github.com/ColorPlatform/prism/abci/types"
 
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // Query endpoints supported by the slashing querier

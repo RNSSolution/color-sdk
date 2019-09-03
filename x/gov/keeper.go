@@ -3,9 +3,9 @@ package gov
 import (
 	"time"
 
-	codec "github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/params"
+	codec "github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/params"
 
 	"github.com/ColorPlatform/prism/crypto"
 )

@@ -14,7 +14,7 @@
 
 # change this to a specific release or branch
 set BRANCH=master
-set REPO=github.com/RNSSolution/color-sdk
+set REPO=github.com/ColorPlatform/color-sdk
 
 set GO_VERSION=1.12.1
 

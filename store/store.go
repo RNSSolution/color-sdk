@@ -3,8 +3,8 @@ package store
 import (
 	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	"github.com/RNSSolution/color-sdk/store/rootmulti"
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/rootmulti"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 func NewCommitMultiStore(db dbm.DB) types.CommitMultiStore {

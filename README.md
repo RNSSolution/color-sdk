@@ -1,8 +1,8 @@
 # Color SDK
 ![banner](docs/color-sdk-image.png)
 
-[![version](https://img.shields.io/github/tag/cosmos/cosmos-sdk.svg)](https://github.com/RNSSolution/color-sdk/releases/latest)
-[![CircleCI](https://circleci.com/gh/cosmos/cosmos-sdk/tree/master.svg?style=shield)](https://github.com/RNSSolution/color-sdk/tree/colorplatform/development)
+[![version](https://img.shields.io/github/tag/cosmos/cosmos-sdk.svg)](https://github.com/ColorPlatform/color-sdk/releases/latest)
+[![CircleCI](https://circleci.com/gh/cosmos/cosmos-sdk/tree/master.svg?style=shield)](https://github.com/ColorPlatform/color-sdk/tree/colorplatform/development)
 ![Snap Status](https://build.snapcraft.io/badge/cosmos/cosmos-sdk.svg)
 ![codecov](https://codecov.io/gh/cosmos/cosmos-sdk/branch/master/graph/badge.svg)
 ![Go Report Card](https://goreportcard.com/badge/github.com/cosmos/cosmos-sdk)

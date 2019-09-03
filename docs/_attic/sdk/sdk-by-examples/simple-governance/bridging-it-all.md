@@ -12,7 +12,7 @@ cd app
 
 We are ready to create our simple governance application!
 
-*Note: You can check the full file (with comments!) [here](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/app/app.go)*
+*Note: You can check the full file (with comments!) [here](https://github.com/ColorPlatform/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/app/app.go)*
 
 The `app.go` file is the main file that defines your application. In it, you will declare all the modules you need, their keepers, handlers, stores, etc. Let us take a look at each section of this file to see how the application is constructed.
 
@@ -68,7 +68,7 @@ cd cmd
 
 ### Application CLI
 
-**File: [`cmd/simplegovcli/maing.go`](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/cmd/simplegovcli/main.go)**
+**File: [`cmd/simplegovcli/maing.go`](https://github.com/ColorPlatform/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/cmd/simplegovcli/main.go)**
 
 To interact with our application, let us add the commands from the `simple_governance` module to our `simpleGov` application, as well as the pre-built SDK commands:
 
@@ -92,7 +92,7 @@ To interact with our application, let us add the commands from the `simple_gover
 
 ### Rest server
 
-**File: [`cmd/simplegovd/main.go`](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/cmd/simplegovd/main.go)**
+**File: [`cmd/simplegovd/main.go`](https://github.com/ColorPlatform/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/cmd/simplegovd/main.go)**
 
 The `simplegovd` command will run the daemon server as a background process. First, let us create some `utils` functions:
 
@@ -168,7 +168,7 @@ install_examples:
 
 ## Application constructor
 
-**File: [`app/app.go`](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/app/app.go)**
+**File: [`app/app.go`](https://github.com/ColorPlatform/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/app/app.go)**
 
 Now, we need to define the constructor for our application.
 
@@ -230,7 +230,7 @@ app.Router().
 
 ## Application codec
 
-**File: [`app/app.go`](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/app/app.go)**
+**File: [`app/app.go`](https://github.com/ColorPlatform/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/app/app.go)**
 
 Finally, we need to define the `MakeCodec()` function and register the concrete types and interface from the various modules.
 

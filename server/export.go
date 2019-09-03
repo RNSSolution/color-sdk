@@ -15,7 +15,7 @@ import (
 	dbm "github.com/ColorPlatform/prism/libs/db"
 	tmtypes "github.com/ColorPlatform/prism/types"
 
-	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/codec"
 )
 
 const (

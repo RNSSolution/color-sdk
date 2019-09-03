@@ -11,9 +11,9 @@ import (
 	"github.com/ColorPlatform/prism/crypto/secp256k1"
 	tmtypes "github.com/ColorPlatform/prism/types"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
-	keep "github.com/RNSSolution/color-sdk/x/staking/keeper"
-	"github.com/RNSSolution/color-sdk/x/staking/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	keep "github.com/ColorPlatform/color-sdk/x/staking/keeper"
+	"github.com/ColorPlatform/color-sdk/x/staking/types"
 )
 
 //______________________________________________________________________

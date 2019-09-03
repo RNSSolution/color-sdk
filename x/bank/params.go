@@ -1,7 +1,7 @@
 package bank
 
 import (
-	"github.com/RNSSolution/color-sdk/x/params"
+	"github.com/ColorPlatform/color-sdk/x/params"
 )
 
 const (

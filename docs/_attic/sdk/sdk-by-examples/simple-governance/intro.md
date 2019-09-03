@@ -21,7 +21,7 @@ Before getting in the bulk of the code, we will start by some introductory conte
 
 ### Implementation of the application
 
-**Important note: All the code for this application can be found [here](https://github.com/RNSSolution/color-sdk/tree/fedekunze/module_tutorial/examples/simpleGov). Snippets will be provided throughout the tutorial, but please refer to the provided link for the full implementation details**
+**Important note: All the code for this application can be found [here](https://github.com/ColorPlatform/color-sdk/tree/fedekunze/module_tutorial/examples/simpleGov). Snippets will be provided throughout the tutorial, but please refer to the provided link for the full implementation details**
 
 - [Application initialization](app-init.md)
 - [Simple Governance module](simple-gov-module.md)
@@ -53,4 +53,4 @@ If you have any question regarding this tutorial or about development on the SDK
 
 Or open an issue on the SDK repo:
 
-- [Cosmos-SDK repo](https://github.com/RNSSolution/color-sdk/)
+- [Cosmos-SDK repo](https://github.com/ColorPlatform/color-sdk/)

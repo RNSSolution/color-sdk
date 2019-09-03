@@ -1,7 +1,7 @@
 package ibc
 
 import (
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // IBC errors reserve 200 ~ 299.

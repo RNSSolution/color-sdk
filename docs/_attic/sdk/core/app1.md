@@ -184,7 +184,7 @@ The Context also contains the
 which includes the latest timestamp from the blockchain and other information about the latest block.
 
 See the [Context API
-docs](https://godoc.org/github.com/RNSSolution/color-sdk/types#Context) for more details.
+docs](https://godoc.org/github.com/ColorPlatform/color-sdk/types#Context) for more details.
 
 ### Result
 
@@ -271,7 +271,7 @@ type appAccount struct {
 Coins is a useful type provided by the SDK for multi-asset accounts.
 We could just use an integer here for a single coin type, but
 it's worth [getting to know
-Coins](https://godoc.org/github.com/RNSSolution/color-sdk/types#Coins).
+Coins](https://godoc.org/github.com/ColorPlatform/color-sdk/types#Coins).
 
 
 Now we're ready to handle the two parts of the MsgSend:
@@ -415,7 +415,7 @@ It serves as the mediator between the two key components of an SDK app: the stor
 and the message handlers. The BaseApp implements the
 [`abci.Application`](https://godoc.org/github.com/ColorPlatform/prism/abci/types#Application) interface.
 See the [BaseApp API
-documentation](https://godoc.org/github.com/RNSSolution/color-sdk/baseapp) for more details.
+documentation](https://godoc.org/github.com/ColorPlatform/color-sdk/baseapp) for more details.
 
 Here is the complete setup for App1:
 

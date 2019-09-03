@@ -1,6 +1,6 @@
 package types
 
-import sdk "github.com/RNSSolution/color-sdk/types"
+import sdk "github.com/ColorPlatform/color-sdk/types"
 
 // expected staking keeper
 type StakingKeeper interface {

@@ -7,7 +7,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	govClientUtils "github.com/RNSSolution/color-sdk/x/gov/client/utils"
+	govClientUtils "github.com/ColorPlatform/color-sdk/x/gov/client/utils"
 )
 
 func parseSubmitProposalFlags() (*proposal, error) {

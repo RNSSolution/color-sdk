@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"strings"
 
-	crkeys "github.com/RNSSolution/color-sdk/crypto/keys"
+	crkeys "github.com/ColorPlatform/color-sdk/crypto/keys"
 
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/client/keys"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/client/keys"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
 
 	"errors"
 

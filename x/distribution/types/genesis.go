@@ -3,7 +3,7 @@ package types
 import (
 	"fmt"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // the address for where distributions rewards are withdrawn to by default

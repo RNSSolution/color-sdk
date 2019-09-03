@@ -3,13 +3,13 @@ package cli
 import (
 	"encoding/hex"
 
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/client/utils"
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	authtxb "github.com/RNSSolution/color-sdk/x/auth/client/txbuilder"
-	"github.com/RNSSolution/color-sdk/x/ibc"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/client/utils"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	authtxb "github.com/ColorPlatform/color-sdk/x/auth/client/txbuilder"
+	"github.com/ColorPlatform/color-sdk/x/ibc"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

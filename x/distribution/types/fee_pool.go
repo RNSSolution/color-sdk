@@ -3,7 +3,7 @@ package types
 import (
 	"fmt"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // global fee pool for distribution

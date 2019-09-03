@@ -3,7 +3,7 @@ package mint
 import (
 	"testing"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 	"github.com/stretchr/testify/require"
 
 	abci "github.com/ColorPlatform/prism/abci/types"

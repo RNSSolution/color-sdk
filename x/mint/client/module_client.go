@@ -4,9 +4,9 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/tendermint/go-amino"
 
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/x/mint"
-	"github.com/RNSSolution/color-sdk/x/mint/client/cli"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/x/mint"
+	"github.com/ColorPlatform/color-sdk/x/mint/client/cli"
 )
 
 // ModuleClient exports all CLI client functionality from the minting module.

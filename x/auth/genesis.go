@@ -3,7 +3,7 @@ package auth
 import (
 	"fmt"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // GenesisState - all auth state that must be provided at genesis

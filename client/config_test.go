@@ -11,7 +11,7 @@ import (
 	"testing"
 )
 
-// For https://github.com/RNSSolution/color-sdk/issues/3899
+// For https://github.com/ColorPlatform/color-sdk/issues/3899
 func Test_runConfigCmdTwiceWithShorterNodeValue(t *testing.T) {
 	// Prepare environment
 	t.Parallel()

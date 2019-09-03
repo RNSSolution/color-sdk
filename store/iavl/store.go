@@ -11,10 +11,10 @@ import (
 	dbm "github.com/ColorPlatform/prism/libs/db"
 	"github.com/RNSSolution/iavl"
 
-	"github.com/RNSSolution/color-sdk/store/cachekv"
-	"github.com/RNSSolution/color-sdk/store/errors"
-	"github.com/RNSSolution/color-sdk/store/tracekv"
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/cachekv"
+	"github.com/ColorPlatform/color-sdk/store/errors"
+	"github.com/ColorPlatform/color-sdk/store/tracekv"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 const (

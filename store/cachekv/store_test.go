@@ -8,9 +8,9 @@ import (
 	cmn "github.com/ColorPlatform/prism/libs/common"
 	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	"github.com/RNSSolution/color-sdk/store/cachekv"
-	"github.com/RNSSolution/color-sdk/store/dbadapter"
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/cachekv"
+	"github.com/ColorPlatform/color-sdk/store/dbadapter"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 func newCacheKVStore() types.CacheKVStore {

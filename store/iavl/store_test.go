@@ -11,8 +11,8 @@ import (
 	cmn "github.com/ColorPlatform/prism/libs/common"
 	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	"github.com/RNSSolution/color-sdk/store/errors"
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/errors"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 var (

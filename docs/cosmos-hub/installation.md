@@ -22,7 +22,7 @@ source ~/.bash_profile
 
 Next, let's install the latest version of Gaia. Here we'll use the `master` branch, which contains the latest stable release.
 If necessary, make sure you `git checkout` the correct
-[released version](https://github.com/RNSSolution/color-sdk/releases).
+[released version](https://github.com/ColorPlatform/color-sdk/releases).
 
 ::: warning
 For the mainnet, make sure your version if greater than `v0.33.0`
@@ -31,7 +31,7 @@ For the mainnet, make sure your version if greater than `v0.33.0`
 ```bash
 mkdir -p $GOPATH/src/github.com/cosmos
 cd $GOPATH/src/github.com/cosmos
-git clone https://github.com/RNSSolution/color-sdk
+git clone https://github.com/ColorPlatform/color-sdk
 cd cosmos-sdk && git checkout master
 make tools install
 ```

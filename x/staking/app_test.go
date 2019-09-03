@@ -6,10 +6,10 @@ import (
 	"github.com/stretchr/testify/require"
 	abci "github.com/ColorPlatform/prism/abci/types"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	"github.com/RNSSolution/color-sdk/x/bank"
-	"github.com/RNSSolution/color-sdk/x/mock"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/x/bank"
+	"github.com/ColorPlatform/color-sdk/x/mock"
 )
 
 // getMockApp returns an initialized mock application for this module.

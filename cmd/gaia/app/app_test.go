@@ -4,20 +4,20 @@ import (
 	"os"
 	"testing"
 
-	"github.com/RNSSolution/color-sdk/x/bank"
-	"github.com/RNSSolution/color-sdk/x/crisis"
+	"github.com/ColorPlatform/color-sdk/x/bank"
+	"github.com/ColorPlatform/color-sdk/x/crisis"
 
 	"github.com/stretchr/testify/require"
 	"github.com/ColorPlatform/prism/libs/db"
 	"github.com/ColorPlatform/prism/libs/log"
 
-	"github.com/RNSSolution/color-sdk/codec"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	distr "github.com/RNSSolution/color-sdk/x/distribution"
-	"github.com/RNSSolution/color-sdk/x/gov"
-	"github.com/RNSSolution/color-sdk/x/mint"
-	"github.com/RNSSolution/color-sdk/x/slashing"
-	"github.com/RNSSolution/color-sdk/x/staking"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	distr "github.com/ColorPlatform/color-sdk/x/distribution"
+	"github.com/ColorPlatform/color-sdk/x/gov"
+	"github.com/ColorPlatform/color-sdk/x/mint"
+	"github.com/ColorPlatform/color-sdk/x/slashing"
+	"github.com/ColorPlatform/color-sdk/x/staking"
 
 	abci "github.com/ColorPlatform/prism/abci/types"
 )

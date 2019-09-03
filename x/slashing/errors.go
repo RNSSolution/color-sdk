@@ -2,7 +2,7 @@
 package slashing
 
 import (
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // Local code type

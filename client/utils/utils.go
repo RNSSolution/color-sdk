@@ -8,17 +8,17 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/codec"
 
 	amino "github.com/tendermint/go-amino"
 	"github.com/ColorPlatform/prism/libs/common"
 
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/client/keys"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	authtxb "github.com/RNSSolution/color-sdk/x/auth/client/txbuilder"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/client/keys"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	authtxb "github.com/ColorPlatform/color-sdk/x/auth/client/txbuilder"
 )
 
 // GasEstimateResponse defines a response definition for tx gas estimation.

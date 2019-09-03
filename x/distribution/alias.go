@@ -2,9 +2,9 @@
 package distribution
 
 import (
-	"github.com/RNSSolution/color-sdk/x/distribution/keeper"
-	"github.com/RNSSolution/color-sdk/x/distribution/tags"
-	"github.com/RNSSolution/color-sdk/x/distribution/types"
+	"github.com/ColorPlatform/color-sdk/x/distribution/keeper"
+	"github.com/ColorPlatform/color-sdk/x/distribution/tags"
+	"github.com/ColorPlatform/color-sdk/x/distribution/types"
 )
 
 type (

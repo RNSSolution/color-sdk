@@ -10,12 +10,12 @@ import (
 	amino "github.com/tendermint/go-amino"
 	"github.com/ColorPlatform/prism/crypto/multisig"
 
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/client/utils"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	authtxb "github.com/RNSSolution/color-sdk/x/auth/client/txbuilder"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/client/utils"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	authtxb "github.com/ColorPlatform/color-sdk/x/auth/client/txbuilder"
 )
 
 const (

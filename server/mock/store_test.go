@@ -7,7 +7,7 @@ import (
 
 	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 func TestStore(t *testing.T) {

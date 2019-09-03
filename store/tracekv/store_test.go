@@ -10,10 +10,10 @@ import (
 
 	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	"github.com/RNSSolution/color-sdk/store/dbadapter"
-	"github.com/RNSSolution/color-sdk/store/prefix"
-	"github.com/RNSSolution/color-sdk/store/tracekv"
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/dbadapter"
+	"github.com/ColorPlatform/color-sdk/store/prefix"
+	"github.com/ColorPlatform/color-sdk/store/tracekv"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 func bz(s string) []byte { return []byte(s) }

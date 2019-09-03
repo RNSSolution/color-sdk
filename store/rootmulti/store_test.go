@@ -8,8 +8,8 @@ import (
 	"github.com/ColorPlatform/prism/crypto/merkle"
 	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	"github.com/RNSSolution/color-sdk/store/errors"
-	"github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/errors"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 const useDebugDB = false

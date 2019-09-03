@@ -5,10 +5,10 @@ import (
 
 	"github.com/ColorPlatform/prism/crypto/secp256k1"
 
-	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	"github.com/RNSSolution/color-sdk/x/bank"
+	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/x/bank"
 )
 
 // This will fail half the time with the second output being 173

@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"math/rand"
 
-	"github.com/RNSSolution/color-sdk/baseapp"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
-	"github.com/RNSSolution/color-sdk/x/simulation"
-	"github.com/RNSSolution/color-sdk/x/staking"
-	"github.com/RNSSolution/color-sdk/x/staking/keeper"
+	"github.com/ColorPlatform/color-sdk/baseapp"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/x/simulation"
+	"github.com/ColorPlatform/color-sdk/x/staking"
+	"github.com/ColorPlatform/color-sdk/x/staking/keeper"
 )
 
 // SimulateMsgCreateValidator

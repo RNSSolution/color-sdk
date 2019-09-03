@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/codec"
 )
 
 // RegisterCodec registers concrete types on the codec

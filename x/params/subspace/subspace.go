@@ -3,10 +3,10 @@ package subspace
 import (
 	"reflect"
 
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 
-	"github.com/RNSSolution/color-sdk/store/prefix"
+	"github.com/ColorPlatform/color-sdk/store/prefix"
 )
 
 const (

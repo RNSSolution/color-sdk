@@ -11,8 +11,8 @@ import (
 	abci "github.com/ColorPlatform/prism/abci/types"
 	"github.com/ColorPlatform/prism/libs/log"
 
-	"github.com/RNSSolution/color-sdk/store/gaskv"
-	stypes "github.com/RNSSolution/color-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/gaskv"
+	stypes "github.com/ColorPlatform/color-sdk/store/types"
 )
 
 /*

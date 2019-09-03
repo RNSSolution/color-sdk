@@ -3,8 +3,8 @@ package context
 import (
 	"fmt"
 
-	"github.com/RNSSolution/color-sdk/client"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/client"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // BroadcastTx broadcasts a transactions either synchronously or asynchronously

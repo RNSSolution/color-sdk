@@ -8,9 +8,9 @@ import (
 	"github.com/ColorPlatform/prism/crypto"
 	"github.com/ColorPlatform/prism/crypto/ed25519"
 
-	"github.com/RNSSolution/color-sdk/crypto/keys/hd"
-	"github.com/RNSSolution/color-sdk/tests"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/crypto/keys/hd"
+	"github.com/ColorPlatform/color-sdk/tests"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 func TestNew(t *testing.T) {

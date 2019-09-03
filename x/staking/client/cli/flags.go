@@ -3,7 +3,7 @@ package cli
 import (
 	flag "github.com/spf13/pflag"
 
-	"github.com/RNSSolution/color-sdk/x/staking/types"
+	"github.com/ColorPlatform/color-sdk/x/staking/types"
 )
 
 // nolint

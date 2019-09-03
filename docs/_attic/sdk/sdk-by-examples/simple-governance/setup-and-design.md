@@ -4,7 +4,7 @@
 
 To get started, you just have to follow these simple steps:
 
-1. Clone the [Cosmos-SDK](https://github.com/RNSSolution/color-sdk/tree/develop)repo
+1. Clone the [Cosmos-SDK](https://github.com/ColorPlatform/color-sdk/tree/develop)repo
 2. Code the modules needed by your application that do not already exist.
 3. Create your app directory. In the app main file, import the module you need and instantiate the different stores.
 4. Launch your blockchain.
@@ -29,7 +29,7 @@ cd cosmos-sdk
 Now we'll add the origin Cosmos-SDK as upstream in case some cool feature or module gets merged:
 
 ```bash
-git remote add upstream github.com/RNSSolution/color-sdk
+git remote add upstream github.com/ColorPlatform/color-sdk
 git fetch upstream
 git rebase upstream/master
 ```
@@ -46,7 +46,7 @@ We are all set!
 
 ### Application description
 
-For this tutorial, we will code a **simple governance application**, accompagnied by a **simple governance module**. It will allow us to explain most of the basic notions required to build a functioning application on the Cosmos-SDK. Note that this is not the governance module used for the Cosmos Hub. A much more [advanced governance module](https://github.com/RNSSolution/color-sdk/tree/develop/x/gov) will be used instead.
+For this tutorial, we will code a **simple governance application**, accompagnied by a **simple governance module**. It will allow us to explain most of the basic notions required to build a functioning application on the Cosmos-SDK. Note that this is not the governance module used for the Cosmos Hub. A much more [advanced governance module](https://github.com/ColorPlatform/color-sdk/tree/develop/x/gov) will be used instead.
 
 All the code for the `simple_governance` application can be found [here](https://github.com/gamarin2/cosmos-sdk/tree/module_tutorial/examples/simpleGov/x/simple_governance). You'll notice that the module and app aren't located at the root level of the repo but in the examples directory. This is just for convenience, you can code your module and application directly in the root directory.
 

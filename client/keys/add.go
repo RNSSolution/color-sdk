@@ -7,10 +7,10 @@ import (
 	"os"
 	"sort"
 
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
-	"github.com/RNSSolution/color-sdk/crypto/keys"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/crypto/keys"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

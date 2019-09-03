@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/RNSSolution/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/client"
 
 	"github.com/stretchr/testify/assert"
 

@@ -14,9 +14,9 @@ import (
 	"github.com/ColorPlatform/prism/crypto"
 	"github.com/ColorPlatform/prism/crypto/ed25519"
 
-	gaia "github.com/RNSSolution/color-sdk/cmd/gaia/app"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	"github.com/RNSSolution/color-sdk/x/auth"
+	gaia "github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
 )
 
 func init() {

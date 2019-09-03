@@ -1,6 +1,6 @@
 package types
 
-import sdk "github.com/RNSSolution/color-sdk/types"
+import sdk "github.com/ColorPlatform/color-sdk/types"
 
 // expected coin keeper
 type DistributionKeeper interface {

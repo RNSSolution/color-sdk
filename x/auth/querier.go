@@ -5,8 +5,8 @@ import (
 
 	abci "github.com/ColorPlatform/prism/abci/types"
 
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // query endpoints supported by the auth Querier

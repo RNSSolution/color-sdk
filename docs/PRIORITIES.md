@@ -2,12 +2,12 @@
 
 ## Staking / Slashing - Stability
 
-- [Prelaunch Issues](https://github.com/RNSSolution/color-sdk/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3Astaking+label%3Aprelaunch-2.0)
+- [Prelaunch Issues](https://github.com/ColorPlatform/color-sdk/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3Astaking+label%3Aprelaunch-2.0)
 
 ## Multisig
 
-- Need to test changes in https://github.com/RNSSolution/color-sdk/pull/2165
-- Spam prevention - https://github.com/RNSSolution/color-sdk/issues/2019
+- Need to test changes in https://github.com/ColorPlatform/color-sdk/pull/2165
+- Spam prevention - https://github.com/ColorPlatform/color-sdk/issues/2019
 
 ## ABCI Changes
 
@@ -33,16 +33,16 @@
 - gaiad / gaiacli
 - LCD
 - Each module
-- Tags [#1780](https://github.com/RNSSolution/color-sdk/issues/1780)
+- Tags [#1780](https://github.com/ColorPlatform/color-sdk/issues/1780)
 # Lower priority
 
 - Create some diagrams (see `docs/resources/diagrams/todo.md`) 
 
 ## Governance v2
 
-- Circuit breaker - https://github.com/RNSSolution/color-sdk/issues/926
+- Circuit breaker - https://github.com/ColorPlatform/color-sdk/issues/926
 - Parameter change proposals (roughly the same implementation as circuit breaker)
 
 ## Staking / Slashing - Stability
 
-- Consider "tombstone" / "prison" - double-sign and you can never validate again - https://github.com/RNSSolution/color-sdk/issues/2363
+- Consider "tombstone" / "prison" - double-sign and you can never validate again - https://github.com/ColorPlatform/color-sdk/issues/2363

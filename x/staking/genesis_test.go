@@ -11,9 +11,9 @@ import (
 	"github.com/stretchr/testify/require"
 	abci "github.com/ColorPlatform/prism/abci/types"
 
-	sdk "github.com/RNSSolution/color-sdk/types"
-	keep "github.com/RNSSolution/color-sdk/x/staking/keeper"
-	"github.com/RNSSolution/color-sdk/x/staking/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	keep "github.com/ColorPlatform/color-sdk/x/staking/keeper"
+	"github.com/ColorPlatform/color-sdk/x/staking/types"
 )
 
 func TestInitGenesis(t *testing.T) {

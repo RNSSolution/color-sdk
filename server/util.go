@@ -21,10 +21,10 @@ import (
 	"github.com/ColorPlatform/prism/libs/log"
 	pvm "github.com/ColorPlatform/prism/privval"
 
-	"github.com/RNSSolution/color-sdk/client"
-	"github.com/RNSSolution/color-sdk/codec"
-	"github.com/RNSSolution/color-sdk/server/config"
-	"github.com/RNSSolution/color-sdk/version"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/server/config"
+	"github.com/ColorPlatform/color-sdk/version"
 )
 
 // server context

@@ -3,10 +3,10 @@ package common
 import (
 	"fmt"
 
-	"github.com/RNSSolution/color-sdk/client/context"
-	"github.com/RNSSolution/color-sdk/codec"
-	sdk "github.com/RNSSolution/color-sdk/types"
-	distr "github.com/RNSSolution/color-sdk/x/distribution"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	distr "github.com/ColorPlatform/color-sdk/x/distribution"
 )
 
 // QueryParams actually queries distribution params.
