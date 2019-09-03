@@ -8,10 +8,10 @@ import (
 
 	abci "github.com/ColorPlatform/prism/abci/types"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/distribution/types"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	"github.com/RNSSolution/color-sdk/codec"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/distribution/types"
+	"github.com/RNSSolution/color-sdk/x/staking"
 )
 
 const custom = "custom"

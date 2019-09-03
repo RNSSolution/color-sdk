@@ -7,7 +7,7 @@ import (
 
 	"strings"
 
-	"github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/types"
 	"github.com/stretchr/testify/require"
 	"github.com/ColorPlatform/prism/crypto/ed25519"
 )

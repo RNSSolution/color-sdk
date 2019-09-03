@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/store"
+	"github.com/RNSSolution/color-sdk/store"
 
 	cpm "github.com/otiai10/copy"
 	"github.com/spf13/cobra"
@@ -19,10 +19,10 @@ import (
 	tmsm "github.com/ColorPlatform/prism/state"
 	tm "github.com/ColorPlatform/prism/types"
 
-	"github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	"github.com/cosmos/cosmos-sdk/server"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/baseapp"
+	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
+	"github.com/RNSSolution/color-sdk/server"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 var (

@@ -5,8 +5,8 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/baseapp"
+	sdk "github.com/RNSSolution/color-sdk/types"
 	abci "github.com/ColorPlatform/prism/abci/types"
 )
 

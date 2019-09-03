@@ -18,18 +18,18 @@ import (
 	tmcli "github.com/ColorPlatform/prism/libs/cli"
 	"github.com/ColorPlatform/prism/libs/common"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/keys"
-	"github.com/cosmos/cosmos-sdk/client/utils"
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	"github.com/cosmos/cosmos-sdk/codec"
-	kbkeys "github.com/cosmos/cosmos-sdk/crypto/keys"
-	"github.com/cosmos/cosmos-sdk/server"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
-	"github.com/cosmos/cosmos-sdk/x/staking/client/cli"
+	"github.com/RNSSolution/color-sdk/client"
+	"github.com/RNSSolution/color-sdk/client/context"
+	"github.com/RNSSolution/color-sdk/client/keys"
+	"github.com/RNSSolution/color-sdk/client/utils"
+	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
+	"github.com/RNSSolution/color-sdk/codec"
+	kbkeys "github.com/RNSSolution/color-sdk/crypto/keys"
+	"github.com/RNSSolution/color-sdk/server"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	authtxb "github.com/RNSSolution/color-sdk/x/auth/client/txbuilder"
+	"github.com/RNSSolution/color-sdk/x/staking/client/cli"
 )
 
 var (
@@ -111,6 +111,9 @@ following delegation and commission default parameters:
 					return err
 				}
 			}
+
+			// league := config.Consensus.League
+			// node_id := config.Consensus.NodeId
 
 			website := viper.GetString(cli.FlagWebsite)
 			details := viper.GetString(cli.FlagDetails)
@@ -257,6 +260,8 @@ func prepareFlagsForTxCreateValidator(
 	viper.Set(cli.FlagWebsite, website)
 	viper.Set(cli.FlagDetails, details)
 	viper.Set(cli.FlagIdentity, identity)
+	viper.Set(cli.FlagLeague, config.Consensus.League)
+	viper.Set(cli.FlagNode, config.Consensus.NodeId)
 
 	if config.Moniker == "" {
 		viper.Set(cli.FlagMoniker, viper.GetString(client.FlagName))

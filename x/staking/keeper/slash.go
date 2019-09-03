@@ -3,8 +3,8 @@ package keeper
 import (
 	"fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	types "github.com/cosmos/cosmos-sdk/x/staking/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	types "github.com/RNSSolution/color-sdk/x/staking/types"
 )
 
 // Slash a validator for an infraction committed at a known height
@@ -33,7 +33,7 @@ func (k Keeper) Slash(ctx sdk.Context, consAddr sdk.ConsAddress, infractionHeigh
 	slashAmountDec := amount.ToDec().Mul(slashFactor)
 	slashAmount := slashAmountDec.TruncateInt()
 
-	// ref https://github.com/cosmos/cosmos-sdk/issues/1348
+	// ref https://github.com/RNSSolution/color-sdk/issues/1348
 
 	validator, found := k.GetValidatorByConsAddr(ctx, consAddr)
 	if !found {
@@ -198,7 +198,7 @@ func (k Keeper) slashUnbondingDelegation(ctx sdk.Context, unbondingDelegation ty
 		pool := k.GetPool(ctx)
 
 		// Burn not-bonded tokens
-		// Ref https://github.com/cosmos/cosmos-sdk/pull/1278#discussion_r198657760
+		// Ref https://github.com/RNSSolution/color-sdk/pull/1278#discussion_r198657760
 		pool.NotBondedTokens = pool.NotBondedTokens.Sub(unbondingSlashAmount)
 		k.SetPool(ctx, pool)
 	}

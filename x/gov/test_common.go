@@ -11,11 +11,11 @@ import (
 	abci "github.com/ColorPlatform/prism/abci/types"
 	"github.com/ColorPlatform/prism/crypto"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/mock"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/RNSSolution/color-sdk/x/bank"
+	"github.com/RNSSolution/color-sdk/x/mock"
+	"github.com/RNSSolution/color-sdk/x/staking"
 )
 
 // initialize the mock application for this module

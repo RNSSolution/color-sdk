@@ -12,10 +12,10 @@ import (
 	dbm "github.com/ColorPlatform/prism/libs/db"
 	"github.com/ColorPlatform/prism/libs/log"
 
-	bapp "github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
+	bapp "github.com/RNSSolution/color-sdk/baseapp"
+	"github.com/RNSSolution/color-sdk/codec"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
 )
 
 const (

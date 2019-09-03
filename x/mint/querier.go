@@ -3,8 +3,8 @@ package mint
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/codec"
+	sdk "github.com/RNSSolution/color-sdk/types"
 	abci "github.com/ColorPlatform/prism/abci/types"
 )
 

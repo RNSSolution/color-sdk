@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/RNSSolution/color-sdk/client"
 
-	"github.com/cosmos/cosmos-sdk/tests"
+	"github.com/RNSSolution/color-sdk/tests"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

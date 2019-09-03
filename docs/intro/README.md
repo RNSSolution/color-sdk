@@ -1,6 +1,6 @@
 # SDK Intro
 
-The [Cosmos-SDK](https://github.com/cosmos/cosmos-sdk) is a framework for building multi-asset public Proof-of-Stake (PoS) blockchains, like the Cosmos Hub, as well as permissionned Proof-Of-Authority (PoA) blockchains.
+The [Cosmos-SDK](https://github.com/RNSSolution/color-sdk) is a framework for building multi-asset public Proof-of-Stake (PoS) blockchains, like the Cosmos Hub, as well as permissionned Proof-Of-Authority (PoA) blockchains.
 
 The goal of the Cosmos SDK is to allow developers to easily create custom  blockchains from scratch that can natively interoperate with other blockchains. We envision the SDK as the npm-like framework to build secure blockchain applications on top of [Tendermint](https://github.com/tendermint/tendermint).
 

@@ -11,10 +11,10 @@ import (
 	dbm "github.com/ColorPlatform/prism/libs/db"
 	"github.com/ColorPlatform/prism/libs/log"
 
-	bapp "github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
+	bapp "github.com/RNSSolution/color-sdk/baseapp"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/RNSSolution/color-sdk/x/bank"
 )
 
 // Create and return App4 instance

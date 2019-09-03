@@ -7,10 +7,10 @@ import (
 	"github.com/ColorPlatform/prism/libs/common"
 	tmtypes "github.com/ColorPlatform/prism/types"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/staking/keeper"
-	"github.com/cosmos/cosmos-sdk/x/staking/tags"
-	"github.com/cosmos/cosmos-sdk/x/staking/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/staking/keeper"
+	"github.com/RNSSolution/color-sdk/x/staking/tags"
+	"github.com/RNSSolution/color-sdk/x/staking/types"
 )
 
 func NewHandler(k keeper.Keeper) sdk.Handler {

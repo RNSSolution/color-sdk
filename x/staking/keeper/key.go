@@ -4,8 +4,8 @@ import (
 	"encoding/binary"
 	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/staking/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/staking/types"
 )
 
 // TODO remove some of these prefixes once have working multistore
@@ -73,7 +73,7 @@ func getValidatorPowerRank(validator types.Validator) []byte {
 
 	potentialPower := validator.Tokens
 
-	// todo: deal with cases above 2**64, ref https://github.com/cosmos/cosmos-sdk/issues/2439#issuecomment-427167556
+	// todo: deal with cases above 2**64, ref https://github.com/RNSSolution/color-sdk/issues/2439#issuecomment-427167556
 	tendermintPower := potentialPower.Int64()
 	tendermintPowerBytes := make([]byte, 8)
 	binary.BigEndian.PutUint64(tendermintPowerBytes[:], uint64(tendermintPower))

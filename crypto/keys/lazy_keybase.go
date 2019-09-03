@@ -6,8 +6,8 @@ import (
 	"github.com/ColorPlatform/prism/crypto"
 	cmn "github.com/ColorPlatform/prism/libs/common"
 
-	"github.com/cosmos/cosmos-sdk/crypto/keys/hd"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/crypto/keys/hd"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 var _ Keybase = lazyKeybase{}

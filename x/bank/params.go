@@ -1,7 +1,7 @@
 package bank
 
 import (
-	"github.com/cosmos/cosmos-sdk/x/params"
+	"github.com/RNSSolution/color-sdk/x/params"
 )
 
 const (

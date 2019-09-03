@@ -11,15 +11,15 @@ import (
 	dbm "github.com/ColorPlatform/prism/libs/db"
 	"github.com/ColorPlatform/prism/libs/log"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/store"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/RNSSolution/color-sdk/store"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/RNSSolution/color-sdk/x/bank"
+	"github.com/RNSSolution/color-sdk/x/params"
+	"github.com/RNSSolution/color-sdk/x/staking"
 
-	"github.com/cosmos/cosmos-sdk/x/distribution/types"
+	"github.com/RNSSolution/color-sdk/x/distribution/types"
 )
 
 var (

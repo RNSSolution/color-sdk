@@ -12,9 +12,9 @@ import (
 	"github.com/ColorPlatform/prism/crypto/secp256k1"
 	tmtypes "github.com/ColorPlatform/prism/types"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/RNSSolution/color-sdk/x/staking"
 )
 
 var (

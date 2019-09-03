@@ -6,7 +6,7 @@ import (
 	abci "github.com/ColorPlatform/prism/abci/types"
 	tmtypes "github.com/ColorPlatform/prism/types"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 // slashing begin block functionality

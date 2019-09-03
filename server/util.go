@@ -21,10 +21,10 @@ import (
 	"github.com/ColorPlatform/prism/libs/log"
 	pvm "github.com/ColorPlatform/prism/privval"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/server/config"
-	"github.com/cosmos/cosmos-sdk/version"
+	"github.com/RNSSolution/color-sdk/client"
+	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/RNSSolution/color-sdk/server/config"
+	"github.com/RNSSolution/color-sdk/version"
 )
 
 // server context

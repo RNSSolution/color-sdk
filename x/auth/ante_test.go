@@ -12,7 +12,7 @@ import (
 	"github.com/ColorPlatform/prism/crypto/multisig"
 	"github.com/ColorPlatform/prism/crypto/secp256k1"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 // run the tx through the anteHandler and ensure its valid

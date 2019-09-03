@@ -5,6 +5,6 @@ See the [Tendermint specification](https://github.com/ColorPlatform/prism/blob/m
 See `gaiacli keys --help`.
 
 Also see the [testnet
-tutorial](https://github.com/cosmos/cosmos-sdk/tree/develop/cmd/gaia/testnets).
+tutorial](https://github.com/RNSSolution/color-sdk/tree/develop/cmd/gaia/testnets).
 
 TODO: cleanup the UX and document this properly

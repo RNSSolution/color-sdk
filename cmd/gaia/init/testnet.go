@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/client/keys"
+	"github.com/RNSSolution/color-sdk/client/keys"
 
 	tmconfig "github.com/ColorPlatform/prism/config"
 	"github.com/ColorPlatform/prism/crypto"
@@ -20,18 +20,18 @@ import (
 	"github.com/ColorPlatform/prism/privval"
 	"github.com/ColorPlatform/prism/types"
 	tmtime "github.com/ColorPlatform/prism/types/time"
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	"github.com/cosmos/cosmos-sdk/codec"
-	srvconfig "github.com/cosmos/cosmos-sdk/server/config"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	authtx "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	"github.com/RNSSolution/color-sdk/client"
+	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
+	"github.com/RNSSolution/color-sdk/codec"
+	srvconfig "github.com/RNSSolution/color-sdk/server/config"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	authtx "github.com/RNSSolution/color-sdk/x/auth/client/txbuilder"
+	"github.com/RNSSolution/color-sdk/x/staking"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/cosmos/cosmos-sdk/server"
+	"github.com/RNSSolution/color-sdk/server"
 )
 
 var (

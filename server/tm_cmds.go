@@ -14,8 +14,8 @@ import (
 	pvm "github.com/ColorPlatform/prism/privval"
 	tversion "github.com/ColorPlatform/prism/version"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/codec"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 const (

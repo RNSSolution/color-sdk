@@ -1,7 +1,7 @@
 package errors
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 // nolint - reexport

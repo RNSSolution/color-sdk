@@ -9,8 +9,8 @@ import (
 	"github.com/ColorPlatform/prism/crypto"
 	"github.com/ColorPlatform/prism/crypto/ed25519"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/staking"
 )
 
 var (

@@ -7,9 +7,9 @@ import (
 	"os"
 	"path"
 
-	"github.com/cosmos/cosmos-sdk/store"
+	"github.com/RNSSolution/color-sdk/store"
 
-	"github.com/cosmos/cosmos-sdk/baseapp"
+	"github.com/RNSSolution/color-sdk/baseapp"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -20,17 +20,17 @@ import (
 	dbm "github.com/ColorPlatform/prism/libs/db"
 	"github.com/ColorPlatform/prism/libs/log"
 
-	bam "github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	bam "github.com/RNSSolution/color-sdk/baseapp"
+	sdk "github.com/RNSSolution/color-sdk/types"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/slashing"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/RNSSolution/color-sdk/x/bank"
+	"github.com/RNSSolution/color-sdk/x/params"
+	"github.com/RNSSolution/color-sdk/x/slashing"
+	"github.com/RNSSolution/color-sdk/x/staking"
 
-	gaia "github.com/cosmos/cosmos-sdk/cmd/gaia/app"
+	gaia "github.com/RNSSolution/color-sdk/cmd/gaia/app"
 )
 
 func runHackCmd(cmd *cobra.Command, args []string) error {
@@ -245,7 +245,7 @@ func (app *GaiaApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci
 	var genesisState gaia.GenesisState
 	err := app.cdc.UnmarshalJSON(stateJSON, &genesisState)
 	if err != nil {
-		panic(err) // TODO https://github.com/cosmos/cosmos-sdk/issues/468 // return sdk.ErrGenesisParse("").TraceCause(err, "")
+		panic(err) // TODO https://github.com/RNSSolution/color-sdk/issues/468 // return sdk.ErrGenesisParse("").TraceCause(err, "")
 	}
 
 	// load the accounts
@@ -257,7 +257,7 @@ func (app *GaiaApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci
 	// load the initial staking information
 	validators, err := staking.InitGenesis(ctx, app.stakingKeeper, genesisState.StakingData)
 	if err != nil {
-		panic(err) // TODO https://github.com/cosmos/cosmos-sdk/issues/468 // return sdk.ErrGenesisParse("").TraceCause(err, "")
+		panic(err) // TODO https://github.com/RNSSolution/color-sdk/issues/468 // return sdk.ErrGenesisParse("").TraceCause(err, "")
 	}
 
 	slashing.InitGenesis(ctx, app.slashingKeeper, genesisState.SlashingData, genesisState.StakingData.Validators.ToSDKValidators())

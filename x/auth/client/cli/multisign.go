@@ -11,13 +11,13 @@ import (
 	"github.com/ColorPlatform/prism/crypto/multisig"
 	"github.com/ColorPlatform/prism/libs/cli"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/keys"
-	"github.com/cosmos/cosmos-sdk/client/utils"
-	crkeys "github.com/cosmos/cosmos-sdk/crypto/keys"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
+	"github.com/RNSSolution/color-sdk/client"
+	"github.com/RNSSolution/color-sdk/client/context"
+	"github.com/RNSSolution/color-sdk/client/keys"
+	"github.com/RNSSolution/color-sdk/client/utils"
+	crkeys "github.com/RNSSolution/color-sdk/crypto/keys"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	authtxb "github.com/RNSSolution/color-sdk/x/auth/client/txbuilder"
 )
 
 // GetSignCommand returns the sign command

@@ -34,7 +34,7 @@ Let us go into the detail of each of these files.
 
 ## Types 
 
-**File: [`x/simple_governance/types.go`](https://github.com/cosmos/cosmos-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/types.go)**
+**File: [`x/simple_governance/types.go`](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/types.go)**
 
 In this file, we define the custom types for our module. This includes the types from the [State](app-design.md#State) section and the custom message types defined in the [Messages](app-design#Messages) section.
 
@@ -58,7 +58,7 @@ For our simple governance messages, this means:
 
 ## Keeper
 
-**File: [`x/simple_governance/keeper.go`](https://github.com/cosmos/cosmos-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/keeper.go)**
+**File: [`x/simple_governance/keeper.go`](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/keeper.go)**
 
 ### Short intro to keepers
 
@@ -130,7 +130,7 @@ The first function we have to create is the constructor.
 func NewKeeper(SimpleGov sdk.StoreKey, ck bank.Keeper, sm stake.Keeper, codespace sdk.CodespaceType) Keeper
 ```
 
-This function is called from the main [`app.go`](https://github.com/cosmos/cosmos-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/app/app.go) file to instanciate a new `Keeper`. A similar function exits for `KeeperRead`.
+This function is called from the main [`app.go`](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/app/app.go) file to instanciate a new `Keeper`. A similar function exits for `KeeperRead`.
 
 ```go
 func NewKeeperRead(SimpleGov sdk.StoreKey, ck bank.Keeper, sm stake.Keeper, codespace sdk.CodespaceType) KeeperRead
@@ -151,11 +151,11 @@ Now, let us describe the methods we need for our module's `Keeper`. For the full
 
 The last thing that needs to be done is to override certain methods for the `KeeperRead` type. `KeeperRead` should not have write access to the stores. Therefore, we will override the methods `SetProposal()`, `SetVote()` and `NewProposalID()`, as well as `setProposalQueue()` from the Proposal Queue's methods. For `KeeperRead`, these methods will just throw an error.
 
-*Note: If you look at the code, you'll notice that the context `ctx` is a parameter of many of the methods. The context `ctx` provides useful information on the current state such as the current block height and allows the keeper `k` to access the `KVStore`. You can check all the methods of `ctx` [here](https://github.com/cosmos/cosmos-sdk/blob/develop/types/context.go#L144-L168)*.
+*Note: If you look at the code, you'll notice that the context `ctx` is a parameter of many of the methods. The context `ctx` provides useful information on the current state such as the current block height and allows the keeper `k` to access the `KVStore`. You can check all the methods of `ctx` [here](https://github.com/RNSSolution/color-sdk/blob/develop/types/context.go#L144-L168)*.
 
 ## Handler 
 
-**File: [`x/simple_governance/handler.go`](https://github.com/cosmos/cosmos-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/handler.go)**
+**File: [`x/simple_governance/handler.go`](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/handler.go)**
 
 ### Constructor and core handlers
 
@@ -191,7 +191,7 @@ Let us take a look at the parameters of this function:
 - The keeper `k` allows the handler to read and write from the different stores, including the module's store (`SimpleGovernance` in our case) and all the stores from other modules that the keeper `k` has been granted an access to (`stake` and `bank` in our case).
 - The message `msg` that holds all the information provided by the sender of the transaction.
 
-The function returns a `Result` that is returned to the application. It contains several useful information such as the amount of `Gas` for this transaction and wether the message was succesfully processed or not. At this point, we exit the boundaries of our simple governance module and go back to root application level. The `Result` will differ from application to application. You can check the `sdk.Result` type directly [here](https://github.com/cosmos/cosmos-sdk/blob/develop/types/result.go) for more info.
+The function returns a `Result` that is returned to the application. It contains several useful information such as the amount of `Gas` for this transaction and wether the message was succesfully processed or not. At this point, we exit the boundaries of our simple governance module and go back to root application level. The `Result` will differ from application to application. You can check the `sdk.Result` type directly [here](https://github.com/RNSSolution/color-sdk/blob/develop/types/result.go) for more info.
 
 ### BeginBlocker and EndBlocker
 
@@ -229,7 +229,7 @@ Let us perform a quick safety analysis on this process.
 
 ## Codec
 
-**File: [`x/simple_governance/codec.go`](https://github.com/cosmos/cosmos-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/codec.go)**
+**File: [`x/simple_governance/codec.go`](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/codec.go)**
 
 The `codec.go` file allows developers to register the concrete message types of their module into the codec. In our case, we have two messages to declare:
 
@@ -243,7 +243,7 @@ Don't forget to call this function in `app.go` (see [Application - Bridging it a
 
 ## Errors 
 
-**File: [`x/simple_governance/errors.go`](https://github.com/cosmos/cosmos-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/errors.go)**
+**File: [`x/simple_governance/errors.go`](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/errors.go)**
 
 The `error.go` file allows us to define custom error messages for our module.  Declaring errors should be relatively similar in all modules. You can look in the `error.go` file directly for a concrete example. The code is self-explanatory.
 
@@ -251,7 +251,7 @@ Note that the errors of our module inherit from the `sdk.Error` interface and th
 
 ## Command-Line Interface
 
-**File: [`x/simple_governance/client/cli/simple_governance.go`](https://github.com/cosmos/cosmos-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/client/cli/simple_governance.go)**
+**File: [`x/simple_governance/client/cli/simple_governance.go`](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/client/cli/simple_governance.go)**
 
 Go in the `cli` folder and create a `simple_governance.go` file. This is where we will define the commands for our module.
 
@@ -284,9 +284,9 @@ The CLI builds on top of [Cobra](https://github.com/spf13/cobra). Here is the sc
 
 ## Rest API
 
-**File: [`x/simple_governance/client/rest/simple_governance.goo`](https://github.com/cosmos/cosmos-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/client/rest/simple_governance.go)**
+**File: [`x/simple_governance/client/rest/simple_governance.goo`](https://github.com/RNSSolution/color-sdk/blob/fedekunze/module_tutorial/examples/simpleGov/x/simple_governance/client/rest/simple_governance.go)**
 
-The Rest Server, also called [Light-Client Daemon (LCD)](https://github.com/cosmos/cosmos-sdk/tree/master/client/lcd), provides support for **HTTP queries**.
+The Rest Server, also called [Light-Client Daemon (LCD)](https://github.com/RNSSolution/color-sdk/tree/master/client/lcd), provides support for **HTTP queries**.
 
 ________________________________________________________
 

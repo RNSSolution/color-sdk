@@ -7,9 +7,9 @@ import (
 	cfg "github.com/ColorPlatform/prism/config"
 	"github.com/ColorPlatform/prism/crypto"
 	"github.com/ColorPlatform/prism/libs/log"
-	"github.com/cosmos/cosmos-sdk/server"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/staking/client/cli"
+	"github.com/RNSSolution/color-sdk/server"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/staking/client/cli"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"
 )

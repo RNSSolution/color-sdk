@@ -2,10 +2,10 @@
 package staking
 
 import (
-	"github.com/cosmos/cosmos-sdk/x/staking/keeper"
-	"github.com/cosmos/cosmos-sdk/x/staking/querier"
-	"github.com/cosmos/cosmos-sdk/x/staking/tags"
-	"github.com/cosmos/cosmos-sdk/x/staking/types"
+	"github.com/RNSSolution/color-sdk/x/staking/keeper"
+	"github.com/RNSSolution/color-sdk/x/staking/querier"
+	"github.com/RNSSolution/color-sdk/x/staking/tags"
+	"github.com/RNSSolution/color-sdk/x/staking/types"
 )
 
 type (

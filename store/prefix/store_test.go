@@ -4,11 +4,11 @@ import (
 	"crypto/rand"
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/store/dbadapter"
-	"github.com/cosmos/cosmos-sdk/store/gaskv"
-	"github.com/cosmos/cosmos-sdk/store/iavl"
-	"github.com/cosmos/cosmos-sdk/store/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/store/dbadapter"
+	"github.com/RNSSolution/color-sdk/store/gaskv"
+	"github.com/RNSSolution/color-sdk/store/iavl"
+	"github.com/RNSSolution/color-sdk/store/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
 
 	"github.com/stretchr/testify/require"
 

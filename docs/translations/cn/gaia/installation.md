@@ -20,7 +20,7 @@ Cosmos SDK需要安装**Go 1.12.1+**
 
 ### 安装二进制执行程序
 
-接下来，安装最新版本的Gaia。这里我们使用`master`分支，包含了最新的稳定发布版本。如果需要，请通过`git checkout`命令确定是正确的[发布版本](https://github.com/cosmos/cosmos-sdk/releases)。
+接下来，安装最新版本的Gaia。这里我们使用`master`分支，包含了最新的稳定发布版本。如果需要，请通过`git checkout`命令确定是正确的[发布版本](https://github.com/RNSSolution/color-sdk/releases)。
 
 ::: 警告
 对于主网，请确保你的版本大于或等于`v0.33.0`
@@ -29,7 +29,7 @@ Cosmos SDK需要安装**Go 1.12.1+**
 ```bash
 mkdir -p $GOPATH/src/github.com/cosmos
 cd $GOPATH/src/github.com/cosmos
-git clone https://github.com/cosmos/cosmos-sdk
+git clone https://github.com/RNSSolution/color-sdk
 cd cosmos-sdk && git checkout master
 make tools install
 ```
