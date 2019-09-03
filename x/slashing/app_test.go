@@ -4,14 +4,14 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	abci "github.com/tendermint/tendermint/abci/types"
-	"github.com/tendermint/tendermint/crypto/secp256k1"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	"github.com/ColorPlatform/prism/crypto/secp256k1"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/mock"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/RNSSolution/color-sdk/x/bank"
+	"github.com/RNSSolution/color-sdk/x/mock"
+	"github.com/RNSSolution/color-sdk/x/staking"
 )
 
 var (

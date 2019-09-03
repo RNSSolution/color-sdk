@@ -5,17 +5,17 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/crypto/ed25519"
-	cryptoAmino "github.com/tendermint/tendermint/crypto/encoding/amino"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	dbm "github.com/tendermint/tendermint/libs/db"
-	"github.com/tendermint/tendermint/libs/log"
+	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/crypto/ed25519"
+	cryptoAmino "github.com/ColorPlatform/prism/crypto/encoding/amino"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	dbm "github.com/ColorPlatform/prism/libs/db"
+	"github.com/ColorPlatform/prism/libs/log"
 
-	bapp "github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
+	bapp "github.com/RNSSolution/color-sdk/baseapp"
+	"github.com/RNSSolution/color-sdk/codec"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
 )
 
 const (

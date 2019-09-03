@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/tendermint/iavl"
-	"github.com/tendermint/tendermint/crypto/merkle"
-	cmn "github.com/tendermint/tendermint/libs/common"
+	"github.com/RNSSolution/iavl"
+	"github.com/ColorPlatform/prism/crypto/merkle"
+	cmn "github.com/ColorPlatform/prism/libs/common"
 )
 
 // MultiStoreProof defines a collection of store proofs in a multi-store

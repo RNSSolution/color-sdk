@@ -9,18 +9,18 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/cosmos/cosmos-sdk/crypto"
-	"github.com/cosmos/cosmos-sdk/crypto/keys/hd"
-	"github.com/cosmos/cosmos-sdk/crypto/keys/keyerror"
-	"github.com/cosmos/cosmos-sdk/crypto/keys/mintkey"
-	"github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/crypto"
+	"github.com/RNSSolution/color-sdk/crypto/keys/hd"
+	"github.com/RNSSolution/color-sdk/crypto/keys/keyerror"
+	"github.com/RNSSolution/color-sdk/crypto/keys/mintkey"
+	"github.com/RNSSolution/color-sdk/types"
 
 	bip39 "github.com/cosmos/go-bip39"
 
-	tmcrypto "github.com/tendermint/tendermint/crypto"
-	cryptoAmino "github.com/tendermint/tendermint/crypto/encoding/amino"
-	"github.com/tendermint/tendermint/crypto/secp256k1"
-	dbm "github.com/tendermint/tendermint/libs/db"
+	tmcrypto "github.com/ColorPlatform/prism/crypto"
+	cryptoAmino "github.com/ColorPlatform/prism/crypto/encoding/amino"
+	"github.com/ColorPlatform/prism/crypto/secp256k1"
+	dbm "github.com/ColorPlatform/prism/libs/db"
 )
 
 var _ Keybase = dbKeybase{}

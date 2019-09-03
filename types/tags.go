@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	cmn "github.com/tendermint/tendermint/libs/common"
+	cmn "github.com/ColorPlatform/prism/libs/common"
 )
 
 // Type synonym for convenience

@@ -8,14 +8,14 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	tcmd "github.com/tendermint/tendermint/cmd/tendermint/commands"
-	"github.com/tendermint/tendermint/libs/cli"
-	"github.com/tendermint/tendermint/p2p"
-	pvm "github.com/tendermint/tendermint/privval"
-	tversion "github.com/tendermint/tendermint/version"
+	tcmd "github.com/ColorPlatform/prism/cmd/prism/commands"
+	"github.com/ColorPlatform/prism/libs/cli"
+	"github.com/ColorPlatform/prism/p2p"
+	pvm "github.com/ColorPlatform/prism/privval"
+	tversion "github.com/ColorPlatform/prism/version"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/codec"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 const (

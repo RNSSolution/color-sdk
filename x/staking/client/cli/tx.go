@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/RNSSolution/color-sdk/x/auth"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/utils"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	"github.com/RNSSolution/color-sdk/client"
+	"github.com/RNSSolution/color-sdk/client/context"
+	"github.com/RNSSolution/color-sdk/client/utils"
+	"github.com/RNSSolution/color-sdk/codec"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	authtxb "github.com/RNSSolution/color-sdk/x/auth/client/txbuilder"
+	"github.com/RNSSolution/color-sdk/x/staking"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -251,12 +251,27 @@ func BuildCreateValidatorMsg(cliCtx context.CLIContext, txBldr authtxb.TxBuilder
 	// get the initial validator min self delegation
 	msbStr := viper.GetString(FlagMinSelfDelegation)
 	minSelfDelegation, ok := sdk.NewIntFromString(msbStr)
+
 	if !ok {
 		return txBldr, nil, fmt.Errorf(staking.ErrMinSelfDelegationInvalid(staking.DefaultCodespace).Error())
 	}
 
+	// get the initial league
+	leagueStr := viper.GetString(FlagLeague)
+	league, okLeague := sdk.NewIntFromString(leagueStr)
+	if !okLeague {
+		return txBldr, nil, fmt.Errorf(staking.ErrNilLeague(staking.DefaultCodespace).Error())
+	}
+
+	// get the initial node
+	nodeIDStr := viper.GetString(FlagNode)
+	nodeID, okNode := sdk.NewIntFromString(nodeIDStr)
+	if !okNode {
+		return txBldr, nil, fmt.Errorf(staking.ErrNilNode(staking.DefaultCodespace).Error())
+	}
+
 	msg := staking.NewMsgCreateValidator(
-		sdk.ValAddress(valAddr), pk, amount, description, commissionMsg, minSelfDelegation,
+		sdk.ValAddress(valAddr), pk, amount, description, commissionMsg, minSelfDelegation, league, nodeID,
 	)
 
 	if viper.GetBool(client.FlagGenerateOnly) {

@@ -7,14 +7,14 @@ import (
 	"github.com/btcsuite/btcd/btcec"
 	"github.com/pkg/errors"
 
-	"github.com/cosmos/cosmos-sdk/crypto/keys/hd"
-	"github.com/cosmos/cosmos-sdk/tests"
-	"github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/crypto/keys/hd"
+	"github.com/RNSSolution/color-sdk/tests"
+	"github.com/RNSSolution/color-sdk/types"
 	"github.com/cosmos/go-bip39"
 
 	secp256k1 "github.com/tendermint/btcd/btcec"
-	"github.com/tendermint/tendermint/crypto"
-	tmsecp256k1 "github.com/tendermint/tendermint/crypto/secp256k1"
+	"github.com/ColorPlatform/prism/crypto"
+	tmsecp256k1 "github.com/ColorPlatform/prism/crypto/secp256k1"
 )
 
 // If ledger support (build tag) has been enabled, which implies a CGO dependency,

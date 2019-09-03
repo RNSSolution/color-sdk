@@ -3,11 +3,11 @@ package auth
 import (
 	"fmt"
 
-	"github.com/tendermint/tendermint/crypto"
+	"github.com/ColorPlatform/prism/crypto"
 
-	codec "github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/params"
+	codec "github.com/RNSSolution/color-sdk/codec"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/params"
 )
 
 const (

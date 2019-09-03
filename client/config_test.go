@@ -4,14 +4,14 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/tendermint/tendermint/libs/cli"
+	"github.com/ColorPlatform/prism/libs/cli"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
 )
 
-// For https://github.com/cosmos/cosmos-sdk/issues/3899
+// For https://github.com/RNSSolution/color-sdk/issues/3899
 func Test_runConfigCmdTwiceWithShorterNodeValue(t *testing.T) {
 	// Prepare environment
 	t.Parallel()

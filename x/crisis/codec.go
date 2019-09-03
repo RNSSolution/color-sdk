@@ -1,7 +1,7 @@
 package crisis
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/RNSSolution/color-sdk/codec"
 )
 
 // Register concrete types on codec codec

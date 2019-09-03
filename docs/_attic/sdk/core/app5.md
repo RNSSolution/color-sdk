@@ -22,8 +22,8 @@ with Tendermint into a single binary. Of course, like any ABCI application, they
 can also run as separate processes that communicate with Tendermint via socket.
 
 For more details on what's involved in starting a Tendermint full node, see the
-[NewNode](https://godoc.org/github.com/tendermint/tendermint/node#NewNode)
-function in `github.com/tendermint/tendermint/node`.
+[NewNode](https://godoc.org/github.com/ColorPlatform/prism/node#NewNode)
+function in `github.com/ColorPlatform/prism/node`.
 
 The `server` package in the Cosmos-SDK simplifies
 connecting an application with a Tendermint node.

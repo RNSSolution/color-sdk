@@ -5,19 +5,19 @@ import (
 	"testing"
 	"time"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-	"github.com/tendermint/tendermint/libs/log"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	"github.com/ColorPlatform/prism/libs/log"
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/store"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/staking"
-	dbm "github.com/tendermint/tendermint/libs/db"
+	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/RNSSolution/color-sdk/store"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/RNSSolution/color-sdk/x/bank"
+	"github.com/RNSSolution/color-sdk/x/params"
+	"github.com/RNSSolution/color-sdk/x/staking"
+	dbm "github.com/ColorPlatform/prism/libs/db"
 )
 
 type testInput struct {

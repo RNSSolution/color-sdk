@@ -3,11 +3,11 @@ package keys
 import (
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/tests"
+	"github.com/RNSSolution/color-sdk/tests"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/spf13/viper"
-	"github.com/tendermint/tendermint/libs/cli"
+	"github.com/ColorPlatform/prism/libs/cli"
 
 	"github.com/spf13/cobra"
 )

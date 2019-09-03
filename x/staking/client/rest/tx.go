@@ -6,13 +6,13 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	clientrest "github.com/cosmos/cosmos-sdk/client/rest"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/crypto/keys"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/rest"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	"github.com/RNSSolution/color-sdk/client/context"
+	clientrest "github.com/RNSSolution/color-sdk/client/rest"
+	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/RNSSolution/color-sdk/crypto/keys"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/types/rest"
+	"github.com/RNSSolution/color-sdk/x/staking"
 )
 
 func registerTxRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, kb keys.Keybase) {

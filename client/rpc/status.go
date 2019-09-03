@@ -9,11 +9,11 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	ctypes "github.com/tendermint/tendermint/rpc/core/types"
+	ctypes "github.com/ColorPlatform/prism/rpc/core/types"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/types/rest"
+	"github.com/RNSSolution/color-sdk/client"
+	"github.com/RNSSolution/color-sdk/client/context"
+	"github.com/RNSSolution/color-sdk/types/rest"
 )
 
 // StatusCommand returns the status of the network

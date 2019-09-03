@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/types/rest"
-	"github.com/cosmos/cosmos-sdk/x/mint"
+	"github.com/RNSSolution/color-sdk/client/context"
+	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/RNSSolution/color-sdk/types/rest"
+	"github.com/RNSSolution/color-sdk/x/mint"
 	"github.com/gorilla/mux"
 )
 

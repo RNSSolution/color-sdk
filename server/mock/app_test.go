@@ -3,11 +3,11 @@ package mock
 import (
 	"testing"
 
-	"github.com/tendermint/tendermint/types"
+	"github.com/ColorPlatform/prism/types"
 
 	"github.com/stretchr/testify/require"
 
-	abci "github.com/tendermint/tendermint/abci/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
 )
 
 // TestInitApp makes sure we can initialize this thing without an error

@@ -7,15 +7,15 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/crypto/keys"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/crypto/keys"
+	sdk "github.com/RNSSolution/color-sdk/types"
 
 	"github.com/spf13/viper"
-	"github.com/tendermint/tendermint/libs/cli"
+	"github.com/ColorPlatform/prism/libs/cli"
 
-	"github.com/cosmos/cosmos-sdk/tests"
+	"github.com/RNSSolution/color-sdk/tests"
 
-	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/RNSSolution/color-sdk/client"
 
 	"github.com/stretchr/testify/assert"
 )

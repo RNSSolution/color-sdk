@@ -8,12 +8,12 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	dbm "github.com/tendermint/tendermint/libs/db"
+	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	"github.com/cosmos/cosmos-sdk/store/dbadapter"
-	"github.com/cosmos/cosmos-sdk/store/prefix"
-	"github.com/cosmos/cosmos-sdk/store/tracekv"
-	"github.com/cosmos/cosmos-sdk/store/types"
+	"github.com/RNSSolution/color-sdk/store/dbadapter"
+	"github.com/RNSSolution/color-sdk/store/prefix"
+	"github.com/RNSSolution/color-sdk/store/tracekv"
+	"github.com/RNSSolution/color-sdk/store/types"
 )
 
 func bz(s string) []byte { return []byte(s) }

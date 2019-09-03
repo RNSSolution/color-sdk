@@ -8,10 +8,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/tendermint/tendermint/crypto"
-	cryptoAmino "github.com/tendermint/tendermint/crypto/encoding/amino"
+	"github.com/ColorPlatform/prism/crypto"
+	cryptoAmino "github.com/ColorPlatform/prism/crypto/encoding/amino"
 
-	"github.com/tendermint/tendermint/libs/bech32"
+	"github.com/ColorPlatform/prism/libs/bech32"
 )
 
 const (

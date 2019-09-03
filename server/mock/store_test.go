@@ -5,9 +5,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	dbm "github.com/tendermint/tendermint/libs/db"
+	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 func TestStore(t *testing.T) {

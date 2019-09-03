@@ -7,12 +7,12 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/crypto/ed25519"
-	"github.com/tendermint/tendermint/crypto/multisig"
-	"github.com/tendermint/tendermint/crypto/secp256k1"
+	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/crypto/ed25519"
+	"github.com/ColorPlatform/prism/crypto/multisig"
+	"github.com/ColorPlatform/prism/crypto/secp256k1"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 // run the tx through the anteHandler and ensure its valid

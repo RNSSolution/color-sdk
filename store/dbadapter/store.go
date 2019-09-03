@@ -3,11 +3,11 @@ package dbadapter
 import (
 	"io"
 
-	dbm "github.com/tendermint/tendermint/libs/db"
+	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	"github.com/cosmos/cosmos-sdk/store/cachekv"
-	"github.com/cosmos/cosmos-sdk/store/tracekv"
-	"github.com/cosmos/cosmos-sdk/store/types"
+	"github.com/RNSSolution/color-sdk/store/cachekv"
+	"github.com/RNSSolution/color-sdk/store/tracekv"
+	"github.com/RNSSolution/color-sdk/store/types"
 )
 
 // Wrapper type for dbm.Db with implementation of KVStore

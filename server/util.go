@@ -14,17 +14,17 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	tcmd "github.com/tendermint/tendermint/cmd/tendermint/commands"
-	cfg "github.com/tendermint/tendermint/config"
-	"github.com/tendermint/tendermint/libs/cli"
-	tmflags "github.com/tendermint/tendermint/libs/cli/flags"
-	"github.com/tendermint/tendermint/libs/log"
-	pvm "github.com/tendermint/tendermint/privval"
+	tcmd "github.com/ColorPlatform/prism/cmd/prism/commands"
+	cfg "github.com/ColorPlatform/prism/config"
+	"github.com/ColorPlatform/prism/libs/cli"
+	tmflags "github.com/ColorPlatform/prism/libs/cli/flags"
+	"github.com/ColorPlatform/prism/libs/log"
+	pvm "github.com/ColorPlatform/prism/privval"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/server/config"
-	"github.com/cosmos/cosmos-sdk/version"
+	"github.com/RNSSolution/color-sdk/client"
+	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/RNSSolution/color-sdk/server/config"
+	"github.com/RNSSolution/color-sdk/version"
 )
 
 // server context
@@ -138,7 +138,6 @@ func AddCommands(
 		Use:   "tendermint",
 		Short: "Tendermint subcommands",
 	}
-
 	tendermintCmd.AddCommand(
 		ShowNodeIDCmd(ctx),
 		ShowValidatorCmd(ctx),

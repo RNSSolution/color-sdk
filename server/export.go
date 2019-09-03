@@ -11,11 +11,11 @@ import (
 
 	"io/ioutil"
 
-	"github.com/tendermint/tendermint/libs/cli"
-	dbm "github.com/tendermint/tendermint/libs/db"
-	tmtypes "github.com/tendermint/tendermint/types"
+	"github.com/ColorPlatform/prism/libs/cli"
+	dbm "github.com/ColorPlatform/prism/libs/db"
+	tmtypes "github.com/ColorPlatform/prism/types"
 
-	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/RNSSolution/color-sdk/codec"
 )
 
 const (

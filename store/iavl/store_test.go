@@ -6,13 +6,13 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/tendermint/iavl"
-	abci "github.com/tendermint/tendermint/abci/types"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	dbm "github.com/tendermint/tendermint/libs/db"
+	"github.com/RNSSolution/iavl"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	dbm "github.com/ColorPlatform/prism/libs/db"
 
-	"github.com/cosmos/cosmos-sdk/store/errors"
-	"github.com/cosmos/cosmos-sdk/store/types"
+	"github.com/RNSSolution/color-sdk/store/errors"
+	"github.com/RNSSolution/color-sdk/store/types"
 )
 
 var (

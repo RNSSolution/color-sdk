@@ -6,16 +6,16 @@ import (
 	"os"
 	"path/filepath"
 
+	cfg "github.com/ColorPlatform/prism/config"
+	"github.com/ColorPlatform/prism/libs/cli"
+	"github.com/ColorPlatform/prism/libs/common"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	cfg "github.com/tendermint/tendermint/config"
-	"github.com/tendermint/tendermint/libs/cli"
-	"github.com/tendermint/tendermint/libs/common"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/server"
+	"github.com/RNSSolution/color-sdk/client"
+	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
+	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/RNSSolution/color-sdk/server"
 )
 
 const (
@@ -58,7 +58,7 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command { // nolint: 
 
 			chainID := viper.GetString(client.FlagChainID)
 			if chainID == "" {
-				chainID = fmt.Sprintf("test-chain-%v", common.RandStr(6))
+				chainID = fmt.Sprintf("colors-test-%v", common.RandStr(6))
 			}
 
 			nodeID, _, err := InitializeNodeValidatorFiles(config)
@@ -67,8 +67,13 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command { // nolint: 
 			}
 
 			config.Moniker = args[0]
+			config.Consensus.UseLeagues = true
+			config.Consensus.League = 1
+			config.Consensus.NodeId = 1
+			config.P2P.AddrBookStrict = false
 
 			var appState json.RawMessage
+
 			genFile := config.GenesisFile()
 
 			if appState, err = initializeEmptyGenesis(cdc, genFile, chainID,

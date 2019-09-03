@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	dbm "github.com/tendermint/tendermint/libs/db"
+	dbm "github.com/ColorPlatform/prism/libs/db"
 )
 
 var (

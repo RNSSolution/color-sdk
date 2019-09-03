@@ -1,12 +1,12 @@
 package staking
 
 import (
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/crypto/secp256k1"
+	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/crypto/secp256k1"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/staking/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/RNSSolution/color-sdk/x/staking/types"
 )
 
 var (
@@ -28,7 +28,7 @@ var (
 
 func NewTestMsgCreateValidator(address sdk.ValAddress, pubKey crypto.PubKey, amt sdk.Int) MsgCreateValidator {
 	return types.NewMsgCreateValidator(
-		address, pubKey, sdk.NewCoin(sdk.DefaultBondDenom, amt), Description{}, commissionMsg, sdk.OneInt(),
+		address, pubKey, sdk.NewCoin(sdk.DefaultBondDenom, amt), Description{}, commissionMsg, sdk.OneInt(), sdk.OneInt(), sdk.OneInt(),
 	)
 }
 
@@ -38,15 +38,15 @@ func NewTestMsgCreateValidatorWithCommission(address sdk.ValAddress, pubKey cryp
 	commission := NewCommissionMsg(commissionRate, sdk.OneDec(), sdk.ZeroDec())
 
 	return types.NewMsgCreateValidator(
-		address, pubKey, sdk.NewCoin(sdk.DefaultBondDenom, amt), Description{}, commission, sdk.OneInt(),
+		address, pubKey, sdk.NewCoin(sdk.DefaultBondDenom, amt), Description{}, commission, sdk.OneInt(), sdk.OneInt(), sdk.OneInt(),
 	)
 }
 
 func NewTestMsgCreateValidatorWithMinSelfDelegation(address sdk.ValAddress, pubKey crypto.PubKey,
-	amt sdk.Int, minSelfDelegation sdk.Int) MsgCreateValidator {
+	amt sdk.Int, minSelfDelegation sdk.Int, leagueNumber sdk.Int, nodeID sdk.Int) MsgCreateValidator {
 
 	return types.NewMsgCreateValidator(
-		address, pubKey, sdk.NewCoin(sdk.DefaultBondDenom, amt), Description{}, commissionMsg, minSelfDelegation,
+		address, pubKey, sdk.NewCoin(sdk.DefaultBondDenom, amt), Description{}, commissionMsg, minSelfDelegation, leagueNumber, nodeID,
 	)
 }
 

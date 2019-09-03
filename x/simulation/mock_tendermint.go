@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	tmtypes "github.com/tendermint/tendermint/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	tmtypes "github.com/ColorPlatform/prism/types"
 )
 
 type mockValidator struct {

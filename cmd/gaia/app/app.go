@@ -6,23 +6,23 @@ import (
 	"os"
 	"sort"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	dbm "github.com/tendermint/tendermint/libs/db"
-	"github.com/tendermint/tendermint/libs/log"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	dbm "github.com/ColorPlatform/prism/libs/db"
+	"github.com/ColorPlatform/prism/libs/log"
 
-	bam "github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/crisis"
-	distr "github.com/cosmos/cosmos-sdk/x/distribution"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/mint"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/slashing"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	bam "github.com/RNSSolution/color-sdk/baseapp"
+	"github.com/RNSSolution/color-sdk/codec"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/RNSSolution/color-sdk/x/bank"
+	"github.com/RNSSolution/color-sdk/x/crisis"
+	distr "github.com/RNSSolution/color-sdk/x/distribution"
+	"github.com/RNSSolution/color-sdk/x/gov"
+	"github.com/RNSSolution/color-sdk/x/mint"
+	"github.com/RNSSolution/color-sdk/x/params"
+	"github.com/RNSSolution/color-sdk/x/slashing"
+	"github.com/RNSSolution/color-sdk/x/staking"
 )
 
 const (
@@ -75,7 +75,6 @@ type GaiaApp struct {
 func NewGaiaApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest bool,
 	invCheckPeriod uint,
 	baseAppOptions ...func(*bam.BaseApp)) *GaiaApp {
-
 	cdc := MakeCodec()
 
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc), baseAppOptions...)
@@ -200,7 +199,6 @@ func NewGaiaApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest b
 			cmn.Exit(err.Error())
 		}
 	}
-
 	return app
 }
 
@@ -316,7 +314,7 @@ func (app *GaiaApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci
 	var genesisState GenesisState
 	err := app.cdc.UnmarshalJSON(stateJSON, &genesisState)
 	if err != nil {
-		panic(err) // TODO https://github.com/cosmos/cosmos-sdk/issues/468
+		panic(err) // TODO https://github.com/RNSSolution/color-sdk/issues/468
 		// return sdk.ErrGenesisParse("").TraceCause(err, "")
 	}
 
@@ -332,7 +330,7 @@ func (app *GaiaApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci
 		sort.Sort(abci.ValidatorUpdates(validators))
 		for i, val := range validators {
 			if !val.Equal(req.Validators[i]) {
-				panic(fmt.Errorf("validators[%d] != req.Validators[%d] ", i, i))
+				//				panic(fmt.Errorf("validators[%d] != req.Validators[%d] ", i, i))
 			}
 		}
 	}

@@ -74,7 +74,7 @@ Accepted
 - Developers only have to update `/docs` folder when they open a PR (and not `/examples` for example).
 - Easier for developers to find what they need to update in the docs thanks to reworked architecture.
 - Cleaner vuepress build for website docs.
-- Will help build an executable doc (cf https://github.com/cosmos/cosmos-sdk/issues/2611)
+- Will help build an executable doc (cf https://github.com/RNSSolution/color-sdk/issues/2611)
 
 ### Neutral
 
@@ -85,6 +85,6 @@ Accepted
 
 ## References
 
-- https://github.com/cosmos/cosmos-sdk/issues/1460
-- https://github.com/cosmos/cosmos-sdk/pull/2695
-- https://github.com/cosmos/cosmos-sdk/issues/2611
+- https://github.com/RNSSolution/color-sdk/issues/1460
+- https://github.com/RNSSolution/color-sdk/pull/2695
+- https://github.com/RNSSolution/color-sdk/issues/2611

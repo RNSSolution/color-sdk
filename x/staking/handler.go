@@ -3,14 +3,14 @@ package staking
 import (
 	"time"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-	"github.com/tendermint/tendermint/libs/common"
-	tmtypes "github.com/tendermint/tendermint/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	"github.com/ColorPlatform/prism/libs/common"
+	tmtypes "github.com/ColorPlatform/prism/types"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/staking/keeper"
-	"github.com/cosmos/cosmos-sdk/x/staking/tags"
-	"github.com/cosmos/cosmos-sdk/x/staking/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/staking/keeper"
+	"github.com/RNSSolution/color-sdk/x/staking/tags"
+	"github.com/RNSSolution/color-sdk/x/staking/types"
 )
 
 func NewHandler(k keeper.Keeper) sdk.Handler {
@@ -116,7 +116,7 @@ func handleMsgCreateValidator(ctx sdk.Context, msg types.MsgCreateValidator, k k
 		}
 	}
 
-	validator := NewValidator(msg.ValidatorAddress, msg.PubKey, msg.Description)
+	validator := NewValidator(msg.ValidatorAddress, msg.PubKey, msg.Description, msg.League, msg.NodeID)
 	commission := NewCommissionWithTime(
 		msg.Commission.Rate, msg.Commission.MaxRate,
 		msg.Commission.MaxChangeRate, ctx.BlockHeader().Time,
@@ -222,7 +222,6 @@ func handleMsgDelegate(ctx sdk.Context, msg types.MsgDelegate, k keeper.Keeper) 
 		tags.Delegator, msg.DelegatorAddress.String(),
 		tags.DstValidator, msg.ValidatorAddress.String(),
 	)
-
 	return sdk.Result{
 		Tags: tags,
 	}

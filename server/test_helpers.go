@@ -7,11 +7,11 @@ import (
 	"os"
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/RNSSolution/color-sdk/client"
 
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"
-	"github.com/tendermint/tendermint/libs/cli"
+	"github.com/ColorPlatform/prism/libs/cli"
 )
 
 // Get a free address for a test tendermint server

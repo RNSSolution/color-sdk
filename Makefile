@@ -23,7 +23,7 @@ ifeq ($(LEDGER_ENABLED),true)
   else
     UNAME_S = $(shell uname -s)
     ifeq ($(UNAME_S),OpenBSD)
-      $(warning OpenBSD detected, disabling ledger support (https://github.com/cosmos/cosmos-sdk/issues/1988))
+      $(warning OpenBSD detected, disabling ledger support (https://github.com/RNSSolution/color-sdk/issues/1988))
     else
       GCC = $(shell command -v gcc 2> /dev/null)
       ifeq ($(GCC),)
@@ -43,21 +43,32 @@ build_tags := $(strip $(build_tags))
 
 # process linker flags
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
-	-X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
-  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags)"
+ldflags = -X github.com/RNSSolution/color-sdk/version.Version=$(VERSION) \
+	-X github.com/RNSSolution/color-sdk/version.Commit=$(COMMIT) \
+  -X "github.com/RNSSolution/color-sdk/version.BuildTags=$(build_tags)"
 
 ifneq ($(GOSUM),)
-ldflags += -X github.com/cosmos/cosmos-sdk/version.VendorDirHash=$(shell $(GOSUM) go.sum)
+ldflags += -X github.com/RNSSolution/color-sdk/version.VendorDirHash=$(shell $(GOSUM) go.sum)
 endif
 
 ifeq ($(WITH_CLEVELDB),yes)
-  ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=cleveldb
+  ldflags += -X github.com/RNSSolution/color-sdk/types.DBBackend=cleveldb
 endif
 ldflags += $(LDFLAGS)
 ldflags := $(strip $(ldflags))
 
 BUILD_FLAGS := -tags "$(build_tags)" -ldflags '$(ldflags)'
+
+# Total number of leagues
+LOCALNET_LEAGUES?=3
+# Number of nodes in a league
+LOCALNET_NODES?=3
+# The local IP network
+LOCALNET_NETWORK?="192.165.0.0/24"
+# The starting IP address assigned to Docker containers
+LOCALNET_STARTING_IP?="192.165.0.2"
+# The starting port for forwarding ports of Prism executable from Docker
+LOCALNET_STARTING_PORT?=26656
 
 all: tools install lint test
 
@@ -116,7 +127,7 @@ go.sum: tools go.mod
 draw_deps: tools
 	@# requires brew install graphviz or apt-get install graphviz
 	go get github.com/RobotsAndPencils/goviz
-	@goviz -i github.com/cosmos/cosmos-sdk/cmd/gaia/cmd/gaiad -d 2 | dot -Tpng -o dependency-graph.png
+	@goviz -i github.com/RNSSolution/color-sdk/cmd/gaia/cmd/gaiad -d 2 | dot -Tpng -o dependency-graph.png
 
 clean:
 	rm -rf snapcraft-local.yaml build/
@@ -128,7 +139,7 @@ distclean: clean
 ### Documentation
 
 godocs:
-	@echo "--> Wait a few seconds and visit http://localhost:6060/pkg/github.com/cosmos/cosmos-sdk/types"
+	@echo "--> Wait a few seconds and visit http://localhost:6060/pkg/github.com/RNSSolution/color-sdk/types"
 	godoc -http=:6060
 
 
@@ -142,9 +153,9 @@ test_cli: build
 
 test_ledger:
     # First test with mock
-	@go test -mod=readonly `go list github.com/cosmos/cosmos-sdk/crypto` -tags='cgo ledger test_ledger_mock'
+	@go test -mod=readonly `go list github.com/RNSSolution/color-sdk/crypto` -tags='cgo ledger test_ledger_mock'
     # Now test with a real device
-	@go test -mod=readonly -v `go list github.com/cosmos/cosmos-sdk/crypto` -tags='cgo ledger'
+	@go test -mod=readonly -v `go list github.com/RNSSolution/color-sdk/crypto` -tags='cgo ledger'
 
 test_unit:
 	@VERSION=$(VERSION) go test -mod=readonly $(PACKAGES_NOSIMULATION) -tags='ledger test_ledger_mock'
@@ -188,12 +199,12 @@ SIM_BLOCK_SIZE ?= 200
 SIM_COMMIT ?= true
 test_sim_gaia_benchmark:
 	@echo "Running Gaia benchmark for numBlocks=$(SIM_NUM_BLOCKS), blockSize=$(SIM_BLOCK_SIZE). This may take awhile!"
-	@go test -mod=readonly -benchmem -run=^$$ github.com/cosmos/cosmos-sdk/cmd/gaia/app -bench ^BenchmarkFullGaiaSimulation$$  \
+	@go test -mod=readonly -benchmem -run=^$$ github.com/RNSSolution/color-sdk/cmd/gaia/app -bench ^BenchmarkFullGaiaSimulation$$  \
 		-SimulationEnabled=true -SimulationNumBlocks=$(SIM_NUM_BLOCKS) -SimulationBlockSize=$(SIM_BLOCK_SIZE) -SimulationCommit=$(SIM_COMMIT) -timeout 24h
 
 test_sim_gaia_profile:
 	@echo "Running Gaia benchmark for numBlocks=$(SIM_NUM_BLOCKS), blockSize=$(SIM_BLOCK_SIZE). This may take awhile!"
-	@go test -mod=readonly -benchmem -run=^$$ github.com/cosmos/cosmos-sdk/cmd/gaia/app -bench ^BenchmarkFullGaiaSimulation$$ \
+	@go test -mod=readonly -benchmem -run=^$$ github.com/RNSSolution/color-sdk/cmd/gaia/app -bench ^BenchmarkFullGaiaSimulation$$ \
 		-SimulationEnabled=true -SimulationNumBlocks=$(SIM_NUM_BLOCKS) -SimulationBlockSize=$(SIM_BLOCK_SIZE) -SimulationCommit=$(SIM_COMMIT) -timeout 24h -cpuprofile cpu.out -memprofile mem.out
 
 test_cover:
@@ -209,7 +220,7 @@ ci-lint:
 format: tools
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs gofmt -w -s
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs misspell -w
-	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs goimports -w -local github.com/cosmos/cosmos-sdk
+	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs goimports -w -local github.com/RNSSolution/color-sdk
 
 benchmark:
 	@go test -mod=readonly -bench=. $(PACKAGES_NOSIMULATION)
@@ -221,12 +232,12 @@ benchmark:
 DEVDOC_SAVE = docker commit `docker ps -a -n 1 -q` devdoc:local
 
 devdoc_init:
-	docker run -it -v "$(CURDIR):/go/src/github.com/cosmos/cosmos-sdk" -w "/go/src/github.com/cosmos/cosmos-sdk" tendermint/devdoc echo
+	docker run -it -v "$(CURDIR):/go/src/github.com/RNSSolution/color-sdk" -w "/go/src/github.com/RNSSolution/color-sdk" tendermint/devdoc echo
 	# TODO make this safer
 	$(call DEVDOC_SAVE)
 
 devdoc:
-	docker run -it -v "$(CURDIR):/go/src/github.com/cosmos/cosmos-sdk" -w "/go/src/github.com/cosmos/cosmos-sdk" devdoc:local bash
+	docker run -it -v "$(CURDIR):/go/src/github.com/RNSSolution/color-sdk" -w "/go/src/github.com/RNSSolution/color-sdk" devdoc:local bash
 
 devdoc_save:
 	# TODO make this safer
@@ -245,10 +256,18 @@ devdoc_update:
 build-docker-colordnode:
 	$(MAKE) -C networks/local
 
-# Run a 4-node testnet locally
-localnet-start: localnet-stop
-	@if ! [ -f build/node0/colord/config/genesis.json ]; then docker run --rm -v $(CURDIR)/build:/colord:Z tendermint/colordnode testnet --v 4 -o . --starting-ip-address 192.168.10.2 ; fi
-	docker-compose up -d
+# Run testnet locally
+localnet-start: docker-compose.yml localnet-stop
+	@if ! [ -f build/node0/config/genesis.json ]; then \
+		docker run --rm -v $(CURDIR)/build:/colord:Z tendermint/colordnode testnet --l $(LOCALNET_LEAGUES) --v $(LOCALNET_NODES) \
+			--starting-ip-address $(LOCALNET_STARTING_IP) ; \
+		echo Init done; \
+	fi
+	 docker-compose up
+
+
+docker-compose.yml: Makefile
+	python3 networks/local/generate-docker-compose-yml.py $(LOCALNET_LEAGUES) $(LOCALNET_NODES) $(LOCALNET_NETWORK) $(LOCALNET_STARTING_IP) $(LOCALNET_STARTING_PORT) > docker-compose.yml
 
 # Stop testnet
 localnet-stop:

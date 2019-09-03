@@ -7,8 +7,8 @@ Contributing to this repo can mean many things such as participated in
 discussion or proposing code changes. To ensure a smooth workflow for all
 contributors, the general procedure for contributing has been established:
 
-  1. either [open](https://github.com/cosmos/cosmos-sdk/issues/new/choose) or
-     [find](https://github.com/cosmos/cosmos-sdk/issues) an issue you'd like to help with,
+  1. either [open](https://github.com/RNSSolution/color-sdk/issues/new/choose) or
+     [find](https://github.com/RNSSolution/color-sdk/issues) an issue you'd like to help with,
   2. participate in thoughtful discussion on that issue,
   3. if you would then like to contribute code:
      1. if a the issue is a proposal, ensure that the proposal has been accepted,
@@ -37,7 +37,7 @@ get_dev_tools` and `make update_dev_tools` for installing the linting tools.
 Other notes:
   - Looking for a good place to start contributing? How about checking out some
     [good first
-    issues](https://github.com/cosmos/cosmos-sdk/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
+    issues](https://github.com/RNSSolution/color-sdk/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
   - Please make sure to use `gofmt` before every commit - the easiest way to do
     this is have your editor run it for you upon saving a file. Additionally
     please ensure that your code is lint compliant by running `make lint`
@@ -78,12 +78,12 @@ Please note that Go requires code to live under absolute paths, which complicate
 While my fork lives at `https://github.com/rigeyrigerige/cosmos-sdk`,
 the code should never exist at  `$GOPATH/src/github.com/rigeyrigerige/cosmos-sdk`.
 Instead, we use `git remote` to add the fork as a new remote for the original repo,
-`$GOPATH/src/github.com/cosmos/cosmos-sdk `, and do all the work there.
+`$GOPATH/src/github.com/RNSSolution/color-sdk `, and do all the work there.
 
 For instance, to create a fork and work on a branch of it, I would:
 
   - Create the fork on github, using the fork button.
-  - Go to the original repo checked out locally (i.e. `$GOPATH/src/github.com/cosmos/cosmos-sdk`)
+  - Go to the original repo checked out locally (i.e. `$GOPATH/src/github.com/RNSSolution/color-sdk`)
   - `git remote rename origin upstream`
   - `git remote add origin git@github.com:ebuchman/cosmos-sdk.git`
 
@@ -167,7 +167,7 @@ only pull requests targeted directly against master.
   - `develop` must never fail `make test` or `make test_cli`
   - `develop` should not fail `make lint`
   - no --force onto `develop` (except when reverting a broken commit, which should seldom happen)
-  - create a development branch either on github.com/cosmos/cosmos-sdk, or your fork (using `git remote add origin`)
+  - create a development branch either on github.com/RNSSolution/color-sdk, or your fork (using `git remote add origin`)
   - before submitting a pull request, begin `git rebase` on top of `develop`
 
 ### Pull Merge Procedure:

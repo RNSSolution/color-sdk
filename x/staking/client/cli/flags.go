@@ -3,7 +3,7 @@ package cli
 import (
 	flag "github.com/spf13/pflag"
 
-	"github.com/cosmos/cosmos-sdk/x/staking/types"
+	"github.com/RNSSolution/color-sdk/x/staking/types"
 )
 
 // nolint
@@ -25,6 +25,8 @@ const (
 	FlagCommissionMaxRate       = "commission-max-rate"
 	FlagCommissionMaxChangeRate = "commission-max-change-rate"
 
+	FlagLeague            = "league"
+	FlagNode              = "node_id"
 	FlagMinSelfDelegation = "min-self-delegation"
 
 	FlagGenesisFormat = "genesis-format"

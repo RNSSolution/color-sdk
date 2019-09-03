@@ -180,16 +180,16 @@ to easily propagate request context through handler functions.
 Many methods on SDK objects receive a context as the first argument.
 
 The Context also contains the
-[block header](https://github.com/tendermint/tendermint/blob/master/docs/spec/blockchain/blockchain.md#header),
+[block header](https://github.com/ColorPlatform/prism/blob/master/docs/spec/blockchain/blockchain.md#header),
 which includes the latest timestamp from the blockchain and other information about the latest block.
 
 See the [Context API
-docs](https://godoc.org/github.com/cosmos/cosmos-sdk/types#Context) for more details.
+docs](https://godoc.org/github.com/RNSSolution/color-sdk/types#Context) for more details.
 
 ### Result
 
 Handler takes a Context and Msg and returns a Result.
-Result is motivated by the corresponding [ABCI result](https://github.com/tendermint/tendermint/blob/master/abci/types/types.proto#L165).
+Result is motivated by the corresponding [ABCI result](https://github.com/ColorPlatform/prism/blob/master/abci/types/types.proto#L165).
 It contains return values, error information, logs, and meta data about the transaction:
 
 ```go
@@ -271,7 +271,7 @@ type appAccount struct {
 Coins is a useful type provided by the SDK for multi-asset accounts.
 We could just use an integer here for a single coin type, but
 it's worth [getting to know
-Coins](https://godoc.org/github.com/cosmos/cosmos-sdk/types#Coins).
+Coins](https://godoc.org/github.com/RNSSolution/color-sdk/types#Coins).
 
 
 Now we're ready to handle the two parts of the MsgSend:
@@ -409,13 +409,13 @@ func txDecoder(txBytes []byte) (sdk.Tx, sdk.Error) {
 Finally, we stitch it all together using the `BaseApp`.
 
 The BaseApp is an abstraction over the [Tendermint
-ABCI](https://github.com/tendermint/tendermint/tree/master/abci) that
+ABCI](https://github.com/ColorPlatform/prism/tree/master/abci) that
 simplifies application development by handling common low-level concerns.
 It serves as the mediator between the two key components of an SDK app: the store
 and the message handlers. The BaseApp implements the
-[`abci.Application`](https://godoc.org/github.com/tendermint/tendermint/abci/types#Application) interface.
+[`abci.Application`](https://godoc.org/github.com/ColorPlatform/prism/abci/types#Application) interface.
 See the [BaseApp API
-documentation](https://godoc.org/github.com/cosmos/cosmos-sdk/baseapp) for more details.
+documentation](https://godoc.org/github.com/RNSSolution/color-sdk/baseapp) for more details.
 
 Here is the complete setup for App1:
 
@@ -469,7 +469,7 @@ Tendermint consensus engine. It would be initialized by a Genesis file, and it
 would be driven by blocks of transactions committed by the underlying Tendermint
 consensus. We'll talk more about ABCI and how this all works a bit later, but
 feel free to check the
-[specification](https://github.com/tendermint/tendermint/blob/master/docs/app-dev/abci-spec.md).
+[specification](https://github.com/ColorPlatform/prism/blob/master/docs/app-dev/abci-spec.md).
 We'll also see how to connect our app to a complete suite of components
 for running and using a live blockchain application.
 

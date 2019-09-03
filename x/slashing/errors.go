@@ -2,7 +2,7 @@
 package slashing
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 // Local code type

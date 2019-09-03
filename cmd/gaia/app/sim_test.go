@@ -12,28 +12,28 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-	"github.com/tendermint/tendermint/crypto/secp256k1"
-	dbm "github.com/tendermint/tendermint/libs/db"
-	"github.com/tendermint/tendermint/libs/log"
-	tmtypes "github.com/tendermint/tendermint/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	"github.com/ColorPlatform/prism/crypto/secp256k1"
+	dbm "github.com/ColorPlatform/prism/libs/db"
+	"github.com/ColorPlatform/prism/libs/log"
+	tmtypes "github.com/ColorPlatform/prism/types"
 
-	"github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	authsim "github.com/cosmos/cosmos-sdk/x/auth/simulation"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	banksim "github.com/cosmos/cosmos-sdk/x/bank/simulation"
-	distr "github.com/cosmos/cosmos-sdk/x/distribution"
-	distrsim "github.com/cosmos/cosmos-sdk/x/distribution/simulation"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	govsim "github.com/cosmos/cosmos-sdk/x/gov/simulation"
-	"github.com/cosmos/cosmos-sdk/x/mint"
-	"github.com/cosmos/cosmos-sdk/x/simulation"
-	"github.com/cosmos/cosmos-sdk/x/slashing"
-	slashingsim "github.com/cosmos/cosmos-sdk/x/slashing/simulation"
-	"github.com/cosmos/cosmos-sdk/x/staking"
-	stakingsim "github.com/cosmos/cosmos-sdk/x/staking/simulation"
+	"github.com/RNSSolution/color-sdk/baseapp"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	authsim "github.com/RNSSolution/color-sdk/x/auth/simulation"
+	"github.com/RNSSolution/color-sdk/x/bank"
+	banksim "github.com/RNSSolution/color-sdk/x/bank/simulation"
+	distr "github.com/RNSSolution/color-sdk/x/distribution"
+	distrsim "github.com/RNSSolution/color-sdk/x/distribution/simulation"
+	"github.com/RNSSolution/color-sdk/x/gov"
+	govsim "github.com/RNSSolution/color-sdk/x/gov/simulation"
+	"github.com/RNSSolution/color-sdk/x/mint"
+	"github.com/RNSSolution/color-sdk/x/simulation"
+	"github.com/RNSSolution/color-sdk/x/slashing"
+	slashingsim "github.com/RNSSolution/color-sdk/x/slashing/simulation"
+	"github.com/RNSSolution/color-sdk/x/staking"
+	stakingsim "github.com/RNSSolution/color-sdk/x/staking/simulation"
 )
 
 var (
@@ -307,7 +307,7 @@ func fauxMerkleModeOpt(bapp *baseapp.BaseApp) {
 }
 
 // Profile with:
-// /usr/local/go/bin/go test -benchmem -run=^$ github.com/cosmos/cosmos-sdk/cmd/gaia/app -bench ^BenchmarkFullGaiaSimulation$ -SimulationCommit=true -cpuprofile cpu.out
+// /usr/local/go/bin/go test -benchmem -run=^$ github.com/RNSSolution/color-sdk/cmd/gaia/app -bench ^BenchmarkFullGaiaSimulation$ -SimulationCommit=true -cpuprofile cpu.out
 func BenchmarkFullGaiaSimulation(b *testing.B) {
 	// Setup Gaia application
 	logger := log.NewNopLogger()

@@ -6,11 +6,11 @@ import (
 	"os"
 	"path/filepath"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	abci "github.com/tendermint/tendermint/abci/types"
-	dbm "github.com/tendermint/tendermint/libs/db"
-	"github.com/tendermint/tendermint/libs/log"
-	tmtypes "github.com/tendermint/tendermint/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	dbm "github.com/ColorPlatform/prism/libs/db"
+	"github.com/ColorPlatform/prism/libs/log"
+	tmtypes "github.com/ColorPlatform/prism/types"
 )
 
 type (

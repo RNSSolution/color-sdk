@@ -1,10 +1,10 @@
 package params
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/codec"
+	sdk "github.com/RNSSolution/color-sdk/types"
 
-	"github.com/cosmos/cosmos-sdk/x/params/subspace"
+	"github.com/RNSSolution/color-sdk/x/params/subspace"
 )
 
 const (

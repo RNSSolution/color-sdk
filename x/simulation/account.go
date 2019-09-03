@@ -3,11 +3,11 @@ package simulation
 import (
 	"math/rand"
 
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/crypto/ed25519"
-	"github.com/tendermint/tendermint/crypto/secp256k1"
+	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/crypto/ed25519"
+	"github.com/ColorPlatform/prism/crypto/secp256k1"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 // Account contains a privkey, pubkey, address tuple

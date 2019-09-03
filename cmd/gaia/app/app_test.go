@@ -4,22 +4,22 @@ import (
 	"os"
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/crisis"
+	"github.com/RNSSolution/color-sdk/x/bank"
+	"github.com/RNSSolution/color-sdk/x/crisis"
 
 	"github.com/stretchr/testify/require"
-	"github.com/tendermint/tendermint/libs/db"
-	"github.com/tendermint/tendermint/libs/log"
+	"github.com/ColorPlatform/prism/libs/db"
+	"github.com/ColorPlatform/prism/libs/log"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	distr "github.com/cosmos/cosmos-sdk/x/distribution"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/mint"
-	"github.com/cosmos/cosmos-sdk/x/slashing"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	distr "github.com/RNSSolution/color-sdk/x/distribution"
+	"github.com/RNSSolution/color-sdk/x/gov"
+	"github.com/RNSSolution/color-sdk/x/mint"
+	"github.com/RNSSolution/color-sdk/x/slashing"
+	"github.com/RNSSolution/color-sdk/x/staking"
 
-	abci "github.com/tendermint/tendermint/abci/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
 )
 
 func setGenesis(gapp *GaiaApp, accs ...*auth.BaseAccount) error {

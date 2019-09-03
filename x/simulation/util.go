@@ -5,9 +5,9 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	abci "github.com/tendermint/tendermint/abci/types"
+	"github.com/RNSSolution/color-sdk/baseapp"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
 )
 
 // assertAll asserts the all invariants against application state

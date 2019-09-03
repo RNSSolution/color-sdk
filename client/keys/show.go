@@ -3,18 +3,18 @@ package keys
 import (
 	"errors"
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/RNSSolution/color-sdk/client"
 
-	"github.com/cosmos/cosmos-sdk/crypto"
-	"github.com/cosmos/cosmos-sdk/crypto/keys"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/crypto"
+	"github.com/RNSSolution/color-sdk/crypto/keys"
+	sdk "github.com/RNSSolution/color-sdk/types"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	tmcrypto "github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/crypto/multisig"
-	"github.com/tendermint/tendermint/libs/cli"
+	tmcrypto "github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/crypto/multisig"
+	"github.com/ColorPlatform/prism/libs/cli"
 )
 
 const (

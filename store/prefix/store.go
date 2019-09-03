@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/cosmos/cosmos-sdk/store/cachekv"
-	"github.com/cosmos/cosmos-sdk/store/tracekv"
-	"github.com/cosmos/cosmos-sdk/store/types"
+	"github.com/RNSSolution/color-sdk/store/cachekv"
+	"github.com/RNSSolution/color-sdk/store/tracekv"
+	"github.com/RNSSolution/color-sdk/store/types"
 )
 
 var _ types.KVStore = Store{}
@@ -80,7 +80,7 @@ func (s Store) Delete(key []byte) {
 }
 
 // Implements KVStore
-// Check https://github.com/tendermint/tendermint/blob/master/libs/db/prefix_db.go#L106
+// Check https://github.com/ColorPlatform/prism/blob/master/libs/db/prefix_db.go#L106
 func (s Store) Iterator(start, end []byte) types.Iterator {
 	newstart := cloneAppend(s.prefix, start)
 
@@ -97,7 +97,7 @@ func (s Store) Iterator(start, end []byte) types.Iterator {
 }
 
 // Implements KVStore
-// Check https://github.com/tendermint/tendermint/blob/master/libs/db/prefix_db.go#L129
+// Check https://github.com/ColorPlatform/prism/blob/master/libs/db/prefix_db.go#L129
 func (s Store) ReverseIterator(start, end []byte) types.Iterator {
 	newstart := cloneAppend(s.prefix, start)
 
@@ -176,7 +176,7 @@ func (iter *prefixIterator) Close() {
 	iter.iter.Close()
 }
 
-// copied from github.com/tendermint/tendermint/libs/db/prefix_db.go
+// copied from github.com/ColorPlatform/prism/libs/db/prefix_db.go
 func stripPrefix(key []byte, prefix []byte) []byte {
 	if len(key) < len(prefix) || !bytes.Equal(key[:len(prefix)], prefix) {
 		panic("should not happen")
@@ -189,7 +189,7 @@ func cpIncr(bz []byte) []byte {
 	return types.PrefixEndBytes(bz)
 }
 
-// copied from github.com/tendermint/tendermint/libs/db/util.go
+// copied from github.com/ColorPlatform/prism/libs/db/util.go
 func cpDecr(bz []byte) (ret []byte) {
 	if len(bz) == 0 {
 		panic("cpDecr expects non-zero bz length")

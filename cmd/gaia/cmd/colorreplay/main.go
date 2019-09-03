@@ -7,22 +7,22 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/store"
+	"github.com/RNSSolution/color-sdk/store"
 
 	cpm "github.com/otiai10/copy"
 	"github.com/spf13/cobra"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-	bcm "github.com/tendermint/tendermint/blockchain"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	"github.com/tendermint/tendermint/proxy"
-	tmsm "github.com/tendermint/tendermint/state"
-	tm "github.com/tendermint/tendermint/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	bcm "github.com/ColorPlatform/prism/blockchain"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	"github.com/ColorPlatform/prism/proxy"
+	tmsm "github.com/ColorPlatform/prism/state"
+	tm "github.com/ColorPlatform/prism/types"
 
-	"github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	"github.com/cosmos/cosmos-sdk/server"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/baseapp"
+	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
+	"github.com/RNSSolution/color-sdk/server"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 var (
@@ -155,7 +155,6 @@ func run(rootDir string) {
 			panic(err)
 		}
 		newValidators := tm.NewValidatorSet(newValidatorz)
-
 		// Take the genesis state.
 		state = genState
 		state.Validators = newValidators

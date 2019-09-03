@@ -3,10 +3,10 @@ package common
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	distr "github.com/cosmos/cosmos-sdk/x/distribution"
+	"github.com/RNSSolution/color-sdk/client/context"
+	"github.com/RNSSolution/color-sdk/codec"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	distr "github.com/RNSSolution/color-sdk/x/distribution"
 )
 
 // QueryParams actually queries distribution params.

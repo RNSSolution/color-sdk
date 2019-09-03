@@ -13,9 +13,9 @@ import (
 	"strings"
 
 	amino "github.com/tendermint/go-amino"
-	tmclient "github.com/tendermint/tendermint/rpc/client"
-	ctypes "github.com/tendermint/tendermint/rpc/core/types"
-	rpcclient "github.com/tendermint/tendermint/rpc/lib/client"
+	tmclient "github.com/ColorPlatform/prism/rpc/client"
+	ctypes "github.com/ColorPlatform/prism/rpc/core/types"
+	rpcclient "github.com/ColorPlatform/prism/rpc/lib/client"
 )
 
 // Wait for the next tendermint block from the Tendermint RPC

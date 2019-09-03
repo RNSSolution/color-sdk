@@ -3,15 +3,15 @@ package init
 import (
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/server"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/staking/client/cli"
+	tcmd "github.com/ColorPlatform/prism/cmd/prism/commands"
+	cfg "github.com/ColorPlatform/prism/config"
+	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/libs/log"
+	"github.com/RNSSolution/color-sdk/server"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/staking/client/cli"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"
-	tcmd "github.com/tendermint/tendermint/cmd/tendermint/commands"
-	cfg "github.com/tendermint/tendermint/config"
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/libs/log"
 )
 
 func Test_prepareFlagsForTxCreateValidator(t *testing.T) {

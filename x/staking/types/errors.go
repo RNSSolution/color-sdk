@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/RNSSolution/color-sdk/types"
 )
 
 type CodeType = sdk.CodeType
@@ -93,6 +93,13 @@ func ErrCommissionGTMaxChangeRate(codespace sdk.CodespaceType) sdk.Error {
 
 func ErrSelfDelegationBelowMinimum(codespace sdk.CodespaceType) sdk.Error {
 	return sdk.NewError(codespace, CodeInvalidValidator, "validator's self delegation must be greater than their minimum self delegation")
+}
+
+func ErrNilLeague(codespace sdk.CodespaceType) sdk.Error {
+	return sdk.NewError(codespace, CodeInvalidValidator, "validator's league cannot be nil")
+}
+func ErrNilNode(codespace sdk.CodespaceType) sdk.Error {
+	return sdk.NewError(codespace, CodeInvalidValidator, "validator's NodeId cannot be nil")
 }
 
 func ErrMinSelfDelegationInvalid(codespace sdk.CodespaceType) sdk.Error {

@@ -1,61 +1,149 @@
 version: '3'
 
 services:
-  colordnode0:
-    container_name: colordnode0
+  node0:
+    container_name: colornode0
     image: "tendermint/colordnode"
     ports:
-      - "26657:26657"
+      - "26656-26657:26656-26657"
     environment:
       - ID=0
-      - LOG=${LOG:-colord.log}
+      - LOG=colord.log
+      - COMMAND_ARGS
+      - SUBCOMMAND_ARGS
     volumes:
       - ./build:/colord:Z
     networks:
       localnet:
-        ipv4_address: 192.168.10.2
+        ipv4_address: 192.165.0.2
 
-  colordnode1:
-    container_name: colordnode1
+  node1:
+    container_name: colornode1
     image: "tendermint/colordnode"
     ports:
-      - "26658:26657"
+      - "26658-26659:26656-26657"
     environment:
       - ID=1
-      - LOG=${LOG:-colord.log}
+      - LOG=colord.log
+      - COMMAND_ARGS
+      - SUBCOMMAND_ARGS
     volumes:
       - ./build:/colord:Z
     networks:
       localnet:
-        ipv4_address: 192.168.10.3
+        ipv4_address: 192.165.0.3
 
-  colordnode2:
-    container_name: colordnode2
+  node2:
+    container_name: colornode2
     image: "tendermint/colordnode"
+    ports:
+      - "26660-26661:26656-26657"
     environment:
       - ID=2
-      - LOG=${LOG:-colord.log}
-    ports:
-      - "26659:26657"
+      - LOG=colord.log
+      - COMMAND_ARGS
+      - SUBCOMMAND_ARGS
     volumes:
       - ./build:/colord:Z
     networks:
       localnet:
-        ipv4_address: 192.168.10.4
+        ipv4_address: 192.165.0.4
 
-  colordnode3:
-    container_name: colordnode3
+  node3:
+    container_name: colornode3
     image: "tendermint/colordnode"
+    ports:
+      - "26662-26663:26656-26657"
     environment:
       - ID=3
-      - LOG=${LOG:-colord.log}
-    ports:
-      - "26660:26657"
+      - LOG=colord.log
+      - COMMAND_ARGS
+      - SUBCOMMAND_ARGS
     volumes:
       - ./build:/colord:Z
     networks:
       localnet:
-        ipv4_address: 192.168.10.5
+        ipv4_address: 192.165.0.5
+
+  node4:
+    container_name: colornode4
+    image: "tendermint/colordnode"
+    ports:
+      - "26664-26665:26656-26657"
+    environment:
+      - ID=4
+      - LOG=colord.log
+      - COMMAND_ARGS
+      - SUBCOMMAND_ARGS
+    volumes:
+      - ./build:/colord:Z
+    networks:
+      localnet:
+        ipv4_address: 192.165.0.6
+
+  node5:
+    container_name: colornode5
+    image: "tendermint/colordnode"
+    ports:
+      - "26666-26667:26656-26657"
+    environment:
+      - ID=5
+      - LOG=colord.log
+      - COMMAND_ARGS
+      - SUBCOMMAND_ARGS
+    volumes:
+      - ./build:/colord:Z
+    networks:
+      localnet:
+        ipv4_address: 192.165.0.7
+
+  node6:
+    container_name: colornode6
+    image: "tendermint/colordnode"
+    ports:
+      - "26668-26669:26656-26657"
+    environment:
+      - ID=6
+      - LOG=colord.log
+      - COMMAND_ARGS
+      - SUBCOMMAND_ARGS
+    volumes:
+      - ./build:/colord:Z
+    networks:
+      localnet:
+        ipv4_address: 192.165.0.8
+
+  node7:
+    container_name: colornode7
+    image: "tendermint/colordnode"
+    ports:
+      - "26670-26671:26656-26657"
+    environment:
+      - ID=7
+      - LOG=colord.log
+      - COMMAND_ARGS
+      - SUBCOMMAND_ARGS
+    volumes:
+      - ./build:/colord:Z
+    networks:
+      localnet:
+        ipv4_address: 192.165.0.9
+
+  node8:
+    container_name: colornode8
+    image: "tendermint/colordnode"
+    ports:
+      - "26672-26673:26656-26657"
+    environment:
+      - ID=8
+      - LOG=colord.log
+      - COMMAND_ARGS
+      - SUBCOMMAND_ARGS
+    volumes:
+      - ./build:/colord:Z
+    networks:
+      localnet:
+        ipv4_address: 192.165.0.10
 
 networks:
   localnet:
@@ -64,4 +152,5 @@ networks:
       driver: default
       config:
       -
-        subnet: 192.168.10.0/16
+        subnet: 192.165.0.0/24
+

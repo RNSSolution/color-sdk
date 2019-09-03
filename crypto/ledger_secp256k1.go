@@ -7,12 +7,12 @@ import (
 	"github.com/btcsuite/btcd/btcec"
 	"github.com/pkg/errors"
 
-	"github.com/cosmos/cosmos-sdk/crypto/keys/hd"
-	"github.com/cosmos/cosmos-sdk/types"
+	"github.com/RNSSolution/color-sdk/crypto/keys/hd"
+	"github.com/RNSSolution/color-sdk/types"
 
 	tmbtcec "github.com/tendermint/btcd/btcec"
-	tmcrypto "github.com/tendermint/tendermint/crypto"
-	tmsecp256k1 "github.com/tendermint/tendermint/crypto/secp256k1"
+	tmcrypto "github.com/ColorPlatform/prism/crypto"
+	tmsecp256k1 "github.com/ColorPlatform/prism/crypto/secp256k1"
 )
 
 var (

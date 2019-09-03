@@ -5,16 +5,16 @@ import (
 	"io"
 	"sync"
 
-	"github.com/tendermint/iavl"
-	abci "github.com/tendermint/tendermint/abci/types"
-	"github.com/tendermint/tendermint/crypto/merkle"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	dbm "github.com/tendermint/tendermint/libs/db"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	"github.com/ColorPlatform/prism/crypto/merkle"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	dbm "github.com/ColorPlatform/prism/libs/db"
+	"github.com/RNSSolution/iavl"
 
-	"github.com/cosmos/cosmos-sdk/store/cachekv"
-	"github.com/cosmos/cosmos-sdk/store/errors"
-	"github.com/cosmos/cosmos-sdk/store/tracekv"
-	"github.com/cosmos/cosmos-sdk/store/types"
+	"github.com/RNSSolution/color-sdk/store/cachekv"
+	"github.com/RNSSolution/color-sdk/store/errors"
+	"github.com/RNSSolution/color-sdk/store/tracekv"
+	"github.com/RNSSolution/color-sdk/store/types"
 )
 
 const (
@@ -49,7 +49,7 @@ type Store struct {
 	numRecent int64
 
 	// This is the distance between state-sync waypoint states to be stored.
-	// See https://github.com/tendermint/tendermint/issues/828
+	// See https://github.com/ColorPlatform/prism/issues/828
 	// A value of 1 means store every state.
 	// A value of 0 means store no waypoints. (node cannot assist in state-sync)
 	// By default this value should be set the same across all nodes,

@@ -8,16 +8,16 @@ import (
 	"time"
 
 	amino "github.com/tendermint/go-amino"
-	cfg "github.com/tendermint/tendermint/config"
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/libs/common"
-	"github.com/tendermint/tendermint/p2p"
-	"github.com/tendermint/tendermint/privval"
-	"github.com/tendermint/tendermint/types"
+	cfg "github.com/ColorPlatform/prism/config"
+	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/libs/common"
+	"github.com/ColorPlatform/prism/p2p"
+	"github.com/ColorPlatform/prism/privval"
+	"github.com/ColorPlatform/prism/types"
 
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/server"
+	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
+	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/RNSSolution/color-sdk/server"
 )
 
 // ExportGenesisFile creates and writes the genesis configuration to disk. An

@@ -3,22 +3,22 @@ package context
 import (
 	"fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
 
 	"github.com/pkg/errors"
 
 	"strings"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-	"github.com/tendermint/tendermint/crypto/merkle"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	tmliteErr "github.com/tendermint/tendermint/lite/errors"
-	tmliteProxy "github.com/tendermint/tendermint/lite/proxy"
-	rpcclient "github.com/tendermint/tendermint/rpc/client"
-	tmtypes "github.com/tendermint/tendermint/types"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	"github.com/ColorPlatform/prism/crypto/merkle"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	tmliteErr "github.com/ColorPlatform/prism/lite/errors"
+	tmliteProxy "github.com/ColorPlatform/prism/lite/proxy"
+	rpcclient "github.com/ColorPlatform/prism/rpc/client"
+	tmtypes "github.com/ColorPlatform/prism/types"
 
-	"github.com/cosmos/cosmos-sdk/store/rootmulti"
+	"github.com/RNSSolution/color-sdk/store/rootmulti"
 )
 
 // GetNode returns an RPC client. If the context's client is not defined, an

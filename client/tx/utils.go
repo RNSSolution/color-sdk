@@ -6,11 +6,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	ctypes "github.com/tendermint/tendermint/rpc/core/types"
+	"github.com/RNSSolution/color-sdk/client/context"
+	"github.com/RNSSolution/color-sdk/codec"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	ctypes "github.com/ColorPlatform/prism/rpc/core/types"
 )
 
 // SearchTxs performs a search for transactions for a given set of tags via

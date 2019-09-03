@@ -6,14 +6,14 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/tendermint/tendermint/abci/server"
+	"github.com/ColorPlatform/prism/abci/server"
 
-	tcmd "github.com/tendermint/tendermint/cmd/tendermint/commands"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	"github.com/tendermint/tendermint/node"
-	"github.com/tendermint/tendermint/p2p"
-	pvm "github.com/tendermint/tendermint/privval"
-	"github.com/tendermint/tendermint/proxy"
+	tcmd "github.com/ColorPlatform/prism/cmd/prism/commands"
+	cmn "github.com/ColorPlatform/prism/libs/common"
+	"github.com/ColorPlatform/prism/node"
+	"github.com/ColorPlatform/prism/p2p"
+	pvm "github.com/ColorPlatform/prism/privval"
+	"github.com/ColorPlatform/prism/proxy"
 )
 
 // Tendermint full-node start flags
@@ -37,7 +37,7 @@ func StartCmd(ctx *Context, appCreator AppCreator) *cobra.Command {
 				return startStandAlone(ctx, appCreator)
 			}
 
-			ctx.Logger.Info("Starting ABCI with Tendermint")
+			ctx.Logger.Info("Starting ABCI with Prism")
 
 			_, err := startInProcess(ctx, appCreator)
 			return err
@@ -118,7 +118,6 @@ func startInProcess(ctx *Context, appCreator AppCreator) (*node.Node, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	UpgradeOldPrivValFile(cfg)
 	// create & start tendermint node
 	tmNode, err := node.NewNode(
@@ -126,6 +125,7 @@ func startInProcess(ctx *Context, appCreator AppCreator) (*node.Node, error) {
 		pvm.LoadOrGenFilePV(cfg.PrivValidatorKeyFile(), cfg.PrivValidatorStateFile()),
 		nodeKey,
 		proxy.NewLocalClientCreator(app),
+		node.DefaultLeaguesDocProviderFunc(cfg),
 		node.DefaultGenesisDocProviderFunc(cfg),
 		node.DefaultDBProvider,
 		node.DefaultMetricsProvider(cfg.Instrumentation),

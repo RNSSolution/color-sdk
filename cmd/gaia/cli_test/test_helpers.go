@@ -12,20 +12,20 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	cmn "github.com/tendermint/tendermint/libs/common"
+	cmn "github.com/ColorPlatform/prism/libs/common"
 
-	clientkeys "github.com/cosmos/cosmos-sdk/client/keys"
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	appInit "github.com/cosmos/cosmos-sdk/cmd/gaia/init"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/crypto/keys"
-	"github.com/cosmos/cosmos-sdk/server"
-	"github.com/cosmos/cosmos-sdk/tests"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/slashing"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	clientkeys "github.com/RNSSolution/color-sdk/client/keys"
+	"github.com/RNSSolution/color-sdk/cmd/gaia/app"
+	appInit "github.com/RNSSolution/color-sdk/cmd/gaia/init"
+	"github.com/RNSSolution/color-sdk/codec"
+	"github.com/RNSSolution/color-sdk/crypto/keys"
+	"github.com/RNSSolution/color-sdk/server"
+	"github.com/RNSSolution/color-sdk/tests"
+	sdk "github.com/RNSSolution/color-sdk/types"
+	"github.com/RNSSolution/color-sdk/x/auth"
+	"github.com/RNSSolution/color-sdk/x/gov"
+	"github.com/RNSSolution/color-sdk/x/slashing"
+	"github.com/RNSSolution/color-sdk/x/staking"
 )
 
 const (

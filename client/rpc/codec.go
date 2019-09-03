@@ -2,7 +2,7 @@ package rpc
 
 import (
 	amino "github.com/tendermint/go-amino"
-	ctypes "github.com/tendermint/tendermint/rpc/core/types"
+	ctypes "github.com/ColorPlatform/prism/rpc/core/types"
 )
 
 var cdc = amino.NewCodec()

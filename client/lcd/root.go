@@ -11,17 +11,17 @@ import (
 	"github.com/rakyll/statik/fs"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/tendermint/tendermint/libs/log"
-	rpcserver "github.com/tendermint/tendermint/rpc/lib/server"
+	"github.com/ColorPlatform/prism/libs/log"
+	rpcserver "github.com/ColorPlatform/prism/rpc/lib/server"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
-	keybase "github.com/cosmos/cosmos-sdk/crypto/keys"
-	"github.com/cosmos/cosmos-sdk/server"
+	"github.com/RNSSolution/color-sdk/client"
+	"github.com/RNSSolution/color-sdk/client/context"
+	"github.com/RNSSolution/color-sdk/codec"
+	keybase "github.com/RNSSolution/color-sdk/crypto/keys"
+	"github.com/RNSSolution/color-sdk/server"
 
 	// Import statik for light client stuff
-	_ "github.com/cosmos/cosmos-sdk/client/lcd/statik"
+	_ "github.com/RNSSolution/color-sdk/client/lcd/statik"
 )
 
 // RestServer represents the Light Client Rest server
