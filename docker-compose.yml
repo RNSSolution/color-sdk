@@ -6,6 +6,7 @@ services:
     image: "tendermint/colordnode"
     ports:
       - "26656-26657:26656-26657"
+      - "60600:6060"
     environment:
       - ID=0
       - LOG=colord.log
@@ -22,6 +23,7 @@ services:
     image: "tendermint/colordnode"
     ports:
       - "26658-26659:26656-26657"
+      - "60601:6060"
     environment:
       - ID=1
       - LOG=colord.log
@@ -38,6 +40,7 @@ services:
     image: "tendermint/colordnode"
     ports:
       - "26660-26661:26656-26657"
+      - "60602:6060"
     environment:
       - ID=2
       - LOG=colord.log
@@ -54,6 +57,7 @@ services:
     image: "tendermint/colordnode"
     ports:
       - "26662-26663:26656-26657"
+      - "60603:6060"
     environment:
       - ID=3
       - LOG=colord.log
@@ -70,6 +74,7 @@ services:
     image: "tendermint/colordnode"
     ports:
       - "26664-26665:26656-26657"
+      - "60604:6060"
     environment:
       - ID=4
       - LOG=colord.log
@@ -86,6 +91,7 @@ services:
     image: "tendermint/colordnode"
     ports:
       - "26666-26667:26656-26657"
+      - "60605:6060"
     environment:
       - ID=5
       - LOG=colord.log
@@ -102,6 +108,7 @@ services:
     image: "tendermint/colordnode"
     ports:
       - "26668-26669:26656-26657"
+      - "60606:6060"
     environment:
       - ID=6
       - LOG=colord.log
@@ -118,6 +125,7 @@ services:
     image: "tendermint/colordnode"
     ports:
       - "26670-26671:26656-26657"
+      - "60607:6060"
     environment:
       - ID=7
       - LOG=colord.log
@@ -134,6 +142,7 @@ services:
     image: "tendermint/colordnode"
     ports:
       - "26672-26673:26656-26657"
+      - "60608:6060"
     environment:
       - ID=8
       - LOG=colord.log
