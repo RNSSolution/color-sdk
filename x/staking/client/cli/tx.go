@@ -41,6 +41,8 @@ func GetCmdCreateValidator(cdc *codec.Codec) *cobra.Command {
 
 	cmd.Flags().AddFlagSet(FsPk)
 	cmd.Flags().AddFlagSet(FsAmount)
+	cmd.Flags().AddFlagSet(FsLeague)
+	cmd.Flags().AddFlagSet(FsNID)
 	cmd.Flags().AddFlagSet(fsDescriptionCreate)
 	cmd.Flags().AddFlagSet(FsCommissionCreate)
 	cmd.Flags().AddFlagSet(FsMinSelfDelegation)

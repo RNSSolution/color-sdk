@@ -36,6 +36,8 @@ const (
 
 // common flagsets to add to various functions
 var (
+	FsLeague            = flag.NewFlagSet("", flag.ContinueOnError)
+	FsNID               = flag.NewFlagSet("", flag.ContinueOnError)
 	FsPk                = flag.NewFlagSet("", flag.ContinueOnError)
 	FsAmount            = flag.NewFlagSet("", flag.ContinueOnError)
 	fsShares            = flag.NewFlagSet("", flag.ContinueOnError)
@@ -50,6 +52,8 @@ var (
 )
 
 func init() {
+	FsLeague.String(FlagLeague, "", "League number of node")
+	FsNID.String(FlagNode, "", "Node id")
 	FsPk.String(FlagPubKey, "", "The Bech32 encoded PubKey of the validator")
 	FsAmount.String(FlagAmount, "", "Amount of coins to bond")
 	fsShares.String(FlagSharesAmount, "", "Amount of source-shares to either unbond or redelegate as a positive integer or decimal")

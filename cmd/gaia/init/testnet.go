@@ -382,6 +382,8 @@ func collectGenFiles(
 		config.Consensus.CreateEmptyBlocksInterval = 0 * time.Second
 		config.P2P.AddrBookStrict = false
 		config.P2P.AllowDuplicateIP = true
+		//config.P2P.MaxNumInboundPeers = 100
+		config.P2P.MaxNumOutboundPeers = 100
 
 		config.SetRoot(nodeDir)
 
