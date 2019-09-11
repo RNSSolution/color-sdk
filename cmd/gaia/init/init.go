@@ -8,7 +8,6 @@ import (
 
 	cfg "github.com/ColorPlatform/prism/config"
 	"github.com/ColorPlatform/prism/libs/cli"
-	"github.com/ColorPlatform/prism/libs/common"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
@@ -58,7 +57,7 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command { // nolint: 
 
 			chainID := viper.GetString(client.FlagChainID)
 			if chainID == "" {
-				chainID = fmt.Sprintf("colors-test-%v", common.RandStr(6))
+				chainID = fmt.Sprintf("colors-test-01")
 			}
 
 			nodeID, _, err := InitializeNodeValidatorFiles(config)
