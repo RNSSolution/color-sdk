@@ -6,10 +6,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
 	ctypes "github.com/tendermint/tendermint/rpc/core/types"
 )
 

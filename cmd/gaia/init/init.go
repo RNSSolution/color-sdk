@@ -12,10 +12,10 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 	"github.com/tendermint/tendermint/libs/common"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/server"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/server"
 )
 
 const (

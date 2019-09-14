@@ -12,10 +12,10 @@ import (
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 
-	bapp "github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
+	bapp "github.com/ColorPlatform/color-sdk/baseapp"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
 )
 
 const (

@@ -1,6 +1,6 @@
 package gov
 
-import sdk "github.com/cosmos/cosmos-sdk/types"
+import sdk "github.com/ColorPlatform/color-sdk/types"
 
 // expected bank keeper
 type BankKeeper interface {

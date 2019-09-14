@@ -5,7 +5,7 @@ import (
 
 	"github.com/tendermint/tendermint/crypto/ed25519"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 
 	"github.com/stretchr/testify/require"
 )

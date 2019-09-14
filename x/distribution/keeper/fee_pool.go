@@ -1,8 +1,8 @@
 package keeper
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/distribution/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/distribution/types"
 )
 
 // DistributeFeePool distributes funds from the the community pool to a receiver address

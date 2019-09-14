@@ -1,7 +1,7 @@
 package bank
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // expected crisis keeper

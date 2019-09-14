@@ -5,8 +5,8 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // query endpoints supported by the governance Querier

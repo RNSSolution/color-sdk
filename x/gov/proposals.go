@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // Proposal is a struct used by gov module internally

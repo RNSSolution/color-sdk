@@ -13,11 +13,11 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 	"github.com/tendermint/tendermint/types"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/server"
-	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/server"
+	"github.com/ColorPlatform/color-sdk/x/auth"
 )
 
 const (

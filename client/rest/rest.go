@@ -4,14 +4,14 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/utils"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/rest"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/client/utils"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/types/rest"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	authtxb "github.com/ColorPlatform/color-sdk/x/auth/client/txbuilder"
 )
 
 //-----------------------------------------------------------------------------

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/cosmos/cosmos-sdk/x/params"
+	"github.com/ColorPlatform/color-sdk/x/params"
 )
 
 // DefaultParamspace defines the default auth module parameter subspace

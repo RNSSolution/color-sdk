@@ -14,8 +14,8 @@ import (
 	pvm "github.com/tendermint/tendermint/privval"
 	tversion "github.com/tendermint/tendermint/version"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 const (

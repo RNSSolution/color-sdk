@@ -11,18 +11,18 @@ import (
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 
-	bam "github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/crisis"
-	distr "github.com/cosmos/cosmos-sdk/x/distribution"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/mint"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/slashing"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	bam "github.com/ColorPlatform/color-sdk/baseapp"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/x/bank"
+	"github.com/ColorPlatform/color-sdk/x/crisis"
+	distr "github.com/ColorPlatform/color-sdk/x/distribution"
+	"github.com/ColorPlatform/color-sdk/x/gov"
+	"github.com/ColorPlatform/color-sdk/x/mint"
+	"github.com/ColorPlatform/color-sdk/x/params"
+	"github.com/ColorPlatform/color-sdk/x/slashing"
+	"github.com/ColorPlatform/color-sdk/x/staking"
 )
 
 const (
@@ -316,7 +316,7 @@ func (app *GaiaApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci
 	var genesisState GenesisState
 	err := app.cdc.UnmarshalJSON(stateJSON, &genesisState)
 	if err != nil {
-		panic(err) // TODO https://github.com/cosmos/cosmos-sdk/issues/468
+		panic(err) // TODO https://github.com/ColorPlatform/color-sdk/issues/468
 		// return sdk.ErrGenesisParse("").TraceCause(err, "")
 	}
 

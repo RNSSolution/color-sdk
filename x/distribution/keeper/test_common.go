@@ -11,15 +11,15 @@ import (
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/store"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/store"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/x/bank"
+	"github.com/ColorPlatform/color-sdk/x/params"
+	"github.com/ColorPlatform/color-sdk/x/staking"
 
-	"github.com/cosmos/cosmos-sdk/x/distribution/types"
+	"github.com/ColorPlatform/color-sdk/x/distribution/types"
 )
 
 var (

@@ -8,9 +8,9 @@ import (
 	tmcrypto "github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/crypto/encoding/amino"
 
-	"github.com/cosmos/cosmos-sdk/crypto/keys/hd"
-	"github.com/cosmos/cosmos-sdk/tests"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/ColorPlatform/color-sdk/crypto/keys/hd"
+	"github.com/ColorPlatform/color-sdk/tests"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 func TestLedgerErrorHandling(t *testing.T) {

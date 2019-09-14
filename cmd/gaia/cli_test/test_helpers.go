@@ -14,18 +14,18 @@ import (
 
 	cmn "github.com/tendermint/tendermint/libs/common"
 
-	clientkeys "github.com/cosmos/cosmos-sdk/client/keys"
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	appInit "github.com/cosmos/cosmos-sdk/cmd/gaia/init"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/crypto/keys"
-	"github.com/cosmos/cosmos-sdk/server"
-	"github.com/cosmos/cosmos-sdk/tests"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/slashing"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	clientkeys "github.com/ColorPlatform/color-sdk/client/keys"
+	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	appInit "github.com/ColorPlatform/color-sdk/cmd/gaia/init"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/crypto/keys"
+	"github.com/ColorPlatform/color-sdk/server"
+	"github.com/ColorPlatform/color-sdk/tests"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/x/gov"
+	"github.com/ColorPlatform/color-sdk/x/slashing"
+	"github.com/ColorPlatform/color-sdk/x/staking"
 )
 
 const (

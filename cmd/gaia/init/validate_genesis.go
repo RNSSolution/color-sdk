@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/server"
+	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/server"
 	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/types"
 )

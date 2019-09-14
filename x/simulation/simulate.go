@@ -13,8 +13,8 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/ColorPlatform/color-sdk/baseapp"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 // AppStateFn returns the app state json bytes, the genesis accounts, and the chain identifier

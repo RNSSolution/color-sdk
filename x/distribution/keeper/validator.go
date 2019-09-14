@@ -1,9 +1,9 @@
 package keeper
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 
-	"github.com/cosmos/cosmos-sdk/x/distribution/types"
+	"github.com/ColorPlatform/color-sdk/x/distribution/types"
 )
 
 // initialize rewards for a new validator

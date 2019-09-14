@@ -20,8 +20,8 @@ them to build `App3`, our shortest app yet. The complete code can be found in
 [app3.go](examples/app3.go), and at the end of this section.
 
 For more details, see the
-[x/auth](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth) and
-[x/bank](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank) API documentation.
+[x/auth](https://godoc.org/github.com/ColorPlatform/color-sdk/x/auth) and
+[x/bank](https://godoc.org/github.com/ColorPlatform/color-sdk/x/bank) API documentation.
 
 ## Accounts
 
@@ -123,7 +123,7 @@ Also note that you must explicitly call `SetAccount` after mutating an account
 for the change to persist!
 
 See the [AccountKeeper API
-docs](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth#AccountKeeper) for more information.
+docs](https://godoc.org/github.com/ColorPlatform/color-sdk/x/auth#AccountKeeper) for more information.
 
 ## StdTx
 
@@ -297,13 +297,13 @@ app.bankKeeper.AddCoins(ctx, addr, coins)
 ```
 
 See the [bank.Keeper API
-docs](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#Keeper) for the full set of methods.
+docs](https://godoc.org/github.com/ColorPlatform/color-sdk/x/bank#Keeper) for the full set of methods.
 
 Note we can refine the `bank.Keeper` by restricting it's method set. For
 instance, the
-[bank.ViewKeeper](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#ViewKeeper)
+[bank.ViewKeeper](https://godoc.org/github.com/ColorPlatform/color-sdk/x/bank#ViewKeeper)
 is a read-only version, while the
-[bank.SendKeeper](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#SendKeeper)
+[bank.SendKeeper](https://godoc.org/github.com/ColorPlatform/color-sdk/x/bank#SendKeeper)
 only executes transfers of coins from input accounts to output
 accounts.
 
@@ -356,7 +356,7 @@ func NewApp3(logger log.Logger, db dbm.DB) *bapp.BaseApp {
 
 Note we use `bank.NewHandler`, which handles only `bank.MsgSend`,
 and receives only the `bank.Keeper`. See the
-[x/bank API docs](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank)
+[x/bank API docs](https://godoc.org/github.com/ColorPlatform/color-sdk/x/bank)
 for more details.
 
 We also use the default txDecoder in `x/auth`, which decodes amino-encoded

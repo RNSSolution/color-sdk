@@ -3,9 +3,9 @@ package params
 import (
 	"testing"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 
-	"github.com/cosmos/cosmos-sdk/x/params/subspace"
+	"github.com/ColorPlatform/color-sdk/x/params/subspace"
 )
 
 // re-export types from subspace

@@ -3,11 +3,11 @@ package utils
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/tx"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/gov/tags"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/client/tx"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/x/gov"
+	"github.com/ColorPlatform/color-sdk/x/gov/tags"
 )
 
 const (

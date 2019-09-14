@@ -8,8 +8,8 @@ import (
 	"github.com/tendermint/tendermint/crypto/merkle"
 	dbm "github.com/tendermint/tendermint/libs/db"
 
-	"github.com/cosmos/cosmos-sdk/store/errors"
-	"github.com/cosmos/cosmos-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/errors"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 const useDebugDB = false

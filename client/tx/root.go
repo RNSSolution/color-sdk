@@ -3,8 +3,8 @@ package tx
 import (
 	"github.com/gorilla/mux"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/codec"
 )
 
 // register REST routes

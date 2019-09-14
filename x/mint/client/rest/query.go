@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/types/rest"
-	"github.com/cosmos/cosmos-sdk/x/mint"
+	"github.com/ColorPlatform/color-sdk/client/context"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/types/rest"
+	"github.com/ColorPlatform/color-sdk/x/mint"
 	"github.com/gorilla/mux"
 )
 
@@ -58,7 +58,7 @@ func queryInflationHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.H
 
 func queryAnnualProvisionsHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		route := fmt.Sprintf("custom/%s/%s", mint.QuerierRoute, mint.QueryAnnualProvisions)
+		route := fmt.Sprintf("custom/%s/%s", mint.QuerierRoute, mint.QueryWeeklyProvisions)
 
 		res, err := cliCtx.QueryWithData(route, nil)
 		if err != nil {

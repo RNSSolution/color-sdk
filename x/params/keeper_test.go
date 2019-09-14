@@ -10,10 +10,10 @@ import (
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/store"
-	"github.com/cosmos/cosmos-sdk/store/prefix"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/ColorPlatform/color-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/store"
+	"github.com/ColorPlatform/color-sdk/store/prefix"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
 func defaultContext(key sdk.StoreKey, tkey sdk.StoreKey) sdk.Context {

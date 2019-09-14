@@ -3,8 +3,8 @@ package mint
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/ColorPlatform/color-sdk/codec"
+	sdk "github.com/ColorPlatform/color-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
@@ -12,7 +12,7 @@ import (
 const (
 	QueryParameters       = "parameters"
 	QueryInflation        = "inflation"
-	QueryAnnualProvisions = "annual_provisions"
+	QueryWeeklyProvisions = "weekly_provisions"
 )
 
 // NewQuerier returns a minting Querier handler.
@@ -25,8 +25,8 @@ func NewQuerier(k Keeper) sdk.Querier {
 		case QueryInflation:
 			return queryInflation(ctx, k)
 
-		case QueryAnnualProvisions:
-			return queryAnnualProvisions(ctx, k)
+		case QueryWeeklyProvisions:
+			return queryWeeklyProvisions(ctx, k)
 
 		default:
 			return nil, sdk.ErrUnknownRequest(fmt.Sprintf("unknown minting query endpoint: %s", path[0]))
@@ -48,7 +48,7 @@ func queryParams(ctx sdk.Context, k Keeper) ([]byte, sdk.Error) {
 func queryInflation(ctx sdk.Context, k Keeper) ([]byte, sdk.Error) {
 	minter := k.GetMinter(ctx)
 
-	res, err := codec.MarshalJSONIndent(k.cdc, minter.Inflation)
+	res, err := codec.MarshalJSONIndent(k.cdc, minter.Deflation)
 	if err != nil {
 		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("failed to marshal JSON", err.Error()))
 	}
@@ -56,10 +56,10 @@ func queryInflation(ctx sdk.Context, k Keeper) ([]byte, sdk.Error) {
 	return res, nil
 }
 
-func queryAnnualProvisions(ctx sdk.Context, k Keeper) ([]byte, sdk.Error) {
+func queryWeeklyProvisions(ctx sdk.Context, k Keeper) ([]byte, sdk.Error) {
 	minter := k.GetMinter(ctx)
 
-	res, err := codec.MarshalJSONIndent(k.cdc, minter.AnnualProvisions)
+	res, err := codec.MarshalJSONIndent(k.cdc, minter.WeeklyProvisions)
 	if err != nil {
 		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("failed to marshal JSON", err.Error()))
 	}

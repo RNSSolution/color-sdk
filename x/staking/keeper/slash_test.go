@@ -8,8 +8,8 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/staking/types"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/staking/types"
 )
 
 // TODO integrate with test_common.go helper (CreateTestInput)
@@ -293,7 +293,7 @@ func TestSlashWithUnbondingDelegation(t *testing.T) {
 	// slash validator again
 	// all originally bonded stake has been slashed, so this will have no effect
 	// on the unbonding delegation, but it will slash stake bonded since the infraction
-	// this may not be the desirable behaviour, ref https://github.com/cosmos/cosmos-sdk/issues/1440
+	// this may not be the desirable behaviour, ref https://github.com/ColorPlatform/color-sdk/issues/1440
 	ctx = ctx.WithBlockHeight(13)
 	keeper.Slash(ctx, consAddr, 9, 10, fraction)
 	ubd, found = keeper.GetUnbondingDelegation(ctx, addrDels[0], addrVals[0])
@@ -314,7 +314,7 @@ func TestSlashWithUnbondingDelegation(t *testing.T) {
 	// slash validator again
 	// all originally bonded stake has been slashed, so this will have no effect
 	// on the unbonding delegation, but it will slash stake bonded since the infraction
-	// this may not be the desirable behaviour, ref https://github.com/cosmos/cosmos-sdk/issues/1440
+	// this may not be the desirable behaviour, ref https://github.com/ColorPlatform/color-sdk/issues/1440
 	ctx = ctx.WithBlockHeight(13)
 	keeper.Slash(ctx, consAddr, 9, 10, fraction)
 	ubd, found = keeper.GetUnbondingDelegation(ctx, addrDels[0], addrVals[0])

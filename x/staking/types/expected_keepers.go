@@ -1,6 +1,6 @@
 package types
 
-import sdk "github.com/cosmos/cosmos-sdk/types"
+import sdk "github.com/ColorPlatform/color-sdk/types"
 
 // expected coin keeper
 type DistributionKeeper interface {

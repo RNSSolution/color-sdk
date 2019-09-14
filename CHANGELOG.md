@@ -24,20 +24,20 @@ unbonding period has elapsed regardless of the validator's status.
 
 #### SDK
 
-* [\#4273](https://github.com/cosmos/cosmos-sdk/issues/4273) Fix usage of `AppendTags` in x/staking/handler.go
+* [\#4273](https://github.com/ColorPlatform/color-sdk/issues/4273) Fix usage of `AppendTags` in x/staking/handler.go
 
 ### Improvements
 
 ### SDK
 
-* [\#2286](https://github.com/cosmos/cosmos-sdk/issues/2286) Improve performance of `CacheKVStore` iterator.
-* [\#3655](https://github.com/cosmos/cosmos-sdk/issues/3655) Improve signature verification failure error message.
-* [\#4384](https://github.com/cosmos/cosmos-sdk/issues/4384) Allow splitting withdrawal transaction in several chunks.
+* [\#2286](https://github.com/ColorPlatform/color-sdk/issues/2286) Improve performance of `CacheKVStore` iterator.
+* [\#3655](https://github.com/ColorPlatform/color-sdk/issues/3655) Improve signature verification failure error message.
+* [\#4384](https://github.com/ColorPlatform/color-sdk/issues/4384) Allow splitting withdrawal transaction in several chunks.
 
 #### Gaia CLI
 
-* [\#4227](https://github.com/cosmos/cosmos-sdk/issues/4227) Support for Ledger App v1.5.
-* [#4345](https://github.com/cosmos/cosmos-sdk/pull/4345) Update `ledger-cosmos-go`
+* [\#4227](https://github.com/ColorPlatform/color-sdk/issues/4227) Support for Ledger App v1.5.
+* [#4345](https://github.com/ColorPlatform/color-sdk/pull/4345) Update `ledger-cosmos-go`
 to v0.10.3.
 
 ## 0.34.4
@@ -46,24 +46,24 @@ to v0.10.3.
 
 #### SDK
 
-* [#4234](https://github.com/cosmos/cosmos-sdk/pull/4234) Allow `tx send --generate-only` to
+* [#4234](https://github.com/ColorPlatform/color-sdk/pull/4234) Allow `tx send --generate-only` to
 actually work offline.
 
 #### Gaia
 
-* [\#4219](https://github.com/cosmos/cosmos-sdk/issues/4219) Return an error when an empty mnemonic is provided during key recovery.
+* [\#4219](https://github.com/ColorPlatform/color-sdk/issues/4219) Return an error when an empty mnemonic is provided during key recovery.
 
 ### Improvements
 
 #### Gaia
 
-* [\#2007](https://github.com/cosmos/cosmos-sdk/issues/2007) Return 200 status code on empty results
+* [\#2007](https://github.com/ColorPlatform/color-sdk/issues/2007) Return 200 status code on empty results
 
 ### New features
 
 #### SDK
 
-* [\#3850](https://github.com/cosmos/cosmos-sdk/issues/3850) Add `rewards` and `commission` to distribution tx tags.
+* [\#3850](https://github.com/ColorPlatform/color-sdk/issues/3850) Add `rewards` and `commission` to distribution tx tags.
 
 ## 0.34.3
 
@@ -71,7 +71,7 @@ actually work offline.
 
 #### Gaia
 
-* [\#4196](https://github.com/cosmos/cosmos-sdk/pull/4196) Set default invariant
+* [\#4196](https://github.com/ColorPlatform/color-sdk/pull/4196) Set default invariant
 check period to zero.
 
 ## 0.34.2
@@ -80,17 +80,17 @@ check period to zero.
 
 #### SDK
 
-* [\#4135](https://github.com/cosmos/cosmos-sdk/pull/4135) Add further clarification
+* [\#4135](https://github.com/ColorPlatform/color-sdk/pull/4135) Add further clarification
 to generate only usage.
 
 ### Bug Fixes
 
 #### SDK
 
-* [\#4135](https://github.com/cosmos/cosmos-sdk/pull/4135) Fix `NewResponseFormatBroadcastTxCommit`
-* [\#4053](https://github.com/cosmos/cosmos-sdk/issues/4053) Add `--inv-check-period`
+* [\#4135](https://github.com/ColorPlatform/color-sdk/pull/4135) Fix `NewResponseFormatBroadcastTxCommit`
+* [\#4053](https://github.com/ColorPlatform/color-sdk/issues/4053) Add `--inv-check-period`
 flag to gaiad to set period at which invariants checks will run.
-* [\#4099](https://github.com/cosmos/cosmos-sdk/issues/4099) Update the /staking/validators endpoint to support
+* [\#4099](https://github.com/ColorPlatform/color-sdk/issues/4099) Update the /staking/validators endpoint to support
 status and pagination query flags.
 
 ## 0.34.1
@@ -99,7 +99,7 @@ status and pagination query flags.
 
 #### Gaia
 
-* [#4163](https://github.com/cosmos/cosmos-sdk/pull/4163) Fix v0.33.x export script to port gov data correctly.
+* [#4163](https://github.com/ColorPlatform/color-sdk/pull/4163) Fix v0.33.x export script to port gov data correctly.
 
 ## 0.34.0
 
@@ -107,120 +107,120 @@ status and pagination query flags.
 
 #### Gaia
 
-* [\#3463](https://github.com/cosmos/cosmos-sdk/issues/3463) Revert bank module handler fork (re-enables transfers)
-* [\#3875](https://github.com/cosmos/cosmos-sdk/issues/3875) Replace `async` flag with `--broadcast-mode` flag where the default
+* [\#3463](https://github.com/ColorPlatform/color-sdk/issues/3463) Revert bank module handler fork (re-enables transfers)
+* [\#3875](https://github.com/ColorPlatform/color-sdk/issues/3875) Replace `async` flag with `--broadcast-mode` flag where the default
   value is `sync`. The `block` mode should not be used. The REST client now
   uses `mode` parameter instead of the `return` parameter.
 
 #### Gaia CLI
 
-* [\#3938](https://github.com/cosmos/cosmos-sdk/issues/3938) Remove REST server's SSL support altogether.
+* [\#3938](https://github.com/ColorPlatform/color-sdk/issues/3938) Remove REST server's SSL support altogether.
 
 #### SDK
 
-* [\#3245](https://github.com/cosmos/cosmos-sdk/issues/3245) Rename validator.GetJailed() to validator.IsJailed()
-* [\#3516](https://github.com/cosmos/cosmos-sdk/issues/3516) Remove concept of shares from staking unbonding and redelegation UX;
+* [\#3245](https://github.com/ColorPlatform/color-sdk/issues/3245) Rename validator.GetJailed() to validator.IsJailed()
+* [\#3516](https://github.com/ColorPlatform/color-sdk/issues/3516) Remove concept of shares from staking unbonding and redelegation UX;
   replaced by direct coin amount.
 
 #### Tendermint
 
-* [\#4029](https://github.com/cosmos/cosmos-sdk/issues/4029) Upgrade Tendermint to v0.31.3
+* [\#4029](https://github.com/ColorPlatform/color-sdk/issues/4029) Upgrade Tendermint to v0.31.3
 
 ### New features
 
 #### SDK
 
-* [\#2935](https://github.com/cosmos/cosmos-sdk/issues/2935) New module Crisis which can test broken invariant with messages
-* [\#3813](https://github.com/cosmos/cosmos-sdk/issues/3813) New sdk.NewCoins safe constructor to replace bare sdk.Coins{} declarations.
-* [\#3858](https://github.com/cosmos/cosmos-sdk/issues/3858) add website, details and identity to gentx cli command
+* [\#2935](https://github.com/ColorPlatform/color-sdk/issues/2935) New module Crisis which can test broken invariant with messages
+* [\#3813](https://github.com/ColorPlatform/color-sdk/issues/3813) New sdk.NewCoins safe constructor to replace bare sdk.Coins{} declarations.
+* [\#3858](https://github.com/ColorPlatform/color-sdk/issues/3858) add website, details and identity to gentx cli command
 * Implement coin conversion and denomination registration utilities
 
 #### Gaia
 
-* [\#2935](https://github.com/cosmos/cosmos-sdk/issues/2935) Optionally assert invariants on a blockly basis using `gaiad --assert-invariants-blockly`
-* [\#3886](https://github.com/cosmos/cosmos-sdk/issues/3886) Implement minting module querier and CLI/REST clients.
+* [\#2935](https://github.com/ColorPlatform/color-sdk/issues/2935) Optionally assert invariants on a blockly basis using `gaiad --assert-invariants-blockly`
+* [\#3886](https://github.com/ColorPlatform/color-sdk/issues/3886) Implement minting module querier and CLI/REST clients.
 
 #### Gaia CLI
 
-* [\#3937](https://github.com/cosmos/cosmos-sdk/issues/3937) Add command to query community-pool
+* [\#3937](https://github.com/ColorPlatform/color-sdk/issues/3937) Add command to query community-pool
 
 #### Gaia REST API
 
-* [\#3937](https://github.com/cosmos/cosmos-sdk/issues/3937) Add route to fetch community-pool
-* [\#3949](https://github.com/cosmos/cosmos-sdk/issues/3949) added /slashing/signing_infos to get signing_info for all validators
+* [\#3937](https://github.com/ColorPlatform/color-sdk/issues/3937) Add route to fetch community-pool
+* [\#3949](https://github.com/ColorPlatform/color-sdk/issues/3949) added /slashing/signing_infos to get signing_info for all validators
 
 ### Improvements
 
 #### Gaia
 
-* [\#3808](https://github.com/cosmos/cosmos-sdk/issues/3808) `gaiad` and `gaiacli` integration tests use ./build/ binaries.
-* \[\#3819](https://github.com/cosmos/cosmos-sdk/issues/3819) Simulation refactor, log output now stored in ~/.gaiad/simulation/
+* [\#3808](https://github.com/ColorPlatform/color-sdk/issues/3808) `gaiad` and `gaiacli` integration tests use ./build/ binaries.
+* \[\#3819](https://github.com/ColorPlatform/color-sdk/issues/3819) Simulation refactor, log output now stored in ~/.gaiad/simulation/
   * Simulation moved to its own module (not a part of mock)
   * Logger type instead of passing function variables everywhere
   * Logger json output (for reloadable simulation running)
   * Cleanup bank simulation messages / remove dup code in bank simulation
   * Simulations saved in `~/.gaiad/simulations/`
   * "Lean" simulation output option to exclude No-ops and !ok functions (`--SimulationLean` flag)
-* [\#3893](https://github.com/cosmos/cosmos-sdk/issues/3893) Improve `gaiacli tx sign` command
+* [\#3893](https://github.com/ColorPlatform/color-sdk/issues/3893) Improve `gaiacli tx sign` command
   * Add shorthand flags -a and -s for the account and sequence numbers respectively
   * Mark the account and sequence numbers required during "offline" mode
   * Always do an RPC query for account and sequence number during "online" mode
-* [\#4018](https://github.com/cosmos/cosmos-sdk/issues/4018) create genesis port script for release v.0.34.0
+* [\#4018](https://github.com/ColorPlatform/color-sdk/issues/4018) create genesis port script for release v.0.34.0
 
 #### Gaia CLI
 
-* [\#3833](https://github.com/cosmos/cosmos-sdk/issues/3833) Modify stake to atom in gaia's doc.
-* [\#3841](https://github.com/cosmos/cosmos-sdk/issues/3841) Add indent to JSON of `gaiacli keys [add|show|list]`
-* [\#3859](https://github.com/cosmos/cosmos-sdk/issues/3859) Add newline to echo of `gaiacli keys ...`
-* [\#3959](https://github.com/cosmos/cosmos-sdk/issues/3959) Improving error messages when signing with ledger devices fails
+* [\#3833](https://github.com/ColorPlatform/color-sdk/issues/3833) Modify stake to atom in gaia's doc.
+* [\#3841](https://github.com/ColorPlatform/color-sdk/issues/3841) Add indent to JSON of `gaiacli keys [add|show|list]`
+* [\#3859](https://github.com/ColorPlatform/color-sdk/issues/3859) Add newline to echo of `gaiacli keys ...`
+* [\#3959](https://github.com/ColorPlatform/color-sdk/issues/3959) Improving error messages when signing with ledger devices fails
 
 #### SDK
 
-* [\#3238](https://github.com/cosmos/cosmos-sdk/issues/3238) Add block time to tx responses when querying for
+* [\#3238](https://github.com/ColorPlatform/color-sdk/issues/3238) Add block time to tx responses when querying for
   txs by tags or hash.
-* \[\#3752](https://github.com/cosmos/cosmos-sdk/issues/3752) Explanatory docs for minting mechanism (`docs/spec/mint/01_concepts.md`)
-* [\#3801](https://github.com/cosmos/cosmos-sdk/issues/3801) `baseapp` safety improvements
-* [\#3820](https://github.com/cosmos/cosmos-sdk/issues/3820) Make Coins.IsAllGT() more robust and consistent.
-* [\#3828](https://github.com/cosmos/cosmos-sdk/issues/3828) New sdkch tool to maintain changelogs
-* [\#3864](https://github.com/cosmos/cosmos-sdk/issues/3864) Make Coins.IsAllGTE() more consistent.
-* [\#3907](https://github.com/cosmos/cosmos-sdk/issues/3907): dep -> go mod migration
+* \[\#3752](https://github.com/ColorPlatform/color-sdk/issues/3752) Explanatory docs for minting mechanism (`docs/spec/mint/01_concepts.md`)
+* [\#3801](https://github.com/ColorPlatform/color-sdk/issues/3801) `baseapp` safety improvements
+* [\#3820](https://github.com/ColorPlatform/color-sdk/issues/3820) Make Coins.IsAllGT() more robust and consistent.
+* [\#3828](https://github.com/ColorPlatform/color-sdk/issues/3828) New sdkch tool to maintain changelogs
+* [\#3864](https://github.com/ColorPlatform/color-sdk/issues/3864) Make Coins.IsAllGTE() more consistent.
+* [\#3907](https://github.com/ColorPlatform/color-sdk/issues/3907): dep -> go mod migration
   * Drop dep in favor of go modules.
   * Upgrade to Go 1.12.1.
-* [\#3917](https://github.com/cosmos/cosmos-sdk/issues/3917) Allow arbitrary decreases to validator commission rates.
-* [\#3937](https://github.com/cosmos/cosmos-sdk/issues/3937) Implement community pool querier.
-* [\#3940](https://github.com/cosmos/cosmos-sdk/issues/3940) Codespace should be lowercase.
-* [\#3986](https://github.com/cosmos/cosmos-sdk/issues/3986) Update the Stringer implementation of the Proposal type.
-* [\#926](https://github.com/cosmos/cosmos-sdk/issues/926) circuit breaker high level explanation
-* [\#3896](https://github.com/cosmos/cosmos-sdk/issues/3896) Fixed various linters warnings in the context of the gometalinter -> golangci-lint migration
-* [\#3916](https://github.com/cosmos/cosmos-sdk/issues/3916) Hex encode data in tx responses
+* [\#3917](https://github.com/ColorPlatform/color-sdk/issues/3917) Allow arbitrary decreases to validator commission rates.
+* [\#3937](https://github.com/ColorPlatform/color-sdk/issues/3937) Implement community pool querier.
+* [\#3940](https://github.com/ColorPlatform/color-sdk/issues/3940) Codespace should be lowercase.
+* [\#3986](https://github.com/ColorPlatform/color-sdk/issues/3986) Update the Stringer implementation of the Proposal type.
+* [\#926](https://github.com/ColorPlatform/color-sdk/issues/926) circuit breaker high level explanation
+* [\#3896](https://github.com/ColorPlatform/color-sdk/issues/3896) Fixed various linters warnings in the context of the gometalinter -> golangci-lint migration
+* [\#3916](https://github.com/ColorPlatform/color-sdk/issues/3916) Hex encode data in tx responses
 
 ### Bug Fixes
 
 #### Gaia
 
-* [\#3825](https://github.com/cosmos/cosmos-sdk/issues/3825) Validate genesis before running gentx
-* [\#3889](https://github.com/cosmos/cosmos-sdk/issues/3889) When `--generate-only` is provided, the Keybase is not used and as a result
+* [\#3825](https://github.com/ColorPlatform/color-sdk/issues/3825) Validate genesis before running gentx
+* [\#3889](https://github.com/ColorPlatform/color-sdk/issues/3889) When `--generate-only` is provided, the Keybase is not used and as a result
   the `--from` value must be a valid Bech32 cosmos address.
 * 3974 Fix go env setting in installation.md
 * 3996 Change 'make get_tools' to 'make tools' in DOCS_README.md.
 
 #### Gaia CLI
 
-* [\#3883](https://github.com/cosmos/cosmos-sdk/issues/3883) Remove Height Flag from CLI Queries
-* [\#3899](https://github.com/cosmos/cosmos-sdk/issues/3899) Using 'gaiacli config node' breaks ~/config/config.toml
+* [\#3883](https://github.com/ColorPlatform/color-sdk/issues/3883) Remove Height Flag from CLI Queries
+* [\#3899](https://github.com/ColorPlatform/color-sdk/issues/3899) Using 'gaiacli config node' breaks ~/config/config.toml
 
 #### SDK
 
-* [\#3837](https://github.com/cosmos/cosmos-sdk/issues/3837) Fix `WithdrawValidatorCommission` to properly set the validator's remaining commission.
-* [\#3870](https://github.com/cosmos/cosmos-sdk/issues/3870) Fix DecCoins#TruncateDecimal to never return zero coins in
+* [\#3837](https://github.com/ColorPlatform/color-sdk/issues/3837) Fix `WithdrawValidatorCommission` to properly set the validator's remaining commission.
+* [\#3870](https://github.com/ColorPlatform/color-sdk/issues/3870) Fix DecCoins#TruncateDecimal to never return zero coins in
   either the truncated coins or the change coins.
-* [\#3915](https://github.com/cosmos/cosmos-sdk/issues/3915) Remove ';' delimiting support from ParseDecCoins
-* [\#3977](https://github.com/cosmos/cosmos-sdk/issues/3977) Fix docker image build
-* [\#4020](https://github.com/cosmos/cosmos-sdk/issues/4020) Fix queryDelegationRewards by returning an error
+* [\#3915](https://github.com/ColorPlatform/color-sdk/issues/3915) Remove ';' delimiting support from ParseDecCoins
+* [\#3977](https://github.com/ColorPlatform/color-sdk/issues/3977) Fix docker image build
+* [\#4020](https://github.com/ColorPlatform/color-sdk/issues/4020) Fix queryDelegationRewards by returning an error
 when the validator or delegation do not exist.
-* [\#4050](https://github.com/cosmos/cosmos-sdk/issues/4050) Fix DecCoins APIs
+* [\#4050](https://github.com/ColorPlatform/color-sdk/issues/4050) Fix DecCoins APIs
 where rounding or truncation could result in zero decimal coins.
-* [\#4088](https://github.com/cosmos/cosmos-sdk/issues/4088) Fix `calculateDelegationRewards`
+* [\#4088](https://github.com/ColorPlatform/color-sdk/issues/4088) Fix `calculateDelegationRewards`
 by accounting for rounding errors when multiplying stake by slashing fractions.
 
 ## 0.33.2
@@ -237,46 +237,46 @@ by accounting for rounding errors when multiplying stake by slashing fractions.
 
 #### Gaia
 
-* [\#3999](https://github.com/cosmos/cosmos-sdk/pull/3999) Fix distribution delegation for zero height export bug
+* [\#3999](https://github.com/ColorPlatform/color-sdk/pull/3999) Fix distribution delegation for zero height export bug
 
 ## 0.33.0
 
 BREAKING CHANGES
 
 * Gaia REST API
-  * [\#3641](https://github.com/cosmos/cosmos-sdk/pull/3641) Remove the ability to use a Keybase from the REST API client:
+  * [\#3641](https://github.com/ColorPlatform/color-sdk/pull/3641) Remove the ability to use a Keybase from the REST API client:
     * `password` and `generate_only` have been removed from the `base_req` object
     * All txs that used to sign or use the Keybase now only generate the tx
     * `keys` routes completely removed
-  * [\#3692](https://github.com/cosmos/cosmos-sdk/pull/3692) Update tx encoding and broadcasting endpoints:
+  * [\#3692](https://github.com/ColorPlatform/color-sdk/pull/3692) Update tx encoding and broadcasting endpoints:
     * Remove duplicate broadcasting endpoints in favor of POST @ `/txs`
       * The `Tx` field now accepts a `StdTx` and not raw tx bytes
     * Move encoding endpoint to `/txs/encode`
 
 * Gaia
-  * [\#3787](https://github.com/cosmos/cosmos-sdk/pull/3787) Fork the `x/bank` module into the Gaia application with only a
+  * [\#3787](https://github.com/ColorPlatform/color-sdk/pull/3787) Fork the `x/bank` module into the Gaia application with only a
   modified message handler, where the modified message handler behaves the same as
   the standard `x/bank` message handler except for `MsgMultiSend` that must burn
   exactly 9 atoms and transfer 1 atom, and `MsgSend` is disabled.
-  * [\#3789](https://github.com/cosmos/cosmos-sdk/pull/3789) Update validator creation flow:
+  * [\#3789](https://github.com/ColorPlatform/color-sdk/pull/3789) Update validator creation flow:
     * Remove `NewMsgCreateValidatorOnBehalfOf` and corresponding business logic
     * Ensure the validator address equals the delegator address during
     `MsgCreateValidator#ValidateBasic`
 
 * SDK
-  * [\#3750](https://github.com/cosmos/cosmos-sdk/issues/3750) Track outstanding rewards per-validator instead of globally,
+  * [\#3750](https://github.com/ColorPlatform/color-sdk/issues/3750) Track outstanding rewards per-validator instead of globally,
            and fix the main simulation issue, which was that slashes of
            re-delegations to a validator were not correctly accounted for
            in fee distribution when the redelegation in question had itself
             been slashed (from a fault committed by a different validator)
            in the same BeginBlock. Outstanding rewards are now available
            on a per-validator basis in REST.
-  * [\#3669](https://github.com/cosmos/cosmos-sdk/pull/3669) Ensure consistency in message naming, codec registration, and JSON
+  * [\#3669](https://github.com/ColorPlatform/color-sdk/pull/3669) Ensure consistency in message naming, codec registration, and JSON
   tags.
-  * [\#3788](https://github.com/cosmos/cosmos-sdk/pull/3788) Change order of operations for greater accuracy when calculating delegation share token value
-  * [\#3788](https://github.com/cosmos/cosmos-sdk/pull/3788) DecCoins.Cap -> DecCoins.Intersect
-  * [\#3666](https://github.com/cosmos/cosmos-sdk/pull/3666) Improve coins denom validation.
-  * [\#3751](https://github.com/cosmos/cosmos-sdk/pull/3751) Disable (temporarily) support for ED25519 account key pairs.
+  * [\#3788](https://github.com/ColorPlatform/color-sdk/pull/3788) Change order of operations for greater accuracy when calculating delegation share token value
+  * [\#3788](https://github.com/ColorPlatform/color-sdk/pull/3788) DecCoins.Cap -> DecCoins.Intersect
+  * [\#3666](https://github.com/ColorPlatform/color-sdk/pull/3666) Improve coins denom validation.
+  * [\#3751](https://github.com/ColorPlatform/color-sdk/pull/3751) Disable (temporarily) support for ED25519 account key pairs.
 
 * Tendermint
   * [\#3804] Update to Tendermint `v0.31.0-dev0`
@@ -284,7 +284,7 @@ BREAKING CHANGES
 FEATURES
 
 * SDK
-  * [\#3719](https://github.com/cosmos/cosmos-sdk/issues/3719) DBBackend can now be set at compile time.
+  * [\#3719](https://github.com/ColorPlatform/color-sdk/issues/3719) DBBackend can now be set at compile time.
     Defaults: goleveldb. Supported: cleveldb.
 
 IMPROVEMENTS
@@ -293,95 +293,95 @@ IMPROVEMENTS
   * Update the `TxResponse` type allowing for the `Logs` result to be JSON decoded automatically.
 
 * Gaia CLI
-  * [\#3653](https://github.com/cosmos/cosmos-sdk/pull/3653) Prompt user confirmation prior to signing and broadcasting a transaction.
-  * [\#3670](https://github.com/cosmos/cosmos-sdk/pull/3670) CLI support for showing bech32 addresses in Ledger devices
-  * [\#3711](https://github.com/cosmos/cosmos-sdk/pull/3711) Update `tx sign` to use `--from` instead of the deprecated `--name`
+  * [\#3653](https://github.com/ColorPlatform/color-sdk/pull/3653) Prompt user confirmation prior to signing and broadcasting a transaction.
+  * [\#3670](https://github.com/ColorPlatform/color-sdk/pull/3670) CLI support for showing bech32 addresses in Ledger devices
+  * [\#3711](https://github.com/ColorPlatform/color-sdk/pull/3711) Update `tx sign` to use `--from` instead of the deprecated `--name`
   CLI flag.
-  * [\#3738](https://github.com/cosmos/cosmos-sdk/pull/3738) Improve multisig UX:
+  * [\#3738](https://github.com/ColorPlatform/color-sdk/pull/3738) Improve multisig UX:
     * `gaiacli keys show -o json` now includes constituent pubkeys, respective weights and threshold
     * `gaiacli keys show --show-multisig` now displays constituent pubkeys, respective weights and threshold
     * `gaiacli tx sign --validate-signatures` now displays multisig signers with their respective weights
-  * [\#3730](https://github.com/cosmos/cosmos-sdk/issues/3730) Improve workflow for
+  * [\#3730](https://github.com/ColorPlatform/color-sdk/issues/3730) Improve workflow for
   `gaiad gentx` with offline public keys, by outputting stdtx file that needs to be signed.
-  * [\#3761](https://github.com/cosmos/cosmos-sdk/issues/3761) Querying account related information using custom querier in auth module
+  * [\#3761](https://github.com/ColorPlatform/color-sdk/issues/3761) Querying account related information using custom querier in auth module
 
 * SDK
-  * [\#3753](https://github.com/cosmos/cosmos-sdk/issues/3753) Remove no-longer-used governance penalty parameter
-  * [\#3679](https://github.com/cosmos/cosmos-sdk/issues/3679) Consistent operators across Coins, DecCoins, Int, Dec
+  * [\#3753](https://github.com/ColorPlatform/color-sdk/issues/3753) Remove no-longer-used governance penalty parameter
+  * [\#3679](https://github.com/ColorPlatform/color-sdk/issues/3679) Consistent operators across Coins, DecCoins, Int, Dec
             replaced: Minus->Sub Plus->Add Div->Quo
-  * [\#3665](https://github.com/cosmos/cosmos-sdk/pull/3665) Overhaul sdk.Uint type in preparation for Coins Int -> Uint migration.
-  * [\#3691](https://github.com/cosmos/cosmos-sdk/issues/3691) Cleanup error messages
-  * [\#3456](https://github.com/cosmos/cosmos-sdk/issues/3456) Integrate in the Int.ToDec() convenience function
-  * [\#3300](https://github.com/cosmos/cosmos-sdk/pull/3300) Update the spec-spec, spec file reorg, and TOC updates.
-  * [\#3694](https://github.com/cosmos/cosmos-sdk/pull/3694) Push tagged docker images on docker hub when tag is created.
-  * [\#3716](https://github.com/cosmos/cosmos-sdk/pull/3716) Update file permissions the client keys directory and contents to `0700`.
-  * [\#3681](https://github.com/cosmos/cosmos-sdk/issues/3681) Migrate ledger-cosmos-go from ZondaX to Cosmos organization
+  * [\#3665](https://github.com/ColorPlatform/color-sdk/pull/3665) Overhaul sdk.Uint type in preparation for Coins Int -> Uint migration.
+  * [\#3691](https://github.com/ColorPlatform/color-sdk/issues/3691) Cleanup error messages
+  * [\#3456](https://github.com/ColorPlatform/color-sdk/issues/3456) Integrate in the Int.ToDec() convenience function
+  * [\#3300](https://github.com/ColorPlatform/color-sdk/pull/3300) Update the spec-spec, spec file reorg, and TOC updates.
+  * [\#3694](https://github.com/ColorPlatform/color-sdk/pull/3694) Push tagged docker images on docker hub when tag is created.
+  * [\#3716](https://github.com/ColorPlatform/color-sdk/pull/3716) Update file permissions the client keys directory and contents to `0700`.
+  * [\#3681](https://github.com/ColorPlatform/color-sdk/issues/3681) Migrate ledger-cosmos-go from ZondaX to Cosmos organization
 
 * Tendermint
-  * [\#3699](https://github.com/cosmos/cosmos-sdk/pull/3699) Upgrade to Tendermint 0.30.1
+  * [\#3699](https://github.com/ColorPlatform/color-sdk/pull/3699) Upgrade to Tendermint 0.30.1
 
 BUG FIXES
 
 * Gaia CLI
-  * [\#3731](https://github.com/cosmos/cosmos-sdk/pull/3731) `keys add --interactive` bip32 passphrase regression fix
-  * [\#3714](https://github.com/cosmos/cosmos-sdk/issues/3714) Fix USB raw access issues with gaiacli when installed via snap
+  * [\#3731](https://github.com/ColorPlatform/color-sdk/pull/3731) `keys add --interactive` bip32 passphrase regression fix
+  * [\#3714](https://github.com/ColorPlatform/color-sdk/issues/3714) Fix USB raw access issues with gaiacli when installed via snap
 
 * Gaia
   * [\#3777](https://github.com/cosmso/cosmos-sdk/pull/3777) `gaiad export` no longer panics when the database is empty
-  * [\#3806](https://github.com/cosmos/cosmos-sdk/pull/3806) Properly return errors from a couple of struct Unmarshal functions
+  * [\#3806](https://github.com/ColorPlatform/color-sdk/pull/3806) Properly return errors from a couple of struct Unmarshal functions
 
 * SDK
-  * [\#3728](https://github.com/cosmos/cosmos-sdk/issues/3728) Truncate decimal multiplication & division in distribution to ensure
+  * [\#3728](https://github.com/ColorPlatform/color-sdk/issues/3728) Truncate decimal multiplication & division in distribution to ensure
            no more than the collected fees / inflation are distributed
-  * [\#3727](https://github.com/cosmos/cosmos-sdk/issues/3727) Return on zero-length (including []byte{}) PrefixEndBytes() calls
-  * [\#3559](https://github.com/cosmos/cosmos-sdk/issues/3559) fix occasional failing due to non-determinism in lcd test TestBonding
+  * [\#3727](https://github.com/ColorPlatform/color-sdk/issues/3727) Return on zero-length (including []byte{}) PrefixEndBytes() calls
+  * [\#3559](https://github.com/ColorPlatform/color-sdk/issues/3559) fix occasional failing due to non-determinism in lcd test TestBonding
     where validator is unexpectedly slashed throwing off test calculations
-  * [\#3411](https://github.com/cosmos/cosmos-sdk/pull/3411) Include the `RequestInitChain.Time` in the block header init during
+  * [\#3411](https://github.com/ColorPlatform/color-sdk/pull/3411) Include the `RequestInitChain.Time` in the block header init during
   `InitChain`.
-  * [\#3717](https://github.com/cosmos/cosmos-sdk/pull/3717) Update the vesting specification and implementation to cap deduction from
+  * [\#3717](https://github.com/ColorPlatform/color-sdk/pull/3717) Update the vesting specification and implementation to cap deduction from
   `DelegatedVesting` by at most `DelegatedVesting`. This accounts for the case where
   the undelegation amount may exceed the original delegation amount due to
   truncation of undelegation tokens.
-  * [\#3717](https://github.com/cosmos/cosmos-sdk/pull/3717) Ignore unknown proposers in allocating rewards for proposers, in case
+  * [\#3717](https://github.com/ColorPlatform/color-sdk/pull/3717) Ignore unknown proposers in allocating rewards for proposers, in case
     unbonding period was just 1 block and proposer was already deleted.
-  * [\#3726](https://github.com/cosmos/cosmos-sdk/pull/3724) Cap(clip) reward to remaining coins in AllocateTokens.
+  * [\#3726](https://github.com/ColorPlatform/color-sdk/pull/3724) Cap(clip) reward to remaining coins in AllocateTokens.
 
 ## 0.32.0
 
 BREAKING CHANGES
 
 * Gaia REST API
-  * [\#3642](https://github.com/cosmos/cosmos-sdk/pull/3642) `GET /tx/{hash}` now returns `404` instead of `500` if the transaction is not found
+  * [\#3642](https://github.com/ColorPlatform/color-sdk/pull/3642) `GET /tx/{hash}` now returns `404` instead of `500` if the transaction is not found
 
 * SDK
- * [\#3580](https://github.com/cosmos/cosmos-sdk/issues/3580) Migrate HTTP request/response types and utilities to types/rest.
- * [\#3592](https://github.com/cosmos/cosmos-sdk/issues/3592) Drop deprecated keybase implementation's New() constructor in
+ * [\#3580](https://github.com/ColorPlatform/color-sdk/issues/3580) Migrate HTTP request/response types and utilities to types/rest.
+ * [\#3592](https://github.com/ColorPlatform/color-sdk/issues/3592) Drop deprecated keybase implementation's New() constructor in
    favor of a new crypto/keys.New(string, string) implementation that
    returns a lazy keybase instance. Remove client.MockKeyBase,
    superseded by crypto/keys.NewInMemory()
- * [\#3621](https://github.com/cosmos/cosmos-sdk/issues/3621) staking.GenesisState.Bonds -> Delegations
+ * [\#3621](https://github.com/ColorPlatform/color-sdk/issues/3621) staking.GenesisState.Bonds -> Delegations
 
 IMPROVEMENTS
 
 * SDK
-  * [\#3311](https://github.com/cosmos/cosmos-sdk/pull/3311) Reconcile the `DecCoin/s` API with the `Coin/s` API.
-  * [\#3614](https://github.com/cosmos/cosmos-sdk/pull/3614) Add coin denom length checks to the coins constructors.
-  * [\#3621](https://github.com/cosmos/cosmos-sdk/issues/3621) remove many inter-module dependancies
-  * [\#3601](https://github.com/cosmos/cosmos-sdk/pull/3601) JSON-stringify the ABCI log response which includes the log and message
+  * [\#3311](https://github.com/ColorPlatform/color-sdk/pull/3311) Reconcile the `DecCoin/s` API with the `Coin/s` API.
+  * [\#3614](https://github.com/ColorPlatform/color-sdk/pull/3614) Add coin denom length checks to the coins constructors.
+  * [\#3621](https://github.com/ColorPlatform/color-sdk/issues/3621) remove many inter-module dependancies
+  * [\#3601](https://github.com/ColorPlatform/color-sdk/pull/3601) JSON-stringify the ABCI log response which includes the log and message
   index.
-  * [\#3604](https://github.com/cosmos/cosmos-sdk/pull/3604) Improve SDK funds related error messages and allow for unicode in
+  * [\#3604](https://github.com/ColorPlatform/color-sdk/pull/3604) Improve SDK funds related error messages and allow for unicode in
   JSON ABCI log.
-  * [\#3620](https://github.com/cosmos/cosmos-sdk/pull/3620) Version command shows build tags
-  * [\#3638](https://github.com/cosmos/cosmos-sdk/pull/3638) Add Bcrypt benchmarks & justification of security parameter choice
-  * [\#3648](https://github.com/cosmos/cosmos-sdk/pull/3648) Add JSON struct tags to vesting accounts.
+  * [\#3620](https://github.com/ColorPlatform/color-sdk/pull/3620) Version command shows build tags
+  * [\#3638](https://github.com/ColorPlatform/color-sdk/pull/3638) Add Bcrypt benchmarks & justification of security parameter choice
+  * [\#3648](https://github.com/ColorPlatform/color-sdk/pull/3648) Add JSON struct tags to vesting accounts.
 
 * Tendermint
-  * [\#3618](https://github.com/cosmos/cosmos-sdk/pull/3618) Upgrade to Tendermint 0.30.03
+  * [\#3618](https://github.com/ColorPlatform/color-sdk/pull/3618) Upgrade to Tendermint 0.30.03
 
 BUG FIXES
 
 * SDK
-  * [\#3646](https://github.com/cosmos/cosmos-sdk/issues/3646) `x/mint` now uses total token supply instead of total bonded tokens to calculate inflation
+  * [\#3646](https://github.com/ColorPlatform/color-sdk/issues/3646) `x/mint` now uses total token supply instead of total bonded tokens to calculate inflation
 
 
 ## 0.31.2
@@ -389,7 +389,7 @@ BUG FIXES
 BREAKING CHANGES
 
 * SDK
- * [\#3592](https://github.com/cosmos/cosmos-sdk/issues/3592) Drop deprecated keybase implementation's
+ * [\#3592](https://github.com/ColorPlatform/color-sdk/issues/3592) Drop deprecated keybase implementation's
    New constructor in favor of a new
    crypto/keys.New(string, string) implementation that
    returns a lazy keybase instance. Remove client.MockKeyBase,
@@ -398,11 +398,11 @@ BREAKING CHANGES
 IMPROVEMENTS
 
 * SDK
-  * [\#3604](https://github.com/cosmos/cosmos-sdk/pulls/3604) Improve SDK funds related error messages and allow for unicode in
+  * [\#3604](https://github.com/ColorPlatform/color-sdk/pulls/3604) Improve SDK funds related error messages and allow for unicode in
   JSON ABCI log.
 
 * Tendermint
-  * [\#3563](https://github.com/cosmos/cosmos-sdk/3563) Update to Tendermint version `0.30.0-rc0`
+  * [\#3563](https://github.com/ColorPlatform/color-sdk/3563) Update to Tendermint version `0.30.0-rc0`
 
 
 BUG FIXES
@@ -413,8 +413,8 @@ BUG FIXES
   `ResultBroadcastTx`.
 
 * SDK
-  * [\#3582](https://github.com/cosmos/cosmos-sdk/pull/3582) Running `make test_unit` was failing due to a missing tag
-  * [\#3617](https://github.com/cosmos/cosmos-sdk/pull/3582) Fix fee comparison when the required fees does not contain any denom
+  * [\#3582](https://github.com/ColorPlatform/color-sdk/pull/3582) Running `make test_unit` was failing due to a missing tag
+  * [\#3617](https://github.com/ColorPlatform/color-sdk/pull/3582) Fix fee comparison when the required fees does not contain any denom
   present in the tx fees.
 
 ## 0.31.0
@@ -422,120 +422,120 @@ BUG FIXES
 BREAKING CHANGES
 
 * Gaia REST API (`gaiacli advanced rest-server`)
-  * [\#3284](https://github.com/cosmos/cosmos-sdk/issues/3284) Rename the `name`
+  * [\#3284](https://github.com/ColorPlatform/color-sdk/issues/3284) Rename the `name`
   field to `from` in the `base_req` body.
-  * [\#3485](https://github.com/cosmos/cosmos-sdk/pull/3485) Error responses are now JSON objects.
+  * [\#3485](https://github.com/ColorPlatform/color-sdk/pull/3485) Error responses are now JSON objects.
   * [\#3477][distribution] endpoint changed "all_delegation_rewards" -> "delegator_total_rewards"
 
 * Gaia CLI  (`gaiacli`)
-  - [#3399](https://github.com/cosmos/cosmos-sdk/pull/3399) Add `gaiad validate-genesis` command to facilitate checking of genesis files
-  - [\#1894](https://github.com/cosmos/cosmos-sdk/issues/1894) `version` prints out short info by default. Add `--long` flag. Proper handling of `--format` flag introduced.
-  - [\#3465](https://github.com/cosmos/cosmos-sdk/issues/3465) `gaiacli rest-server` switched back to insecure mode by default:
+  - [#3399](https://github.com/ColorPlatform/color-sdk/pull/3399) Add `gaiad validate-genesis` command to facilitate checking of genesis files
+  - [\#1894](https://github.com/ColorPlatform/color-sdk/issues/1894) `version` prints out short info by default. Add `--long` flag. Proper handling of `--format` flag introduced.
+  - [\#3465](https://github.com/ColorPlatform/color-sdk/issues/3465) `gaiacli rest-server` switched back to insecure mode by default:
     - `--insecure` flag is removed.
     - `--tls` is now used to enable secure layer.
-  - [\#3451](https://github.com/cosmos/cosmos-sdk/pull/3451) `gaiacli` now returns transactions in plain text including tags.
-  - [\#3497](https://github.com/cosmos/cosmos-sdk/issues/3497) `gaiad init` now takes moniker as required arguments, not as parameter.
-  * [\#3501](https://github.com/cosmos/cosmos-sdk/issues/3501) Change validator
+  - [\#3451](https://github.com/ColorPlatform/color-sdk/pull/3451) `gaiacli` now returns transactions in plain text including tags.
+  - [\#3497](https://github.com/ColorPlatform/color-sdk/issues/3497) `gaiad init` now takes moniker as required arguments, not as parameter.
+  * [\#3501](https://github.com/ColorPlatform/color-sdk/issues/3501) Change validator
   address Bech32 encoding to consensus address in `tendermint-validator-set`.
 
 * Gaia
-  *  [\#3457](https://github.com/cosmos/cosmos-sdk/issues/3457) Changed governance tally validatorGovInfo to use sdk.Int power instead of sdk.Dec
-  *  [\#3495](https://github.com/cosmos/cosmos-sdk/issues/3495) Added Validator Minimum Self Delegation
+  *  [\#3457](https://github.com/ColorPlatform/color-sdk/issues/3457) Changed governance tally validatorGovInfo to use sdk.Int power instead of sdk.Dec
+  *  [\#3495](https://github.com/ColorPlatform/color-sdk/issues/3495) Added Validator Minimum Self Delegation
   *  Reintroduce OR semantics for tx fees
 
 * SDK
-  * [\#2513](https://github.com/cosmos/cosmos-sdk/issues/2513) Tendermint updates are adjusted by 10^-6 relative to staking tokens,
-  * [\#3487](https://github.com/cosmos/cosmos-sdk/pull/3487) Move HTTP/REST utilities out of client/utils into a new dedicated client/rest package.
-  * [\#3490](https://github.com/cosmos/cosmos-sdk/issues/3490) ReadRESTReq() returns bool to avoid callers to write error responses twice.
-  * [\#3502](https://github.com/cosmos/cosmos-sdk/pull/3502) Fixes issue when comparing genesis states
-  * [\#3514](https://github.com/cosmos/cosmos-sdk/pull/3514) Various clean ups:
+  * [\#2513](https://github.com/ColorPlatform/color-sdk/issues/2513) Tendermint updates are adjusted by 10^-6 relative to staking tokens,
+  * [\#3487](https://github.com/ColorPlatform/color-sdk/pull/3487) Move HTTP/REST utilities out of client/utils into a new dedicated client/rest package.
+  * [\#3490](https://github.com/ColorPlatform/color-sdk/issues/3490) ReadRESTReq() returns bool to avoid callers to write error responses twice.
+  * [\#3502](https://github.com/ColorPlatform/color-sdk/pull/3502) Fixes issue when comparing genesis states
+  * [\#3514](https://github.com/ColorPlatform/color-sdk/pull/3514) Various clean ups:
     - Replace all GetKeyBase\* functions family in favor of NewKeyBaseFromDir and NewKeyBaseFromHomeFlag.
     - Remove Get prefix from all TxBuilder's getters.
-  * [\#3522](https://github.com/cosmos/cosmos-sdk/pull/3522) Get rid of double negatives: Coins.IsNotNegative() -> Coins.IsAnyNegative().
-  * [\#3561](https://github.com/cosmos/cosmos-sdk/issues/3561) Don't unnecessarily store denominations in staking
+  * [\#3522](https://github.com/ColorPlatform/color-sdk/pull/3522) Get rid of double negatives: Coins.IsNotNegative() -> Coins.IsAnyNegative().
+  * [\#3561](https://github.com/ColorPlatform/color-sdk/issues/3561) Don't unnecessarily store denominations in staking
 
 
 FEATURES
 
 * Gaia REST API
-  * [\#2358](https://github.com/cosmos/cosmos-sdk/issues/2358) Add distribution module REST interface
+  * [\#2358](https://github.com/ColorPlatform/color-sdk/issues/2358) Add distribution module REST interface
 
 * Gaia CLI  (`gaiacli`)
-  * [\#3429](https://github.com/cosmos/cosmos-sdk/issues/3429) Support querying
+  * [\#3429](https://github.com/ColorPlatform/color-sdk/issues/3429) Support querying
   for all delegator distribution rewards.
-  * [\#3449](https://github.com/cosmos/cosmos-sdk/issues/3449) Proof verification now works with absence proofs
-  * [\#3484](https://github.com/cosmos/cosmos-sdk/issues/3484) Add support
+  * [\#3449](https://github.com/ColorPlatform/color-sdk/issues/3449) Proof verification now works with absence proofs
+  * [\#3484](https://github.com/ColorPlatform/color-sdk/issues/3484) Add support
   vesting accounts to the add-genesis-account command.
 
 * Gaia
-  - [\#3397](https://github.com/cosmos/cosmos-sdk/pull/3397) Implement genesis file sanitization to avoid failures at chain init.
-  * [\#3428](https://github.com/cosmos/cosmos-sdk/issues/3428) Run the simulation from a particular genesis state loaded from a file
+  - [\#3397](https://github.com/ColorPlatform/color-sdk/pull/3397) Implement genesis file sanitization to avoid failures at chain init.
+  * [\#3428](https://github.com/ColorPlatform/color-sdk/issues/3428) Run the simulation from a particular genesis state loaded from a file
 
 * SDK
-  * [\#3270](https://github.com/cosmos/cosmos-sdk/issues/3270) [x/staking] limit number of ongoing unbonding delegations /redelegations per pair/trio
+  * [\#3270](https://github.com/ColorPlatform/color-sdk/issues/3270) [x/staking] limit number of ongoing unbonding delegations /redelegations per pair/trio
   * [\#3477][distribution] new query endpoint "delegator_validators"
-  * [\#3514](https://github.com/cosmos/cosmos-sdk/pull/3514) Provided a lazy loading implementation of Keybase that locks the underlying
+  * [\#3514](https://github.com/ColorPlatform/color-sdk/pull/3514) Provided a lazy loading implementation of Keybase that locks the underlying
     storage only for the time needed to perform the required operation. Also added Keybase reference to TxBuilder struct.
-  * [types] [\#2580](https://github.com/cosmos/cosmos-sdk/issues/2580) Addresses now Bech32 empty addresses to an empty string
+  * [types] [\#2580](https://github.com/ColorPlatform/color-sdk/issues/2580) Addresses now Bech32 empty addresses to an empty string
 
 
 IMPROVEMENTS
 
 * Gaia REST API
-  * [\#3284](https://github.com/cosmos/cosmos-sdk/issues/3284) Update Gaia Lite
+  * [\#3284](https://github.com/ColorPlatform/color-sdk/issues/3284) Update Gaia Lite
   REST service to support the following:
     * Automatic account number and sequence population when fields are omitted
     * Generate only functionality no longer requires access to a local Keybase
     * `from` field in the `base_req` body can be a Keybase name or account address
-  * [\#3423](https://github.com/cosmos/cosmos-sdk/issues/3423) Allow simulation
+  * [\#3423](https://github.com/ColorPlatform/color-sdk/issues/3423) Allow simulation
   (auto gas) to work with generate only.
-  * [\#3514](https://github.com/cosmos/cosmos-sdk/pull/3514) REST server calls to keybase does not lock the underlying storage anymore.
-  * [\#3523](https://github.com/cosmos/cosmos-sdk/pull/3523) Added `/tx/encode` endpoint to serialize a JSON tx to base64-encoded Amino.
+  * [\#3514](https://github.com/ColorPlatform/color-sdk/pull/3514) REST server calls to keybase does not lock the underlying storage anymore.
+  * [\#3523](https://github.com/ColorPlatform/color-sdk/pull/3523) Added `/tx/encode` endpoint to serialize a JSON tx to base64-encoded Amino.
 
 * Gaia CLI  (`gaiacli`)
-  * [\#3476](https://github.com/cosmos/cosmos-sdk/issues/3476) New `withdraw-all-rewards` command to withdraw all delegations rewards for delegators.
-  * [\#3497](https://github.com/cosmos/cosmos-sdk/issues/3497) `gaiad gentx` supports `--ip` and `--node-id` flags to override defaults.
-  * [\#3518](https://github.com/cosmos/cosmos-sdk/issues/3518) Fix flow in
+  * [\#3476](https://github.com/ColorPlatform/color-sdk/issues/3476) New `withdraw-all-rewards` command to withdraw all delegations rewards for delegators.
+  * [\#3497](https://github.com/ColorPlatform/color-sdk/issues/3497) `gaiad gentx` supports `--ip` and `--node-id` flags to override defaults.
+  * [\#3518](https://github.com/ColorPlatform/color-sdk/issues/3518) Fix flow in
   `keys add` to show the mnemonic by default.
-  * [\#3517](https://github.com/cosmos/cosmos-sdk/pull/3517) Increased test coverage
-  * [\#3523](https://github.com/cosmos/cosmos-sdk/pull/3523) Added `tx encode` command to serialize a JSON tx to base64-encoded Amino.
+  * [\#3517](https://github.com/ColorPlatform/color-sdk/pull/3517) Increased test coverage
+  * [\#3523](https://github.com/ColorPlatform/color-sdk/pull/3523) Added `tx encode` command to serialize a JSON tx to base64-encoded Amino.
 
 * Gaia
-  * [\#3418](https://github.com/cosmos/cosmos-sdk/issues/3418) Add vesting account
+  * [\#3418](https://github.com/ColorPlatform/color-sdk/issues/3418) Add vesting account
   genesis validation checks to `GaiaValidateGenesisState`.
-  * [\#3420](https://github.com/cosmos/cosmos-sdk/issues/3420) Added maximum length to governance proposal descriptions and titles
-  * [\#3256](https://github.com/cosmos/cosmos-sdk/issues/3256) Add gas consumption
+  * [\#3420](https://github.com/ColorPlatform/color-sdk/issues/3420) Added maximum length to governance proposal descriptions and titles
+  * [\#3256](https://github.com/ColorPlatform/color-sdk/issues/3256) Add gas consumption
   for tx size in the ante handler.
-  * [\#3454](https://github.com/cosmos/cosmos-sdk/pull/3454) Add `--jail-whitelist` to `gaiad export` to enable testing of complex exports
-  * [\#3424](https://github.com/cosmos/cosmos-sdk/issues/3424) Allow generation of gentxs with empty memo field.
-  * [\#3507](https://github.com/cosmos/cosmos-sdk/issues/3507) General cleanup, removal of unnecessary struct fields, undelegation bugfix, and comment clarification in x/staking and x/slashing
+  * [\#3454](https://github.com/ColorPlatform/color-sdk/pull/3454) Add `--jail-whitelist` to `gaiad export` to enable testing of complex exports
+  * [\#3424](https://github.com/ColorPlatform/color-sdk/issues/3424) Allow generation of gentxs with empty memo field.
+  * [\#3507](https://github.com/ColorPlatform/color-sdk/issues/3507) General cleanup, removal of unnecessary struct fields, undelegation bugfix, and comment clarification in x/staking and x/slashing
 
 * SDK
   * [\#2605] x/params add subkey accessing
-  * [\#2986](https://github.com/cosmos/cosmos-sdk/pull/2986) Store Refactor
-  * [\#3435](https://github.com/cosmos/cosmos-sdk/issues/3435) Test that store implementations do not allow nil values
-  * [\#2509](https://github.com/cosmos/cosmos-sdk/issues/2509) Sanitize all usage of Dec.RoundInt64()
-  * [\#556](https://github.com/cosmos/cosmos-sdk/issues/556) Increase `BaseApp`
+  * [\#2986](https://github.com/ColorPlatform/color-sdk/pull/2986) Store Refactor
+  * [\#3435](https://github.com/ColorPlatform/color-sdk/issues/3435) Test that store implementations do not allow nil values
+  * [\#2509](https://github.com/ColorPlatform/color-sdk/issues/2509) Sanitize all usage of Dec.RoundInt64()
+  * [\#556](https://github.com/ColorPlatform/color-sdk/issues/556) Increase `BaseApp`
   test coverage.
-  * [\#3357](https://github.com/cosmos/cosmos-sdk/issues/3357) develop state-transitions.md for staking spec, missing states added to `state.md`
-  * [\#3552](https://github.com/cosmos/cosmos-sdk/pull/3552) Validate bit length when
+  * [\#3357](https://github.com/ColorPlatform/color-sdk/issues/3357) develop state-transitions.md for staking spec, missing states added to `state.md`
+  * [\#3552](https://github.com/ColorPlatform/color-sdk/pull/3552) Validate bit length when
   deserializing `Int` types.
 
 
 BUG FIXES
 
 * Gaia CLI  (`gaiacli`)
-  - [\#3417](https://github.com/cosmos/cosmos-sdk/pull/3417) Fix `q slashing signing-info` panic by ensuring safety of user input and properly returning not found error
-  - [\#3345](https://github.com/cosmos/cosmos-sdk/issues/3345) Upgrade ledger-cosmos-go dependency to v0.9.3 to pull
+  - [\#3417](https://github.com/ColorPlatform/color-sdk/pull/3417) Fix `q slashing signing-info` panic by ensuring safety of user input and properly returning not found error
+  - [\#3345](https://github.com/ColorPlatform/color-sdk/issues/3345) Upgrade ledger-cosmos-go dependency to v0.9.3 to pull
     https://github.com/ZondaX/ledger-cosmos-go/commit/ed9aa39ce8df31bad1448c72d3d226bf2cb1a8d1 in order to fix a derivation path issue that causes `gaiacli keys add --recover`
     to malfunction.
-  - [\#3419](https://github.com/cosmos/cosmos-sdk/pull/3419) Fix `q distr slashes` panic
-  - [\#3453](https://github.com/cosmos/cosmos-sdk/pull/3453) The `rest-server` command didn't respect persistent flags such as `--chain-id` and `--trust-node` if they were
+  - [\#3419](https://github.com/ColorPlatform/color-sdk/pull/3419) Fix `q distr slashes` panic
+  - [\#3453](https://github.com/ColorPlatform/color-sdk/pull/3453) The `rest-server` command didn't respect persistent flags such as `--chain-id` and `--trust-node` if they were
     passed on the command line.
-  - [\#3441](https://github.com/cosmos/cosmos-sdk/pull/3431) Improved resource management and connection handling (ledger devices). Fixes issue with DER vs BER signatures.
+  - [\#3441](https://github.com/ColorPlatform/color-sdk/pull/3431) Improved resource management and connection handling (ledger devices). Fixes issue with DER vs BER signatures.
 
 * Gaia
-  * [\#3486](https://github.com/cosmos/cosmos-sdk/pull/3486) Use AmountOf in
+  * [\#3486](https://github.com/ColorPlatform/color-sdk/pull/3486) Use AmountOf in
     vesting accounts instead of zipping/aligning denominations.
 
 
@@ -545,7 +545,7 @@ BREAKING CHANGES
 
 * Gaia REST API (`gaiacli advanced rest-server`)
   * [gaia-lite] [\#2182] Renamed and merged all redelegations endpoints into `/staking/redelegations`
-  * [\#3176](https://github.com/cosmos/cosmos-sdk/issues/3176) `tx/sign` endpoint now expects `BaseReq` fields as nested object.
+  * [\#3176](https://github.com/ColorPlatform/color-sdk/issues/3176) `tx/sign` endpoint now expects `BaseReq` fields as nested object.
   * [\#2222] all endpoints renamed from `/stake` -> `/staking`
   * [\#1268] `LooseTokens` -> `NotBondedTokens`
   * [\#3289] misc renames:
@@ -554,137 +554,137 @@ BREAKING CHANGES
     * `MsgBeginUnbonding` -> `MsgUndelegate`
 
 * Gaia CLI  (`gaiacli`)
-  * [\#810](https://github.com/cosmos/cosmos-sdk/issues/810) Don't fallback to any default values for chain ID.
+  * [\#810](https://github.com/ColorPlatform/color-sdk/issues/810) Don't fallback to any default values for chain ID.
     * Users need to supply chain ID either via config file or the `--chain-id` flag.
     * Change `chain_id` and `trust_node` in `gaiacli` configuration to `chain-id` and `trust-node` respectively.
-  * [\#3069](https://github.com/cosmos/cosmos-sdk/pull/3069) `--fee` flag renamed to `--fees` to support multiple coins
-  * [\#3156](https://github.com/cosmos/cosmos-sdk/pull/3156) Remove unimplemented `gaiacli init` command
+  * [\#3069](https://github.com/ColorPlatform/color-sdk/pull/3069) `--fee` flag renamed to `--fees` to support multiple coins
+  * [\#3156](https://github.com/ColorPlatform/color-sdk/pull/3156) Remove unimplemented `gaiacli init` command
   * [\#2222] `gaiacli tx stake` -> `gaiacli tx staking`, `gaiacli query stake` -> `gaiacli query staking`
-  * [\#1894](https://github.com/cosmos/cosmos-sdk/issues/1894) `version` command now shows latest commit, vendor dir hash, and build machine info.
-  * [\#3320](https://github.com/cosmos/cosmos-sdk/pull/3320) Ensure all `gaiacli query` commands respect the `--output` and `--indent` flags
+  * [\#1894](https://github.com/ColorPlatform/color-sdk/issues/1894) `version` command now shows latest commit, vendor dir hash, and build machine info.
+  * [\#3320](https://github.com/ColorPlatform/color-sdk/pull/3320) Ensure all `gaiacli query` commands respect the `--output` and `--indent` flags
 
 * Gaia
-  * https://github.com/cosmos/cosmos-sdk/issues/2838 - Move store keys to constants
-  * [\#3162](https://github.com/cosmos/cosmos-sdk/issues/3162) The `--gas` flag now takes `auto` instead of `simulate`
+  * https://github.com/ColorPlatform/color-sdk/issues/2838 - Move store keys to constants
+  * [\#3162](https://github.com/ColorPlatform/color-sdk/issues/3162) The `--gas` flag now takes `auto` instead of `simulate`
     in order to trigger a simulation of the tx before the actual execution.
-  * [\#3285](https://github.com/cosmos/cosmos-sdk/pull/3285) New `gaiad tendermint version` to print libs versions
-  * [\#1894](https://github.com/cosmos/cosmos-sdk/pull/1894) `version` command now shows latest commit, vendor dir hash, and build machine info.
-  * [\#3249\(https://github.com/cosmos/cosmos-sdk/issues/3249) `tendermint`'s `show-validator` and `show-address` `--json` flags removed in favor of `--output-format=json`.
+  * [\#3285](https://github.com/ColorPlatform/color-sdk/pull/3285) New `gaiad tendermint version` to print libs versions
+  * [\#1894](https://github.com/ColorPlatform/color-sdk/pull/1894) `version` command now shows latest commit, vendor dir hash, and build machine info.
+  * [\#3249\(https://github.com/ColorPlatform/color-sdk/issues/3249) `tendermint`'s `show-validator` and `show-address` `--json` flags removed in favor of `--output-format=json`.
 
 * SDK
-  * [distribution] [\#3359](https://github.com/cosmos/cosmos-sdk/issues/3359) Always round down when calculating rewards-to-be-withdrawn in F1 fee distribution
-  * [#3336](https://github.com/cosmos/cosmos-sdk/issues/3336) Ensure all SDK
+  * [distribution] [\#3359](https://github.com/ColorPlatform/color-sdk/issues/3359) Always round down when calculating rewards-to-be-withdrawn in F1 fee distribution
+  * [#3336](https://github.com/ColorPlatform/color-sdk/issues/3336) Ensure all SDK
   messages have their signature bytes contain canonical fields `value` and `type`.
-  * [\#3333](https://github.com/cosmos/cosmos-sdk/issues/3333) - F1 storage efficiency improvements - automatic withdrawals when unbonded, historical reward reference counting
-  * [staking] [\#2513](https://github.com/cosmos/cosmos-sdk/issues/2513) Validator power type from Dec -> Int
-  * [staking] [\#3233](https://github.com/cosmos/cosmos-sdk/issues/3233) key and value now contain duplicate fields to simplify code
-  * [\#3064](https://github.com/cosmos/cosmos-sdk/issues/3064) Sanitize `sdk.Coin` denom. Coins denoms are now case insensitive, i.e. 100fooToken equals to 100FOOTOKEN.
-  * [\#3195](https://github.com/cosmos/cosmos-sdk/issues/3195) Allows custom configuration for syncable strategy
-  * [\#3242](https://github.com/cosmos/cosmos-sdk/issues/3242) Fix infinite gas
+  * [\#3333](https://github.com/ColorPlatform/color-sdk/issues/3333) - F1 storage efficiency improvements - automatic withdrawals when unbonded, historical reward reference counting
+  * [staking] [\#2513](https://github.com/ColorPlatform/color-sdk/issues/2513) Validator power type from Dec -> Int
+  * [staking] [\#3233](https://github.com/ColorPlatform/color-sdk/issues/3233) key and value now contain duplicate fields to simplify code
+  * [\#3064](https://github.com/ColorPlatform/color-sdk/issues/3064) Sanitize `sdk.Coin` denom. Coins denoms are now case insensitive, i.e. 100fooToken equals to 100FOOTOKEN.
+  * [\#3195](https://github.com/ColorPlatform/color-sdk/issues/3195) Allows custom configuration for syncable strategy
+  * [\#3242](https://github.com/ColorPlatform/color-sdk/issues/3242) Fix infinite gas
     meter utilization during aborted ante handler executions.
-  * [x/distribution] [\#3292](https://github.com/cosmos/cosmos-sdk/issues/3292) Enable or disable withdraw addresses with a parameter in the param store
-  * [staking] [\#2222](https://github.com/cosmos/cosmos-sdk/issues/2222) `/stake` -> `/staking` module rename
-  * [staking] [\#1268](https://github.com/cosmos/cosmos-sdk/issues/1268) `LooseTokens` -> `NotBondedTokens`
-  * [staking] [\#1402](https://github.com/cosmos/cosmos-sdk/issues/1402) Redelegation and unbonding-delegation structs changed to include multiple an array of entries
-  * [staking] [\#3289](https://github.com/cosmos/cosmos-sdk/issues/3289) misc renames:
+  * [x/distribution] [\#3292](https://github.com/ColorPlatform/color-sdk/issues/3292) Enable or disable withdraw addresses with a parameter in the param store
+  * [staking] [\#2222](https://github.com/ColorPlatform/color-sdk/issues/2222) `/stake` -> `/staking` module rename
+  * [staking] [\#1268](https://github.com/ColorPlatform/color-sdk/issues/1268) `LooseTokens` -> `NotBondedTokens`
+  * [staking] [\#1402](https://github.com/ColorPlatform/color-sdk/issues/1402) Redelegation and unbonding-delegation structs changed to include multiple an array of entries
+  * [staking] [\#3289](https://github.com/ColorPlatform/color-sdk/issues/3289) misc renames:
     * `Validator.UnbondingMinTime` -> `Validator.UnbondingCompletionTime`
     * `Delegation` -> `Value` in `MsgCreateValidator` and `MsgDelegate`
     * `MsgBeginUnbonding` -> `MsgUndelegate`
   * [\#3315] Increase decimal precision to 18
-  * [\#3323](https://github.com/cosmos/cosmos-sdk/issues/3323) Update to Tendermint 0.29.0
-  * [\#3328](https://github.com/cosmos/cosmos-sdk/issues/3328) [x/gov] Remove redundant action tag
+  * [\#3323](https://github.com/ColorPlatform/color-sdk/issues/3323) Update to Tendermint 0.29.0
+  * [\#3328](https://github.com/ColorPlatform/color-sdk/issues/3328) [x/gov] Remove redundant action tag
 
 * Tendermint
-  * [\#3298](https://github.com/cosmos/cosmos-sdk/issues/3298) Upgrade to Tendermint 0.28.0
+  * [\#3298](https://github.com/ColorPlatform/color-sdk/issues/3298) Upgrade to Tendermint 0.28.0
 
 FEATURES
 
 * Gaia REST API (`gaiacli advanced rest-server`)
-  * [\#3067](https://github.com/cosmos/cosmos-sdk/issues/3067) Add support for fees on transactions
-  * [\#3069](https://github.com/cosmos/cosmos-sdk/pull/3069) Add a custom memo on transactions
-  * [\#3027](https://github.com/cosmos/cosmos-sdk/issues/3027) Implement
+  * [\#3067](https://github.com/ColorPlatform/color-sdk/issues/3067) Add support for fees on transactions
+  * [\#3069](https://github.com/ColorPlatform/color-sdk/pull/3069) Add a custom memo on transactions
+  * [\#3027](https://github.com/ColorPlatform/color-sdk/issues/3027) Implement
   `/gov/proposals/{proposalID}/proposer` to query for a proposal's proposer.
 
 * Gaia CLI  (`gaiacli`)
-  * [\#2399](https://github.com/cosmos/cosmos-sdk/issues/2399) Implement `params` command to query slashing parameters.
-  * [\#2730](https://github.com/cosmos/cosmos-sdk/issues/2730) Add tx search pagination parameter
-  * [\#3027](https://github.com/cosmos/cosmos-sdk/issues/3027) Implement
+  * [\#2399](https://github.com/ColorPlatform/color-sdk/issues/2399) Implement `params` command to query slashing parameters.
+  * [\#2730](https://github.com/ColorPlatform/color-sdk/issues/2730) Add tx search pagination parameter
+  * [\#3027](https://github.com/ColorPlatform/color-sdk/issues/3027) Implement
   `query gov proposer [proposal-id]` to query for a proposal's proposer.
-  * [\#3198](https://github.com/cosmos/cosmos-sdk/issues/3198) New `keys add --multisig` flag to store multisig keys locally.
-  * [\#3198](https://github.com/cosmos/cosmos-sdk/issues/3198) New `multisign` command to generate multisig signatures.
-  * [\#3198](https://github.com/cosmos/cosmos-sdk/issues/3198) New `sign --multisig` flag to enable multisig mode.
-  * [\#2715](https://github.com/cosmos/cosmos-sdk/issues/2715) Reintroduce gaia server's insecure mode.
-  * [\#3334](https://github.com/cosmos/cosmos-sdk/pull/3334) New `gaiad completion` and `gaiacli completion` to generate Bash/Zsh completion scripts.
-  * [\#2607](https://github.com/cosmos/cosmos-sdk/issues/2607) Make `gaiacli config` handle the boolean `indent` flag to beautify commands JSON output.
+  * [\#3198](https://github.com/ColorPlatform/color-sdk/issues/3198) New `keys add --multisig` flag to store multisig keys locally.
+  * [\#3198](https://github.com/ColorPlatform/color-sdk/issues/3198) New `multisign` command to generate multisig signatures.
+  * [\#3198](https://github.com/ColorPlatform/color-sdk/issues/3198) New `sign --multisig` flag to enable multisig mode.
+  * [\#2715](https://github.com/ColorPlatform/color-sdk/issues/2715) Reintroduce gaia server's insecure mode.
+  * [\#3334](https://github.com/ColorPlatform/color-sdk/pull/3334) New `gaiad completion` and `gaiacli completion` to generate Bash/Zsh completion scripts.
+  * [\#2607](https://github.com/ColorPlatform/color-sdk/issues/2607) Make `gaiacli config` handle the boolean `indent` flag to beautify commands JSON output.
 
 * Gaia
   * [\#2182] [x/staking] Added querier for querying a single redelegation
-  * [\#3305](https://github.com/cosmos/cosmos-sdk/issues/3305) Add support for
+  * [\#3305](https://github.com/ColorPlatform/color-sdk/issues/3305) Add support for
     vesting accounts at genesis.
-  * [\#3198](https://github.com/cosmos/cosmos-sdk/issues/3198) [x/auth] Add multisig transactions support
-  * [\#3198](https://github.com/cosmos/cosmos-sdk/issues/3198) `add-genesis-account` can take both account addresses and key names
+  * [\#3198](https://github.com/ColorPlatform/color-sdk/issues/3198) [x/auth] Add multisig transactions support
+  * [\#3198](https://github.com/ColorPlatform/color-sdk/issues/3198) `add-genesis-account` can take both account addresses and key names
 
 * SDK
-  - [\#3099](https://github.com/cosmos/cosmos-sdk/issues/3099) Implement F1 fee distribution
-  - [\#2926](https://github.com/cosmos/cosmos-sdk/issues/2926) Add TxEncoder to client TxBuilder.
-  * [\#2694](https://github.com/cosmos/cosmos-sdk/issues/2694) Vesting account implementation.
-  * [\#2996](https://github.com/cosmos/cosmos-sdk/issues/2996) Update the `AccountKeeper` to contain params used in the context of
+  - [\#3099](https://github.com/ColorPlatform/color-sdk/issues/3099) Implement F1 fee distribution
+  - [\#2926](https://github.com/ColorPlatform/color-sdk/issues/2926) Add TxEncoder to client TxBuilder.
+  * [\#2694](https://github.com/ColorPlatform/color-sdk/issues/2694) Vesting account implementation.
+  * [\#2996](https://github.com/ColorPlatform/color-sdk/issues/2996) Update the `AccountKeeper` to contain params used in the context of
   the ante handler.
-  * [\#3179](https://github.com/cosmos/cosmos-sdk/pull/3179) New CodeNoSignatures error code.
-  * [\#3319](https://github.com/cosmos/cosmos-sdk/issues/3319) [x/distribution] Queriers for all distribution state worth querying; distribution query commands
-  * [\#3356](https://github.com/cosmos/cosmos-sdk/issues/3356) [x/auth] bech32-ify accounts address in error message.
+  * [\#3179](https://github.com/ColorPlatform/color-sdk/pull/3179) New CodeNoSignatures error code.
+  * [\#3319](https://github.com/ColorPlatform/color-sdk/issues/3319) [x/distribution] Queriers for all distribution state worth querying; distribution query commands
+  * [\#3356](https://github.com/ColorPlatform/color-sdk/issues/3356) [x/auth] bech32-ify accounts address in error message.
 
 IMPROVEMENTS
 
 * Gaia REST API
-  * [\#3176](https://github.com/cosmos/cosmos-sdk/issues/3176) Validate tx/sign endpoint POST body.
-  * [\#2948](https://github.com/cosmos/cosmos-sdk/issues/2948) Swagger UI now makes requests to light client node
+  * [\#3176](https://github.com/ColorPlatform/color-sdk/issues/3176) Validate tx/sign endpoint POST body.
+  * [\#2948](https://github.com/ColorPlatform/color-sdk/issues/2948) Swagger UI now makes requests to light client node
 
 * Gaia CLI  (`gaiacli`)
-  * [\#3224](https://github.com/cosmos/cosmos-sdk/pull/3224) Support adding offline public keys to the keystore
+  * [\#3224](https://github.com/ColorPlatform/color-sdk/pull/3224) Support adding offline public keys to the keystore
 
 * Gaia
-  * [\#2186](https://github.com/cosmos/cosmos-sdk/issues/2186) Add Address Interface
-  * [\#3158](https://github.com/cosmos/cosmos-sdk/pull/3158) Validate slashing genesis
-  * [\#3172](https://github.com/cosmos/cosmos-sdk/pull/3172) Support minimum fees in a local testnet.
-  * [\#3250](https://github.com/cosmos/cosmos-sdk/pull/3250) Refactor integration tests and increase coverage
-  * [\#3248](https://github.com/cosmos/cosmos-sdk/issues/3248) Refactor tx fee
+  * [\#2186](https://github.com/ColorPlatform/color-sdk/issues/2186) Add Address Interface
+  * [\#3158](https://github.com/ColorPlatform/color-sdk/pull/3158) Validate slashing genesis
+  * [\#3172](https://github.com/ColorPlatform/color-sdk/pull/3172) Support minimum fees in a local testnet.
+  * [\#3250](https://github.com/ColorPlatform/color-sdk/pull/3250) Refactor integration tests and increase coverage
+  * [\#3248](https://github.com/ColorPlatform/color-sdk/issues/3248) Refactor tx fee
   model:
     * Validators specify minimum gas prices instead of minimum fees
     * Clients may provide either fees or gas prices directly
     * The gas prices of a tx must meet a validator's minimum
     * `gaiad start` and `gaia.toml` take --minimum-gas-prices flag and minimum-gas-price config key respectively.
-  * [\#2859](https://github.com/cosmos/cosmos-sdk/issues/2859) Rename `TallyResult` in gov proposals to `FinalTallyResult`
-  * [\#3286](https://github.com/cosmos/cosmos-sdk/pull/3286) Fix `gaiad gentx` printout of account's addresses, i.e. user bech32 instead of hex.
-  * [\#3249\(https://github.com/cosmos/cosmos-sdk/issues/3249) `--json` flag removed, users should use `--output=json` instead.
+  * [\#2859](https://github.com/ColorPlatform/color-sdk/issues/2859) Rename `TallyResult` in gov proposals to `FinalTallyResult`
+  * [\#3286](https://github.com/ColorPlatform/color-sdk/pull/3286) Fix `gaiad gentx` printout of account's addresses, i.e. user bech32 instead of hex.
+  * [\#3249\(https://github.com/ColorPlatform/color-sdk/issues/3249) `--json` flag removed, users should use `--output=json` instead.
 
 * SDK
-  * [\#3137](https://github.com/cosmos/cosmos-sdk/pull/3137) Add tag documentation
+  * [\#3137](https://github.com/ColorPlatform/color-sdk/pull/3137) Add tag documentation
     for each module along with cleaning up a few existing tags in the governance,
     slashing, and staking modules.
-  * [\#3093](https://github.com/cosmos/cosmos-sdk/issues/3093) Ante handler does no longer read all accounts in one go when processing signatures as signature
+  * [\#3093](https://github.com/ColorPlatform/color-sdk/issues/3093) Ante handler does no longer read all accounts in one go when processing signatures as signature
     verification may fail before last signature is checked.
-  * [staking] [\#1402](https://github.com/cosmos/cosmos-sdk/issues/1402) Add for multiple simultaneous redelegations or unbonding-delegations within an unbonding period
-  * [staking] [\#1268](https://github.com/cosmos/cosmos-sdk/issues/1268) staking spec rewrite
+  * [staking] [\#1402](https://github.com/ColorPlatform/color-sdk/issues/1402) Add for multiple simultaneous redelegations or unbonding-delegations within an unbonding period
+  * [staking] [\#1268](https://github.com/ColorPlatform/color-sdk/issues/1268) staking spec rewrite
 
 * CI
-  * [\#2498](https://github.com/cosmos/cosmos-sdk/issues/2498) Added macos CI job to CircleCI
+  * [\#2498](https://github.com/ColorPlatform/color-sdk/issues/2498) Added macos CI job to CircleCI
   * [#142](https://github.com/tendermint/devops/issues/142) Increased the number of blocks to be tested during multi-sim
   * [#147](https://github.com/tendermint/devops/issues/142) Added docker image build to CI
 
 BUG FIXES
 
 * Gaia CLI  (`gaiacli`)
-  * [\#3141](https://github.com/cosmos/cosmos-sdk/issues/3141) Fix the bug in GetAccount when `len(res) == 0` and `err == nil`
-  * [\#810](https://github.com/cosmos/cosmos-sdk/pull/3316) Fix regression in gaiacli config file handling
+  * [\#3141](https://github.com/ColorPlatform/color-sdk/issues/3141) Fix the bug in GetAccount when `len(res) == 0` and `err == nil`
+  * [\#810](https://github.com/ColorPlatform/color-sdk/pull/3316) Fix regression in gaiacli config file handling
 
 * Gaia
-  * [\#3148](https://github.com/cosmos/cosmos-sdk/issues/3148) Fix `gaiad export` by adding a boolean to `NewGaiaApp` determining whether or not to load the latest version
-  * [\#3181](https://github.com/cosmos/cosmos-sdk/issues/3181) Correctly reset total accum update height and jailed-validator bond height / unbonding height on export-for-zero-height
-  * [\#3172](https://github.com/cosmos/cosmos-sdk/pull/3172) Fix parsing `gaiad.toml`
+  * [\#3148](https://github.com/ColorPlatform/color-sdk/issues/3148) Fix `gaiad export` by adding a boolean to `NewGaiaApp` determining whether or not to load the latest version
+  * [\#3181](https://github.com/ColorPlatform/color-sdk/issues/3181) Correctly reset total accum update height and jailed-validator bond height / unbonding height on export-for-zero-height
+  * [\#3172](https://github.com/ColorPlatform/color-sdk/pull/3172) Fix parsing `gaiad.toml`
   when it already exists.
-  * [\#3223](https://github.com/cosmos/cosmos-sdk/issues/3223) Fix unset governance proposal queues when importing state from old chain
-  * [#3187](https://github.com/cosmos/cosmos-sdk/issues/3187) Fix `gaiad export`
+  * [\#3223](https://github.com/ColorPlatform/color-sdk/issues/3223) Fix unset governance proposal queues when importing state from old chain
+  * [#3187](https://github.com/ColorPlatform/color-sdk/issues/3187) Fix `gaiad export`
   by resetting each validator's slashing period.
 
 ## 0.29.1
@@ -692,17 +692,17 @@ BUG FIXES
 BUG FIXES
 
 * SDK
-  * [\#3207](https://github.com/cosmos/cosmos-sdk/issues/3207) - Fix token printing bug
+  * [\#3207](https://github.com/ColorPlatform/color-sdk/issues/3207) - Fix token printing bug
 
 ## 0.29.0
 
 BREAKING CHANGES
 
 * Gaia
-  * [\#3148](https://github.com/cosmos/cosmos-sdk/issues/3148) Fix `gaiad export` by adding a boolean to `NewGaiaApp` determining whether or not to load the latest version
+  * [\#3148](https://github.com/ColorPlatform/color-sdk/issues/3148) Fix `gaiad export` by adding a boolean to `NewGaiaApp` determining whether or not to load the latest version
 
 * SDK
-  * [\#3163](https://github.com/cosmos/cosmos-sdk/issues/3163) Withdraw commission on self bond removal
+  * [\#3163](https://github.com/ColorPlatform/color-sdk/issues/3163) Withdraw commission on self bond removal
 
 
 ## 0.28.1
@@ -710,35 +710,35 @@ BREAKING CHANGES
 BREAKING CHANGES
 
 * Gaia REST API (`gaiacli advanced rest-server`)
-  * [lcd] [\#3045](https://github.com/cosmos/cosmos-sdk/pull/3045) Fix quoted json return on GET /keys (keys list)
-  * [gaia-lite] [\#2191](https://github.com/cosmos/cosmos-sdk/issues/2191) Split `POST /stake/delegators/{delegatorAddr}/delegations` into `POST /stake/delegators/{delegatorAddr}/delegations`, `POST /stake/delegators/{delegatorAddr}/unbonding_delegations` and `POST /stake/delegators/{delegatorAddr}/redelegations`
-  * [gaia-lite] [\#3056](https://github.com/cosmos/cosmos-sdk/pull/3056) `generate_only` and `simulate` have moved from query arguments to POST requests body.
+  * [lcd] [\#3045](https://github.com/ColorPlatform/color-sdk/pull/3045) Fix quoted json return on GET /keys (keys list)
+  * [gaia-lite] [\#2191](https://github.com/ColorPlatform/color-sdk/issues/2191) Split `POST /stake/delegators/{delegatorAddr}/delegations` into `POST /stake/delegators/{delegatorAddr}/delegations`, `POST /stake/delegators/{delegatorAddr}/unbonding_delegations` and `POST /stake/delegators/{delegatorAddr}/redelegations`
+  * [gaia-lite] [\#3056](https://github.com/ColorPlatform/color-sdk/pull/3056) `generate_only` and `simulate` have moved from query arguments to POST requests body.
 * Tendermint
   * [tendermint] Now using Tendermint 0.27.3
 
 FEATURES
 
 * Gaia REST API (`gaiacli advanced rest-server`)
-  * [slashing] [\#2399](https://github.com/cosmos/cosmos-sdk/issues/2399)  Implement `/slashing/parameters` endpoint to query slashing parameters.
+  * [slashing] [\#2399](https://github.com/ColorPlatform/color-sdk/issues/2399)  Implement `/slashing/parameters` endpoint to query slashing parameters.
 * Gaia CLI  (`gaiacli`)
-  * [gaiacli] [\#2399](https://github.com/cosmos/cosmos-sdk/issues/2399) Implement `params` command to query slashing parameters.
+  * [gaiacli] [\#2399](https://github.com/ColorPlatform/color-sdk/issues/2399) Implement `params` command to query slashing parameters.
 * SDK
-  - [client] [\#2926](https://github.com/cosmos/cosmos-sdk/issues/2926) Add TxEncoder to client TxBuilder.
+  - [client] [\#2926](https://github.com/ColorPlatform/color-sdk/issues/2926) Add TxEncoder to client TxBuilder.
 * Other
   - Introduced the logjack tool for saving logs w/ rotation
 
 IMPROVEMENTS
 
 * Gaia REST API (`gaiacli advanced rest-server`)
-  * [\#2879](https://github.com/cosmos/cosmos-sdk/issues/2879), [\#2880](https://github.com/cosmos/cosmos-sdk/issues/2880) Update deposit and vote endpoints to perform a direct txs query
+  * [\#2879](https://github.com/ColorPlatform/color-sdk/issues/2879), [\#2880](https://github.com/ColorPlatform/color-sdk/issues/2880) Update deposit and vote endpoints to perform a direct txs query
     when a given proposal is inactive and thus having votes and deposits removed
     from state.
 * Gaia CLI  (`gaiacli`)
-  * [\#2879](https://github.com/cosmos/cosmos-sdk/issues/2879), [\#2880](https://github.com/cosmos/cosmos-sdk/issues/2880) Update deposit and vote CLI commands to perform a direct txs query
+  * [\#2879](https://github.com/ColorPlatform/color-sdk/issues/2879), [\#2880](https://github.com/ColorPlatform/color-sdk/issues/2880) Update deposit and vote CLI commands to perform a direct txs query
     when a given proposal is inactive and thus having votes and deposits removed
     from state.
 * Gaia
-  * [\#3021](https://github.com/cosmos/cosmos-sdk/pull/3021) Add `--gentx-dir` to `gaiad collect-gentxs` to specify a directory from which collect and load gentxs. Add `--output-document` to `gaiad init` to allow one to redirect output to file.
+  * [\#3021](https://github.com/ColorPlatform/color-sdk/pull/3021) Add `--gentx-dir` to `gaiad collect-gentxs` to specify a directory from which collect and load gentxs. Add `--output-document` to `gaiad init` to allow one to redirect output to file.
 
 
 ## 0.28.0
@@ -746,54 +746,54 @@ IMPROVEMENTS
 BREAKING CHANGES
 
 * Gaia CLI  (`gaiacli`)
-  * [cli] [\#2595](https://github.com/cosmos/cosmos-sdk/issues/2595) Remove `keys new` in favor of `keys add` incorporating existing functionality with addition of key recovery functionality.
-  * [cli] [\#2987](https://github.com/cosmos/cosmos-sdk/pull/2987) Add shorthand `-a` to `gaiacli keys show` and update docs
-  * [cli] [\#2971](https://github.com/cosmos/cosmos-sdk/pull/2971) Additional verification when running `gaiad gentx`
-  * [cli] [\#2734](https://github.com/cosmos/cosmos-sdk/issues/2734) Rewrite `gaiacli config`. It is now a non-interactive config utility.
+  * [cli] [\#2595](https://github.com/ColorPlatform/color-sdk/issues/2595) Remove `keys new` in favor of `keys add` incorporating existing functionality with addition of key recovery functionality.
+  * [cli] [\#2987](https://github.com/ColorPlatform/color-sdk/pull/2987) Add shorthand `-a` to `gaiacli keys show` and update docs
+  * [cli] [\#2971](https://github.com/ColorPlatform/color-sdk/pull/2971) Additional verification when running `gaiad gentx`
+  * [cli] [\#2734](https://github.com/ColorPlatform/color-sdk/issues/2734) Rewrite `gaiacli config`. It is now a non-interactive config utility.
 
 * Gaia
   * [#128](https://github.com/tendermint/devops/issues/128) Updated CircleCI job to trigger website build on every push to master/develop.
-  * [\#2994](https://github.com/cosmos/cosmos-sdk/pull/2994) Change wrong-password error message.
-  * [\#3009](https://github.com/cosmos/cosmos-sdk/issues/3009) Added missing Gaia genesis verification
+  * [\#2994](https://github.com/ColorPlatform/color-sdk/pull/2994) Change wrong-password error message.
+  * [\#3009](https://github.com/ColorPlatform/color-sdk/issues/3009) Added missing Gaia genesis verification
   * [#128](https://github.com/tendermint/devops/issues/128) Updated CircleCI job to trigger website build on every push to master/develop.
-  * [\#2994](https://github.com/cosmos/cosmos-sdk/pull/2994) Change wrong-password error message.
-  * [\#3009](https://github.com/cosmos/cosmos-sdk/issues/3009) Added missing Gaia genesis verification
-  * [gas] [\#3052](https://github.com/cosmos/cosmos-sdk/issues/3052) Updated gas costs to more reasonable numbers
+  * [\#2994](https://github.com/ColorPlatform/color-sdk/pull/2994) Change wrong-password error message.
+  * [\#3009](https://github.com/ColorPlatform/color-sdk/issues/3009) Added missing Gaia genesis verification
+  * [gas] [\#3052](https://github.com/ColorPlatform/color-sdk/issues/3052) Updated gas costs to more reasonable numbers
 
 * SDK
-  * [auth] [\#2952](https://github.com/cosmos/cosmos-sdk/issues/2952) Signatures are no longer serialized on chain with the account number and sequence number
-  * [auth] [\#2952](https://github.com/cosmos/cosmos-sdk/issues/2952) Signatures are no longer serialized on chain with the account number and sequence number
-  * [stake] [\#3055](https://github.com/cosmos/cosmos-sdk/issues/3055) Use address instead of bond height / intratxcounter for deduplication
+  * [auth] [\#2952](https://github.com/ColorPlatform/color-sdk/issues/2952) Signatures are no longer serialized on chain with the account number and sequence number
+  * [auth] [\#2952](https://github.com/ColorPlatform/color-sdk/issues/2952) Signatures are no longer serialized on chain with the account number and sequence number
+  * [stake] [\#3055](https://github.com/ColorPlatform/color-sdk/issues/3055) Use address instead of bond height / intratxcounter for deduplication
 
 FEATURES
 
 * Gaia CLI  (`gaiacli`)
-  * [\#2961](https://github.com/cosmos/cosmos-sdk/issues/2961) Add --force flag to gaiacli keys delete command to skip passphrase check and force key deletion unconditionally.
+  * [\#2961](https://github.com/ColorPlatform/color-sdk/issues/2961) Add --force flag to gaiacli keys delete command to skip passphrase check and force key deletion unconditionally.
 
 IMPROVEMENTS
 
 * Gaia CLI  (`gaiacli`)
-  * [\#2991](https://github.com/cosmos/cosmos-sdk/issues/2991) Fully validate transaction signatures during `gaiacli tx sign --validate-signatures`
+  * [\#2991](https://github.com/ColorPlatform/color-sdk/issues/2991) Fully validate transaction signatures during `gaiacli tx sign --validate-signatures`
 
 * SDK
-  * [\#1277](https://github.com/cosmos/cosmos-sdk/issues/1277) Complete bank module specification
-  * [\#2963](https://github.com/cosmos/cosmos-sdk/issues/2963) Complete auth module specification
-  * [\#2914](https://github.com/cosmos/cosmos-sdk/issues/2914) No longer withdraw validator rewards on bond/unbond, but rather move
+  * [\#1277](https://github.com/ColorPlatform/color-sdk/issues/1277) Complete bank module specification
+  * [\#2963](https://github.com/ColorPlatform/color-sdk/issues/2963) Complete auth module specification
+  * [\#2914](https://github.com/ColorPlatform/color-sdk/issues/2914) No longer withdraw validator rewards on bond/unbond, but rather move
   the rewards to the respective validator's pools.
 
 
 BUG FIXES
 
 * Gaia CLI  (`gaiacli`)
-  * [\#2921](https://github.com/cosmos/cosmos-sdk/issues/2921) Fix `keys delete` inability to delete offline and ledger keys.
+  * [\#2921](https://github.com/ColorPlatform/color-sdk/issues/2921) Fix `keys delete` inability to delete offline and ledger keys.
 
 * Gaia
-  * [\#3003](https://github.com/cosmos/cosmos-sdk/issues/3003) CollectStdTxs() must validate DelegatorAddr against genesis accounts.
+  * [\#3003](https://github.com/ColorPlatform/color-sdk/issues/3003) CollectStdTxs() must validate DelegatorAddr against genesis accounts.
 
 * SDK
-  * [\#2967](https://github.com/cosmos/cosmos-sdk/issues/2967) Change ordering of `mint.BeginBlocker` and `distr.BeginBlocker`, recalculate inflation each block
-  * [\#3068](https://github.com/cosmos/cosmos-sdk/issues/3068) check for uint64 gas overflow during `Std#ValidateBasic`.
-  * [\#3071](https://github.com/cosmos/cosmos-sdk/issues/3071) Catch overflow on block gas meter
+  * [\#2967](https://github.com/ColorPlatform/color-sdk/issues/2967) Change ordering of `mint.BeginBlocker` and `distr.BeginBlocker`, recalculate inflation each block
+  * [\#3068](https://github.com/ColorPlatform/color-sdk/issues/3068) check for uint64 gas overflow during `Std#ValidateBasic`.
+  * [\#3071](https://github.com/ColorPlatform/color-sdk/issues/3071) Catch overflow on block gas meter
 
 
 ## 0.27.0
@@ -801,27 +801,27 @@ BUG FIXES
 BREAKING CHANGES
 
 * Gaia REST API (`gaiacli advanced rest-server`)
-  * [gaia-lite] [\#2819](https://github.com/cosmos/cosmos-sdk/pull/2819) Txs query param format is now: `/txs?tag=value` (removed '' wrapping the query parameter `value`)
+  * [gaia-lite] [\#2819](https://github.com/ColorPlatform/color-sdk/pull/2819) Txs query param format is now: `/txs?tag=value` (removed '' wrapping the query parameter `value`)
 
 * Gaia CLI  (`gaiacli`)
-  * [cli] [\#2728](https://github.com/cosmos/cosmos-sdk/pull/2728) Seperate `tx` and `query` subcommands by module
-  * [cli] [\#2727](https://github.com/cosmos/cosmos-sdk/pull/2727) Fix unbonding command flow
-  * [cli] [\#2786](https://github.com/cosmos/cosmos-sdk/pull/2786) Fix redelegation command flow
-  * [cli] [\#2829](https://github.com/cosmos/cosmos-sdk/pull/2829) add-genesis-account command now validates state when adding accounts
-  * [cli] [\#2804](https://github.com/cosmos/cosmos-sdk/issues/2804) Check whether key exists before passing it on to `tx create-validator`.
-  * [cli] [\#2874](https://github.com/cosmos/cosmos-sdk/pull/2874) `gaiacli tx sign` takes an optional `--output-document` flag to support output redirection.
-  * [cli] [\#2875](https://github.com/cosmos/cosmos-sdk/pull/2875) Refactor `gaiad gentx` and avoid redirection to `gaiacli tx sign` for tx signing.
+  * [cli] [\#2728](https://github.com/ColorPlatform/color-sdk/pull/2728) Seperate `tx` and `query` subcommands by module
+  * [cli] [\#2727](https://github.com/ColorPlatform/color-sdk/pull/2727) Fix unbonding command flow
+  * [cli] [\#2786](https://github.com/ColorPlatform/color-sdk/pull/2786) Fix redelegation command flow
+  * [cli] [\#2829](https://github.com/ColorPlatform/color-sdk/pull/2829) add-genesis-account command now validates state when adding accounts
+  * [cli] [\#2804](https://github.com/ColorPlatform/color-sdk/issues/2804) Check whether key exists before passing it on to `tx create-validator`.
+  * [cli] [\#2874](https://github.com/ColorPlatform/color-sdk/pull/2874) `gaiacli tx sign` takes an optional `--output-document` flag to support output redirection.
+  * [cli] [\#2875](https://github.com/ColorPlatform/color-sdk/pull/2875) Refactor `gaiad gentx` and avoid redirection to `gaiacli tx sign` for tx signing.
 
 * Gaia
   * [mint] [\#2825] minting now occurs every block, inflation parameter updates still hourly
 
 * SDK
-  * [\#2752](https://github.com/cosmos/cosmos-sdk/pull/2752) Don't hardcode bondable denom.
-  * [\#2701](https://github.com/cosmos/cosmos-sdk/issues/2701) Account numbers and sequence numbers in `auth` are now `uint64` instead of `int64`
-  * [\#2019](https://github.com/cosmos/cosmos-sdk/issues/2019) Cap total number of signatures. Current per-transaction limit is 7, and if that is exceeded transaction is rejected.
-  * [\#2801](https://github.com/cosmos/cosmos-sdk/pull/2801) Remove AppInit structure.
-  * [\#2798](https://github.com/cosmos/cosmos-sdk/issues/2798) Governance API has miss-spelled English word in JSON response ('depositer' -> 'depositor')
-  * [\#2943](https://github.com/cosmos/cosmos-sdk/pull/2943) Transaction action tags equal the message type. Staking EndBlocker tags are included.
+  * [\#2752](https://github.com/ColorPlatform/color-sdk/pull/2752) Don't hardcode bondable denom.
+  * [\#2701](https://github.com/ColorPlatform/color-sdk/issues/2701) Account numbers and sequence numbers in `auth` are now `uint64` instead of `int64`
+  * [\#2019](https://github.com/ColorPlatform/color-sdk/issues/2019) Cap total number of signatures. Current per-transaction limit is 7, and if that is exceeded transaction is rejected.
+  * [\#2801](https://github.com/ColorPlatform/color-sdk/pull/2801) Remove AppInit structure.
+  * [\#2798](https://github.com/ColorPlatform/color-sdk/issues/2798) Governance API has miss-spelled English word in JSON response ('depositer' -> 'depositor')
+  * [\#2943](https://github.com/ColorPlatform/color-sdk/pull/2943) Transaction action tags equal the message type. Staking EndBlocker tags are included.
 
 * Tendermint
   * Update to Tendermint 0.27.0
@@ -829,76 +829,76 @@ BREAKING CHANGES
 FEATURES
 
 * Gaia REST API (`gaiacli advanced rest-server`)
-  * [gov] [\#2479](https://github.com/cosmos/cosmos-sdk/issues/2479) Added governance parameter
+  * [gov] [\#2479](https://github.com/ColorPlatform/color-sdk/issues/2479) Added governance parameter
     query REST endpoints.
 
 * Gaia CLI  (`gaiacli`)
-  * [gov][cli] [\#2479](https://github.com/cosmos/cosmos-sdk/issues/2479) Added governance
+  * [gov][cli] [\#2479](https://github.com/ColorPlatform/color-sdk/issues/2479) Added governance
     parameter query commands.
   * [stake][cli] [\#2027] Add CLI query command for getting all delegations to a specific validator.
-  * [\#2840](https://github.com/cosmos/cosmos-sdk/pull/2840) Standardize CLI exports from modules
+  * [\#2840](https://github.com/ColorPlatform/color-sdk/pull/2840) Standardize CLI exports from modules
 
 * Gaia
-  * [app] [\#2791](https://github.com/cosmos/cosmos-sdk/issues/2791) Support export at a specific height, with `gaiad export --height=HEIGHT`.
-  * [x/gov] [#2479](https://github.com/cosmos/cosmos-sdk/issues/2479) Implemented querier
+  * [app] [\#2791](https://github.com/ColorPlatform/color-sdk/issues/2791) Support export at a specific height, with `gaiad export --height=HEIGHT`.
+  * [x/gov] [#2479](https://github.com/ColorPlatform/color-sdk/issues/2479) Implemented querier
   for getting governance parameters.
-  * [app] [\#2663](https://github.com/cosmos/cosmos-sdk/issues/2663) - Runtime-assertable invariants
-  * [app] [\#2791](https://github.com/cosmos/cosmos-sdk/issues/2791) Support export at a specific height, with `gaiad export --height=HEIGHT`.
-  * [app] [\#2812](https://github.com/cosmos/cosmos-sdk/issues/2812) Support export alterations to prepare for restarting at zero-height
+  * [app] [\#2663](https://github.com/ColorPlatform/color-sdk/issues/2663) - Runtime-assertable invariants
+  * [app] [\#2791](https://github.com/ColorPlatform/color-sdk/issues/2791) Support export at a specific height, with `gaiad export --height=HEIGHT`.
+  * [app] [\#2812](https://github.com/ColorPlatform/color-sdk/issues/2812) Support export alterations to prepare for restarting at zero-height
 
 * SDK
-  * [simulator] [\#2682](https://github.com/cosmos/cosmos-sdk/issues/2682) MsgEditValidator now looks at the validator's max rate, thus it now succeeds a significant portion of the time
-  * [core] [\#2775](https://github.com/cosmos/cosmos-sdk/issues/2775) Add deliverTx maximum block gas limit
+  * [simulator] [\#2682](https://github.com/ColorPlatform/color-sdk/issues/2682) MsgEditValidator now looks at the validator's max rate, thus it now succeeds a significant portion of the time
+  * [core] [\#2775](https://github.com/ColorPlatform/color-sdk/issues/2775) Add deliverTx maximum block gas limit
 
 
 IMPROVEMENTS
 
 * Gaia REST API (`gaiacli advanced rest-server`)
-  * [gaia-lite] [\#2819](https://github.com/cosmos/cosmos-sdk/pull/2819) Tx search now supports multiple tags as query parameters
-  * [\#2836](https://github.com/cosmos/cosmos-sdk/pull/2836) Expose LCD router to allow users to register routes there.
+  * [gaia-lite] [\#2819](https://github.com/ColorPlatform/color-sdk/pull/2819) Tx search now supports multiple tags as query parameters
+  * [\#2836](https://github.com/ColorPlatform/color-sdk/pull/2836) Expose LCD router to allow users to register routes there.
 
 * Gaia CLI  (`gaiacli`)
-  * [\#2749](https://github.com/cosmos/cosmos-sdk/pull/2749) Add --chain-id flag to gaiad testnet
-  * [\#2819](https://github.com/cosmos/cosmos-sdk/pull/2819) Tx search now supports multiple tags as query parameters
+  * [\#2749](https://github.com/ColorPlatform/color-sdk/pull/2749) Add --chain-id flag to gaiad testnet
+  * [\#2819](https://github.com/ColorPlatform/color-sdk/pull/2819) Tx search now supports multiple tags as query parameters
 
 * Gaia
-  * [\#2772](https://github.com/cosmos/cosmos-sdk/issues/2772) Update BaseApp to not persist state when the ante handler fails on DeliverTx.
-  * [\#2773](https://github.com/cosmos/cosmos-sdk/issues/2773) Require moniker to be provided on `gaiad init`.
-  * [\#2672](https://github.com/cosmos/cosmos-sdk/issues/2672) [Makefile] Updated for better Windows compatibility and ledger support logic, get_tools was rewritten as a cross-compatible Makefile.
-  * [\#2766](https://github.com/cosmos/cosmos-sdk/issues/2766) [Makefile] Added goimports tool to get_tools. Get_tools now only builds new versions if binaries are missing.
+  * [\#2772](https://github.com/ColorPlatform/color-sdk/issues/2772) Update BaseApp to not persist state when the ante handler fails on DeliverTx.
+  * [\#2773](https://github.com/ColorPlatform/color-sdk/issues/2773) Require moniker to be provided on `gaiad init`.
+  * [\#2672](https://github.com/ColorPlatform/color-sdk/issues/2672) [Makefile] Updated for better Windows compatibility and ledger support logic, get_tools was rewritten as a cross-compatible Makefile.
+  * [\#2766](https://github.com/ColorPlatform/color-sdk/issues/2766) [Makefile] Added goimports tool to get_tools. Get_tools now only builds new versions if binaries are missing.
   * [#110](https://github.com/tendermint/devops/issues/110) Updated CircleCI job to trigger website build when cosmos docs are updated.
 
 * SDK
  & [x/mock/simulation] [\#2720] major cleanup, introduction of helper objects, reorganization
- * [\#2821](https://github.com/cosmos/cosmos-sdk/issues/2821) Codespaces are now strings
- * [types] [\#2776](https://github.com/cosmos/cosmos-sdk/issues/2776) Improve safety of `Coin` and `Coins` types. Various functions
+ * [\#2821](https://github.com/ColorPlatform/color-sdk/issues/2821) Codespaces are now strings
+ * [types] [\#2776](https://github.com/ColorPlatform/color-sdk/issues/2776) Improve safety of `Coin` and `Coins` types. Various functions
  and methods will panic when a negative amount is discovered.
- * [\#2815](https://github.com/cosmos/cosmos-sdk/issues/2815) Gas unit fields changed from `int64` to `uint64`.
- * [\#2821](https://github.com/cosmos/cosmos-sdk/issues/2821) Codespaces are now strings
- * [\#2779](https://github.com/cosmos/cosmos-sdk/issues/2779) Introduce `ValidateBasic` to the `Tx` interface and call it in the ante
+ * [\#2815](https://github.com/ColorPlatform/color-sdk/issues/2815) Gas unit fields changed from `int64` to `uint64`.
+ * [\#2821](https://github.com/ColorPlatform/color-sdk/issues/2821) Codespaces are now strings
+ * [\#2779](https://github.com/ColorPlatform/color-sdk/issues/2779) Introduce `ValidateBasic` to the `Tx` interface and call it in the ante
  handler.
- * [\#2825](https://github.com/cosmos/cosmos-sdk/issues/2825) More staking and distribution invariants
- * [\#2912](https://github.com/cosmos/cosmos-sdk/issues/2912) Print commit ID in hex when commit is synced.
+ * [\#2825](https://github.com/ColorPlatform/color-sdk/issues/2825) More staking and distribution invariants
+ * [\#2912](https://github.com/ColorPlatform/color-sdk/issues/2912) Print commit ID in hex when commit is synced.
 
 * Tendermint
- * [\#2796](https://github.com/cosmos/cosmos-sdk/issues/2796) Update to go-amino 0.14.1
+ * [\#2796](https://github.com/ColorPlatform/color-sdk/issues/2796) Update to go-amino 0.14.1
 
 
 BUG FIXES
 
 * Gaia REST API (`gaiacli advanced rest-server`)
-  * [gaia-lite] [\#2868](https://github.com/cosmos/cosmos-sdk/issues/2868) Added handler for governance tally endpoint
-  * [\#2907](https://github.com/cosmos/cosmos-sdk/issues/2907) Refactor and fix the way Gaia Lite is started.
+  * [gaia-lite] [\#2868](https://github.com/ColorPlatform/color-sdk/issues/2868) Added handler for governance tally endpoint
+  * [\#2907](https://github.com/ColorPlatform/color-sdk/issues/2907) Refactor and fix the way Gaia Lite is started.
 
 * Gaia
   * [\#2723] Use `cosmosvalcons` Bech32 prefix in `tendermint show-address`
-  * [\#2742](https://github.com/cosmos/cosmos-sdk/issues/2742) Fix time format of TimeoutCommit override
-  * [\#2898](https://github.com/cosmos/cosmos-sdk/issues/2898) Remove redundant '$' in docker-compose.yml
+  * [\#2742](https://github.com/ColorPlatform/color-sdk/issues/2742) Fix time format of TimeoutCommit override
+  * [\#2898](https://github.com/ColorPlatform/color-sdk/issues/2898) Remove redundant '$' in docker-compose.yml
 
 * SDK
-  * [\#2733](https://github.com/cosmos/cosmos-sdk/issues/2733) [x/gov, x/mock/simulation] Fix governance simulation, update x/gov import/export
-  * [\#2854](https://github.com/cosmos/cosmos-sdk/issues/2854) [x/bank] Remove unused bank.MsgIssue, prevent possible panic
-  * [\#2884](https://github.com/cosmos/cosmos-sdk/issues/2884) [docs/examples] Fix `basecli version` panic
+  * [\#2733](https://github.com/ColorPlatform/color-sdk/issues/2733) [x/gov, x/mock/simulation] Fix governance simulation, update x/gov import/export
+  * [\#2854](https://github.com/ColorPlatform/color-sdk/issues/2854) [x/bank] Remove unused bank.MsgIssue, prevent possible panic
+  * [\#2884](https://github.com/ColorPlatform/color-sdk/issues/2884) [docs/examples] Fix `basecli version` panic
 
 * Tendermint
   * [\#2797](https://github.com/tendermint/tendermint/pull/2797) AddressBook requires addresses to have IDs; Do not crap out immediately after sending pex addrs in seed mode
@@ -908,10 +908,10 @@ BUG FIXES
 BREAKING CHANGES
 
 * Gaia
-  * [gaiad init] [\#2602](https://github.com/cosmos/cosmos-sdk/issues/2602) New genesis workflow
+  * [gaiad init] [\#2602](https://github.com/ColorPlatform/color-sdk/issues/2602) New genesis workflow
 
 * SDK
-  * [simulation] [\#2665](https://github.com/cosmos/cosmos-sdk/issues/2665) only argument to sdk.Invariant is now app
+  * [simulation] [\#2665](https://github.com/ColorPlatform/color-sdk/issues/2665) only argument to sdk.Invariant is now app
 
 * Tendermint
   * Upgrade to version 0.26.0
@@ -919,45 +919,45 @@ BREAKING CHANGES
 FEATURES
 
 * Gaia CLI  (`gaiacli`)
-  * [cli] [\#2569](https://github.com/cosmos/cosmos-sdk/pull/2569) Add commands to query validator unbondings and redelegations
-  * [cli] [\#2569](https://github.com/cosmos/cosmos-sdk/pull/2569) Add commands to query validator unbondings and redelegations
-  * [cli] [\#2524](https://github.com/cosmos/cosmos-sdk/issues/2524) Add support offline mode to `gaiacli tx sign`. Lookups are not performed if the flag `--offline` is on.
-  * [cli] [\#2558](https://github.com/cosmos/cosmos-sdk/issues/2558) Rename --print-sigs to --validate-signatures. It now performs a complete set of sanity checks and reports to the user. Also added --print-signature-only to print the signature only, not the whole transaction.
-  * [cli] [\#2704](https://github.com/cosmos/cosmos-sdk/pull/2704) New add-genesis-account convenience command to populate genesis.json with genesis accounts.
+  * [cli] [\#2569](https://github.com/ColorPlatform/color-sdk/pull/2569) Add commands to query validator unbondings and redelegations
+  * [cli] [\#2569](https://github.com/ColorPlatform/color-sdk/pull/2569) Add commands to query validator unbondings and redelegations
+  * [cli] [\#2524](https://github.com/ColorPlatform/color-sdk/issues/2524) Add support offline mode to `gaiacli tx sign`. Lookups are not performed if the flag `--offline` is on.
+  * [cli] [\#2558](https://github.com/ColorPlatform/color-sdk/issues/2558) Rename --print-sigs to --validate-signatures. It now performs a complete set of sanity checks and reports to the user. Also added --print-signature-only to print the signature only, not the whole transaction.
+  * [cli] [\#2704](https://github.com/ColorPlatform/color-sdk/pull/2704) New add-genesis-account convenience command to populate genesis.json with genesis accounts.
 
 * SDK
-  * [\#1336](https://github.com/cosmos/cosmos-sdk/issues/1336) Mechanism for SDK Users to configure their own Bech32 prefixes instead of using the default cosmos prefixes.
+  * [\#1336](https://github.com/ColorPlatform/color-sdk/issues/1336) Mechanism for SDK Users to configure their own Bech32 prefixes instead of using the default cosmos prefixes.
 
 IMPROVEMENTS
 
 * Gaia
- * [\#2637](https://github.com/cosmos/cosmos-sdk/issues/2637) [x/gov] Switched inactive and active proposal queues to an iterator based queue
+ * [\#2637](https://github.com/ColorPlatform/color-sdk/issues/2637) [x/gov] Switched inactive and active proposal queues to an iterator based queue
 
 * SDK
- * [\#2573](https://github.com/cosmos/cosmos-sdk/issues/2573) [x/distribution] add accum invariance
- * [\#2556](https://github.com/cosmos/cosmos-sdk/issues/2556) [x/mock/simulation] Fix debugging output
- * [\#2396](https://github.com/cosmos/cosmos-sdk/issues/2396) [x/mock/simulation] Change parameters to get more slashes
- * [\#2617](https://github.com/cosmos/cosmos-sdk/issues/2617) [x/mock/simulation] Randomize all genesis parameters
- * [\#2669](https://github.com/cosmos/cosmos-sdk/issues/2669) [x/stake] Added invarant check to make sure validator's power aligns with its spot in the power store.
- * [\#1924](https://github.com/cosmos/cosmos-sdk/issues/1924) [x/mock/simulation] Use a transition matrix for block size
- * [\#2660](https://github.com/cosmos/cosmos-sdk/issues/2660) [x/mock/simulation] Staking transactions get tested far more frequently
- * [\#2610](https://github.com/cosmos/cosmos-sdk/issues/2610) [x/stake] Block redelegation to and from the same validator
- * [\#2652](https://github.com/cosmos/cosmos-sdk/issues/2652) [x/auth] Add benchmark for get and set account
- * [\#2685](https://github.com/cosmos/cosmos-sdk/issues/2685) [store] Add general merkle absence proof (also for empty substores)
- * [\#2708](https://github.com/cosmos/cosmos-sdk/issues/2708) [store] Disallow setting nil values
+ * [\#2573](https://github.com/ColorPlatform/color-sdk/issues/2573) [x/distribution] add accum invariance
+ * [\#2556](https://github.com/ColorPlatform/color-sdk/issues/2556) [x/mock/simulation] Fix debugging output
+ * [\#2396](https://github.com/ColorPlatform/color-sdk/issues/2396) [x/mock/simulation] Change parameters to get more slashes
+ * [\#2617](https://github.com/ColorPlatform/color-sdk/issues/2617) [x/mock/simulation] Randomize all genesis parameters
+ * [\#2669](https://github.com/ColorPlatform/color-sdk/issues/2669) [x/stake] Added invarant check to make sure validator's power aligns with its spot in the power store.
+ * [\#1924](https://github.com/ColorPlatform/color-sdk/issues/1924) [x/mock/simulation] Use a transition matrix for block size
+ * [\#2660](https://github.com/ColorPlatform/color-sdk/issues/2660) [x/mock/simulation] Staking transactions get tested far more frequently
+ * [\#2610](https://github.com/ColorPlatform/color-sdk/issues/2610) [x/stake] Block redelegation to and from the same validator
+ * [\#2652](https://github.com/ColorPlatform/color-sdk/issues/2652) [x/auth] Add benchmark for get and set account
+ * [\#2685](https://github.com/ColorPlatform/color-sdk/issues/2685) [store] Add general merkle absence proof (also for empty substores)
+ * [\#2708](https://github.com/ColorPlatform/color-sdk/issues/2708) [store] Disallow setting nil values
 
 BUG FIXES
 
 * Gaia
- * [\#2670](https://github.com/cosmos/cosmos-sdk/issues/2670) [x/stake] fixed incorrect `IterateBondedValidators` and split into two functions: `IterateBondedValidators` and `IterateLastBlockConsValidators`
- * [\#2691](https://github.com/cosmos/cosmos-sdk/issues/2691) Fix local testnet creation by using a single canonical genesis time
- * [\#2648](https://github.com/cosmos/cosmos-sdk/issues/2648) [gaiad] Fix `gaiad export` / `gaiad import` consistency, test in CI
+ * [\#2670](https://github.com/ColorPlatform/color-sdk/issues/2670) [x/stake] fixed incorrect `IterateBondedValidators` and split into two functions: `IterateBondedValidators` and `IterateLastBlockConsValidators`
+ * [\#2691](https://github.com/ColorPlatform/color-sdk/issues/2691) Fix local testnet creation by using a single canonical genesis time
+ * [\#2648](https://github.com/ColorPlatform/color-sdk/issues/2648) [gaiad] Fix `gaiad export` / `gaiad import` consistency, test in CI
 
 * SDK
- * [\#2625](https://github.com/cosmos/cosmos-sdk/issues/2625) [x/gov] fix AppendTag function usage error
- * [\#2677](https://github.com/cosmos/cosmos-sdk/issues/2677) [x/stake, x/distribution] various staking/distribution fixes as found by the simulator
- * [\#2674](https://github.com/cosmos/cosmos-sdk/issues/2674) [types] Fix coin.IsLT() impl, coins.IsLT() impl, and renamed coins.Is\* to coins.IsAll\* (see [\#2686](https://github.com/cosmos/cosmos-sdk/issues/2686))
- * [\#2711](https://github.com/cosmos/cosmos-sdk/issues/2711) [x/stake] Add commission data to `MsgCreateValidator` signature bytes.
+ * [\#2625](https://github.com/ColorPlatform/color-sdk/issues/2625) [x/gov] fix AppendTag function usage error
+ * [\#2677](https://github.com/ColorPlatform/color-sdk/issues/2677) [x/stake, x/distribution] various staking/distribution fixes as found by the simulator
+ * [\#2674](https://github.com/ColorPlatform/color-sdk/issues/2674) [types] Fix coin.IsLT() impl, coins.IsLT() impl, and renamed coins.Is\* to coins.IsAll\* (see [\#2686](https://github.com/ColorPlatform/color-sdk/issues/2686))
+ * [\#2711](https://github.com/ColorPlatform/color-sdk/issues/2711) [x/stake] Add commission data to `MsgCreateValidator` signature bytes.
  * Temporarily disable insecure mode for Gaia Lite
 
 ## 0.25.0
@@ -968,50 +968,50 @@ BREAKING CHANGES
 
 * Gaia REST API (`gaiacli advanced rest-server`)
     * [x/stake] Validator.Owner renamed to Validator.Operator
-    * [\#595](https://github.com/cosmos/cosmos-sdk/issues/595) Connections to the REST server are now secured using Transport Layer Security by default. The --insecure flag is provided to switch back to insecure HTTP.
-    * [gaia-lite] [\#2258](https://github.com/cosmos/cosmos-sdk/issues/2258) Split `GET stake/delegators/{delegatorAddr}` into `GET stake/delegators/{delegatorAddr}/delegations`, `GET stake/delegators/{delegatorAddr}/unbonding_delegations` and `GET stake/delegators/{delegatorAddr}/redelegations`
+    * [\#595](https://github.com/ColorPlatform/color-sdk/issues/595) Connections to the REST server are now secured using Transport Layer Security by default. The --insecure flag is provided to switch back to insecure HTTP.
+    * [gaia-lite] [\#2258](https://github.com/ColorPlatform/color-sdk/issues/2258) Split `GET stake/delegators/{delegatorAddr}` into `GET stake/delegators/{delegatorAddr}/delegations`, `GET stake/delegators/{delegatorAddr}/unbonding_delegations` and `GET stake/delegators/{delegatorAddr}/redelegations`
 
 * Gaia CLI  (`gaiacli`)
     * [x/stake] Validator.Owner renamed to Validator.Operator
     * [cli] unsafe_reset_all, show_validator, and show_node_id have been renamed to unsafe-reset-all, show-validator, and show-node-id
-    * [cli] [\#1983](https://github.com/cosmos/cosmos-sdk/issues/1983) --print-response now defaults to true in commands that create and send a transaction
-    * [cli] [\#1983](https://github.com/cosmos/cosmos-sdk/issues/1983) you can now pass --pubkey or --address to gaiacli keys show to return a plaintext representation of the key's address or public key for use with other commands
-    * [cli] [\#2061](https://github.com/cosmos/cosmos-sdk/issues/2061) changed proposalID in governance REST endpoints to proposal-id
-    * [cli] [\#2014](https://github.com/cosmos/cosmos-sdk/issues/2014) `gaiacli advanced` no longer exists - to access `ibc`, `rest-server`, and `validator-set` commands use `gaiacli ibc`, `gaiacli rest-server`, and `gaiacli tendermint`, respectively
-    * [makefile] `get_vendor_deps` no longer updates lock file it just updates vendor directory. Use `update_vendor_deps` to update the lock file. [#2152](https://github.com/cosmos/cosmos-sdk/pull/2152)
-    * [cli] [\#2221](https://github.com/cosmos/cosmos-sdk/issues/2221) All commands that
+    * [cli] [\#1983](https://github.com/ColorPlatform/color-sdk/issues/1983) --print-response now defaults to true in commands that create and send a transaction
+    * [cli] [\#1983](https://github.com/ColorPlatform/color-sdk/issues/1983) you can now pass --pubkey or --address to gaiacli keys show to return a plaintext representation of the key's address or public key for use with other commands
+    * [cli] [\#2061](https://github.com/ColorPlatform/color-sdk/issues/2061) changed proposalID in governance REST endpoints to proposal-id
+    * [cli] [\#2014](https://github.com/ColorPlatform/color-sdk/issues/2014) `gaiacli advanced` no longer exists - to access `ibc`, `rest-server`, and `validator-set` commands use `gaiacli ibc`, `gaiacli rest-server`, and `gaiacli tendermint`, respectively
+    * [makefile] `get_vendor_deps` no longer updates lock file it just updates vendor directory. Use `update_vendor_deps` to update the lock file. [#2152](https://github.com/ColorPlatform/color-sdk/pull/2152)
+    * [cli] [\#2221](https://github.com/ColorPlatform/color-sdk/issues/2221) All commands that
     utilize a validator's operator address must now use the new Bech32 prefix,
     `cosmosvaloper`.
-    * [cli] [\#2190](https://github.com/cosmos/cosmos-sdk/issues/2190) `gaiacli init --gen-txs` is now `gaiacli init --with-txs` to reduce confusion
-    * [cli] [\#2073](https://github.com/cosmos/cosmos-sdk/issues/2073) --from can now be either an address or a key name
-    * [cli] [\#1184](https://github.com/cosmos/cosmos-sdk/issues/1184) Subcommands reorganisation, see [\#2390](https://github.com/cosmos/cosmos-sdk/pull/2390) for a comprehensive list of changes.
-    * [cli] [\#2524](https://github.com/cosmos/cosmos-sdk/issues/2524) Add support offline mode to `gaiacli tx sign`. Lookups are not performed if the flag `--offline` is on.
-    * [cli] [\#2570](https://github.com/cosmos/cosmos-sdk/pull/2570) Add commands to query deposits on proposals
+    * [cli] [\#2190](https://github.com/ColorPlatform/color-sdk/issues/2190) `gaiacli init --gen-txs` is now `gaiacli init --with-txs` to reduce confusion
+    * [cli] [\#2073](https://github.com/ColorPlatform/color-sdk/issues/2073) --from can now be either an address or a key name
+    * [cli] [\#1184](https://github.com/ColorPlatform/color-sdk/issues/1184) Subcommands reorganisation, see [\#2390](https://github.com/ColorPlatform/color-sdk/pull/2390) for a comprehensive list of changes.
+    * [cli] [\#2524](https://github.com/ColorPlatform/color-sdk/issues/2524) Add support offline mode to `gaiacli tx sign`. Lookups are not performed if the flag `--offline` is on.
+    * [cli] [\#2570](https://github.com/ColorPlatform/color-sdk/pull/2570) Add commands to query deposits on proposals
 
 * Gaia
-    * Make the transient store key use a distinct store key. [#2013](https://github.com/cosmos/cosmos-sdk/pull/2013)
-    * [x/stake] [\#1901](https://github.com/cosmos/cosmos-sdk/issues/1901) Validator type's Owner field renamed to Operator; Validator's GetOwner() renamed accordingly to comply with the SDK's Validator interface.
-    * [docs] [#2001](https://github.com/cosmos/cosmos-sdk/pull/2001) Update slashing spec for slashing period
-    * [x/stake, x/slashing] [#1305](https://github.com/cosmos/cosmos-sdk/issues/1305) - Rename "revoked" to "jailed"
+    * Make the transient store key use a distinct store key. [#2013](https://github.com/ColorPlatform/color-sdk/pull/2013)
+    * [x/stake] [\#1901](https://github.com/ColorPlatform/color-sdk/issues/1901) Validator type's Owner field renamed to Operator; Validator's GetOwner() renamed accordingly to comply with the SDK's Validator interface.
+    * [docs] [#2001](https://github.com/ColorPlatform/color-sdk/pull/2001) Update slashing spec for slashing period
+    * [x/stake, x/slashing] [#1305](https://github.com/ColorPlatform/color-sdk/issues/1305) - Rename "revoked" to "jailed"
     * [x/stake] [#1676] Revoked and jailed validators put into the unbonding state
     * [x/stake] [#1877] Redelegations/unbonding-delegation from unbonding validator have reduced time
-    * [x/slashing] [\#1789](https://github.com/cosmos/cosmos-sdk/issues/1789) Slashing changes for Tendermint validator set offset (NextValSet)
-    * [x/stake] [\#2040](https://github.com/cosmos/cosmos-sdk/issues/2040) Validator
+    * [x/slashing] [\#1789](https://github.com/ColorPlatform/color-sdk/issues/1789) Slashing changes for Tendermint validator set offset (NextValSet)
+    * [x/stake] [\#2040](https://github.com/ColorPlatform/color-sdk/issues/2040) Validator
     operator type has now changed to `sdk.ValAddress`
-    * [x/stake] [\#2221](https://github.com/cosmos/cosmos-sdk/issues/2221) New
+    * [x/stake] [\#2221](https://github.com/ColorPlatform/color-sdk/issues/2221) New
     Bech32 prefixes have been introduced for a validator's consensus address and
     public key: `cosmosvalcons` and `cosmosvalconspub` respectively. Also, existing Bech32 prefixes have been
     renamed for accounts and validator operators:
       * `cosmosaccaddr` / `cosmosaccpub` => `cosmos` / `cosmospub`
       * `cosmosvaladdr` / `cosmosvalpub` => `cosmosvaloper` / `cosmosvaloperpub`
     * [x/stake] [#1013] TendermintUpdates now uses transient store
-    * [x/stake] [\#2435](https://github.com/cosmos/cosmos-sdk/issues/2435) Remove empty bytes from the ValidatorPowerRank store key
-    * [x/gov] [\#2195](https://github.com/cosmos/cosmos-sdk/issues/2195) Governance uses BFT Time
-    * [x/gov] [\#2256](https://github.com/cosmos/cosmos-sdk/issues/2256) Removed slashing for governance non-voting validators
-    * [simulation] [\#2162](https://github.com/cosmos/cosmos-sdk/issues/2162) Added back correct supply invariants
-    * [x/slashing] [\#2430](https://github.com/cosmos/cosmos-sdk/issues/2430) Simulate more slashes, check if validator is jailed before jailing
-    * [x/stake] [\#2393](https://github.com/cosmos/cosmos-sdk/issues/2393) Removed `CompleteUnbonding` and `CompleteRedelegation` Msg types, and instead added unbonding/redelegation queues to endblocker
-    * [x/mock/simulation] [\#2501](https://github.com/cosmos/cosmos-sdk/issues/2501) Simulate transactions & invariants for fee distribution, and fix bugs discovered in the process
+    * [x/stake] [\#2435](https://github.com/ColorPlatform/color-sdk/issues/2435) Remove empty bytes from the ValidatorPowerRank store key
+    * [x/gov] [\#2195](https://github.com/ColorPlatform/color-sdk/issues/2195) Governance uses BFT Time
+    * [x/gov] [\#2256](https://github.com/ColorPlatform/color-sdk/issues/2256) Removed slashing for governance non-voting validators
+    * [simulation] [\#2162](https://github.com/ColorPlatform/color-sdk/issues/2162) Added back correct supply invariants
+    * [x/slashing] [\#2430](https://github.com/ColorPlatform/color-sdk/issues/2430) Simulate more slashes, check if validator is jailed before jailing
+    * [x/stake] [\#2393](https://github.com/ColorPlatform/color-sdk/issues/2393) Removed `CompleteUnbonding` and `CompleteRedelegation` Msg types, and instead added unbonding/redelegation queues to endblocker
+    * [x/mock/simulation] [\#2501](https://github.com/ColorPlatform/color-sdk/issues/2501) Simulate transactions & invariants for fee distribution, and fix bugs discovered in the process
       * [x/auth] Simulate random fee payments
       * [cmd/gaia/app] Simulate non-zero inflation
       * [x/stake] Call hooks correctly in several cases related to delegation/validator updates
@@ -1029,8 +1029,8 @@ BREAKING CHANGES
       * [x/distribution] Correctly calculate total power using Tendermint updates
       * [x/distribution] Simulate withdrawal transactions
       * [x/distribution] Fix a bug where the fee pool was not correctly tracked on WithdrawDelegatorRewardsAll
-    * [x/stake] [\#1673](https://github.com/cosmos/cosmos-sdk/issues/1673) Validators are no longer deleted until they can no longer possibly be slashed
-    * [\#1890](https://github.com/cosmos/cosmos-sdk/issues/1890) Start chain with initial state + sequence of transactions
+    * [x/stake] [\#1673](https://github.com/ColorPlatform/color-sdk/issues/1673) Validators are no longer deleted until they can no longer possibly be slashed
+    * [\#1890](https://github.com/ColorPlatform/color-sdk/issues/1890) Start chain with initial state + sequence of transactions
       * [cli] Rename `gaiad init gentx` to `gaiad gentx`.
       * [cli] Add `--skip-genesis` flag to `gaiad init` to prevent `genesis.json` generation.
       * Drop `GenesisTx` in favor of a signed `StdTx` with only one `MsgCreateValidator` message.
@@ -1038,39 +1038,39 @@ BREAKING CHANGES
       * [cli] Add `--moniker` flag to `gaiad init` to override moniker when generating `genesis.json` - i.e. it takes effect when running with the `--with-txs` flag, it is ignored otherwise.
 
 * SDK
-    * [core] [\#2219](https://github.com/cosmos/cosmos-sdk/issues/2219) Update to Tendermint 0.24.0
+    * [core] [\#2219](https://github.com/ColorPlatform/color-sdk/issues/2219) Update to Tendermint 0.24.0
       * Validator set updates delayed by one block
       * BFT timestamp that can safely be used by applications
       * Fixed maximum block size enforcement
-    * [core] [\#1807](https://github.com/cosmos/cosmos-sdk/issues/1807) Switch from use of rational to decimal
-    * [types] [\#1901](https://github.com/cosmos/cosmos-sdk/issues/1901) Validator interface's GetOwner() renamed to GetOperator()
-    * [x/slashing] [#2122](https://github.com/cosmos/cosmos-sdk/pull/2122) - Implement slashing period
-    * [types] [\#2119](https://github.com/cosmos/cosmos-sdk/issues/2119) Parsed error messages and ABCI log errors to make     them more human readable.
-    * [types] [\#2407](https://github.com/cosmos/cosmos-sdk/issues/2407) MulInt method added to big decimal in order to improve efficiency of slashing
-    * [simulation] Rename TestAndRunTx to Operation [#2153](https://github.com/cosmos/cosmos-sdk/pull/2153)
-    * [simulation] Remove log and testing.TB from Operation and Invariants, in favor of using errors [\#2282](https://github.com/cosmos/cosmos-sdk/issues/2282)
-    * [simulation] Remove usage of keys and addrs in the types, in favor of simulation.Account [\#2384](https://github.com/cosmos/cosmos-sdk/issues/2384)
-    * [tools] Removed gocyclo [#2211](https://github.com/cosmos/cosmos-sdk/issues/2211)
-    * [baseapp] Remove `SetTxDecoder` in favor of requiring the decoder be set in baseapp initialization. [#1441](https://github.com/cosmos/cosmos-sdk/issues/1441)
-    * [baseapp] [\#1921](https://github.com/cosmos/cosmos-sdk/issues/1921) Add minimumFees field to BaseApp.
-    * [store] Change storeInfo within the root multistore to use tmhash instead of ripemd160 [\#2308](https://github.com/cosmos/cosmos-sdk/issues/2308)
-    * [codec] [\#2324](https://github.com/cosmos/cosmos-sdk/issues/2324) All referrences to wire have been renamed to codec. Additionally, wire.NewCodec is now codec.New().
-    * [types] [\#2343](https://github.com/cosmos/cosmos-sdk/issues/2343) Make sdk.Msg have a names field, to facilitate automatic tagging.
-    * [baseapp] [\#2366](https://github.com/cosmos/cosmos-sdk/issues/2366) Automatically add action tags to all messages
-    * [x/auth] [\#2377](https://github.com/cosmos/cosmos-sdk/issues/2377) auth.StdSignMsg -> txbuilder.StdSignMsg
-    * [x/staking] [\#2244](https://github.com/cosmos/cosmos-sdk/issues/2244) staking now holds a consensus-address-index instead of a consensus-pubkey-index
-    * [x/staking] [\#2236](https://github.com/cosmos/cosmos-sdk/issues/2236) more distribution hooks for distribution
-    * [x/stake] [\#2394](https://github.com/cosmos/cosmos-sdk/issues/2394) Split up UpdateValidator into distinct state transitions applied only in EndBlock
-    * [x/slashing] [\#2480](https://github.com/cosmos/cosmos-sdk/issues/2480) Fix signing info handling bugs & faulty slashing
-    * [x/stake] [\#2412](https://github.com/cosmos/cosmos-sdk/issues/2412) Added an unbonding validator queue to EndBlock to automatically update validator.Status when finished Unbonding
-    * [x/stake] [\#2500](https://github.com/cosmos/cosmos-sdk/issues/2500) Block conflicting redelegations until we add an index
+    * [core] [\#1807](https://github.com/ColorPlatform/color-sdk/issues/1807) Switch from use of rational to decimal
+    * [types] [\#1901](https://github.com/ColorPlatform/color-sdk/issues/1901) Validator interface's GetOwner() renamed to GetOperator()
+    * [x/slashing] [#2122](https://github.com/ColorPlatform/color-sdk/pull/2122) - Implement slashing period
+    * [types] [\#2119](https://github.com/ColorPlatform/color-sdk/issues/2119) Parsed error messages and ABCI log errors to make     them more human readable.
+    * [types] [\#2407](https://github.com/ColorPlatform/color-sdk/issues/2407) MulInt method added to big decimal in order to improve efficiency of slashing
+    * [simulation] Rename TestAndRunTx to Operation [#2153](https://github.com/ColorPlatform/color-sdk/pull/2153)
+    * [simulation] Remove log and testing.TB from Operation and Invariants, in favor of using errors [\#2282](https://github.com/ColorPlatform/color-sdk/issues/2282)
+    * [simulation] Remove usage of keys and addrs in the types, in favor of simulation.Account [\#2384](https://github.com/ColorPlatform/color-sdk/issues/2384)
+    * [tools] Removed gocyclo [#2211](https://github.com/ColorPlatform/color-sdk/issues/2211)
+    * [baseapp] Remove `SetTxDecoder` in favor of requiring the decoder be set in baseapp initialization. [#1441](https://github.com/ColorPlatform/color-sdk/issues/1441)
+    * [baseapp] [\#1921](https://github.com/ColorPlatform/color-sdk/issues/1921) Add minimumFees field to BaseApp.
+    * [store] Change storeInfo within the root multistore to use tmhash instead of ripemd160 [\#2308](https://github.com/ColorPlatform/color-sdk/issues/2308)
+    * [codec] [\#2324](https://github.com/ColorPlatform/color-sdk/issues/2324) All referrences to wire have been renamed to codec. Additionally, wire.NewCodec is now codec.New().
+    * [types] [\#2343](https://github.com/ColorPlatform/color-sdk/issues/2343) Make sdk.Msg have a names field, to facilitate automatic tagging.
+    * [baseapp] [\#2366](https://github.com/ColorPlatform/color-sdk/issues/2366) Automatically add action tags to all messages
+    * [x/auth] [\#2377](https://github.com/ColorPlatform/color-sdk/issues/2377) auth.StdSignMsg -> txbuilder.StdSignMsg
+    * [x/staking] [\#2244](https://github.com/ColorPlatform/color-sdk/issues/2244) staking now holds a consensus-address-index instead of a consensus-pubkey-index
+    * [x/staking] [\#2236](https://github.com/ColorPlatform/color-sdk/issues/2236) more distribution hooks for distribution
+    * [x/stake] [\#2394](https://github.com/ColorPlatform/color-sdk/issues/2394) Split up UpdateValidator into distinct state transitions applied only in EndBlock
+    * [x/slashing] [\#2480](https://github.com/ColorPlatform/color-sdk/issues/2480) Fix signing info handling bugs & faulty slashing
+    * [x/stake] [\#2412](https://github.com/ColorPlatform/color-sdk/issues/2412) Added an unbonding validator queue to EndBlock to automatically update validator.Status when finished Unbonding
+    * [x/stake] [\#2500](https://github.com/ColorPlatform/color-sdk/issues/2500) Block conflicting redelegations until we add an index
     * [x/params] Global Paramstore refactored
-    * [types] [\#2506](https://github.com/cosmos/cosmos-sdk/issues/2506) sdk.Dec MarshalJSON now marshals as a normal Decimal, with 10 digits of decimal precision
-    * [x/stake] [\#2508](https://github.com/cosmos/cosmos-sdk/issues/2508) Utilize Tendermint power for validator power key
-    * [x/stake] [\#2531](https://github.com/cosmos/cosmos-sdk/issues/2531) Remove all inflation logic
-    * [x/mint] [\#2531](https://github.com/cosmos/cosmos-sdk/issues/2531) Add minting module and inflation logic
-    * [x/auth] [\#2540](https://github.com/cosmos/cosmos-sdk/issues/2540) Rename `AccountMapper` to `AccountKeeper`.
-    * [types] [\#2456](https://github.com/cosmos/cosmos-sdk/issues/2456) Renamed msg.Name() and msg.Type() to msg.Type() and msg.Route() respectively
+    * [types] [\#2506](https://github.com/ColorPlatform/color-sdk/issues/2506) sdk.Dec MarshalJSON now marshals as a normal Decimal, with 10 digits of decimal precision
+    * [x/stake] [\#2508](https://github.com/ColorPlatform/color-sdk/issues/2508) Utilize Tendermint power for validator power key
+    * [x/stake] [\#2531](https://github.com/ColorPlatform/color-sdk/issues/2531) Remove all inflation logic
+    * [x/mint] [\#2531](https://github.com/ColorPlatform/color-sdk/issues/2531) Add minting module and inflation logic
+    * [x/auth] [\#2540](https://github.com/ColorPlatform/color-sdk/issues/2540) Rename `AccountMapper` to `AccountKeeper`.
+    * [types] [\#2456](https://github.com/ColorPlatform/color-sdk/issues/2456) Renamed msg.Name() and msg.Type() to msg.Type() and msg.Route() respectively
 
 * Tendermint
   * Update tendermint version from v0.23.0 to v0.25.0, notable changes
@@ -1088,47 +1088,47 @@ FEATURES
 
 * Gaia REST API (`gaiacli advanced rest-server`)
   * [gaia-lite] Endpoints to query staking pool and params
-  * [gaia-lite] [\#2110](https://github.com/cosmos/cosmos-sdk/issues/2110) Add support for `simulate=true` requests query argument to endpoints that send txs to run simulations of transactions
-  * [gaia-lite] [\#966](https://github.com/cosmos/cosmos-sdk/issues/966) Add support for `generate_only=true` query argument to generate offline unsigned transactions
-  * [gaia-lite] [\#1953](https://github.com/cosmos/cosmos-sdk/issues/1953) Add /sign endpoint to sign transactions generated with `generate_only=true`.
-  * [gaia-lite] [\#1954](https://github.com/cosmos/cosmos-sdk/issues/1954) Add /broadcast endpoint to broadcast transactions signed by the /sign endpoint.
-  * [gaia-lite] [\#2113](https://github.com/cosmos/cosmos-sdk/issues/2113) Rename `/accounts/{address}/send` to `/bank/accounts/{address}/transfers`, rename `/accounts/{address}` to `/auth/accounts/{address}`, replace `proposal-id` with `proposalId` in all gov endpoints
-  * [gaia-lite] [\#2478](https://github.com/cosmos/cosmos-sdk/issues/2478) Add query gov proposal's deposits endpoint
-  * [gaia-lite] [\#2477](https://github.com/cosmos/cosmos-sdk/issues/2477) Add query validator's outgoing redelegations and unbonding delegations endpoints
+  * [gaia-lite] [\#2110](https://github.com/ColorPlatform/color-sdk/issues/2110) Add support for `simulate=true` requests query argument to endpoints that send txs to run simulations of transactions
+  * [gaia-lite] [\#966](https://github.com/ColorPlatform/color-sdk/issues/966) Add support for `generate_only=true` query argument to generate offline unsigned transactions
+  * [gaia-lite] [\#1953](https://github.com/ColorPlatform/color-sdk/issues/1953) Add /sign endpoint to sign transactions generated with `generate_only=true`.
+  * [gaia-lite] [\#1954](https://github.com/ColorPlatform/color-sdk/issues/1954) Add /broadcast endpoint to broadcast transactions signed by the /sign endpoint.
+  * [gaia-lite] [\#2113](https://github.com/ColorPlatform/color-sdk/issues/2113) Rename `/accounts/{address}/send` to `/bank/accounts/{address}/transfers`, rename `/accounts/{address}` to `/auth/accounts/{address}`, replace `proposal-id` with `proposalId` in all gov endpoints
+  * [gaia-lite] [\#2478](https://github.com/ColorPlatform/color-sdk/issues/2478) Add query gov proposal's deposits endpoint
+  * [gaia-lite] [\#2477](https://github.com/ColorPlatform/color-sdk/issues/2477) Add query validator's outgoing redelegations and unbonding delegations endpoints
 
 * Gaia CLI  (`gaiacli`)
   * [cli] Cmds to query staking pool and params
-  * [gov][cli] [\#2062](https://github.com/cosmos/cosmos-sdk/issues/2062) added `--proposal` flag to `submit-proposal` that allows a JSON file containing a proposal to be passed in
-  * [\#2040](https://github.com/cosmos/cosmos-sdk/issues/2040) Add `--bech` to `gaiacli keys show` and respective REST endpoint to
+  * [gov][cli] [\#2062](https://github.com/ColorPlatform/color-sdk/issues/2062) added `--proposal` flag to `submit-proposal` that allows a JSON file containing a proposal to be passed in
+  * [\#2040](https://github.com/ColorPlatform/color-sdk/issues/2040) Add `--bech` to `gaiacli keys show` and respective REST endpoint to
   provide desired Bech32 prefix encoding
-  * [cli] [\#2047](https://github.com/cosmos/cosmos-sdk/issues/2047) [\#2306](https://github.com/cosmos/cosmos-sdk/pull/2306) Passing --gas=simulate triggers a simulation of the tx before the actual execution.
+  * [cli] [\#2047](https://github.com/ColorPlatform/color-sdk/issues/2047) [\#2306](https://github.com/ColorPlatform/color-sdk/pull/2306) Passing --gas=simulate triggers a simulation of the tx before the actual execution.
   The gas estimate obtained via the simulation will be used as gas limit in the actual execution.
-  * [cli] [\#2047](https://github.com/cosmos/cosmos-sdk/issues/2047) The --gas-adjustment flag can be used to adjust the estimate obtained via the simulation triggered by --gas=simulate.
-  * [cli] [\#2110](https://github.com/cosmos/cosmos-sdk/issues/2110) Add --dry-run flag to perform a simulation of a transaction without broadcasting it. The --gas flag is ignored as gas would be automatically estimated.
-  * [cli] [\#2204](https://github.com/cosmos/cosmos-sdk/issues/2204) Support generating and broadcasting messages with multiple signatures via command line:
-    * [\#966](https://github.com/cosmos/cosmos-sdk/issues/966) Add --generate-only flag to build an unsigned transaction and write it to STDOUT.
-    * [\#1953](https://github.com/cosmos/cosmos-sdk/issues/1953) New `sign` command to sign transactions generated with the --generate-only flag.
-    * [\#1954](https://github.com/cosmos/cosmos-sdk/issues/1954) New `broadcast` command to broadcast transactions generated offline and signed with the `sign` command.
-  * [cli] [\#2220](https://github.com/cosmos/cosmos-sdk/issues/2220) Add `gaiacli config` feature to interactively create CLI config files to reduce the number of required flags
-  * [stake][cli] [\#1672](https://github.com/cosmos/cosmos-sdk/issues/1672) Introduced
+  * [cli] [\#2047](https://github.com/ColorPlatform/color-sdk/issues/2047) The --gas-adjustment flag can be used to adjust the estimate obtained via the simulation triggered by --gas=simulate.
+  * [cli] [\#2110](https://github.com/ColorPlatform/color-sdk/issues/2110) Add --dry-run flag to perform a simulation of a transaction without broadcasting it. The --gas flag is ignored as gas would be automatically estimated.
+  * [cli] [\#2204](https://github.com/ColorPlatform/color-sdk/issues/2204) Support generating and broadcasting messages with multiple signatures via command line:
+    * [\#966](https://github.com/ColorPlatform/color-sdk/issues/966) Add --generate-only flag to build an unsigned transaction and write it to STDOUT.
+    * [\#1953](https://github.com/ColorPlatform/color-sdk/issues/1953) New `sign` command to sign transactions generated with the --generate-only flag.
+    * [\#1954](https://github.com/ColorPlatform/color-sdk/issues/1954) New `broadcast` command to broadcast transactions generated offline and signed with the `sign` command.
+  * [cli] [\#2220](https://github.com/ColorPlatform/color-sdk/issues/2220) Add `gaiacli config` feature to interactively create CLI config files to reduce the number of required flags
+  * [stake][cli] [\#1672](https://github.com/ColorPlatform/color-sdk/issues/1672) Introduced
   new commission flags for validator commands `create-validator` and `edit-validator`.
-  * [stake][cli] [\#1890](https://github.com/cosmos/cosmos-sdk/issues/1890) Add `--genesis-format` flag to `gaiacli tx create-validator` to produce transactions in genesis-friendly format.
-  * [cli][\#2554](https://github.com/cosmos/cosmos-sdk/issues/2554) Make `gaiacli keys show` multisig ready.
+  * [stake][cli] [\#1890](https://github.com/ColorPlatform/color-sdk/issues/1890) Add `--genesis-format` flag to `gaiacli tx create-validator` to produce transactions in genesis-friendly format.
+  * [cli][\#2554](https://github.com/ColorPlatform/color-sdk/issues/2554) Make `gaiacli keys show` multisig ready.
 
 * Gaia
-  * [cli] [\#2170](https://github.com/cosmos/cosmos-sdk/issues/2170) added ability to show the node's address via `gaiad tendermint show-address`
-  * [simulation] [\#2313](https://github.com/cosmos/cosmos-sdk/issues/2313) Reworked `make test_sim_gaia_slow` to `make test_sim_gaia_full`, now simulates from multiple starting seeds in parallel
-  * [cli] [\#1921] (https://github.com/cosmos/cosmos-sdk/issues/1921)
+  * [cli] [\#2170](https://github.com/ColorPlatform/color-sdk/issues/2170) added ability to show the node's address via `gaiad tendermint show-address`
+  * [simulation] [\#2313](https://github.com/ColorPlatform/color-sdk/issues/2313) Reworked `make test_sim_gaia_slow` to `make test_sim_gaia_full`, now simulates from multiple starting seeds in parallel
+  * [cli] [\#1921] (https://github.com/ColorPlatform/color-sdk/issues/1921)
     * New configuration file `gaiad.toml` is now created to host Gaia-specific configuration.
     * New --minimum_fees/minimum_fees flag/config option to set a minimum fee.
 
 * SDK
   * [querier] added custom querier functionality, so ABCI query requests can be handled by keepers
-  * [simulation] [\#1924](https://github.com/cosmos/cosmos-sdk/issues/1924) allow operations to specify future operations
-  * [simulation] [\#1924](https://github.com/cosmos/cosmos-sdk/issues/1924) Add benchmarking capabilities, with makefile commands "test_sim_gaia_benchmark, test_sim_gaia_profile"
-  * [simulation] [\#2349](https://github.com/cosmos/cosmos-sdk/issues/2349) Add time-based future scheduled operations to simulator
-  * [x/auth] [\#2376](https://github.com/cosmos/cosmos-sdk/issues/2376) Remove FeePayer() from StdTx
-  * [x/stake] [\#1672](https://github.com/cosmos/cosmos-sdk/issues/1672) Implement
+  * [simulation] [\#1924](https://github.com/ColorPlatform/color-sdk/issues/1924) allow operations to specify future operations
+  * [simulation] [\#1924](https://github.com/ColorPlatform/color-sdk/issues/1924) Add benchmarking capabilities, with makefile commands "test_sim_gaia_benchmark, test_sim_gaia_profile"
+  * [simulation] [\#2349](https://github.com/ColorPlatform/color-sdk/issues/2349) Add time-based future scheduled operations to simulator
+  * [x/auth] [\#2376](https://github.com/ColorPlatform/color-sdk/issues/2376) Remove FeePayer() from StdTx
+  * [x/stake] [\#1672](https://github.com/ColorPlatform/color-sdk/issues/1672) Implement
   basis for the validator commission model.
   * [x/auth] Support account removal in the account mapper.
 
@@ -1138,72 +1138,72 @@ IMPROVEMENTS
 * [tools] Added ansible script to enable process core dumps
 
 * Gaia REST API (`gaiacli advanced rest-server`)
-    * [x/stake] [\#2000](https://github.com/cosmos/cosmos-sdk/issues/2000) Added tests for new staking endpoints
-    * [gaia-lite] [\#2445](https://github.com/cosmos/cosmos-sdk/issues/2445) Standarized REST error responses
+    * [x/stake] [\#2000](https://github.com/ColorPlatform/color-sdk/issues/2000) Added tests for new staking endpoints
+    * [gaia-lite] [\#2445](https://github.com/ColorPlatform/color-sdk/issues/2445) Standarized REST error responses
     * [gaia-lite] Added example to Swagger specification for /keys/seed.
     * [x/stake] Refactor REST utils
 
 * Gaia CLI  (`gaiacli`)
-    * [cli] [\#2060](https://github.com/cosmos/cosmos-sdk/issues/2060) removed `--select` from `block` command
-    * [cli] [\#2128](https://github.com/cosmos/cosmos-sdk/issues/2128) fixed segfault when exporting directly after `gaiad init`
-    * [cli] [\#1255](https://github.com/cosmos/cosmos-sdk/issues/1255) open KeyBase in read-only mode
+    * [cli] [\#2060](https://github.com/ColorPlatform/color-sdk/issues/2060) removed `--select` from `block` command
+    * [cli] [\#2128](https://github.com/ColorPlatform/color-sdk/issues/2128) fixed segfault when exporting directly after `gaiad init`
+    * [cli] [\#1255](https://github.com/ColorPlatform/color-sdk/issues/1255) open KeyBase in read-only mode
      for query-purpose CLI commands
     * [docs] Added commands for querying governance deposits, votes and tally
 
 * Gaia
-    * [x/stake] [#2023](https://github.com/cosmos/cosmos-sdk/pull/2023) Terminate iteration loop in `UpdateBondedValidators` and `UpdateBondedValidatorsFull` when the first revoked validator is encountered and perform a sanity check.
+    * [x/stake] [#2023](https://github.com/ColorPlatform/color-sdk/pull/2023) Terminate iteration loop in `UpdateBondedValidators` and `UpdateBondedValidatorsFull` when the first revoked validator is encountered and perform a sanity check.
     * [x/auth] Signature verification's gas cost now accounts for pubkey type. [#2046](https://github.com/tendermint/tendermint/pull/2046)
-    * [x/stake] [x/slashing] Ensure delegation invariants to jailed validators [#1883](https://github.com/cosmos/cosmos-sdk/issues/1883).
+    * [x/stake] [x/slashing] Ensure delegation invariants to jailed validators [#1883](https://github.com/ColorPlatform/color-sdk/issues/1883).
     * [x/stake] Improve speed of GetValidator, which was shown to be a performance bottleneck. [#2046](https://github.com/tendermint/tendermint/pull/2200)
-    * [x/stake] [\#2435](https://github.com/cosmos/cosmos-sdk/issues/2435) Improve memory efficiency of getting the various store keys
-    * [genesis] [\#2229](https://github.com/cosmos/cosmos-sdk/issues/2229) Ensure that there are no duplicate accounts or validators in the genesis state.
-    * [genesis] [\#2450](https://github.com/cosmos/cosmos-sdk/issues/2450) Validate staking genesis parameters.
-    * Add SDK validation to `config.toml` (namely disabling `create_empty_blocks`) [\#1571](https://github.com/cosmos/cosmos-sdk/issues/1571)
-    * [\#1941](https://github.com/cosmos/cosmos-sdk/issues/1941)(https://github.com/cosmos/cosmos-sdk/issues/1941) Version is now inferred via `git describe --tags`.
-    * [x/distribution] [\#1671](https://github.com/cosmos/cosmos-sdk/issues/1671) add distribution types and tests
+    * [x/stake] [\#2435](https://github.com/ColorPlatform/color-sdk/issues/2435) Improve memory efficiency of getting the various store keys
+    * [genesis] [\#2229](https://github.com/ColorPlatform/color-sdk/issues/2229) Ensure that there are no duplicate accounts or validators in the genesis state.
+    * [genesis] [\#2450](https://github.com/ColorPlatform/color-sdk/issues/2450) Validate staking genesis parameters.
+    * Add SDK validation to `config.toml` (namely disabling `create_empty_blocks`) [\#1571](https://github.com/ColorPlatform/color-sdk/issues/1571)
+    * [\#1941](https://github.com/ColorPlatform/color-sdk/issues/1941)(https://github.com/ColorPlatform/color-sdk/issues/1941) Version is now inferred via `git describe --tags`.
+    * [x/distribution] [\#1671](https://github.com/ColorPlatform/color-sdk/issues/1671) add distribution types and tests
 
 * SDK
     * [tools] Make get_vendor_deps deletes `.vendor-new` directories, in case scratch files are present.
     * [spec] Added simple piggy bank distribution spec
-    * [cli] [\#1632](https://github.com/cosmos/cosmos-sdk/issues/1632) Add integration tests to ensure `basecoind init && basecoind` start sequences run successfully for both `democoin` and `basecoin` examples.
-    * [store] Speedup IAVL iteration, and consequently everything that requires IAVL iteration. [#2143](https://github.com/cosmos/cosmos-sdk/issues/2143)
-    * [store] [\#1952](https://github.com/cosmos/cosmos-sdk/issues/1952), [\#2281](https://github.com/cosmos/cosmos-sdk/issues/2281) Update IAVL dependency to v0.11.0
-    * [simulation] Make timestamps randomized [#2153](https://github.com/cosmos/cosmos-sdk/pull/2153)
-    * [simulation] Make logs not just pure strings, speeding it up by a large factor at greater block heights [\#2282](https://github.com/cosmos/cosmos-sdk/issues/2282)
-    * [simulation] Add a concept of weighting the operations [\#2303](https://github.com/cosmos/cosmos-sdk/issues/2303)
-    * [simulation] Logs get written to file if large, and also get printed on panics [\#2285](https://github.com/cosmos/cosmos-sdk/issues/2285)
-    * [simulation] Bank simulations now makes testing auth configurable [\#2425](https://github.com/cosmos/cosmos-sdk/issues/2425)
-    * [gaiad] [\#1992](https://github.com/cosmos/cosmos-sdk/issues/1992) Add optional flag to `gaiad testnet` to make config directory of daemon (default `gaiad`) and cli (default `gaiacli`) configurable
-    * [x/stake] Add stake `Queriers` for Gaia-lite endpoints. This increases the staking endpoints performance by reusing the staking `keeper` logic for queries. [#2249](https://github.com/cosmos/cosmos-sdk/pull/2149)
-    * [store] [\#2017](https://github.com/cosmos/cosmos-sdk/issues/2017) Refactor
+    * [cli] [\#1632](https://github.com/ColorPlatform/color-sdk/issues/1632) Add integration tests to ensure `basecoind init && basecoind` start sequences run successfully for both `democoin` and `basecoin` examples.
+    * [store] Speedup IAVL iteration, and consequently everything that requires IAVL iteration. [#2143](https://github.com/ColorPlatform/color-sdk/issues/2143)
+    * [store] [\#1952](https://github.com/ColorPlatform/color-sdk/issues/1952), [\#2281](https://github.com/ColorPlatform/color-sdk/issues/2281) Update IAVL dependency to v0.11.0
+    * [simulation] Make timestamps randomized [#2153](https://github.com/ColorPlatform/color-sdk/pull/2153)
+    * [simulation] Make logs not just pure strings, speeding it up by a large factor at greater block heights [\#2282](https://github.com/ColorPlatform/color-sdk/issues/2282)
+    * [simulation] Add a concept of weighting the operations [\#2303](https://github.com/ColorPlatform/color-sdk/issues/2303)
+    * [simulation] Logs get written to file if large, and also get printed on panics [\#2285](https://github.com/ColorPlatform/color-sdk/issues/2285)
+    * [simulation] Bank simulations now makes testing auth configurable [\#2425](https://github.com/ColorPlatform/color-sdk/issues/2425)
+    * [gaiad] [\#1992](https://github.com/ColorPlatform/color-sdk/issues/1992) Add optional flag to `gaiad testnet` to make config directory of daemon (default `gaiad`) and cli (default `gaiacli`) configurable
+    * [x/stake] Add stake `Queriers` for Gaia-lite endpoints. This increases the staking endpoints performance by reusing the staking `keeper` logic for queries. [#2249](https://github.com/ColorPlatform/color-sdk/pull/2149)
+    * [store] [\#2017](https://github.com/ColorPlatform/color-sdk/issues/2017) Refactor
     gas iterator gas consumption to only consume gas for iterator creation and `Next`
     calls which includes dynamic consumption of value length.
-    * [types/decimal] [\#2378](https://github.com/cosmos/cosmos-sdk/issues/2378) - Added truncate functionality to decimal
-    * [client] [\#1184](https://github.com/cosmos/cosmos-sdk/issues/1184) Remove unused `client/tx/sign.go`.
-    * [tools] [\#2464](https://github.com/cosmos/cosmos-sdk/issues/2464) Lock binary dependencies to a specific version
+    * [types/decimal] [\#2378](https://github.com/ColorPlatform/color-sdk/issues/2378) - Added truncate functionality to decimal
+    * [client] [\#1184](https://github.com/ColorPlatform/color-sdk/issues/1184) Remove unused `client/tx/sign.go`.
+    * [tools] [\#2464](https://github.com/ColorPlatform/color-sdk/issues/2464) Lock binary dependencies to a specific version
     * #2573 [x/distribution] add accum invariance
 
 BUG FIXES
 
 * Gaia CLI  (`gaiacli`)
-    * [cli] [\#1997](https://github.com/cosmos/cosmos-sdk/issues/1997) Handle panics gracefully when `gaiacli stake {delegation,unbond}` fail to unmarshal delegation.
-    * [cli] [\#2265](https://github.com/cosmos/cosmos-sdk/issues/2265) Fix JSON formatting of the `gaiacli send` command.
-    * [cli] [\#2547](https://github.com/cosmos/cosmos-sdk/issues/2547) Mark --to and --amount as required flags for `gaiacli tx send`.
+    * [cli] [\#1997](https://github.com/ColorPlatform/color-sdk/issues/1997) Handle panics gracefully when `gaiacli stake {delegation,unbond}` fail to unmarshal delegation.
+    * [cli] [\#2265](https://github.com/ColorPlatform/color-sdk/issues/2265) Fix JSON formatting of the `gaiacli send` command.
+    * [cli] [\#2547](https://github.com/ColorPlatform/color-sdk/issues/2547) Mark --to and --amount as required flags for `gaiacli tx send`.
 
 * Gaia
   * [x/stake] Return correct Tendermint validator update set on `EndBlocker` by not
-  including non previously bonded validators that have zero power. [#2189](https://github.com/cosmos/cosmos-sdk/issues/2189)
+  including non previously bonded validators that have zero power. [#2189](https://github.com/ColorPlatform/color-sdk/issues/2189)
   * [docs] Fixed light client section links
 
 * SDK
-    * [\#1988](https://github.com/cosmos/cosmos-sdk/issues/1988) Make us compile on OpenBSD (disable ledger) [#1988] (https://github.com/cosmos/cosmos-sdk/issues/1988)
-    * [\#2105](https://github.com/cosmos/cosmos-sdk/issues/2105) Fix DB Iterator leak, which may leak a go routine.
-    * [ledger] [\#2064](https://github.com/cosmos/cosmos-sdk/issues/2064) Fix inability to sign and send transactions via the LCD by
+    * [\#1988](https://github.com/ColorPlatform/color-sdk/issues/1988) Make us compile on OpenBSD (disable ledger) [#1988] (https://github.com/ColorPlatform/color-sdk/issues/1988)
+    * [\#2105](https://github.com/ColorPlatform/color-sdk/issues/2105) Fix DB Iterator leak, which may leak a go routine.
+    * [ledger] [\#2064](https://github.com/ColorPlatform/color-sdk/issues/2064) Fix inability to sign and send transactions via the LCD by
     loading a Ledger device at runtime.
-    * [\#2158](https://github.com/cosmos/cosmos-sdk/issues/2158) Fix non-deterministic ordering of validator iteration when slashing in `gov EndBlocker`
-    * [simulation] [\#1924](https://github.com/cosmos/cosmos-sdk/issues/1924) Make simulation stop on SIGTERM
-    * [\#2388](https://github.com/cosmos/cosmos-sdk/issues/2388) Remove dependency on deprecated tendermint/tmlibs repository.
-    * [\#2416](https://github.com/cosmos/cosmos-sdk/issues/2416) Refactored `InitializeTestLCD` to properly include proposing validator in genesis state.
+    * [\#2158](https://github.com/ColorPlatform/color-sdk/issues/2158) Fix non-deterministic ordering of validator iteration when slashing in `gov EndBlocker`
+    * [simulation] [\#1924](https://github.com/ColorPlatform/color-sdk/issues/1924) Make simulation stop on SIGTERM
+    * [\#2388](https://github.com/ColorPlatform/color-sdk/issues/2388) Remove dependency on deprecated tendermint/tmlibs repository.
+    * [\#2416](https://github.com/ColorPlatform/color-sdk/issues/2416) Refactored `InitializeTestLCD` to properly include proposing validator in genesis state.
     * #2573 [x/distribution] accum invariance bugfix
     * #2573 [x/slashing] unbonding-delegation slashing invariance bugfix
 
@@ -1232,36 +1232,36 @@ BUG FIXES
 BREAKING CHANGES
 
 * Gaia REST API (`gaiacli advanced rest-server`)
-  - [x/stake] [\#1880](https://github.com/cosmos/cosmos-sdk/issues/1880) More REST-ful endpoints (large refactor)
-  - [x/slashing] [\#1866](https://github.com/cosmos/cosmos-sdk/issues/1866) `/slashing/signing_info` takes cosmosvalpub instead of cosmosvaladdr
+  - [x/stake] [\#1880](https://github.com/ColorPlatform/color-sdk/issues/1880) More REST-ful endpoints (large refactor)
+  - [x/slashing] [\#1866](https://github.com/ColorPlatform/color-sdk/issues/1866) `/slashing/signing_info` takes cosmosvalpub instead of cosmosvaladdr
   - use time.Time instead of int64 for time. See Tendermint v0.23.0
   - Signatures are no longer Amino encoded with prefixes (just encoded as raw
     bytes) - see Tendermint v0.23.0
 
 * Gaia CLI  (`gaiacli`)
   -  [x/stake] change `--keybase-sig` to `--identity`
-  -  [x/stake] [\#1828](https://github.com/cosmos/cosmos-sdk/issues/1828) Force user to specify amount on create-validator command by removing default
+  -  [x/stake] [\#1828](https://github.com/ColorPlatform/color-sdk/issues/1828) Force user to specify amount on create-validator command by removing default
   -  [x/gov] Change `--proposalID` to `--proposal-id`
-  -  [x/stake, x/gov] [\#1606](https://github.com/cosmos/cosmos-sdk/issues/1606) Use `--from` instead of adhoc flags like `--address-validator`
+  -  [x/stake, x/gov] [\#1606](https://github.com/ColorPlatform/color-sdk/issues/1606) Use `--from` instead of adhoc flags like `--address-validator`
         and `--proposer` to indicate the sender address.
-  -  [\#1551](https://github.com/cosmos/cosmos-sdk/issues/1551) Remove `--name` completely
+  -  [\#1551](https://github.com/ColorPlatform/color-sdk/issues/1551) Remove `--name` completely
   -  Genesis/key creation (`gaiad init`) now supports user-provided key passwords
 
 * Gaia
   - [x/stake] Inflation doesn't use rationals in calculation (performance boost)
   - [x/stake] Persist a map from `addr->pubkey` in the state since BeginBlock
     doesn't provide pubkeys.
-  - [x/gov] [\#1781](https://github.com/cosmos/cosmos-sdk/issues/1781) Added tags sub-package, changed tags to use dash-case
-  - [x/gov] [\#1688](https://github.com/cosmos/cosmos-sdk/issues/1688) Governance parameters are now stored in globalparams store
-  - [x/gov] [\#1859](https://github.com/cosmos/cosmos-sdk/issues/1859) Slash validators who do not vote on a proposal
-  - [x/gov] [\#1914](https://github.com/cosmos/cosmos-sdk/issues/1914) added TallyResult type that gets stored in Proposal after tallying is finished
+  - [x/gov] [\#1781](https://github.com/ColorPlatform/color-sdk/issues/1781) Added tags sub-package, changed tags to use dash-case
+  - [x/gov] [\#1688](https://github.com/ColorPlatform/color-sdk/issues/1688) Governance parameters are now stored in globalparams store
+  - [x/gov] [\#1859](https://github.com/ColorPlatform/color-sdk/issues/1859) Slash validators who do not vote on a proposal
+  - [x/gov] [\#1914](https://github.com/ColorPlatform/color-sdk/issues/1914) added TallyResult type that gets stored in Proposal after tallying is finished
 
 * SDK
   - [baseapp] Msgs are no longer run on CheckTx, removed `ctx.IsCheckTx()`
   - [baseapp] NewBaseApp constructor takes sdk.TxDecoder as argument instead of wire.Codec
   - [types] sdk.NewCoin takes sdk.Int, sdk.NewInt64Coin takes int64
   - [x/auth] Default TxDecoder can be found in `x/auth` rather than baseapp
-  - [client] [\#1551](https://github.com/cosmos/cosmos-sdk/issues/1551): Refactored `CoreContext` to `TxContext` and `QueryContext`
+  - [client] [\#1551](https://github.com/ColorPlatform/color-sdk/issues/1551): Refactored `CoreContext` to `TxContext` and `QueryContext`
       - Removed all tx related fields and logic (building & signing) to separate
         structure `TxContext` in `x/auth/client/context`
 
@@ -1270,7 +1270,7 @@ BREAKING CHANGES
         - change all the cryptography imports.
     - v0.23.0 -> See
       [Changelog](https://github.com/tendermint/tendermint/blob/v0.23.0/CHANGELOG.md#0230)
-      and [SDK PR](https://github.com/cosmos/cosmos-sdk/pull/1927)
+      and [SDK PR](https://github.com/ColorPlatform/color-sdk/pull/1927)
         - BeginBlock no longer includes crypto.Pubkey
         - use time.Time instead of int64 for time.
 
@@ -1281,7 +1281,7 @@ FEATURES
 
 * Gaia CLI  (`gaiacli`)
     - [x/gov] added `query-proposals` command. Can filter by `depositer`, `voter`, and `status`
-    - [x/stake] [\#2043](https://github.com/cosmos/cosmos-sdk/issues/2043) Added staking query cli cmds for unbonding-delegations and redelegations
+    - [x/stake] [\#2043](https://github.com/ColorPlatform/color-sdk/issues/2043) Added staking query cli cmds for unbonding-delegations and redelegations
 
 * Gaia
   - [networks] Added ansible scripts to upgrade seed nodes on a network
@@ -1294,7 +1294,7 @@ FEATURES
      - Simulates Tendermint's algorithm for validator set updates
      - Simulates validator signing/downtime with a Markov chain, and occaisional double-signatures
      - Includes simulated operations & invariants for staking, slashing, governance, and bank modules
-  - [store] [\#1481](https://github.com/cosmos/cosmos-sdk/issues/1481) Add transient store
+  - [store] [\#1481](https://github.com/ColorPlatform/color-sdk/issues/1481) Add transient store
   - [baseapp] Initialize validator set on ResponseInitChain
   - [baseapp] added BaseApp.Seal - ability to seal baseapp parameters once they've been set
   - [cosmos-sdk-cli] New `cosmos-sdk-cli` tool to quickly initialize a new
@@ -1304,41 +1304,41 @@ FEATURES
 IMPROVEMENTS
 
 * Gaia
-  - [spec] [\#967](https://github.com/cosmos/cosmos-sdk/issues/967) Inflation and distribution specs drastically improved
-  - [x/gov] [\#1773](https://github.com/cosmos/cosmos-sdk/issues/1773) Votes on a proposal can now be queried
+  - [spec] [\#967](https://github.com/ColorPlatform/color-sdk/issues/967) Inflation and distribution specs drastically improved
+  - [x/gov] [\#1773](https://github.com/ColorPlatform/color-sdk/issues/1773) Votes on a proposal can now be queried
   - [x/gov] Initial governance parameters can now be set in the genesis file
-  - [x/stake] [\#1815](https://github.com/cosmos/cosmos-sdk/issues/1815) Sped up the processing of `EditValidator` txs.
-  - [config] [\#1930](https://github.com/cosmos/cosmos-sdk/issues/1930) Transactions indexer indexes all tags by default.
-  - [ci] [#2057](https://github.com/cosmos/cosmos-sdk/pull/2057) Run `make localnet-start` on every commit and ensure network reaches at least 10 blocks
+  - [x/stake] [\#1815](https://github.com/ColorPlatform/color-sdk/issues/1815) Sped up the processing of `EditValidator` txs.
+  - [config] [\#1930](https://github.com/ColorPlatform/color-sdk/issues/1930) Transactions indexer indexes all tags by default.
+  - [ci] [#2057](https://github.com/ColorPlatform/color-sdk/pull/2057) Run `make localnet-start` on every commit and ensure network reaches at least 10 blocks
 
 * SDK
-  - [baseapp] [\#1587](https://github.com/cosmos/cosmos-sdk/issues/1587) Allow any alphanumeric character in route
+  - [baseapp] [\#1587](https://github.com/ColorPlatform/color-sdk/issues/1587) Allow any alphanumeric character in route
   - [baseapp] Allow any alphanumeric character in route
   - [tools] Remove `rm -rf vendor/` from `make get_vendor_deps`
   - [x/auth] Recover ErrorOutOfGas panic in order to set sdk.Result attributes correctly
-  - [x/auth] [\#2376](https://github.com/cosmos/cosmos-sdk/issues/2376) No longer runs any signature in a multi-msg, if any account/sequence number is wrong.
-  - [x/auth] [\#2376](https://github.com/cosmos/cosmos-sdk/issues/2376) No longer charge gas for subtracting fees
+  - [x/auth] [\#2376](https://github.com/ColorPlatform/color-sdk/issues/2376) No longer runs any signature in a multi-msg, if any account/sequence number is wrong.
+  - [x/auth] [\#2376](https://github.com/ColorPlatform/color-sdk/issues/2376) No longer charge gas for subtracting fees
   - [x/bank] Unit tests are now table-driven
   - [tests] Add tests to example apps in docs
   - [tests] Fixes ansible scripts to work with AWS too
-  - [tests] [\#1806](https://github.com/cosmos/cosmos-sdk/issues/1806) CLI tests are now behind the build flag 'cli_test', so go test works on a new repo
+  - [tests] [\#1806](https://github.com/ColorPlatform/color-sdk/issues/1806) CLI tests are now behind the build flag 'cli_test', so go test works on a new repo
 
 BUG FIXES
 
 * Gaia CLI  (`gaiacli`)
-  -  [\#1766](https://github.com/cosmos/cosmos-sdk/issues/1766) Fixes bad example for keybase identity
-  -  [x/stake] [\#2021](https://github.com/cosmos/cosmos-sdk/issues/2021) Fixed repeated CLI commands in staking
+  -  [\#1766](https://github.com/ColorPlatform/color-sdk/issues/1766) Fixes bad example for keybase identity
+  -  [x/stake] [\#2021](https://github.com/ColorPlatform/color-sdk/issues/2021) Fixed repeated CLI commands in staking
 
 * Gaia
-  - [x/stake] [#2077](https://github.com/cosmos/cosmos-sdk/pull/2077) Fixed invalid cliff power comparison
-  - [\#1804](https://github.com/cosmos/cosmos-sdk/issues/1804) Fixes gen-tx genesis generation logic temporarily until upstream updates
-  - [\#1799](https://github.com/cosmos/cosmos-sdk/issues/1799) Fix `gaiad export`
-  - [\#1839](https://github.com/cosmos/cosmos-sdk/issues/1839) Fixed bug where intra-tx counter wasn't set correctly for genesis validators
-  - [x/stake] [\#1858](https://github.com/cosmos/cosmos-sdk/issues/1858) Fixed bug where the cliff validator was not updated correctly
-  - [tests] [\#1675](https://github.com/cosmos/cosmos-sdk/issues/1675) Fix non-deterministic `test_cover`
-  - [tests] [\#1551](https://github.com/cosmos/cosmos-sdk/issues/1551) Fixed invalid LCD test JSON payload in `doIBCTransfer`
+  - [x/stake] [#2077](https://github.com/ColorPlatform/color-sdk/pull/2077) Fixed invalid cliff power comparison
+  - [\#1804](https://github.com/ColorPlatform/color-sdk/issues/1804) Fixes gen-tx genesis generation logic temporarily until upstream updates
+  - [\#1799](https://github.com/ColorPlatform/color-sdk/issues/1799) Fix `gaiad export`
+  - [\#1839](https://github.com/ColorPlatform/color-sdk/issues/1839) Fixed bug where intra-tx counter wasn't set correctly for genesis validators
+  - [x/stake] [\#1858](https://github.com/ColorPlatform/color-sdk/issues/1858) Fixed bug where the cliff validator was not updated correctly
+  - [tests] [\#1675](https://github.com/ColorPlatform/color-sdk/issues/1675) Fix non-deterministic `test_cover`
+  - [tests] [\#1551](https://github.com/ColorPlatform/color-sdk/issues/1551) Fixed invalid LCD test JSON payload in `doIBCTransfer`
   - [basecoin] Fixes coin transaction failure and account query [discussion](https://forum.cosmos.network/t/unmarshalbinarybare-expected-to-read-prefix-bytes-75fbfab8-since-it-is-registered-concrete-but-got-0a141dfa/664/6)
-  - [x/gov] [\#1757](https://github.com/cosmos/cosmos-sdk/issues/1757) Fix VoteOption conversion to String
+  - [x/gov] [\#1757](https://github.com/ColorPlatform/color-sdk/issues/1757) Fix VoteOption conversion to String
   * [x/stake] [#2083] Fix broken invariant of bonded validator power decrease
 
 ## 0.23.1
@@ -1366,9 +1366,9 @@ IMPROVEMENTS
 BUG FIXES
 * [tendermint] Update to v0.22.6
     - Fixes some security vulnerabilities reported in the [Bug Bounty](https://hackerone.com/tendermint)
-*  [\#1797](https://github.com/cosmos/cosmos-sdk/issues/1797) Fix off-by-one error in slashing for downtime
-*  [\#1787](https://github.com/cosmos/cosmos-sdk/issues/1787) Fixed bug where Tally fails due to revoked/unbonding validator
-*  [\#1666](https://github.com/cosmos/cosmos-sdk/issues/1666) Add intra-tx counter to the genesis validators
+*  [\#1797](https://github.com/ColorPlatform/color-sdk/issues/1797) Fix off-by-one error in slashing for downtime
+*  [\#1787](https://github.com/ColorPlatform/color-sdk/issues/1787) Fixed bug where Tally fails due to revoked/unbonding validator
+*  [\#1666](https://github.com/ColorPlatform/color-sdk/issues/1666) Add intra-tx counter to the genesis validators
 
 ## 0.22.0
 
@@ -1414,8 +1414,8 @@ IMPROVEMENTS
 * [store] Pruning strategy configurable with pruning flag on gaiad start
 
 BUG FIXES
-* [\#1630](https://github.com/cosmos/cosmos-sdk/issues/1630) - redelegation nolonger removes tokens from the delegator liquid account
-* [keys] [\#1629](https://github.com/cosmos/cosmos-sdk/issues/1629) - updating password no longer asks for a new password when the first entered password was incorrect
+* [\#1630](https://github.com/ColorPlatform/color-sdk/issues/1630) - redelegation nolonger removes tokens from the delegator liquid account
+* [keys] [\#1629](https://github.com/ColorPlatform/color-sdk/issues/1629) - updating password no longer asks for a new password when the first entered password was incorrect
 * [lcd] importing an account would create a random account
 * [server] 'gaiad init' command family now writes provided name as the moniker in `config.toml`
 * [build] Added Ledger build support via `LEDGER_ENABLED=true|false`
@@ -1531,9 +1531,9 @@ IMPROVEMENTS
 * [docs] Added commands for governance CLI on testnet README
 
 BUG FIXES
-* [x/slashing] [\#1510](https://github.com/cosmos/cosmos-sdk/issues/1510) Unrevoked validators cannot un-revoke themselves
-* [x/stake] [\#1513](https://github.com/cosmos/cosmos-sdk/issues/1513) Validators slashed to zero power are unbonded and removed from the store
-* [x/stake] [\#1567](https://github.com/cosmos/cosmos-sdk/issues/1567) Validators decreased in power but not unbonded are now updated in Tendermint
+* [x/slashing] [\#1510](https://github.com/ColorPlatform/color-sdk/issues/1510) Unrevoked validators cannot un-revoke themselves
+* [x/stake] [\#1513](https://github.com/ColorPlatform/color-sdk/issues/1513) Validators slashed to zero power are unbonded and removed from the store
+* [x/stake] [\#1567](https://github.com/ColorPlatform/color-sdk/issues/1567) Validators decreased in power but not unbonded are now updated in Tendermint
 * [x/stake] error strings lower case
 * [x/stake] pool loose tokens now accounts for unbonding and unbonding tokens not associated with any validator
 * [x/stake] fix revoke bytes ordering (was putting revoked candidates at the top of the list)
@@ -1543,20 +1543,20 @@ BUG FIXES
 * Retry on HTTP request failure in CLI tests, add option to retry tests in Makefile
 * Fixed bug where chain ID wasn't passed properly in x/bank REST handler, removed Viper hack from ante handler
 * Fixed bug where `democli account` didn't decode the account data correctly
-* [\#872](https://github.com/cosmos/cosmos-sdk/issues/872)  - recovery phrases no longer all end in `abandon`
-* [\#887](https://github.com/cosmos/cosmos-sdk/issues/887)  - limit the size of rationals that can be passed in from user input
-* [\#1052](https://github.com/cosmos/cosmos-sdk/issues/1052) - Make all now works
-* [\#1258](https://github.com/cosmos/cosmos-sdk/issues/1258) - printing big.rat's can no longer overflow int64
-* [\#1259](https://github.com/cosmos/cosmos-sdk/issues/1259) - fix bug where certain tests that could have a nil pointer in defer
-* [\#1343](https://github.com/cosmos/cosmos-sdk/issues/1343) - fixed unnecessary parallelism in CI
-* [\#1353](https://github.com/cosmos/cosmos-sdk/issues/1353) - CLI: Show pool shares fractions in human-readable format
-* [\#1367](https://github.com/cosmos/cosmos-sdk/issues/1367) - set ChainID in InitChain
-* [\#1461](https://github.com/cosmos/cosmos-sdk/issues/1461) - CLI tests now no longer reset your local environment data
-* [\#1505](https://github.com/cosmos/cosmos-sdk/issues/1505) - `gaiacli stake validator` no longer panics if validator doesn't exist
-* [\#1565](https://github.com/cosmos/cosmos-sdk/issues/1565) - fix cliff validator persisting when validator set shrinks from max
-* [\#1287](https://github.com/cosmos/cosmos-sdk/issues/1287) - prevent zero power validators at genesis
+* [\#872](https://github.com/ColorPlatform/color-sdk/issues/872)  - recovery phrases no longer all end in `abandon`
+* [\#887](https://github.com/ColorPlatform/color-sdk/issues/887)  - limit the size of rationals that can be passed in from user input
+* [\#1052](https://github.com/ColorPlatform/color-sdk/issues/1052) - Make all now works
+* [\#1258](https://github.com/ColorPlatform/color-sdk/issues/1258) - printing big.rat's can no longer overflow int64
+* [\#1259](https://github.com/ColorPlatform/color-sdk/issues/1259) - fix bug where certain tests that could have a nil pointer in defer
+* [\#1343](https://github.com/ColorPlatform/color-sdk/issues/1343) - fixed unnecessary parallelism in CI
+* [\#1353](https://github.com/ColorPlatform/color-sdk/issues/1353) - CLI: Show pool shares fractions in human-readable format
+* [\#1367](https://github.com/ColorPlatform/color-sdk/issues/1367) - set ChainID in InitChain
+* [\#1461](https://github.com/ColorPlatform/color-sdk/issues/1461) - CLI tests now no longer reset your local environment data
+* [\#1505](https://github.com/ColorPlatform/color-sdk/issues/1505) - `gaiacli stake validator` no longer panics if validator doesn't exist
+* [\#1565](https://github.com/ColorPlatform/color-sdk/issues/1565) - fix cliff validator persisting when validator set shrinks from max
+* [\#1287](https://github.com/ColorPlatform/color-sdk/issues/1287) - prevent zero power validators at genesis
 * [x/stake] fix bug when unbonding/redelegating using `--shares-percent`
-* [\#1010](https://github.com/cosmos/cosmos-sdk/issues/1010) - two validators can't bond with the same pubkey anymore
+* [\#1010](https://github.com/ColorPlatform/color-sdk/issues/1010) - two validators can't bond with the same pubkey anymore
 
 
 ## 0.19.0
@@ -1582,7 +1582,7 @@ IMPROVEMENTS
 * [x/stake] More stake tests added to test ByPower index
 
 FIXES
-* Fixes consensus fault on testnet - see postmortem [here](https://github.com/cosmos/cosmos-sdk/issues/1197#issuecomment-396823021)
+* Fixes consensus fault on testnet - see postmortem [here](https://github.com/ColorPlatform/color-sdk/issues/1197#issuecomment-396823021)
 * [x/stake] bonded inflation removed, non-bonded inflation partially implemented
 * [lcd] Switch to bech32 for addresses on all human readable inputs and outputs
 * [lcd] fixed tx indexing/querying

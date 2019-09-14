@@ -1,7 +1,7 @@
 version: 2
 
 defaults: &linux_defaults
-  working_directory: /go/src/github.com/cosmos/cosmos-sdk
+  working_directory: /go/src/github.com/ColorPlatform/color-sdk
   docker:
     - image: circleci/golang:1.12.1
   environment:
@@ -15,7 +15,7 @@ defaults: &linux_defaults
 macos_config: &macos_defaults
   macos:
     xcode: "10.1.0"
-  working_directory: /Users/distiller/project/src/github.com/cosmos/cosmos-sdk
+  working_directory: /Users/distiller/project/src/github.com/ColorPlatform/color-sdk
   environment:
     GO_VERSION: "1.12.1"
 
@@ -234,7 +234,7 @@ jobs:
             export PATH="$GOBIN:$PATH"
             export VERSION="$(git describe --tags --long | sed 's/v\(.*\)/\1/')"
             export GO111MODULE=on
-            for pkg in $(go list ./... | grep -v github.com/cosmos/cosmos-sdk/cmd/gaia/cli_test | grep -v '/simulation' | circleci tests split --split-by=timings); do
+            for pkg in $(go list ./... | grep -v github.com/ColorPlatform/color-sdk/cmd/gaia/cli_test | grep -v '/simulation' | circleci tests split --split-by=timings); do
               id=$(echo "$pkg" | sed 's|[/.]|_|g')
               go test -mod=readonly -timeout 8m -race -coverprofile=/tmp/workspace/profiles/$id.out -covermode=atomic -tags='ledger test_ledger_mock' "$pkg" | tee "/tmp/logs/$id-$RANDOM.log"
             done
@@ -277,7 +277,7 @@ jobs:
           command: bash <(curl -s https://codecov.io/bash) -f coverage.txt
 
   localnet:
-      working_directory: /home/circleci/.go_workspace/src/github.com/cosmos/cosmos-sdk
+      working_directory: /home/circleci/.go_workspace/src/github.com/ColorPlatform/color-sdk
       machine:
         image: circleci/classic:latest
       environment:

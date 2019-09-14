@@ -1,7 +1,7 @@
 package keys
 
 import (
-	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/ColorPlatform/color-sdk/client"
 	"github.com/spf13/cobra"
 )
 

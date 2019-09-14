@@ -5,9 +5,9 @@ import (
 
 	dbm "github.com/tendermint/tendermint/libs/db"
 
-	"github.com/cosmos/cosmos-sdk/store/cachekv"
-	"github.com/cosmos/cosmos-sdk/store/dbadapter"
-	"github.com/cosmos/cosmos-sdk/store/types"
+	"github.com/ColorPlatform/color-sdk/store/cachekv"
+	"github.com/ColorPlatform/color-sdk/store/dbadapter"
+	"github.com/ColorPlatform/color-sdk/store/types"
 )
 
 //----------------------------------------

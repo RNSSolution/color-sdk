@@ -1,7 +1,7 @@
 package gov
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/ColorPlatform/color-sdk/codec"
 )
 
 var msgCdc = codec.New()

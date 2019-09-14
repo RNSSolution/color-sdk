@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"strings"
 
-	crkeys "github.com/cosmos/cosmos-sdk/crypto/keys"
+	crkeys "github.com/ColorPlatform/color-sdk/crypto/keys"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/keys"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/ColorPlatform/color-sdk/client"
+	"github.com/ColorPlatform/color-sdk/client/keys"
+	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/auth"
 
 	"errors"
 

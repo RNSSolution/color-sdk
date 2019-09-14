@@ -8,7 +8,7 @@ known as the LastCommit. A LastCommit is valid so long as it contains precommits
 Proposers are incentivized to include precommits from all
 validators in the LastCommit by receiving additional fees
 proportional to the difference between the voting power included in the
-LastCommit and +2/3 (see [TODO](https://github.com/cosmos/cosmos-sdk/issues/967)).
+LastCommit and +2/3 (see [TODO](https://github.com/ColorPlatform/color-sdk/issues/967)).
 
 Validators are penalized for failing to be included in the LastCommit for some
 number of blocks by being automatically unbonded.

@@ -4,4 +4,4 @@ Without further ado, let us get into it!
 
 - [Simple governance example](./simple-governance/intro.md)
 
-If you have an example you would like to add to the list, feel free to open a PR [here](https://github.com/cosmos/cosmos-sdk/pulls).
+If you have an example you would like to add to the list, feel free to open a PR [here](https://github.com/ColorPlatform/color-sdk/pulls).

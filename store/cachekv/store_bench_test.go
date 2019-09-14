@@ -7,8 +7,8 @@ import (
 
 	dbm "github.com/tendermint/tendermint/libs/db"
 
-	"github.com/cosmos/cosmos-sdk/store/cachekv"
-	"github.com/cosmos/cosmos-sdk/store/dbadapter"
+	"github.com/ColorPlatform/color-sdk/store/cachekv"
+	"github.com/ColorPlatform/color-sdk/store/dbadapter"
 )
 
 func benchmarkCacheKVStoreIterator(numKVs int, b *testing.B) {
