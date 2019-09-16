@@ -74,13 +74,13 @@ ci: tools install test_cover lint test
 
 build: go.sum
 ifeq ($(OS),Windows_NT)
-	go build -mod=readonly $(BUILD_FLAGS) -o build/colord.exe ./cmd/gaia/cmd/colord
-	go build -mod=readonly $(BUILD_FLAGS) -o build/colorcli.exe ./cmd/gaia/cmd/colorcli
+	go build -mod=readonly $(BUILD_FLAGS) -o build/colord.exe ./cmd/color/cmd/colord
+	go build -mod=readonly $(BUILD_FLAGS) -o build/colorcli.exe ./cmd/color/cmd/colorcli
 else
-	go build -mod=readonly $(BUILD_FLAGS) -o build/colord ./cmd/gaia/cmd/colord
-	go build -mod=readonly $(BUILD_FLAGS) -o build/colorcli ./cmd/gaia/cmd/colorcli
-	go build -mod=readonly $(BUILD_FLAGS) -o build/colorreplay ./cmd/gaia/cmd/colorreplay
-	go build -mod=readonly $(BUILD_FLAGS) -o build/colorkeyutil ./cmd/gaia/cmd/colorkeyutil
+	go build -mod=readonly $(BUILD_FLAGS) -o build/colord ./cmd/color/cmd/colord
+	go build -mod=readonly $(BUILD_FLAGS) -o build/colorcli ./cmd/color/cmd/colorcli
+	go build -mod=readonly $(BUILD_FLAGS) -o build/colorreplay ./cmd/color/cmd/colorreplay
+	go build -mod=readonly $(BUILD_FLAGS) -o build/colorkeyutil ./cmd/color/cmd/colorkeyutil
 endif
 
 build-linux: go.sum
@@ -90,13 +90,13 @@ update_gaia_lite_docs:
 	@statik -src=client/lcd/swagger-ui -dest=client/lcd -f
 
 install: go.sum check-ledger update_gaia_lite_docs
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/colord
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/colorcli
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/colorreplay
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/colorkeyutil
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/color/cmd/colord
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/color/cmd/colorcli
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/color/cmd/colorreplay
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/color/cmd/colorkeyutil
 
 install_debug: go.sum
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/gaia/cmd/colordebug
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/color/cmd/colordebug
 
 dist:
 	@bash publish/dist.sh
@@ -116,7 +116,7 @@ go.sum: tools go.mod
 draw_deps: tools
 	@# requires brew install graphviz or apt-get install graphviz
 	go get github.com/RobotsAndPencils/goviz
-	@goviz -i github.com/ColorPlatform/color-sdk/cmd/gaia/cmd/gaiad -d 2 | dot -Tpng -o dependency-graph.png
+	@goviz -i github.com/ColorPlatform/color-sdk/cmd/color/cmd/gaiad -d 2 | dot -Tpng -o dependency-graph.png
 
 clean:
 	rm -rf snapcraft-local.yaml build/
@@ -138,7 +138,7 @@ godocs:
 test: test_unit
 
 test_cli: build
-	@go test -mod=readonly -p 4 `go list ./cmd/gaia/cli_test/...` -tags=cli_test
+	@go test -mod=readonly -p 4 `go list ./cmd/color/cli_test/...` -tags=cli_test
 
 test_ledger:
     # First test with mock
@@ -188,12 +188,12 @@ SIM_BLOCK_SIZE ?= 200
 SIM_COMMIT ?= true
 test_sim_gaia_benchmark:
 	@echo "Running Gaia benchmark for numBlocks=$(SIM_NUM_BLOCKS), blockSize=$(SIM_BLOCK_SIZE). This may take awhile!"
-	@go test -mod=readonly -benchmem -run=^$$ github.com/ColorPlatform/color-sdk/cmd/gaia/app -bench ^BenchmarkFullGaiaSimulation$$  \
+	@go test -mod=readonly -benchmem -run=^$$ github.com/ColorPlatform/color-sdk/cmd/color/app -bench ^BenchmarkFullGaiaSimulation$$  \
 		-SimulationEnabled=true -SimulationNumBlocks=$(SIM_NUM_BLOCKS) -SimulationBlockSize=$(SIM_BLOCK_SIZE) -SimulationCommit=$(SIM_COMMIT) -timeout 24h
 
 test_sim_gaia_profile:
 	@echo "Running Gaia benchmark for numBlocks=$(SIM_NUM_BLOCKS), blockSize=$(SIM_BLOCK_SIZE). This may take awhile!"
-	@go test -mod=readonly -benchmem -run=^$$ github.com/ColorPlatform/color-sdk/cmd/gaia/app -bench ^BenchmarkFullGaiaSimulation$$ \
+	@go test -mod=readonly -benchmem -run=^$$ github.com/ColorPlatform/color-sdk/cmd/color/app -bench ^BenchmarkFullGaiaSimulation$$ \
 		-SimulationEnabled=true -SimulationNumBlocks=$(SIM_NUM_BLOCKS) -SimulationBlockSize=$(SIM_BLOCK_SIZE) -SimulationCommit=$(SIM_COMMIT) -timeout 24h -cpuprofile cpu.out -memprofile mem.out
 
 test_cover:

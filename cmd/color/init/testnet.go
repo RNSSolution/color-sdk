@@ -12,7 +12,7 @@ import (
 	"github.com/ColorPlatform/color-sdk/client/keys"
 
 	"github.com/ColorPlatform/color-sdk/client"
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
 	"github.com/ColorPlatform/color-sdk/codec"
 	srvconfig "github.com/ColorPlatform/color-sdk/server/config"
 	sdk "github.com/ColorPlatform/color-sdk/types"

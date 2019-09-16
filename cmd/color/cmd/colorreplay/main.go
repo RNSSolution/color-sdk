@@ -20,7 +20,7 @@ import (
 	tm "github.com/tendermint/tendermint/types"
 
 	"github.com/ColorPlatform/color-sdk/baseapp"
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
 	"github.com/ColorPlatform/color-sdk/server"
 	sdk "github.com/ColorPlatform/color-sdk/types"
 )

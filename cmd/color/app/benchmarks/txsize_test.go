@@ -5,7 +5,7 @@ import (
 
 	"github.com/tendermint/tendermint/crypto/secp256k1"
 
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
 	sdk "github.com/ColorPlatform/color-sdk/types"
 	"github.com/ColorPlatform/color-sdk/x/auth"
 	"github.com/ColorPlatform/color-sdk/x/bank"

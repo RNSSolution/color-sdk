@@ -15,8 +15,8 @@ import (
 
 	"github.com/ColorPlatform/color-sdk/baseapp"
 	"github.com/ColorPlatform/color-sdk/client"
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
-	gaiaInit "github.com/ColorPlatform/color-sdk/cmd/gaia/init"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
+	gaiaInit "github.com/ColorPlatform/color-sdk/cmd/color/init"
 	"github.com/ColorPlatform/color-sdk/server"
 	"github.com/ColorPlatform/color-sdk/store"
 	sdk "github.com/ColorPlatform/color-sdk/types"

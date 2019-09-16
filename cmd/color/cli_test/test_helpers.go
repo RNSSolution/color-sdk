@@ -15,8 +15,8 @@ import (
 	cmn "github.com/tendermint/tendermint/libs/common"
 
 	clientkeys "github.com/ColorPlatform/color-sdk/client/keys"
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
-	appInit "github.com/ColorPlatform/color-sdk/cmd/gaia/init"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
+	appInit "github.com/ColorPlatform/color-sdk/cmd/color/init"
 	"github.com/ColorPlatform/color-sdk/codec"
 	"github.com/ColorPlatform/color-sdk/crypto/keys"
 	"github.com/ColorPlatform/color-sdk/server"

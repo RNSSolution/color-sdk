@@ -13,7 +13,7 @@ import (
 	"github.com/tendermint/tendermint/libs/common"
 
 	"github.com/ColorPlatform/color-sdk/client"
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
 	"github.com/ColorPlatform/color-sdk/codec"
 	"github.com/ColorPlatform/color-sdk/server"
 )
@@ -58,7 +58,7 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command { // nolint: 
 
 			chainID := viper.GetString(client.FlagChainID)
 			if chainID == "" {
-				chainID = fmt.Sprintf("test-chain-%v", common.RandStr(6))
+				chainID = fmt.Sprintf("colors-test-01")
 			}
 
 			nodeID, _, err := InitializeNodeValidatorFiles(config)

@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/ColorPlatform/color-sdk/client"
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
 	"github.com/ColorPlatform/color-sdk/server"
 	"github.com/ColorPlatform/color-sdk/server/mock"
 	"github.com/spf13/viper"

@@ -14,7 +14,7 @@ import (
 	"github.com/tendermint/tendermint/types"
 
 	"github.com/ColorPlatform/color-sdk/client"
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
 	"github.com/ColorPlatform/color-sdk/codec"
 	"github.com/ColorPlatform/color-sdk/server"
 	"github.com/ColorPlatform/color-sdk/x/auth"

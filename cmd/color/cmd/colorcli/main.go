@@ -20,7 +20,7 @@ import (
 	"github.com/ColorPlatform/color-sdk/client/lcd"
 	"github.com/ColorPlatform/color-sdk/client/rpc"
 	"github.com/ColorPlatform/color-sdk/client/tx"
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
 	sdk "github.com/ColorPlatform/color-sdk/types"
 	"github.com/ColorPlatform/color-sdk/version"
 

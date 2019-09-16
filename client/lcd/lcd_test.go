@@ -18,7 +18,7 @@ import (
 	"github.com/ColorPlatform/color-sdk/client"
 	"github.com/ColorPlatform/color-sdk/client/keys"
 	clienttx "github.com/ColorPlatform/color-sdk/client/tx"
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
 	"github.com/ColorPlatform/color-sdk/crypto/keys/mintkey"
 	"github.com/ColorPlatform/color-sdk/tests"
 	sdk "github.com/ColorPlatform/color-sdk/types"

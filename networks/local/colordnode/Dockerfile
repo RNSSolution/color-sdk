@@ -1,5 +1,5 @@
 FROM alpine:3.7
-MAINTAINER Greg Szabo <greg@tendermint.com>
+MAINTAINER RNS sol 
 
 RUN apk update && \
     apk upgrade && \

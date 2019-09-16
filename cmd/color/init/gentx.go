@@ -22,7 +22,7 @@ import (
 	"github.com/ColorPlatform/color-sdk/client/context"
 	"github.com/ColorPlatform/color-sdk/client/keys"
 	"github.com/ColorPlatform/color-sdk/client/utils"
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
 	"github.com/ColorPlatform/color-sdk/codec"
 	kbkeys "github.com/ColorPlatform/color-sdk/crypto/keys"
 	"github.com/ColorPlatform/color-sdk/server"

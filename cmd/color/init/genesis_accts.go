@@ -9,7 +9,7 @@ import (
 	"github.com/tendermint/tendermint/libs/common"
 
 	"github.com/ColorPlatform/color-sdk/client/keys"
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
 	"github.com/ColorPlatform/color-sdk/codec"
 	"github.com/ColorPlatform/color-sdk/server"
 	sdk "github.com/ColorPlatform/color-sdk/types"

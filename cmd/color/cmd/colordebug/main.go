@@ -14,7 +14,7 @@ import (
 	"github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/crypto/ed25519"
 
-	gaia "github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	gaia "github.com/ColorPlatform/color-sdk/cmd/color/app"
 	sdk "github.com/ColorPlatform/color-sdk/types"
 	"github.com/ColorPlatform/color-sdk/x/auth"
 )

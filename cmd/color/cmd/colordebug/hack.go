@@ -30,7 +30,7 @@ import (
 	"github.com/ColorPlatform/color-sdk/x/slashing"
 	"github.com/ColorPlatform/color-sdk/x/staking"
 
-	gaia "github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	gaia "github.com/ColorPlatform/color-sdk/cmd/color/app"
 )
 
 func runHackCmd(cmd *cobra.Command, args []string) error {

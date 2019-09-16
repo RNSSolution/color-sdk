@@ -26,7 +26,7 @@
 // 	"github.com/ColorPlatform/color-sdk/client/rpc"
 // 	"github.com/ColorPlatform/color-sdk/client/tx"
 // 	clienttx "github.com/ColorPlatform/color-sdk/client/tx"
-// 	gapp "github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+// 	gapp "github.com/ColorPlatform/color-sdk/cmd/color/app"
 // 	"github.com/ColorPlatform/color-sdk/codec"
 // 	crkeys "github.com/ColorPlatform/color-sdk/crypto/keys"
 // 	"github.com/ColorPlatform/color-sdk/server"

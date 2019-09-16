@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ColorPlatform/color-sdk/cmd/gaia/app"
+	"github.com/ColorPlatform/color-sdk/cmd/color/app"
 	"github.com/ColorPlatform/color-sdk/codec"
 	"github.com/ColorPlatform/color-sdk/server"
 	"github.com/spf13/cobra"
