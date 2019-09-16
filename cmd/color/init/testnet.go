@@ -99,7 +99,7 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 
 	chainID = viper.GetString(client.FlagChainID)
 	if chainID == "" {
-		chainID = "chain-" + cmn.RandStr(6)
+		chainID = "colors-test-01"
 	}
 
 	monikers := make([]string, numValidators)
