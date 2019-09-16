@@ -2,9 +2,8 @@ module github.com/ColorPlatform/color-sdk
 
 require (
 	bou.ke/monkey v1.0.1 // indirect
-	github.com/ColorPlatform/prism v0.31.2-0.20190903121213-aff70e0659f0
+	github.com/ColorPlatform/prism v0.31.2-0.20190916102734-7a8f5f1e6c31
 	github.com/RNSSolution/iavl v0.0.1
-	github.com/VividCortex/gohistogram v1.0.0 // indirect
 	github.com/bartekn/go-bip39 v0.0.0-20171116152956-a05967ea095d
 	github.com/bgentry/speakeasy v0.1.0
 	github.com/btcsuite/btcd v0.0.0-20190115013929-ed77733ec07d
@@ -15,7 +14,6 @@ require (
 	github.com/gogo/protobuf v1.2.1
 	github.com/golang/protobuf v1.3.0
 	github.com/golang/snappy v0.0.1 // indirect
-	github.com/google/gofuzz v0.0.0-20170612174753-24818f796faf // indirect
 	github.com/gorilla/mux v1.7.0
 	github.com/gorilla/websocket v1.4.0 // indirect
 	github.com/mattn/go-isatty v0.0.6

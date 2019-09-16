@@ -7,6 +7,8 @@ github.com/ColorPlatform/prism v0.0.0-20190603094734-d7a6196c61b7 h1:V8tiu0lx66H
 github.com/ColorPlatform/prism v0.0.0-20190603094734-d7a6196c61b7/go.mod h1:Yuqlx5y/iZrgptnHg4JbGb89jGUaTTplywJIYGBo3K4=
 github.com/ColorPlatform/prism v0.31.2-0.20190903121213-aff70e0659f0 h1:NkObWRqFpUMB4ADJ1Qqe6WTETM+UCUUpt5jXAwmcWhM=
 github.com/ColorPlatform/prism v0.31.2-0.20190903121213-aff70e0659f0/go.mod h1:l5cYJUA9InErHUct7QNkjJh5yAwDGBVNnXYf05IiuPM=
+github.com/ColorPlatform/prism v0.31.2-0.20190916102734-7a8f5f1e6c31 h1:ww25NA7IB+API9nNfrX3/wXwUYoh3C4n09bxf6XZtnw=
+github.com/ColorPlatform/prism v0.31.2-0.20190916102734-7a8f5f1e6c31/go.mod h1:l5cYJUA9InErHUct7QNkjJh5yAwDGBVNnXYf05IiuPM=
 github.com/ColorPlatform/prism v0.31.5 h1:9Uom186abhETNRJ8h3uejwoIcAe2yky5kpAFPlwkujM=
 github.com/ColorPlatform/prism v0.31.5/go.mod h1:Yuqlx5y/iZrgptnHg4JbGb89jGUaTTplywJIYGBo3K4=
 github.com/RNSSolution/iavl v0.0.1 h1:dWB4L7KD3gzIjQ0dy0feCLMKgNCWgTR3kN5vvzHQ9rw=
@@ -72,6 +74,7 @@ github.com/golang/snappy v0.0.1 h1:Qgr9rKW7uDUkrbSmQeiDsGa8SjGyCOGtuasMWwvp2P4=
 github.com/golang/snappy v0.0.1/go.mod h1:/XxbfmMg8lxefKM7IXC3fBNl/7bRcc72aCRzEWrmP2Q=
 github.com/google/gofuzz v0.0.0-20170612174753-24818f796faf h1:+RRA9JqSOZFfKrOeqr2z77+8R2RKyh8PG66dcu1V0ck=
 github.com/google/gofuzz v0.0.0-20170612174753-24818f796faf/go.mod h1:HP5RmnzzSNb993RKQDq4+1A4ia9nllfqcQFTQJedwGI=
+github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
 github.com/gorilla/mux v1.7.0 h1:tOSd0UKHQd6urX6ApfOn4XdBMY6Sh1MfxV3kmaazO+U=
 github.com/gorilla/mux v1.7.0/go.mod h1:1lud6UwP+6orDFRuTfBEV8e9/aOM/c4fVVCaMa2zaAs=
 github.com/gorilla/websocket v1.2.0/go.mod h1:E7qHFY5m1UJ88s3WnNqhKjPHQ0heANvMoAMk2YaljkQ=
