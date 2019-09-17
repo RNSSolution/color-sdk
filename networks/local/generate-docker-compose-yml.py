@@ -20,6 +20,7 @@ PRISM_NODE_TEMPLATE="""  node{id}:
     image: "tendermint/colordnode"
     ports:
       - "{startport}-{endport}:26656-26657"
+      - "{profport}:6060"
     environment:
       - ID={id}
       - LOG=colord.log
@@ -47,16 +48,16 @@ TM_NODE_TEMPLATE="""  node{id}:
 
 NODE_TEMPLATE = None
 
-def print_node(i, ipaddr, port):
-	nodespec = NODE_TEMPLATE.format(id=i, startport=port, endport=port+1, ipaddr=ipaddr)
+def print_node(i, ipaddr, port, profport):
+	nodespec = NODE_TEMPLATE.format(id=i, startport=port, endport=port+1, ipaddr=ipaddr, profport=profport)
 	print(nodespec)
 	print()
 
-def print_services(leagues, nodes, ipaddr, port):
+def print_services(leagues, nodes, ipaddr, port, profport):
 	print()
 	print("services:")
 	for i in range(leagues*nodes):
-		print_node(i, ipaddr+i, port+2*i)
+		print_node(i, ipaddr+i, port+2*i, profport+i)
 
 NETWORKS_TEMPLATE = """networks:
   localnet:
@@ -107,7 +108,7 @@ def run():
 		sys.exit(1)
 
 	print_version()
-	print_services(args.leagues, args.nodes, args.ipaddr, args.port)
+	print_services(args.leagues, args.nodes, args.ipaddr, args.port, 60600)
 	print_network(args.network)
 
 if __name__ == '__main__':

@@ -256,13 +256,18 @@ devdoc_update:
 build-docker-colordnode:
 	$(MAKE) -C networks/local
 
+build/node0/colord/config/genesis.json: Makefile
+	docker run --rm -v  \
+			$(CURDIR)/build:/colord:Z tendermint/colordnode testnet --l $(LOCALNET_LEAGUES) --v $(LOCALNET_NODES) \
+			--starting-ip-address $(LOCALNET_STARTING_IP) \
+			&& \
+	echo Init done; \
+
+
+localnet-init: build/node0/colord/config/genesis.json
+	
 # Run testnet locally
-localnet-start: docker-compose.yml localnet-stop
-	@if ! [ -f build/node0/config/genesis.json ]; then \
-		docker run --rm -v $(CURDIR)/build:/colord:Z tendermint/colordnode testnet --l $(LOCALNET_LEAGUES) --v $(LOCALNET_NODES) \
-			--starting-ip-address $(LOCALNET_STARTING_IP) ; \
-		echo Init done; \
-	fi
+localnet-start: docker-compose.yml localnet-stop localnet-init
 	 docker-compose up
 
 

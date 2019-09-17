@@ -127,10 +127,18 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 	gaiaConfig := srvconfig.DefaultConfig()
 	gaiaConfig.MinGasPrices = viper.GetString(server.FlagMinGasPrices)
 
+	config.P2P.MaxNumOutboundPeers = numLeagues*numValidators + 5
+	config.P2P.MaxNumInboundPeers = numLeagues*numValidators + 15
+
+	config.LogLevel = "main:info,state:info,*:error"
+	config.ProfListenAddress = "0.0.0.0:6060"
+	config.Consensus.TimeoutCommit = 200*time.Millisecond
+
 	var (
 		accs     []app.GenesisAccount
 		genFiles []string
 	)
+
 	// generate private keys, node IDs, and initial transactions
 	for l := 0; l < numLeagues; l++ {
 		for i := 0; i < numValidators; i++ {
@@ -144,6 +152,13 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 
 			node := nodeInfo{l, id, nodeDir, true}
 			nodes[id] = node
+
+			if id == 0 {
+				config.LogLevel = "p2p:debug,consensus:debug,main:info,state:info,*:error"
+			} else {
+				config.LogLevel = "main:info,state:info,*:error"
+			}
+
 
 			config.SetRoot(nodeDir)
 
@@ -281,6 +296,7 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 		return err
 	}
 
+
 	err := collectGenFiles(
 		cdc, config, chainID, genVals, monikers, nodeIDs, valPubKeys, numLeagues*numValidators,
 		outDir, viper.GetString(flagNodeDirPrefix), viper.GetString(flagNodeDaemonHome), nodes,
@@ -384,6 +400,7 @@ func collectGenFiles(
 		config.P2P.AllowDuplicateIP = true
 		config.P2P.MaxNumInboundPeers = 100
 		//config.P2P.MaxNumOutboundPeers = 100
+
 
 		config.SetRoot(nodeDir)
 
