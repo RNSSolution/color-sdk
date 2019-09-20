@@ -92,7 +92,7 @@ Example:
 	)
 	cmd.Flags().String(
 		server.FlagMinGasPrices, fmt.Sprintf("0.000006%s", sdk.DefaultBondDenom),
-		"Minimum gas prices to accept for transactions; All fees in a tx must meet this minimum (e.g. 0.01photino,0.001stake)",
+		"Minimum gas prices to accept for transactions; All fees in a tx must meet this minimum (e.g. 0.01uclr,0.001stake)",
 	)
 
 	return cmd
@@ -228,12 +228,10 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 				return err
 			}
 
-			accTokens := sdk.TokensFromTendermintPower(1000)
-			accStakingTokens := sdk.TokensFromTendermintPower(500)
+			accStakingTokens := sdk.TokensFromTendermintPower(5000)
 			accs = append(accs, app.GenesisAccount{
 				Address: addr,
 				Coins: sdk.Coins{
-					sdk.NewCoin(fmt.Sprintf("%stoken", nodeDirName), accTokens),
 					sdk.NewCoin(sdk.DefaultBondDenom, accStakingTokens),
 				},
 			})

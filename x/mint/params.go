@@ -25,7 +25,7 @@ func NewParams(mintDenom string, inflationRateChange, inflationMax,
 func DefaultParams() Params {
 	return Params{
 		MintDenom:     sdk.DefaultBondDenom,
-		BlocksPerWeek: uint64(60 * 60 * 24 * 7 / 5), // assuming 5 second block times
+		BlocksPerWeek: uint64(60 * 60 * 24 * 7), // assuming 1 second block time
 	}
 }
 
