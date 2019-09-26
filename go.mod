@@ -2,7 +2,7 @@ module github.com/ColorPlatform/color-sdk
 
 require (
 	bou.ke/monkey v1.0.1 // indirect
-	github.com/ColorPlatform/prism v0.31.2-0.20190916102734-7a8f5f1e6c31
+	github.com/ColorPlatform/prism v0.31.6-0.20190926061605-ce9fd1f5d4e1
 	github.com/RNSSolution/iavl v0.0.1
 	github.com/bartekn/go-bip39 v0.0.0-20171116152956-a05967ea095d
 	github.com/bgentry/speakeasy v0.1.0
@@ -46,3 +46,5 @@ require (
 replace golang.org/x/crypto => github.com/tendermint/crypto v0.0.0-20180820045704-3764759f34a5
 
 //replace github.com/ColorPlatform/prism => ../prism
+
+go 1.13
