@@ -40,8 +40,8 @@ func GetCmdQueryParams(cdc *codec.Codec) *cobra.Command {
 // inflation value.
 func GetCmdQueryInflation(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "inflation",
-		Short: "Query the current minting inflation value",
+		Use:   "deflation",
+		Short: "Query the current minting deflation value",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -78,12 +78,38 @@ func GetCmdQueryAnnualProvisions(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			var inflation sdk.Dec
-			if err := cdc.UnmarshalJSON(res, &inflation); err != nil {
+			var weekly_prov sdk.Dec
+			if err := cdc.UnmarshalJSON(res, &weekly_prov); err != nil {
 				return err
 			}
 
-			return cliCtx.PrintOutput(inflation)
+			return cliCtx.PrintOutput(weekly_prov)
+		},
+	}
+}
+
+// GetCmdQueryAnnualProvisions implements a command to return the current minting
+// annual provisions value.
+func GetCmdQueryMintingSpeed(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "minting-speed",
+		Short: "Query the current minting speed value",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			route := fmt.Sprintf("custom/%s/%s", mint.QuerierRoute, mint.QueryMintingSpeed)
+			res, err := cliCtx.QueryWithData(route, nil)
+			if err != nil {
+				return err
+			}
+
+			var mintingSpeed sdk.Dec
+			if err := cdc.UnmarshalJSON(res, &mintingSpeed); err != nil {
+				return err
+			}
+
+			return cliCtx.PrintOutput(mintingSpeed)
 		},
 	}
 }

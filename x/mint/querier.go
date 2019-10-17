@@ -11,8 +11,9 @@ import (
 // Query endpoints supported by the minting querier
 const (
 	QueryParameters       = "parameters"
-	QueryInflation        = "inflation"
+	QueryInflation        = "deflation"
 	QueryWeeklyProvisions = "weekly_provisions"
+	QueryMintingSpeed = "minting_speed"
 )
 
 // NewQuerier returns a minting Querier handler.
@@ -27,6 +28,9 @@ func NewQuerier(k Keeper) sdk.Querier {
 
 		case QueryWeeklyProvisions:
 			return queryWeeklyProvisions(ctx, k)
+		
+		case QueryMintingSpeed:
+			return queryMintingSpeed(ctx,k)
 
 		default:
 			return nil, sdk.ErrUnknownRequest(fmt.Sprintf("unknown minting query endpoint: %s", path[0]))
@@ -60,6 +64,17 @@ func queryWeeklyProvisions(ctx sdk.Context, k Keeper) ([]byte, sdk.Error) {
 	minter := k.GetMinter(ctx)
 
 	res, err := codec.MarshalJSONIndent(k.cdc, minter.WeeklyProvisions)
+	if err != nil {
+		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("failed to marshal JSON", err.Error()))
+	}
+
+	return res, nil
+}
+
+func queryMintingSpeed(ctx sdk.Context, k Keeper) ([]byte, sdk.Error){
+	minter := k.GetMinter(ctx)
+
+	res, err := codec.MarshalJSONIndent(k.cdc, minter.MintingSpeed)
 	if err != nil {
 		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("failed to marshal JSON", err.Error()))
 	}

@@ -12,8 +12,7 @@ type Params struct {
 	BlocksPerWeek uint64 `json:"blocks_per_week"` // expected blocks per week
 }
 
-func NewParams(mintDenom string, inflationRateChange, inflationMax,
-	inflationMin, goalBonded sdk.Dec, blocksPerWeek uint64) Params {
+func NewParams(mintDenom string,blocksPerWeek uint64) Params {
 
 	return Params{
 		MintDenom:     mintDenom,
