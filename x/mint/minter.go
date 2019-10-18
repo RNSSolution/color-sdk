@@ -35,7 +35,7 @@ func InitialMinter(deflation sdk.Dec) Minter {
 		deflation,
 		sdk.NewDec(362880000000),
 		sdk.NewDec(60000),
-		time.Now().UTC().AddDate(0, 0, 7 * 52),
+		time.Now().UTC().Add(time.Second * 10),
 		time.Now().UTC(),
 	)
 }
@@ -68,8 +68,8 @@ func (m Minter) NewWeeklySupply(params Params) (sdk.Dec,sdk.Dec) {
 // provisions rate.
 func (m Minter) BlockProvision(params Params) sdk.Coin {
 
-	blocktimediff := sdk.NewDec(int64((time.Now().UTC().Sub(m.BlockTime).Nanoseconds()))) 
-	newCoins := blocktimediff.Mul(m.MintingSpeed)
+	blocktimediff := sdk.NewDec(int64((time.Now().UTC().Sub(m.BlockTime).Nanoseconds())))
+	newCoins := (blocktimediff.Mul(m.MintingSpeed)).QuoInt(sdk.NewInt(1000000000))
 
-	return sdk.NewCoin(params.MintDenom, newCoins.QuoInt(sdk.NewInt(1000000000)).TruncateInt())
+	return sdk.NewCoin(params.MintDenom, newCoins.TruncateInt())
 }
