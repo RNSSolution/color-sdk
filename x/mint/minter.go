@@ -58,8 +58,8 @@ func validateMinter(minter Minter) error {
 
 // NewWeeklySupply reduces the amount of weekly supply by 5%
 func (m Minter) NewWeeklySupply(params Params) (sdk.Dec,sdk.Dec) {
-	
 	provisionAmt := m.WeeklyProvisions.QuoInt(sdk.NewInt(int64(params.BlocksPerWeek)))
+	
 	return m.WeeklyProvisions.Sub(m.Deflation.Mul(m.WeeklyProvisions)),
 	provisionAmt
 }
@@ -67,7 +67,9 @@ func (m Minter) NewWeeklySupply(params Params) (sdk.Dec,sdk.Dec) {
 // BlockProvision returns the provisions for a block based on the annual
 // provisions rate.
 func (m Minter) BlockProvision(params Params) sdk.Coin {
-	// provisionAmt := m.WeeklyProvisions.QuoInt(sdk.NewInt(int64(params.BlocksPerWeek)))
-	fmt.Println(time.Now().UTC().Sub(m.BlockTime))
-	return sdk.NewCoin(params.MintDenom, m.MintingSpeed.TruncateInt())
+
+	blocktimediff := sdk.NewDec(int64((time.Now().UTC().Sub(m.BlockTime).Nanoseconds()))) 
+	newCoins := blocktimediff.Mul(m.MintingSpeed)
+
+	return sdk.NewCoin(params.MintDenom, newCoins.QuoInt(sdk.NewInt(1000000000)).TruncateInt())
 }
