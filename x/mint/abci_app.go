@@ -2,7 +2,6 @@ package mint
 
 import (
 	"time"
-	"fmt"
 
 	sdk "github.com/ColorPlatform/color-sdk/types"
 )
