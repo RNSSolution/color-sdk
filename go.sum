@@ -13,6 +13,8 @@ github.com/ColorPlatform/prism v0.31.5 h1:9Uom186abhETNRJ8h3uejwoIcAe2yky5kpAFPl
 github.com/ColorPlatform/prism v0.31.5/go.mod h1:Yuqlx5y/iZrgptnHg4JbGb89jGUaTTplywJIYGBo3K4=
 github.com/ColorPlatform/prism v0.31.6-0.20190926061605-ce9fd1f5d4e1 h1:vfHk3aNAkgO1UifmQ5iyE8RYbIlpSI0Hf+jsZ3RD3bs=
 github.com/ColorPlatform/prism v0.31.6-0.20190926061605-ce9fd1f5d4e1/go.mod h1:l5cYJUA9InErHUct7QNkjJh5yAwDGBVNnXYf05IiuPM=
+github.com/ColorPlatform/prism v0.31.6-0.20191021105219-0384775b2545 h1:rnRH6FiV3D5EYPX/VJRuQd6dvHsd/LgscGssk3FD4LM=
+github.com/ColorPlatform/prism v0.31.6-0.20191021105219-0384775b2545/go.mod h1:l5cYJUA9InErHUct7QNkjJh5yAwDGBVNnXYf05IiuPM=
 github.com/RNSSolution/iavl v0.0.1 h1:dWB4L7KD3gzIjQ0dy0feCLMKgNCWgTR3kN5vvzHQ9rw=
 github.com/RNSSolution/iavl v0.0.1/go.mod h1:ibGkmr5tMFVPsm0y5O55AqmPWxxojOxlngauAg2r1T0=
 github.com/VividCortex/gohistogram v1.0.0 h1:6+hBz+qvs0JOrrNhhmR7lFxo5sINxBCGXrdtl/UvroE=
