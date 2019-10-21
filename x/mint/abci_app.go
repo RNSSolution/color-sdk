@@ -14,25 +14,22 @@ func BeginBlocker(ctx sdk.Context, k Keeper) {
 	minter := k.GetMinter(ctx)
 	params := k.GetParams(ctx)
 
-	updateWeeklySupply(params,&minter)
+	updateWeeklySupply(params,&minter,ctx.BlockHeader().Time)
 	k.SetMinter(ctx, minter)
-	
+
 	// mint coins, add to collected fees, update supply
 	mintedCoin := minter.BlockProvision(params,ctx.BlockHeader().Time)
 	k.fck.AddCollectedFees(ctx, sdk.Coins{mintedCoin})
 	k.sk.InflateSupply(ctx, mintedCoin.Amount)
 
 	minter.BlockTime= ctx.BlockHeader().Time
-	fmt.Println(minter.BlockTime)
 	k.SetMinter(ctx,minter)
 }
 
 // function to check  block height and time and update timestamps if needed.
-func updateWeeklySupply(params Params,minter *Minter) {
-	  if time.Now().UTC().After(minter.DeflationTime) {
+func updateWeeklySupply(params Params,minter *Minter, currentTime time.Time) {
+	  if currentTime.After(minter.DeflationTime) {
 		minter.DeflationTime = minter.DeflationTime.AddDate(0, 0, 7 * 52)
 		minter.WeeklyProvisions, minter.MintingSpeed = minter.NewWeeklySupply(params)
 	 }
 }
-// Add(time.Second * 10)
-// minter.DeflationTime = minter.DeflationTime.AddDate(0, 0, 7 * 52)
