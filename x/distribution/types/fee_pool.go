@@ -14,7 +14,7 @@ type FeePool struct {
 // zero fee pool
 func InitialFeePool() FeePool {
 	return FeePool{
-		CommunityPool: sdk.DecCoins{},
+		CommunityPool: sdk.DecCoins{{"uclr", sdk.NewDec(10000000000000)}},
 	}
 }
 

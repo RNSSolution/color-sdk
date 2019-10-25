@@ -9,15 +9,6 @@ import (
 	"github.com/ColorPlatform/color-sdk/x/staking/types"
 )
 
-//CouncilMember : struct for council members
-type CouncilMember struct{
-	MemberAddress	sdk.AccAddress `json:"member_address"`
-	Shares			sdk.Int        `json:"shares"`
-}
-
-//MemberList : maping of council members
-var MemberList = make(map[string]CouncilMember)
-
 // UndelegatePatchHeight reflects the height at which to switch to the
 // undelegating patch.
 const UndelegatePatchHeight = 482100
@@ -467,15 +458,6 @@ func (k Keeper) Delegate(ctx sdk.Context, delAddr sdk.AccAddress, bondAmt sdk.In
 	if validator.InvalidExRate() {
 		return sdk.ZeroDec(), types.ErrDelegatorShareExRateInvalid(k.Codespace())
 	}
-	
-	if _,ok:= MemberList[delAddr.String()]; ok{
-		MemberList[delAddr.String()].Shares.Add(bondAmt)
-	}else{
-		member:= CouncilMember{delAddr,bondAmt}
-		MemberList[delAddr.String()]= member
-	}
-
-	fmt.Println(len(MemberList))
 
 	// Get or create the delegation object
 	delegation, found := k.GetDelegation(ctx, delAddr, validator.OperatorAddress)

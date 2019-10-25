@@ -121,6 +121,7 @@ func GetDelegationKey(delAddr sdk.AccAddress, valAddr sdk.ValAddress) []byte {
 	return append(GetDelegationsKey(delAddr), valAddr.Bytes()...)
 }
 
+
 // gets the prefix for a delegator for all validators
 func GetDelegationsKey(delAddr sdk.AccAddress) []byte {
 	return append(DelegationKey, delAddr.Bytes()...)
