@@ -19,16 +19,18 @@ import (
 )
 
 const (
-	flagTitle        = "title"
-	flagDescription  = "description"
-	flagProposalType = "type"
-	flagDeposit      = "deposit"
-	flagVoter        = "voter"
-	flagOption       = "option"
-	flagDepositor    = "depositor"
-	flagStatus       = "status"
-	flagNumLimit     = "limit"
-	flagProposal     = "proposal"
+	flagTitle         = "title"
+	flagDescription   = "description"
+	flagProposalType  = "type"
+	flagDeposit       = "deposit"
+	flagVoter         = "voter"
+	flagOption        = "option"
+	flagDepositor     = "depositor"
+	flagStatus        = "status"
+	flagNumLimit      = "limit"
+	flagProposal      = "proposal"
+	flagRequestedFund = "fund"
+	flagCycle         = "cycle"
 )
 
 type proposal struct {
@@ -36,6 +38,8 @@ type proposal struct {
 	Description string
 	Type        string
 	Deposit     string
+	Fund        string
+	Cycle       string
 }
 
 var proposalFlags = []string{
@@ -43,6 +47,8 @@ var proposalFlags = []string{
 	flagDescription,
 	flagProposalType,
 	flagDeposit,
+	flagRequestedFund,
+	flagCycle,
 }
 
 // GetCmdSubmitProposal implements submitting a proposal transaction command.
@@ -66,7 +72,7 @@ where proposal.json contains:
 
 is equivalent to
 
-$ gaiacli gov submit-proposal --title="Test Proposal" --description="My awesome proposal" --type="Text" --deposit="10test" --from mykey
+$ colorcli gov submit-proposal --title="Test Proposal" --description="My awesome proposal" --type="Text" --deposit="10test" --from mykey
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			proposal, err := parseSubmitProposalFlags()
@@ -94,6 +100,18 @@ $ gaiacli gov submit-proposal --title="Test Proposal" --description="My awesome 
 				return err
 			}
 
+			// Find Funding amount
+			fundingAmount, err := sdk.ParseCoins(proposal.Fund)
+			if err != nil {
+				return err
+			}
+
+			// Find Funding amount
+			cycle, ok := sdk.NewIntFromString(proposal.Cycle)
+			if !ok {
+				return fmt.Errorf("failed to parse Cycle")
+			}
+
 			// ensure account has enough coins
 			if !account.GetCoins().IsAllGTE(amount) {
 				return fmt.Errorf("address %s doesn't have enough coins to pay for this transaction", from)
@@ -103,8 +121,8 @@ $ gaiacli gov submit-proposal --title="Test Proposal" --description="My awesome 
 			if err != nil {
 				return err
 			}
+			msg := gov.NewMsgSubmitProposal(proposal.Title, proposal.Description, proposalType, from, amount, fundingAmount, cycle)
 
-			msg := gov.NewMsgSubmitProposal(proposal.Title, proposal.Description, proposalType, from, amount)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -118,6 +136,8 @@ $ gaiacli gov submit-proposal --title="Test Proposal" --description="My awesome 
 	cmd.Flags().String(flagDescription, "", "description of proposal")
 	cmd.Flags().String(flagProposalType, "", "proposalType of proposal, types: text/parameter_change/software_upgrade")
 	cmd.Flags().String(flagDeposit, "", "deposit of proposal")
+	cmd.Flags().String(flagRequestedFund, "", "deposit of proposal")
+	cmd.Flags().String(flagCycle, "", "Cycle of proposal")
 	cmd.Flags().String(flagProposal, "", "proposal file path (if this path is given, other proposal flags are ignored)")
 
 	return cmd
@@ -170,7 +190,6 @@ $ gaiacli tx gov deposit 1 10stake --from mykey
 			if !account.GetCoins().IsAllGTE(amount) {
 				return fmt.Errorf("address %s doesn't have enough coins to pay for this transaction", from)
 			}
-
 			msg := gov.NewMsgDeposit(from, proposalID, amount)
 			err = msg.ValidateBasic()
 			if err != nil {
