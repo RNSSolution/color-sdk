@@ -87,10 +87,11 @@ func SupplyInvariants(k Keeper, f types.FeeCollectionKeeper,
 		loose = loose.Add(f.GetCollectedFees(ctx).AmountOf(k.BondDenom(ctx)).ToDec())
 		// add community pool
 		loose = loose.Add(d.GetFeePoolCommunityCoins(ctx).AmountOf(k.BondDenom(ctx)))
-	
+
 		// Not-bonded tokens plus Starting Community Pool should equal coin supply plus unbonding delegations
 		// plus tokens on unbonded validators
-		if !(pool.NotBondedTokens.ToDec().Add(d.GetFeePoolCommunityCoins(ctx).AmountOf(k.BondDenom(ctx)))).Equal(loose) {
+		pool.NotBondedTokens.ToDec().Add(d.GetFeePoolCommunityCoins(ctx).AmountOf(k.BondDenom(ctx)))
+		if !(pool.NotBondedTokens.ToDec().Equal(loose)) {
 			return fmt.Errorf("loose token invariance:\n"+
 				"\tpool.NotBondedTokens: %v\n"+
 				"\tsum of account tokens: %v", pool.NotBondedTokens, loose)

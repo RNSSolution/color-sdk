@@ -15,13 +15,14 @@ const (
 
 // GenesisState - all staking state that must be provided at genesis
 type GenesisState struct {
-	StartingProposalID uint64                `json:"starting_proposal_id"`
-	Deposits           []DepositWithMetadata `json:"deposits"`
-	Votes              []VoteWithMetadata    `json:"votes"`
-	Proposals          []Proposal            `json:"proposals"`
-	DepositParams      DepositParams         `json:"deposit_params"`
-	VotingParams       VotingParams          `json:"voting_params"`
-	TallyParams        TallyParams           `json:"tally_params"`
+	StartingProposalID     uint64                `json:"starting_proposal_id"`
+	StartingFundingCycleID uint64                `json:"starting_funding_id"`
+	Deposits               []DepositWithMetadata `json:"deposits"`
+	Votes                  []VoteWithMetadata    `json:"votes"`
+	Proposals              []Proposal            `json:"proposals"`
+	DepositParams          DepositParams         `json:"deposit_params"`
+	VotingParams           VotingParams          `json:"voting_params"`
+	TallyParams            TallyParams           `json:"tally_params"`
 }
 
 // DepositWithMetadata (just for genesis)
@@ -36,12 +37,13 @@ type VoteWithMetadata struct {
 	Vote       Vote   `json:"vote"`
 }
 
-func NewGenesisState(startingProposalID uint64, dp DepositParams, vp VotingParams, tp TallyParams) GenesisState {
+func NewGenesisState(startingProposalID uint64, startingFundingCycleID uint64, dp DepositParams, vp VotingParams, tp TallyParams) GenesisState {
 	return GenesisState{
-		StartingProposalID: startingProposalID,
-		DepositParams:      dp,
-		VotingParams:       vp,
-		TallyParams:        tp,
+		StartingProposalID:     startingProposalID,
+		StartingFundingCycleID: startingFundingCycleID,
+		DepositParams:          dp,
+		VotingParams:           vp,
+		TallyParams:            tp,
 	}
 }
 
@@ -49,7 +51,8 @@ func NewGenesisState(startingProposalID uint64, dp DepositParams, vp VotingParam
 func DefaultGenesisState() GenesisState {
 	minDepositTokens := sdk.TokensFromTendermintPower(10)
 	return GenesisState{
-		StartingProposalID: 1,
+		StartingProposalID:     1,
+		StartingFundingCycleID: 0,
 		DepositParams: DepositParams{
 			MinDeposit:       sdk.Coins{sdk.NewCoin(sdk.DefaultBondDenom, minDepositTokens)},
 			MaxDepositPeriod: DefaultPeriod,
@@ -107,6 +110,7 @@ func InitGenesis(ctx sdk.Context, k Keeper, data GenesisState) {
 		// TODO: Handle this with #870
 		panic(err)
 	}
+	err = k.setInitialFundingCycleID(ctx, data.StartingFundingCycleID)
 	k.setDepositParams(ctx, data.DepositParams)
 	k.setVotingParams(ctx, data.VotingParams)
 	k.setTallyParams(ctx, data.TallyParams)

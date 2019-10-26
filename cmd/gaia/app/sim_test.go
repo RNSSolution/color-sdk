@@ -10,13 +10,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/require"
-
 	abci "github.com/ColorPlatform/prism/abci/types"
 	"github.com/ColorPlatform/prism/crypto/secp256k1"
 	dbm "github.com/ColorPlatform/prism/libs/db"
 	"github.com/ColorPlatform/prism/libs/log"
 	tmtypes "github.com/ColorPlatform/prism/types"
+	"github.com/stretchr/testify/require"
 
 	"github.com/ColorPlatform/color-sdk/baseapp"
 	sdk "github.com/ColorPlatform/color-sdk/types"
@@ -210,10 +209,6 @@ func appStateRandomizedFn(r *rand.Rand, accs []simulation.Account, genesisTimest
 			sdk.NewDecWithPrec(int64(r.Intn(99)), 2)),
 		Params: mint.NewParams(
 			sdk.DefaultBondDenom,
-			sdk.NewDecWithPrec(int64(r.Intn(99)), 2),
-			sdk.NewDecWithPrec(20, 2),
-			sdk.NewDecWithPrec(7, 2),
-			sdk.NewDecWithPrec(67, 2),
 			uint64(60*60*8766/5)),
 	}
 	fmt.Printf("Selected randomly generated minting parameters:\n\t%+v\n", mintGenesis)
@@ -225,8 +220,10 @@ func appStateRandomizedFn(r *rand.Rand, accs []simulation.Account, genesisTimest
 	for i := 0; i < int(numInitiallyBonded); i++ {
 		valAddr := sdk.ValAddress(accs[i].Address)
 		valAddrs[i] = valAddr
-
-		validator := staking.NewValidator(valAddr, accs[i].PubKey, staking.Description{})
+		// RNS TODO find a better way to to simulate node and league ID
+		var nodeID = int64(i)
+		var leagueID = int64(i)
+		validator := staking.NewValidator(valAddr, accs[i].PubKey, staking.Description{}, sdk.NewInt(nodeID), sdk.NewInt(leagueID))
 		validator.Tokens = sdk.NewInt(amount)
 		validator.DelegatorShares = sdk.NewDec(amount)
 		delegation := staking.Delegation{accs[i].Address, valAddr, sdk.NewDec(amount)}

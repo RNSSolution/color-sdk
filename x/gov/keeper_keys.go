@@ -13,6 +13,7 @@ var (
 	KeyDelimiter = []byte(":")
 
 	KeyNextProposalID           = []byte("newProposalID")
+	KeyNextFundingCycleID       = []byte("newFundingCycleID")
 	PrefixActiveProposalQueue   = []byte("activeProposalQueue")
 	PrefixInactiveProposalQueue = []byte("inactiveProposalQueue")
 )
@@ -20,6 +21,11 @@ var (
 // Key for getting a specific proposal from the store
 func KeyProposal(proposalID uint64) []byte {
 	return []byte(fmt.Sprintf("proposals:%d", proposalID))
+}
+
+// Key for getting a specific proposal from the store
+func KeyFundingCycle(proposalID uint64) []byte {
+	return []byte(fmt.Sprintf("cycles:%d", proposalID))
 }
 
 // Key for getting a specific deposit from the store
