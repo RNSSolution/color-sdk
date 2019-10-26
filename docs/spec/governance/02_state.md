@@ -114,6 +114,11 @@ type ProposalContent interface {
     GetDescription() string
     ProposalType() ProposalKind
 }
+type ProposalContenttest interface {
+    GetTitle() string
+    GetDescription() string
+    ProposalType() ProposalKind
+}
 
 ```
 

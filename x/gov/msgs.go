@@ -25,15 +25,19 @@ type MsgSubmitProposal struct {
 	ProposalType   ProposalKind   `json:"proposal_type"`   //  Type of proposal. Initial set {PlainTextProposal, SoftwareUpgradeProposal}
 	Proposer       sdk.AccAddress `json:"proposer"`        //  Address of the proposer
 	InitialDeposit sdk.Coins      `json:"initial_deposit"` //  Initial deposit paid by sender. Must be strictly positive.
+	RequestedFund  sdk.Coins      `json:"requested_fund"`  //  Requested Proposal Fund
+	FundCycle      sdk.Int        `json:"fund_cycle"`      //  Fund Cycle
 }
 
-func NewMsgSubmitProposal(title, description string, proposalType ProposalKind, proposer sdk.AccAddress, initialDeposit sdk.Coins) MsgSubmitProposal {
+func NewMsgSubmitProposal(title, description string, proposalType ProposalKind, proposer sdk.AccAddress, initialDeposit, requestedFund sdk.Coins, fundingcycle sdk.Int) MsgSubmitProposal {
 	return MsgSubmitProposal{
 		Title:          title,
 		Description:    description,
 		ProposalType:   proposalType,
 		Proposer:       proposer,
 		InitialDeposit: initialDeposit,
+		RequestedFund:  requestedFund,
+		FundCycle:      fundingcycle,
 	}
 }
 
@@ -67,11 +71,17 @@ func (msg MsgSubmitProposal) ValidateBasic() sdk.Error {
 	if msg.InitialDeposit.IsAnyNegative() {
 		return sdk.ErrInvalidCoins(msg.InitialDeposit.String())
 	}
+	if !msg.RequestedFund.IsValid() {
+		return sdk.ErrInvalidCoins(msg.RequestedFund.String())
+	}
+	if msg.FundCycle.IsZero() {
+		return sdk.ErrUnauthorized("Zero cycle is not allowed")
+	}
 	return nil
 }
 
 func (msg MsgSubmitProposal) String() string {
-	return fmt.Sprintf("MsgSubmitProposal{%s, %s, %s, %v}", msg.Title, msg.Description, msg.ProposalType, msg.InitialDeposit)
+	return fmt.Sprintf("MsgSubmitProposal{%s, %s, %s, %v,%v}", msg.Title, msg.Description, msg.ProposalType, msg.InitialDeposit, msg.RequestedFund)
 }
 
 // Implements Msg.
@@ -100,6 +110,38 @@ func NewMsgDeposit(depositor sdk.AccAddress, proposalID uint64, amount sdk.Coins
 	}
 }
 
+// MsgFund
+type MsgFund struct {
+	ProposalID uint64         `json:"proposal_id"` // ID of the proposal
+	Depositor  sdk.AccAddress `json:"depositor"`   // Address of the depositor
+	Amount     sdk.Coins      `json:"amount"`      // Coins to add to the proposal's deposit
+}
+
+func NewMsgFund(depositor sdk.AccAddress, proposalID uint64, amount sdk.Coins) MsgFund {
+	return MsgFund{
+		ProposalID: proposalID,
+		Depositor:  depositor,
+		Amount:     amount,
+	}
+}
+
+// Implements Msg.
+func (msg MsgFund) ValidateBasic() sdk.Error {
+	if msg.Depositor.Empty() {
+		return sdk.ErrInvalidAddress(msg.Depositor.String())
+	}
+	if !msg.Amount.IsValid() {
+		return sdk.ErrInvalidCoins(msg.Amount.String())
+	}
+	if msg.Amount.IsAnyNegative() {
+		return sdk.ErrInvalidCoins(msg.Amount.String())
+	}
+	if msg.ProposalID < 0 {
+		return ErrUnknownProposal(DefaultCodespace, msg.ProposalID)
+	}
+	return nil
+}
+
 // Implements Msg.
 // nolint
 func (msg MsgDeposit) Route() string { return RouterKey }
@@ -125,6 +167,16 @@ func (msg MsgDeposit) ValidateBasic() sdk.Error {
 func (msg MsgDeposit) String() string {
 	return fmt.Sprintf("MsgDeposit{%s=>%v: %v}", msg.Depositor, msg.ProposalID, msg.Amount)
 }
+
+//Funds
+func (msg MsgFund) String() string {
+	return fmt.Sprintf("MsgFund{%s=>%v: %v}", msg.Depositor, msg.ProposalID, msg.Amount)
+}
+
+// Implements Msg.
+// nolint
+func (msg MsgFund) Route() string { return RouterKey }
+func (msg MsgFund) Type() string  { return TypeMsgDeposit }
 
 // Implements Msg.
 func (msg MsgDeposit) GetSignBytes() []byte {
@@ -182,6 +234,17 @@ func (msg MsgVote) GetSignBytes() []byte {
 }
 
 // Implements Msg.
+func (msg MsgFund) GetSignBytes() []byte {
+	bz := msgCdc.MustMarshalJSON(msg)
+	return sdk.MustSortJSON(bz)
+}
+
+// Implements Msg.
 func (msg MsgVote) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Voter}
+}
+
+// Implements Msg.
+func (msg MsgFund) GetSigners() []sdk.AccAddress {
+	return []sdk.AccAddress{msg.Depositor}
 }

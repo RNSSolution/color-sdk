@@ -13,12 +13,14 @@ import (
 func parseSubmitProposalFlags() (*proposal, error) {
 	proposal := &proposal{}
 	proposalFile := viper.GetString(flagProposal)
-
 	if proposalFile == "" {
 		proposal.Title = viper.GetString(flagTitle)
 		proposal.Description = viper.GetString(flagDescription)
 		proposal.Type = govClientUtils.NormalizeProposalType(viper.GetString(flagProposalType))
 		proposal.Deposit = viper.GetString(flagDeposit)
+		proposal.Fund = viper.GetString(flagRequestedFund)
+		proposal.Cycle = viper.GetString(flagCycle)
+
 		return proposal, nil
 	}
 

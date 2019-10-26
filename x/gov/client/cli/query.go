@@ -69,7 +69,6 @@ $ gaiacli query gov proposals --status (DepositPeriod|VotingPeriod|Passed|Reject
 			var depositorAddr sdk.AccAddress
 			var voterAddr sdk.AccAddress
 			var proposalStatus gov.ProposalStatus
-
 			params := gov.NewQueryProposalsParams(proposalStatus, numLimit, voterAddr, depositorAddr)
 
 			if len(bechDepositorAddr) != 0 {
@@ -124,6 +123,7 @@ $ gaiacli query gov proposals --status (DepositPeriod|VotingPeriod|Passed|Reject
 
 	cmd.Flags().String(flagNumLimit, "", "(optional) limit to latest [number] proposals. Defaults to all proposals")
 	cmd.Flags().String(flagDepositor, "", "(optional) filter by proposals deposited on by depositor")
+	cmd.Flags().String(flagRequestedFund, "", "(optional) filter by proposals deposited on by depositor")
 	cmd.Flags().String(flagVoter, "", "(optional) filter by proposals voted on by voted")
 	cmd.Flags().String(flagStatus, "", "(optional) filter proposals by proposal status, status: deposit_period/voting_period/passed/rejected")
 

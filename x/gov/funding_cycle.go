@@ -7,10 +7,10 @@ import (
 const (
 	// FirstBlockHeight condation of block heigh reach to 1
 	FirstBlockHeight = 1
-	// LimitFirstFundingCycle condation first funding cycle should start after 3 weeks
+	// LimitFirstFundingCycle condation first funding cycle should start after 4 weeks
 	LimitFirstFundingCycle = 28
-	// ThreeWeeksHours calculate total hours in 3 weeks
-	ThreeWeeksHours = time.Hour * 24 * 21
+	// FourWeeksHours calculate total hours in 4 weeks
+	FourWeeksHours = time.Hour * time.Duration(24*28)
 )
 
 // FundingCycle controlling proposal cycles

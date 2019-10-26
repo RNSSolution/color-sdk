@@ -12,7 +12,7 @@ func EndBlocker(ctx sdk.Context, keeper Keeper) sdk.Tags {
 	resTags := sdk.NewTags()
 	currentFundingCycle, empty := keeper.GetCurrentCycle(ctx)
 	fmt.Println("====Current Cycle =====", empty, currentFundingCycle)
-	if keeper.GetDaysPassed(ctx) >= LimitFirstFundingCycle && empty {
+	if (keeper.GetDaysPassed(ctx) >= LimitFirstFundingCycle) && empty {
 		keeper.AddFundingCycle(ctx)
 	} else if currentFundingCycle.CheckEqualEndTime(ctx.BlockHeader().Time) {
 		ExecuteProposal(ctx, keeper, resTags)

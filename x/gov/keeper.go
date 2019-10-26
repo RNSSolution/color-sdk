@@ -96,7 +96,7 @@ func NewKeeper(cdc *codec.Codec, key sdk.StoreKey, paramsKeeper params.Keeper,
 }
 
 // SubmitProposal store the proposal in KV store
-func (keeper Keeper) SubmitProposal(ctx sdk.Context, content ProposalContent) (proposal Proposal, err sdk.Error) {
+func (keeper Keeper) SubmitProposal(ctx sdk.Context, content ProposalContent, funding sdk.Coins, cycle sdk.Int) (proposal Proposal, err sdk.Error) {
 	proposalID, err := keeper.getNewProposalID(ctx)
 	if err != nil {
 		return
@@ -106,16 +106,16 @@ func (keeper Keeper) SubmitProposal(ctx sdk.Context, content ProposalContent) (p
 	depositPeriod := keeper.GetDepositParams(ctx).MaxDepositPeriod
 
 	proposal = Proposal{
-		ProposalContent: content,
-		ProposalID:      proposalID,
-
+		ProposalContent:  content,
+		ProposalID:       proposalID,
 		Status:           StatusDepositPeriod,
 		FinalTallyResult: EmptyTallyResult(),
 		TotalDeposit:     sdk.NewCoins(),
 		SubmitTime:       submitTime,
 		DepositEndTime:   submitTime.Add(depositPeriod),
+		RequestedFund:    funding,
+		FundingCycle:     cycle,
 	}
-
 	keeper.SetProposal(ctx, proposal)
 	keeper.InsertInactiveProposalQueue(ctx, proposal.DepositEndTime, proposalID)
 	return
@@ -129,6 +129,7 @@ func (keeper Keeper) GetProposal(ctx sdk.Context, proposalID uint64) (proposal P
 		return
 	}
 	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &proposal)
+
 	return proposal, true
 }
 
@@ -249,8 +250,7 @@ func (keeper Keeper) peekCurrentProposalID(ctx sdk.Context) (proposalID uint64, 
 
 func (keeper Keeper) activateVotingPeriod(ctx sdk.Context, proposal Proposal) {
 	proposal.VotingStartTime = ctx.BlockHeader().Time
-	votingPeriod := keeper.GetVotingParams(ctx).VotingPeriod
-	proposal.VotingEndTime = proposal.VotingStartTime.Add(votingPeriod)
+	proposal.VotingEndTime = proposal.VotingStartTime.Add(FourWeeksHours)
 	proposal.Status = StatusVotingPeriod
 	keeper.SetProposal(ctx, proposal)
 
@@ -388,7 +388,6 @@ func (keeper Keeper) AddDeposit(ctx sdk.Context, proposalID uint64, depositorAdd
 	if err != nil {
 		return err, false
 	}
-
 	// Update proposal
 	proposal.TotalDeposit = proposal.TotalDeposit.Add(depositAmount)
 	keeper.SetProposal(ctx, proposal)
@@ -399,7 +398,6 @@ func (keeper Keeper) AddDeposit(ctx sdk.Context, proposalID uint64, depositorAdd
 		keeper.activateVotingPeriod(ctx, proposal)
 		activatedVotingPeriod = true
 	}
-
 	// Add or update deposit object
 	currDeposit, found := keeper.GetDeposit(ctx, proposalID, depositorAddr)
 	if !found {
@@ -526,7 +524,7 @@ func (keeper Keeper) AddFundingCycle(ctx sdk.Context) {
 		panic("AddFundingCycle fail to get New Funding Cycle ID")
 	}
 	startTime := ctx.BlockHeader().Time
-	endTime := ctx.BlockHeader().Time.Add(ThreeWeeksHours)
+	endTime := ctx.BlockHeader().Time.Add(FourWeeksHours)
 
 	fundingCycle := FundingCycle{
 		CycleID:        fundingCycleID,
