@@ -11,10 +11,10 @@ import (
 //CouncilMember : struct for council members
 type CouncilMember struct{
 	MemberAddress	sdk.AccAddress `json:"member_address"`
-	Shares			sdk.Int        `json:"shares"`
+	Shares			sdk.Dec        `json:"shares"`
 }
 
-func NewCouncilMember(memberAddr sdk.AccAddress, shares sdk.Int) CouncilMember {
+func NewCouncilMember(memberAddr sdk.AccAddress, shares sdk.Dec) CouncilMember {
 
 	return CouncilMember{
 		MemberAddress: memberAddr,
@@ -45,8 +45,7 @@ func UnmarshalCouncilMember(cdc *codec.Codec, value []byte) (councilmember Counc
 func (cm CouncilMember) String() string {
 	return fmt.Sprintf(`Council member :
   Address:                 %s
-  Shares:          %v
-  Entries:`, cm.MemberAddress, cm.Shares)
-
+  Shares:          %v`, 
+  cm.MemberAddress, cm.Shares)
 }
 	

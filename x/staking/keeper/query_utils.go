@@ -55,7 +55,6 @@ func (k Keeper) GetAllDelegatorDelegations(ctx sdk.Context, delegator sdk.AccAdd
 	delegatorPrefixKey := GetDelegationsKey(delegator)
 	iterator := sdk.KVStorePrefixIterator(store, delegatorPrefixKey) //smallest to largest
 	defer iterator.Close()
-
 	i := 0
 	for ; iterator.Valid(); iterator.Next() {
 		delegation := types.MustUnmarshalDelegation(k.cdc, iterator.Value())
@@ -63,6 +62,24 @@ func (k Keeper) GetAllDelegatorDelegations(ctx sdk.Context, delegator sdk.AccAdd
 		i++
 	}
 	return delegations
+}
+
+// return total value of delegations for a delegator
+func (k Keeper) GetTotalDelegatorDelegations(ctx sdk.Context, delegator sdk.AccAddress) (
+	sdk.Dec) {
+
+	store := ctx.KVStore(k.storeKey)
+	delegatorPrefixKey := GetDelegationsKey(delegator)
+	iterator := sdk.KVStorePrefixIterator(store, delegatorPrefixKey) //smallest to largest
+	defer iterator.Close()
+	total := sdk.NewDec(0)
+	i := 0
+	for ; iterator.Valid(); iterator.Next() {
+		delegation := types.MustUnmarshalDelegation(k.cdc, iterator.Value())
+		total= total.Add(delegation.Shares)
+		i++
+	}
+	return total
 }
 
 // return all unbonding-delegations for a delegator

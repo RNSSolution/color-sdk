@@ -29,6 +29,7 @@ var (
 	KeyMaxValidators = []byte("MaxValidators")
 	KeyMaxEntries    = []byte("KeyMaxEntries")
 	KeyBondDenom     = []byte("BondDenom")
+	KeyCouncilMemberMinCoin = []byte("CouncilMemberMinCoin")
 )
 
 var _ params.ParamSet = (*Params)(nil)
@@ -40,16 +41,18 @@ type Params struct {
 	MaxEntries    uint16        `json:"max_entries"`    // max entries for either unbonding delegation or redelegation (per pair/trio)
 	// note: we need to be a bit careful about potential overflow here, since this is user-determined
 	BondDenom string `json:"bond_denom"` // bondable coin denomination
+	CouncilMemberMinCoin sdk.Dec `json:"council_member_minCoin"`
 }
 
 func NewParams(unbondingTime time.Duration, maxValidators, maxEntries uint16,
-	bondDenom string) Params {
+	bondDenom string, cmMinCoin sdk.Dec) Params {
 
 	return Params{
 		UnbondingTime: unbondingTime,
 		MaxValidators: maxValidators,
 		MaxEntries:    maxEntries,
 		BondDenom:     bondDenom,
+		CouncilMemberMinCoin: cmMinCoin,
 	}
 }
 
@@ -60,6 +63,7 @@ func (p *Params) ParamSetPairs() params.ParamSetPairs {
 		{KeyMaxValidators, &p.MaxValidators},
 		{KeyMaxEntries, &p.MaxEntries},
 		{KeyBondDenom, &p.BondDenom},
+		{KeyCouncilMemberMinCoin, &p.CouncilMemberMinCoin},
 	}
 }
 
@@ -73,7 +77,8 @@ func (p Params) Equal(p2 Params) bool {
 
 // DefaultParams returns a default set of parameters.
 func DefaultParams() Params {
-	return NewParams(DefaultUnbondingTime, DefaultMaxValidators, DefaultMaxEntries, sdk.DefaultBondDenom)
+	return NewParams(DefaultUnbondingTime, DefaultMaxValidators, DefaultMaxEntries, 
+		sdk.DefaultBondDenom,sdk.NewDec(50000000000))
 }
 
 // String returns a human readable string representation of the parameters.
@@ -82,8 +87,10 @@ func (p Params) String() string {
   Unbonding Time:    %s
   Max Validators:    %d
   Max Entries:       %d
-  Bonded Coin Denom: %s`, p.UnbondingTime,
-		p.MaxValidators, p.MaxEntries, p.BondDenom)
+  Bonded Coin Denom: %s
+  CouncilMemberMinCoin: %v`, 
+  p.UnbondingTime,
+		p.MaxValidators, p.MaxEntries, p.BondDenom, p.CouncilMemberMinCoin)
 }
 
 // unmarshal the current staking params value from store key or panic

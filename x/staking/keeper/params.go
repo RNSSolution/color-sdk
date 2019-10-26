@@ -42,6 +42,10 @@ func (k Keeper) BondDenom(ctx sdk.Context) (res string) {
 	k.paramstore.Get(ctx, types.KeyBondDenom, &res)
 	return
 }
+func (k Keeper) CouncilMemberMinCoin(ctx sdk.Context) (res sdk.Dec){
+	k.paramstore.Get(ctx,types.KeyCouncilMemberMinCoin, &res)
+	return
+}
 
 // Get all parameteras as types.Params
 func (k Keeper) GetParams(ctx sdk.Context) types.Params {
@@ -50,6 +54,7 @@ func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 		k.MaxValidators(ctx),
 		k.MaxEntries(ctx),
 		k.BondDenom(ctx),
+		k.CouncilMemberMinCoin(ctx),
 	)
 }
 

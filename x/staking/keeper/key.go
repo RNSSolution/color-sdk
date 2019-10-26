@@ -33,12 +33,20 @@ var (
 	UnbondingQueueKey    = []byte{0x41} // prefix for the timestamps in unbonding queue
 	RedelegationQueueKey = []byte{0x42} // prefix for the timestamps in redelegations queue
 	ValidatorQueueKey    = []byte{0x43} // prefix for the timestamps in validator queue
+
+	CouncilMembersKey = []byte{0x51} //prefix for each key to a council member
 )
 
 // gets the key for the validator with address
 // VALUE: staking/types.Validator
 func GetValidatorKey(operatorAddr sdk.ValAddress) []byte {
 	return append(ValidatorsKey, operatorAddr.Bytes()...)
+}
+
+//gets the key for the council member with address
+//VALUE: coucnil member address in bytes
+func GetCouncilMemberKey(memberAddr sdk.AccAddress) []byte {
+	return append(CouncilMembersKey, memberAddr.Bytes()...)
 }
 
 // gets the key for the validator with pubkey

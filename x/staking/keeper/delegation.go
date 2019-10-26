@@ -13,6 +13,7 @@ import (
 // undelegating patch.
 const UndelegatePatchHeight = 482100
 
+
 // return a specific delegation
 func (k Keeper) GetDelegation(ctx sdk.Context,
 	delAddr sdk.AccAddress, valAddr sdk.ValAddress) (
@@ -42,6 +43,7 @@ func (k Keeper) GetAllDelegations(ctx sdk.Context) (delegations []types.Delegati
 	return delegations
 }
 
+
 // return all delegations to a specific validator. Useful for querier.
 func (k Keeper) GetValidatorDelegations(ctx sdk.Context, valAddr sdk.ValAddress) (delegations []types.Delegation) {
 	store := ctx.KVStore(k.storeKey)
@@ -69,13 +71,14 @@ func (k Keeper) GetDelegatorDelegations(ctx sdk.Context, delegator sdk.AccAddres
 	defer iterator.Close()
 
 	i := 0
-	for ; iterator.Valid() && i < int(maxRetrieve); iterator.Next() {
+	for ; iterator.Valid() ; iterator.Next() {
 		delegation := types.MustUnmarshalDelegation(k.cdc, iterator.Value())
 		delegations[i] = delegation
 		i++
 	}
 	return delegations[:i] // trim if the array length < maxRetrieve
 }
+
 
 // set a delegation
 func (k Keeper) SetDelegation(ctx sdk.Context, delegation types.Delegation) {
@@ -488,8 +491,22 @@ func (k Keeper) Delegate(ctx sdk.Context, delAddr sdk.AccAddress, bondAmt sdk.In
 	// Call the after-modification hook
 	k.AfterDelegationModified(ctx, delegation.DelegatorAddress, delegation.ValidatorAddress)
 
+
+	params:=k.GetParams(ctx)
+	if k.GetTotalDelegatorDelegations(ctx,delAddr).GTE(params.CouncilMemberMinCoin) {
+		if councilmember,found :=k.GetCouncilMember(ctx,delAddr); found {
+			//TODO: update the council member shares
+			fmt.Println(councilmember)
+		}else{
+			cm := types.CouncilMember{delAddr, k.GetTotalDelegatorDelegations(ctx,delAddr)}
+			k.SetCouncilMember(ctx,cm)
+		}
+	}
+	fmt.Println(k.GetCouncilMember(ctx,delAddr))	
+
 	return newShares, nil
 }
+
 
 // unbond a particular delegation and perform associated store operations
 func (k Keeper) unbond(ctx sdk.Context, delAddr sdk.AccAddress, valAddr sdk.ValAddress,
