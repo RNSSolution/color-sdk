@@ -493,6 +493,8 @@ gaiacli tx gov submit-proposal \
   --description=<description> \
   --type=<Text/ParameterChange/SoftwareUpgrade> \
   --deposit=<40steak> \
+  --fund=<4uclr> \
+  --cycle=<number> \
   --from=<name> \
   --chain-id=<chain_id>
 ```

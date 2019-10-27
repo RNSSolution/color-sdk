@@ -190,6 +190,7 @@ $ gaiacli tx gov deposit 1 10stake --from mykey
 			if !account.GetCoins().IsAllGTE(amount) {
 				return fmt.Errorf("address %s doesn't have enough coins to pay for this transaction", from)
 			}
+
 			msg := gov.NewMsgDeposit(from, proposalID, amount)
 			err = msg.ValidateBasic()
 			if err != nil {

@@ -95,7 +95,7 @@ func NewKeeper(cdc *codec.Codec, key sdk.StoreKey, paramsKeeper params.Keeper,
 }
 
 // Proposals
-func (keeper Keeper) SubmitProposal(ctx sdk.Context, content ProposalContent, funding sdk.Coins, cycle sdk.Int) (proposal Proposal, err sdk.Error) {
+func (keeper Keeper) SubmitProposal(ctx sdk.Context, content ProposalContent) (proposal Proposal, err sdk.Error) {
 	proposalID, err := keeper.getNewProposalID(ctx)
 	if err != nil {
 		return
@@ -112,15 +112,14 @@ func (keeper Keeper) SubmitProposal(ctx sdk.Context, content ProposalContent, fu
 		TotalDeposit:     sdk.NewCoins(),
 		SubmitTime:       submitTime,
 		DepositEndTime:   submitTime.Add(depositPeriod),
-		RequestedFund:    funding,
-		FundingCycle:     cycle,
 	}
+
 	keeper.SetProposal(ctx, proposal)
 	keeper.InsertInactiveProposalQueue(ctx, proposal.DepositEndTime, proposalID)
 	return
 }
 
-// Get Proposal from store by ProposalID
+// GetProposal from store by ProposalID
 func (keeper Keeper) GetProposal(ctx sdk.Context, proposalID uint64) (proposal Proposal, ok bool) {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := store.Get(KeyProposal(proposalID))
@@ -128,7 +127,6 @@ func (keeper Keeper) GetProposal(ctx sdk.Context, proposalID uint64) (proposal P
 		return
 	}
 	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &proposal)
-
 	return proposal, true
 }
 
@@ -387,6 +385,7 @@ func (keeper Keeper) AddDeposit(ctx sdk.Context, proposalID uint64, depositorAdd
 	if err != nil {
 		return err, false
 	}
+
 	// Update proposal
 	proposal.TotalDeposit = proposal.TotalDeposit.Add(depositAmount)
 	keeper.SetProposal(ctx, proposal)
@@ -397,6 +396,7 @@ func (keeper Keeper) AddDeposit(ctx sdk.Context, proposalID uint64, depositorAdd
 		keeper.activateVotingPeriod(ctx, proposal)
 		activatedVotingPeriod = true
 	}
+
 	// Add or update deposit object
 	currDeposit, found := keeper.GetDeposit(ctx, proposalID, depositorAddr)
 	if !found {
