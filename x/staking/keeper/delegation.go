@@ -494,7 +494,7 @@ func (k Keeper) Delegate(ctx sdk.Context, delAddr sdk.AccAddress, bondAmt sdk.In
 	totalDelegation := k.GetTotalDelegatorDelegations(ctx,delAddr) 
 	params:=k.GetParams(ctx)
 
-	//add or update council member
+	//add or update Council Member
 	if totalDelegation.GTE(params.CouncilMemberMinCoin) {
 		if _,found :=k.GetCouncilMember(ctx,delAddr); found {
 			k.SetCouncilMemberShares(ctx,delAddr,totalDelegation)
@@ -504,7 +504,6 @@ func (k Keeper) Delegate(ctx sdk.Context, delAddr sdk.AccAddress, bondAmt sdk.In
 			k.SetCouncilMember(ctx,cm)
 		}
 	}
-	fmt.Println(k.GetCouncilMember(ctx,delAddr))	
 
 	return newShares, nil
 }

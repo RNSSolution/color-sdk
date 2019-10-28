@@ -50,7 +50,7 @@ func EndBlocker(ctx sdk.Context, keeper Keeper) sdk.Tags {
 		if !ok {
 			panic(fmt.Sprintf("proposal %d does not exist", proposalID))
 		}
-		passes, tallyResults := tally(ctx, keeper, activeProposal)
+		passes, tallyResults,_ := tally(ctx, keeper, activeProposal)
 
 		var tagValue string
 		if passes {
