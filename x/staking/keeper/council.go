@@ -32,8 +32,8 @@ func (k Keeper) GetCouncilMember(ctx sdk.Context,
 	return cm,true
 }
 
-// SetShares : Sets new shares value of the council member 
-func (k Keeper) SetShares(ctx sdk.Context, memAddr sdk.AccAddress, newVal sdk.Dec) (bool){
+// SetCouncilMemberShares : Sets new shares value of the council member 
+func (k Keeper) SetCouncilMemberShares(ctx sdk.Context, memAddr sdk.AccAddress, newVal sdk.Dec) bool{
 	cm, found :=k.GetCouncilMember(ctx,memAddr)
 
 	if found{
@@ -44,6 +44,27 @@ func (k Keeper) SetShares(ctx sdk.Context, memAddr sdk.AccAddress, newVal sdk.De
 	return false
 }
 
-func (k Keeper) DeleteCouncilMember(ctx sdk.Context, memAddr sdk.AccAddress) {
-	
+// DeleteCouncilMember : delete a council member
+func (k Keeper) DeleteCouncilMember(ctx sdk.Context, memAddr sdk.AccAddress){
+	store := ctx.KVStore(k.storeKey)
+	key := GetCouncilMemberKey(memAddr)
+	store.Delete(key)
+}
+
+// GetCouncilMemberIterator : 
+func (k Keeper) GetCouncilMemberIterator(ctx sdk.Context) sdk.Iterator{
+	store := ctx.KVStore(k.storeKey)
+	key := CouncilMembersKey
+
+	return sdk.KVStorePrefixIterator(store,key)
+}
+
+// GetCouncilMemberShares : get the shares of a council member
+func (k Keeper) GetCouncilMemberShares(ctx sdk.Context, memAddr sdk.AccAddress) (sdk.Dec,bool){
+	cm, found :=k.GetCouncilMember(ctx,memAddr)
+	if found {
+		return cm.Shares, true
+	}
+	return sdk.ZeroDec() ,false
+
 }

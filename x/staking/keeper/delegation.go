@@ -71,14 +71,13 @@ func (k Keeper) GetDelegatorDelegations(ctx sdk.Context, delegator sdk.AccAddres
 	defer iterator.Close()
 
 	i := 0
-	for ; iterator.Valid() ; iterator.Next() {
+	for ; iterator.Valid() && i < int(maxRetrieve); iterator.Next() {
 		delegation := types.MustUnmarshalDelegation(k.cdc, iterator.Value())
 		delegations[i] = delegation
 		i++
 	}
 	return delegations[:i] // trim if the array length < maxRetrieve
 }
-
 
 // set a delegation
 func (k Keeper) SetDelegation(ctx sdk.Context, delegation types.Delegation) {
@@ -451,7 +450,7 @@ func (k Keeper) DequeueAllMatureRedelegationQueue(ctx sdk.Context, currTime time
 	return matureRedelegations
 }
 
-// Perform a delegation, set/update everything necessary within the store.
+// Delegate : Perform a delegation, set/update everything necessary within the store.
 func (k Keeper) Delegate(ctx sdk.Context, delAddr sdk.AccAddress, bondAmt sdk.Int,
 	validator types.Validator, subtractAccount bool) (newShares sdk.Dec, err sdk.Error) {
 
@@ -491,12 +490,15 @@ func (k Keeper) Delegate(ctx sdk.Context, delAddr sdk.AccAddress, bondAmt sdk.In
 	// Call the after-modification hook
 	k.AfterDelegationModified(ctx, delegation.DelegatorAddress, delegation.ValidatorAddress)
 
-
+	// get the total delegations of delegator
+	totalDelegation := k.GetTotalDelegatorDelegations(ctx,delAddr) 
 	params:=k.GetParams(ctx)
-	if k.GetTotalDelegatorDelegations(ctx,delAddr).GTE(params.CouncilMemberMinCoin) {
-		if councilmember,found :=k.GetCouncilMember(ctx,delAddr); found {
-			//TODO: update the council member shares
-			fmt.Println(councilmember)
+
+	//add or update council member
+	if totalDelegation.GTE(params.CouncilMemberMinCoin) {
+		if _,found :=k.GetCouncilMember(ctx,delAddr); found {
+			k.SetCouncilMemberShares(ctx,delAddr,totalDelegation)
+			
 		}else{
 			cm := types.CouncilMember{delAddr, k.GetTotalDelegatorDelegations(ctx,delAddr)}
 			k.SetCouncilMember(ctx,cm)

@@ -63,6 +63,7 @@ func (b BondStatus) Equal(b2 BondStatus) bool {
 	return byte(b) == byte(b2)
 }
 
+
 // validator for a delegated proof of stake system
 type Validator interface {
 	IsJailed() bool                                 // whether the validator is jailed
