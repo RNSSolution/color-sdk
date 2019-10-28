@@ -69,6 +69,7 @@ $ gaiacli query gov proposals --status (DepositPeriod|VotingPeriod|Passed|Reject
 			var depositorAddr sdk.AccAddress
 			var voterAddr sdk.AccAddress
 			var proposalStatus gov.ProposalStatus
+
 			params := gov.NewQueryProposalsParams(proposalStatus, numLimit, voterAddr, depositorAddr)
 
 			if len(bechDepositorAddr) != 0 {

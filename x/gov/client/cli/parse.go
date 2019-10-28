@@ -20,7 +20,6 @@ func parseSubmitProposalFlags() (*proposal, error) {
 		proposal.Deposit = viper.GetString(flagDeposit)
 		proposal.Fund = viper.GetString(flagRequestedFund)
 		proposal.Cycle = viper.GetString(flagCycle)
-
 		return proposal, nil
 	}
 

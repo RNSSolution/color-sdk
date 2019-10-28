@@ -111,11 +111,12 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 		var tagValue string
 
 		// ===TODO check if no remaining cycle left then refund Deposit
-		if passes {
+		if passes && activeProposal.IsZeroRemainingCycle() {
+
 			keeper.RefundDeposits(ctx, activeProposal.ProposalID)
 			activeProposal.Status = StatusPassed
 			tagValue = tags.ActionProposalPassed
-		} else {
+		} else if !passes && activeProposal.IsZeroRemainingCycle() {
 
 			keeper.DeleteDeposits(ctx, activeProposal.ProposalID)
 			activeProposal.Status = StatusRejected

@@ -560,11 +560,13 @@ In order to create a governance proposal, you must submit an initial deposit alo
 - `type`: Type of proposal. Must be of value _Text_ (types _SoftwareUpgrade_ and _ParameterChange_ not supported yet).
 
 ```bash
-gaiacli tx gov submit-proposal \
+colorcli tx gov submit-proposal \
   --title=<title> \
   --description=<description> \
   --type=<Text/ParameterChange/SoftwareUpgrade> \
   --deposit="1000000uatom" \
+  --fund="100uatom" \
+  --cycle=10 \
   --from=<name> \
   --chain-id=<chain_id>
 ```
@@ -574,13 +576,13 @@ gaiacli tx gov submit-proposal \
 Once created, you can now query information of the proposal:
 
 ```bash
-gaiacli query gov proposal <proposal_id>
+colorcli query gov proposal <proposal_id>
 ```
 
 Or query all available proposals:
 
 ```bash
-gaiacli query gov proposals
+colorcli query gov proposals
 ```
 
 You can also query proposals filtered by `voter` or `depositor` by using the corresponding flags.
@@ -588,7 +590,7 @@ You can also query proposals filtered by `voter` or `depositor` by using the cor
 To query for the proposer of a given governance proposal:
 
 ```bash
-gaiacli query gov proposer <proposal_id>
+colorcli query gov proposer <proposal_id>
 ```
 
 #### Increase Deposit

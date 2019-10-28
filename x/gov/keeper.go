@@ -95,8 +95,8 @@ func NewKeeper(cdc *codec.Codec, key sdk.StoreKey, paramsKeeper params.Keeper,
 	}
 }
 
-// SubmitProposal store the proposal in KV store
-func (keeper Keeper) SubmitProposal(ctx sdk.Context, content ProposalContent, funding sdk.Coins, cycle sdk.Int) (proposal Proposal, err sdk.Error) {
+// Proposals
+func (keeper Keeper) SubmitProposal(ctx sdk.Context, content ProposalContent) (proposal Proposal, err sdk.Error) {
 	proposalID, err := keeper.getNewProposalID(ctx)
 	if err != nil {
 		return
@@ -113,15 +113,14 @@ func (keeper Keeper) SubmitProposal(ctx sdk.Context, content ProposalContent, fu
 		TotalDeposit:     sdk.NewCoins(),
 		SubmitTime:       submitTime,
 		DepositEndTime:   submitTime.Add(depositPeriod),
-		RequestedFund:    funding,
-		FundingCycle:     cycle,
 	}
+
 	keeper.SetProposal(ctx, proposal)
 	keeper.InsertInactiveProposalQueue(ctx, proposal.DepositEndTime, proposalID)
 	return
 }
 
-// GetProposal Get Proposal from store by ProposalID
+// GetProposal from store by ProposalID
 func (keeper Keeper) GetProposal(ctx sdk.Context, proposalID uint64) (proposal Proposal, ok bool) {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := store.Get(KeyProposal(proposalID))
@@ -129,7 +128,6 @@ func (keeper Keeper) GetProposal(ctx sdk.Context, proposalID uint64) (proposal P
 		return
 	}
 	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &proposal)
-
 	return proposal, true
 }
 
@@ -388,6 +386,7 @@ func (keeper Keeper) AddDeposit(ctx sdk.Context, proposalID uint64, depositorAdd
 	if err != nil {
 		return err, false
 	}
+
 	// Update proposal
 	proposal.TotalDeposit = proposal.TotalDeposit.Add(depositAmount)
 	keeper.SetProposal(ctx, proposal)
@@ -398,6 +397,7 @@ func (keeper Keeper) AddDeposit(ctx sdk.Context, proposalID uint64, depositorAdd
 		keeper.activateVotingPeriod(ctx, proposal)
 		activatedVotingPeriod = true
 	}
+
 	// Add or update deposit object
 	currDeposit, found := keeper.GetDeposit(ctx, proposalID, depositorAddr)
 	if !found {
@@ -421,6 +421,26 @@ func (keeper Keeper) GetDeposits(ctx sdk.Context, proposalID uint64) sdk.Iterato
 func (keeper Keeper) RefundDeposits(ctx sdk.Context, proposalID uint64) {
 
 	// ===TOD0 add logic to transfer requted funding from treasury to this prosal
+	store := ctx.KVStore(keeper.storeKey)
+	depositsIterator := keeper.GetDeposits(ctx, proposalID)
+	defer depositsIterator.Close()
+	for ; depositsIterator.Valid(); depositsIterator.Next() {
+		deposit := &Deposit{}
+		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(depositsIterator.Value(), deposit)
+
+		_, err := keeper.ck.SendCoins(ctx, DepositedCoinsAccAddr, deposit.Depositor, deposit.Amount)
+		if err != nil {
+			panic("should not happen")
+		}
+
+		store.Delete(depositsIterator.Key())
+	}
+}
+
+// TransferDeposits Transfer deposit from treasury to depositor
+func (keeper Keeper) TransferDeposits(ctx sdk.Context, proposalID uint64) {
+
+	// ===TOD0 add logic to transfer requested funding from treasury to this prosal
 	store := ctx.KVStore(keeper.storeKey)
 	depositsIterator := keeper.GetDeposits(ctx, proposalID)
 	defer depositsIterator.Close()

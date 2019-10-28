@@ -19,13 +19,14 @@ type Proposal struct {
 	Status           ProposalStatus `json:"proposal_status"`    //  Status of the Proposal {Pending, Active, Passed, Rejected}
 	FinalTallyResult TallyResult    `json:"final_tally_result"` //  Result of Tallys
 
-	SubmitTime      time.Time `json:"submit_time"`       //  Time of the block where TxGovSubmitProposal was included
-	DepositEndTime  time.Time `json:"deposit_end_time"`  // Time that the Proposal would expire if deposit amount isn't met
-	TotalDeposit    sdk.Coins `json:"total_deposit"`     //  Current deposit on this proposal. Initial value is set at InitialDeposit
-	RequestedFund   sdk.Coins `json:"requested_fund"`    //  Fund Requested
-	FundingCycle    sdk.Int   `json:"funding_cycle"`     //   Funding Cycle
-	VotingStartTime time.Time `json:"voting_start_time"` //  Time of the block where MinDeposit was reached. -1 if MinDeposit is not reached
-	VotingEndTime   time.Time `json:"voting_end_time"`   // Time that the VotingPeriod for this proposal will end and votes will be tallied
+	SubmitTime            time.Time `json:"submit_time"`             //  Time of the block where TxGovSubmitProposal was included
+	DepositEndTime        time.Time `json:"deposit_end_time"`        // Time that the Proposal would expire if deposit amount isn't met
+	TotalDeposit          sdk.Coins `json:"total_deposit"`           //  Current deposit on this proposal. Initial value is set at InitialDeposit	RequestedFund   sdk.Coins `json:"requested_fund"`    //  Fund Requested
+	RequestedFund         sdk.Coins `json:"requested_fund"`          //  Fund Requested
+	FundCycle             sdk.Int   `json:"funding_cycle"`           //   Funding Cycle
+	RemainingFundingCycle int64     `json:"remaining_funding_cycle"` //   Remaining Funding Cycle
+	VotingStartTime       time.Time `json:"voting_start_time"`       //  Time of the block where MinDeposit was reached. -1 if MinDeposit is not reached
+	VotingEndTime         time.Time `json:"voting_end_time"`         // Time that the VotingPeriod for this proposal will end and votes will be tallied
 }
 
 // nolint
@@ -44,7 +45,7 @@ func (p Proposal) String() string {
   Description:        %s`,
 		p.ProposalID, p.GetTitle(), p.ProposalType(),
 		p.Status, p.SubmitTime, p.DepositEndTime,
-		p.TotalDeposit, p.RequestedFund, p.FundingCycle, p.VotingStartTime, p.VotingEndTime, p.GetDescription(),
+		p.TotalDeposit, p.GetRequestedFund(), p.GetFundCycle(), p.VotingStartTime, p.VotingEndTime, p.GetDescription(),
 	)
 }
 
@@ -56,11 +57,8 @@ type ProposalContent interface {
 	GetTitle() string
 	GetDescription() string
 	ProposalType() ProposalKind
-}
-
-//FundContent Interface of Funds
-type FundContent interface {
 	GetRequestedFund() sdk.Coins
+	GetFundCycle() sdk.Int
 }
 
 // Proposals is an array of proposal
@@ -77,48 +75,45 @@ func (p Proposals) String() string {
 	return strings.TrimSpace(out)
 }
 
+func (p Proposal) IsZeroRemainingCycle() bool {
+	return p.RemainingFundingCycle == 0
+}
+
 // Text Proposals
 type TextProposal struct {
-	Title       string `json:"title"`       //  Title of the proposal
-	Description string `json:"description"` //  Description of the proposal
+	Title         string    `json:"title"`          //  Title of the proposal
+	Description   string    `json:"description"`    //  Description of the proposal
+	RequestedFund sdk.Coins `json:"requested_fund"` // Requested Funds in Proposal
+	FundCycle     sdk.Int   `json:"fund_cycle"`     // Funding Cycle
 }
 
-// Funding
-type FundProposal struct {
-	FundDepositor sdk.AccAddress `json:"FundDepositor"` //  Address of the depositor
-	ProposalID    uint64         `json:"proposal_id"`   //  proposalID of the proposal
-	Amount        sdk.Coins      `json:"amount"`        //  Deposit amount
-}
-
-func NewTextProposal(title, description string) TextProposal {
+func NewTextProposal(title, description string, requestfund sdk.Coins, fundcycle sdk.Int) TextProposal {
 	return TextProposal{
-		Title:       title,
-		Description: description,
+		Title:         title,
+		Description:   description,
+		RequestedFund: requestfund,
+		FundCycle:     fundcycle,
 	}
 }
 
 // Implements Proposal Interface
 var _ ProposalContent = TextProposal{}
 
-//var _ ProposalFund = FundContent{}
-
 // nolint
-func (tp TextProposal) GetTitle() string           { return tp.Title }
-func (tp TextProposal) GetDescription() string     { return tp.Description }
-func (tp TextProposal) ProposalType() ProposalKind { return ProposalTypeText }
-
-//func (tp TextProposal) GetRequestedFund() sdk.Coin { return ProposalFund }
-
-//func (tp TextProposal) RequestedFund() ProposalKind { return RequestedFund }
+func (tp TextProposal) GetTitle() string            { return tp.Title }
+func (tp TextProposal) GetDescription() string      { return tp.Description }
+func (tp TextProposal) ProposalType() ProposalKind  { return ProposalTypeText }
+func (tp TextProposal) GetRequestedFund() sdk.Coins { return tp.RequestedFund }
+func (tp TextProposal) GetFundCycle() sdk.Int       { return tp.FundCycle }
 
 // Software Upgrade Proposals
 type SoftwareUpgradeProposal struct {
 	TextProposal
 }
 
-func NewSoftwareUpgradeProposal(title, description string) SoftwareUpgradeProposal {
+func NewSoftwareUpgradeProposal(title, description string, requestfund sdk.Coins, fundcycle sdk.Int) SoftwareUpgradeProposal {
 	return SoftwareUpgradeProposal{
-		TextProposal: NewTextProposal(title, description),
+		TextProposal: NewTextProposal(title, description, requestfund, fundcycle),
 	}
 }
 
@@ -135,9 +130,6 @@ type ProposalQueue []uint64
 
 // Type that represents Proposal Type as a byte
 type ProposalKind byte
-
-// Type that represents Proposal Type as a byte
-type RequestedFund sdk.Coins
 
 //nolint
 const (
