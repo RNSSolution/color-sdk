@@ -23,7 +23,7 @@ type Proposal struct {
 	DepositEndTime  time.Time `json:"deposit_end_time"`  // Time that the Proposal would expire if deposit amount isn't met
 	TotalDeposit    sdk.Coins `json:"total_deposit"`     //  Current deposit on this proposal. Initial value is set at InitialDeposit	RequestedFund   sdk.Coins `json:"requested_fund"`    //  Fund Requested
 	RequestedFund   sdk.Coins `json:"requested_fund"`    //  Fund Requested
-	FundCycle       sdk.Int   `json:"funding_cycle"`     //   Funding Cycle
+	FundingCycle    uint64    `json:"funding_cycle"`     //   Funding Cycle
 	VotingStartTime time.Time `json:"voting_start_time"` //  Time of the block where MinDeposit was reached. -1 if MinDeposit is not reached
 	VotingEndTime   time.Time `json:"voting_end_time"`   // Time that the VotingPeriod for this proposal will end and votes will be tallied
 }
@@ -38,13 +38,13 @@ func (p Proposal) String() string {
   Deposit End Time:   %s
   Total Deposit:      %s
   Requested Fund:     %s
-  Funding Cycle:      %s
+  Funding Cycle:      %d
   Voting Start Time:  %s
   Voting End Time:    %s
   Description:        %s`,
 		p.ProposalID, p.GetTitle(), p.ProposalType(),
 		p.Status, p.SubmitTime, p.DepositEndTime,
-		p.TotalDeposit, p.GetRequestedFund(), p.GetFundCycle(), p.VotingStartTime, p.VotingEndTime, p.GetDescription(),
+		p.TotalDeposit, p.GetRequestedFund(), p.GetFundingCycle(), p.VotingStartTime, p.VotingEndTime, p.GetDescription(),
 	)
 }
 
@@ -57,7 +57,7 @@ type ProposalContent interface {
 	GetDescription() string
 	ProposalType() ProposalKind
 	GetRequestedFund() sdk.Coins
-	GetFundCycle() sdk.Int
+	GetFundingCycle() uint64
 }
 
 // Proposals is an array of proposal
@@ -79,15 +79,15 @@ type TextProposal struct {
 	Title         string    `json:"title"`          //  Title of the proposal
 	Description   string    `json:"description"`    //  Description of the proposal
 	RequestedFund sdk.Coins `json:"requested_fund"` // Requested Funds in Proposal
-	FundCycle     sdk.Int   `json:"fund_cycle"`     // Funding Cycle
+	FundingCycle  uint64    `json:"fund_cycle"`     // Funding Cycle
 }
 
-func NewTextProposal(title, description string, requestfund sdk.Coins, fundcycle sdk.Int) TextProposal {
+func NewTextProposal(title, description string, requestfund sdk.Coins, fundingcycle uint64) TextProposal {
 	return TextProposal{
 		Title:         title,
 		Description:   description,
 		RequestedFund: requestfund,
-		FundCycle:     fundcycle,
+		FundingCycle:  fundingcycle,
 	}
 }
 
@@ -99,16 +99,16 @@ func (tp TextProposal) GetTitle() string            { return tp.Title }
 func (tp TextProposal) GetDescription() string      { return tp.Description }
 func (tp TextProposal) ProposalType() ProposalKind  { return ProposalTypeText }
 func (tp TextProposal) GetRequestedFund() sdk.Coins { return tp.RequestedFund }
-func (tp TextProposal) GetFundCycle() sdk.Int       { return tp.FundCycle }
+func (tp TextProposal) GetFundingCycle() uint64     { return tp.FundingCycle }
 
 // Software Upgrade Proposals
 type SoftwareUpgradeProposal struct {
 	TextProposal
 }
 
-func NewSoftwareUpgradeProposal(title, description string, requestfund sdk.Coins, fundcycle sdk.Int) SoftwareUpgradeProposal {
+func NewSoftwareUpgradeProposal(title, description string, requestfund sdk.Coins, fundingcycle uint64) SoftwareUpgradeProposal {
 	return SoftwareUpgradeProposal{
-		TextProposal: NewTextProposal(title, description, requestfund, fundcycle),
+		TextProposal: NewTextProposal(title, description, requestfund, fundingcycle),
 	}
 }
 

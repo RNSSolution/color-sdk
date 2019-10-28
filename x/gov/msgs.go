@@ -26,10 +26,10 @@ type MsgSubmitProposal struct {
 	Proposer       sdk.AccAddress `json:"proposer"`        //  Address of the proposer
 	InitialDeposit sdk.Coins      `json:"initial_deposit"` //  Initial deposit paid by sender. Must be strictly positive.
 	RequestedFund  sdk.Coins      `json:"requested_fund"`  //  Requested Proposal Fund
-	FundCycle      sdk.Int        `json:"fund_cycle"`      //  Fund Cycle
+	FundingCycle   uint64         `json:"fund_cycle"`      //  Fund Cycle
 }
 
-func NewMsgSubmitProposal(title, description string, proposalType ProposalKind, proposer sdk.AccAddress, initialDeposit, requestedFund sdk.Coins, fundingcycle sdk.Int) MsgSubmitProposal {
+func NewMsgSubmitProposal(title, description string, proposalType ProposalKind, proposer sdk.AccAddress, initialDeposit, requestedFund sdk.Coins, fundingcycle uint64) MsgSubmitProposal {
 	return MsgSubmitProposal{
 		Title:          title,
 		Description:    description,
@@ -37,7 +37,7 @@ func NewMsgSubmitProposal(title, description string, proposalType ProposalKind, 
 		Proposer:       proposer,
 		InitialDeposit: initialDeposit,
 		RequestedFund:  requestedFund,
-		FundCycle:      fundingcycle,
+		FundingCycle:   fundingcycle,
 	}
 }
 
@@ -47,6 +47,7 @@ func (msg MsgSubmitProposal) Type() string  { return TypeMsgSubmitProposal }
 
 // Implements Msg.
 func (msg MsgSubmitProposal) ValidateBasic() sdk.Error {
+	var MaxLimit sdk.Int = sdk.NewInt(1209600000000)
 	if len(msg.Title) == 0 {
 		return ErrInvalidTitle(DefaultCodespace, "No title present in proposal")
 	}
@@ -74,13 +75,19 @@ func (msg MsgSubmitProposal) ValidateBasic() sdk.Error {
 	if len(msg.RequestedFund.String()) == 0 {
 		return sdk.ErrInvalidCoins(msg.RequestedFund.String())
 	}
+	if msg.RequestedFund.AmountOf(sdk.DefaultBondDenom).IsZero() {
+		return sdk.ErrUnauthorized("Value Should be in uclr")
+	}
+	if (msg.RequestedFund.AmountOf(sdk.DefaultBondDenom)).GT(MaxLimit) {
+		return sdk.ErrUnauthorized("Value Should not be greater than 1209600000000")
+	}
 	if !msg.RequestedFund.IsValid() {
 		return sdk.ErrInvalidCoins(msg.RequestedFund.String())
 	}
 	if msg.RequestedFund.IsAnyNegative() {
 		return sdk.ErrInvalidCoins(msg.RequestedFund.String())
 	}
-	if msg.FundCycle.IsZero() {
+	if msg.FundingCycle == 0 {
 		return sdk.ErrUnauthorized("Zero cycle is not allowed")
 	}
 	return nil

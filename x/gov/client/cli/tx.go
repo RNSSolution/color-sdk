@@ -106,12 +106,11 @@ $ colorcli gov submit-proposal --title="Test Proposal" --description="My awesome
 				return err
 			}
 
-			// Find Funding amount
-			cycle, ok := sdk.NewIntFromString(proposal.Cycle)
-			if !ok {
-				return fmt.Errorf("failed to parse Cycle")
+			// Funding Cycle
+			cycle, err := strconv.ParseUint(proposal.Cycle, 10, 64)
+			if err != nil {
+				return err
 			}
-
 			// ensure account has enough coins
 			if !account.GetCoins().IsAllGTE(amount) {
 				return fmt.Errorf("address %s doesn't have enough coins to pay for this transaction", from)

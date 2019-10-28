@@ -149,7 +149,7 @@ func SortByteArrays(src [][]byte) [][]byte {
 
 func testProposal() TextProposal {
 
-	return NewTextProposal("Test", "description", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.OneInt())
+	return NewTextProposal("Test", "description", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 4)
 }
 
 // checks if two proposals are equal (note: slow, for tests only)

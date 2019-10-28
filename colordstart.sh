@@ -1,3 +1,4 @@
+sudo kill -9 $(sudo lsof -t -i:26657)
 rm -rf /home/saadsystem/.color*
 make install
 colord init usmanpc --chain-id=abc
