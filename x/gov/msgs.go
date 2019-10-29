@@ -48,6 +48,7 @@ func (msg MsgSubmitProposal) Type() string  { return TypeMsgSubmitProposal }
 // Implements Msg.
 func (msg MsgSubmitProposal) ValidateBasic() sdk.Error {
 	var MaxLimit sdk.Int = sdk.NewInt(1209600000000)
+	var FeeLimit sdk.Int = sdk.NewInt(10000000000)
 	if len(msg.Title) == 0 {
 		return ErrInvalidTitle(DefaultCodespace, "No title present in proposal")
 	}
@@ -89,6 +90,12 @@ func (msg MsgSubmitProposal) ValidateBasic() sdk.Error {
 	}
 	if msg.FundingCycle == 0 {
 		return sdk.ErrUnauthorized("Zero cycle is not allowed")
+	}
+	if msg.FundingCycle > 6 {
+		return sdk.ErrUnauthorized("Fund cycle more than 6 is not allowed")
+	}
+	if msg.InitialDeposit.AmountOf(sdk.DefaultBondDenom).LT(FeeLimit) {
+		return sdk.ErrUnauthorized("Minimum Deposit fee should be 10,000 CLR")
 	}
 	return nil
 }

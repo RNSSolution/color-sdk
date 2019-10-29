@@ -1,5 +1,5 @@
 sudo kill -9 $(sudo lsof -t -i:26657)
-rm -rf /home/saadsystem/.color*
+rm -rf ~/.color*
 make install
 colord init usmanpc --chain-id=abc
 echo 12345678 | colorcli keys add validator
