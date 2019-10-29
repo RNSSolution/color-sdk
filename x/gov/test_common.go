@@ -8,14 +8,15 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	abci "github.com/ColorPlatform/prism/abci/types"
-	"github.com/ColorPlatform/prism/crypto"
-
 	sdk "github.com/ColorPlatform/color-sdk/types"
 	"github.com/ColorPlatform/color-sdk/x/auth"
 	"github.com/ColorPlatform/color-sdk/x/bank"
+	distr "github.com/ColorPlatform/color-sdk/x/distribution"
+	"github.com/ColorPlatform/color-sdk/x/mint"
 	"github.com/ColorPlatform/color-sdk/x/mock"
 	"github.com/ColorPlatform/color-sdk/x/staking"
+	abci "github.com/ColorPlatform/prism/abci/types"
+	"github.com/ColorPlatform/prism/crypto"
 )
 
 // initialize the mock application for this module
@@ -31,11 +32,17 @@ func getMockApp(t *testing.T, numGenAccs int, genState GenesisState, genAccs []a
 	keyStaking := sdk.NewKVStoreKey(staking.StoreKey)
 	tkeyStaking := sdk.NewTransientStoreKey(staking.TStoreKey)
 	keyGov := sdk.NewKVStoreKey(StoreKey)
+	keyDistr := sdk.NewKVStoreKey(distr.StoreKey)
+	keyMinting := sdk.NewKVStoreKey(mint.StoreKey)
 
 	pk := mapp.ParamsKeeper
 	ck := bank.NewBaseKeeper(mapp.AccountKeeper, mapp.ParamsKeeper.Subspace(bank.DefaultParamspace), bank.DefaultCodespace)
 	sk = staking.NewKeeper(mapp.Cdc, keyStaking, tkeyStaking, ck, pk.Subspace(staking.DefaultParamspace), staking.DefaultCodespace)
-	keeper = NewKeeper(mapp.Cdc, keyGov, pk, pk.Subspace("testgov"), ck, sk, DefaultCodespace)
+	feeKeeper := auth.NewFeeCollectionKeeper(mapp.Cdc, mapp.KeyFeeCollection)
+	distrKeeper := distr.NewKeeper(mapp.Cdc, keyDistr, pk.Subspace(distr.DefaultParamspace), ck, &sk, feeKeeper, distr.DefaultCodespace)
+
+	minKeeper := mint.NewKeeper(mapp.Cdc, keyMinting, pk.Subspace(mint.DefaultParamspace), &sk, feeKeeper)
+	keeper = NewKeeper(mapp.Cdc, distrKeeper, minKeeper, keyGov, pk, pk.Subspace("testgov"), ck, sk, DefaultCodespace)
 
 	mapp.Router().AddRoute(RouterKey, NewHandler(keeper))
 	mapp.QueryRouter().AddRoute(QuerierRoute, NewQuerier(keeper))
@@ -149,7 +156,7 @@ func SortByteArrays(src [][]byte) [][]byte {
 
 func testProposal() TextProposal {
 
-	return NewTextProposal("Test", "description", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.OneInt())
+	return NewTextProposal("Test", "description", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 4)
 }
 
 // checks if two proposals are equal (note: slow, for tests only)

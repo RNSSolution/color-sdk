@@ -28,9 +28,9 @@ func handleMsgSubmitProposal(ctx sdk.Context, keeper Keeper, msg MsgSubmitPropos
 	var content ProposalContent
 	switch msg.ProposalType {
 	case ProposalTypeText:
-		content = NewTextProposal(msg.Title, msg.Description, msg.RequestedFund, msg.FundCycle)
+		content = NewTextProposal(msg.Title, msg.Description, msg.RequestedFund, msg.FundingCycle)
 	case ProposalTypeSoftwareUpgrade:
-		content = NewSoftwareUpgradeProposal(msg.Title, msg.Description, msg.RequestedFund, msg.FundCycle)
+		content = NewSoftwareUpgradeProposal(msg.Title, msg.Description, msg.RequestedFund, msg.FundingCycle)
 	default:
 		return ErrInvalidProposalType(keeper.codespace, msg.ProposalType).Result()
 	}

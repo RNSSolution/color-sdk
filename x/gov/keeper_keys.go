@@ -28,6 +28,11 @@ func KeyFundingCycle(proposalID uint64) []byte {
 	return []byte(fmt.Sprintf("cycles:%d", proposalID))
 }
 
+// Key for getting a specific proposal from the store
+func KeyEligibility(eligibilityID uint64) []byte {
+	return []byte(fmt.Sprintf("proposalEligibility:%d", eligibilityID))
+}
+
 // Key for getting a specific deposit from the store
 func KeyDeposit(proposalID uint64, depositorAddr sdk.AccAddress) []byte {
 	return []byte(fmt.Sprintf("deposits:%d:%d", proposalID, depositorAddr))

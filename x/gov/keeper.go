@@ -5,6 +5,8 @@ import (
 
 	codec "github.com/ColorPlatform/color-sdk/codec"
 	sdk "github.com/ColorPlatform/color-sdk/types"
+	distr "github.com/ColorPlatform/color-sdk/x/distribution"
+	"github.com/ColorPlatform/color-sdk/x/mint"
 	"github.com/ColorPlatform/color-sdk/x/params"
 
 	"github.com/ColorPlatform/prism/crypto"
@@ -37,6 +39,7 @@ var (
 	// TODO: Find another way to implement this without using accounts, or find a cleaner way to implement it using accounts.
 	DepositedCoinsAccAddr     = sdk.AccAddress(crypto.AddressHash([]byte("govDepositedCoins")))
 	BurnedDepositCoinsAccAddr = sdk.AccAddress(crypto.AddressHash([]byte("govBurnedDepositCoins")))
+	FourWeeksProvission       = sdk.NewDec(4)
 )
 
 // ParamKeyTable Key declaration for parameters
@@ -52,6 +55,10 @@ func ParamKeyTable() params.KeyTable {
 type Keeper struct {
 	// The reference to the Param Keeper to get and set Global Params
 	paramsKeeper params.Keeper
+	// The reference to the distribution keeper
+	distrKeeper distr.Keeper
+
+	minKeeper mint.Keeper
 
 	// The reference to the Paramstore to get and set gov specific params
 	paramSpace params.Subspace
@@ -80,11 +87,13 @@ type Keeper struct {
 // - depositing funds into proposals, and activating upon sufficient funds being deposited
 // - users voting on proposals, with weight proportional to stake in the system
 // - and tallying the result of the vote.
-func NewKeeper(cdc *codec.Codec, key sdk.StoreKey, paramsKeeper params.Keeper,
+func NewKeeper(cdc *codec.Codec, dk distr.Keeper, mk mint.Keeper, key sdk.StoreKey, paramsKeeper params.Keeper,
 	paramSpace params.Subspace, ck BankKeeper, ds sdk.DelegationSet, codespace sdk.CodespaceType) Keeper {
 
 	return Keeper{
 		storeKey:     key,
+		distrKeeper:  dk,
+		minKeeper:    mk,
 		paramsKeeper: paramsKeeper,
 		paramSpace:   paramSpace.WithKeyTable(ParamKeyTable()),
 		ck:           ck,
@@ -427,7 +436,6 @@ func (keeper Keeper) RefundDeposits(ctx sdk.Context, proposalID uint64) {
 	for ; depositsIterator.Valid(); depositsIterator.Next() {
 		deposit := &Deposit{}
 		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(depositsIterator.Value(), deposit)
-
 		_, err := keeper.ck.SendCoins(ctx, DepositedCoinsAccAddr, deposit.Depositor, deposit.Amount)
 		if err != nil {
 			panic("should not happen")
@@ -437,24 +445,38 @@ func (keeper Keeper) RefundDeposits(ctx sdk.Context, proposalID uint64) {
 	}
 }
 
-// TransferDeposits Transfer deposit from treasury to depositor
-func (keeper Keeper) TransferDeposits(ctx sdk.Context, proposalID uint64) {
+// TransferFunds Transfer funds from treasury to depositor
+func (keeper Keeper) TransferFunds(ctx sdk.Context, eligibilityList []EligibilityDetails) {
 
-	// ===TOD0 add logic to transfer requested funding from treasury to this prosal
-	store := ctx.KVStore(keeper.storeKey)
-	depositsIterator := keeper.GetDeposits(ctx, proposalID)
-	defer depositsIterator.Close()
-	for ; depositsIterator.Valid(); depositsIterator.Next() {
-		deposit := &Deposit{}
-		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(depositsIterator.Value(), deposit)
+	totalFundCount := sdk.NewCoins()
+	limit := keeper.GetTreasuryWeeklyIncome(ctx)
+	for _, eligibility := range eligibilityList {
 
-		_, err := keeper.ck.SendCoins(ctx, DepositedCoinsAccAddr, deposit.Depositor, deposit.Amount)
-		if err != nil {
-			panic("should not happen")
+		// RNS TODO update login from generic loop to specific id
+		depositsIterator := keeper.GetDeposits(ctx, eligibility.ProposalID)
+		defer depositsIterator.Close()
+		for ; depositsIterator.Valid(); depositsIterator.Next() {
+			deposit := &Deposit{}
+			keeper.cdc.MustUnmarshalBinaryLengthPrefixed(depositsIterator.Value(), deposit)
+			totalFundCount = totalFundCount.Add(eligibility.RequestedFund)
+			if VerifyAmount(totalFundCount, limit) {
+				_, err := keeper.ck.SendCoins(ctx, DepositedCoinsAccAddr, deposit.Depositor, eligibility.RequestedFund)
+				if err != nil {
+					panic("should not happen")
+				}
+
+				//Refund deposited amount
+				_, err_refund := keeper.ck.SendCoins(ctx, DepositedCoinsAccAddr, deposit.Depositor, deposit.Amount)
+				if err_refund != nil {
+					panic("should not happen")
+				}
+
+			}
+
 		}
 
-		store.Delete(depositsIterator.Key())
 	}
+
 }
 
 // DeleteDeposits Deletes all the deposits on a specific proposal without refunding them
@@ -606,4 +628,30 @@ func (keeper Keeper) peekCurrentFundingCycleID(ctx sdk.Context) (fundingCycleID 
 	}
 	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &fundingCycleID)
 	return fundingCycleID, nil
+}
+
+func (keeper Keeper) AddEligibilityQueue(ctx sdk.Context, proposalID uint64) {
+
+	proposalEligibility := ProposalEligibility{
+		ProposalID: proposalID,
+		Rank:       0,
+		Expected:   false,
+	}
+	keeper.SetEligibility(ctx, proposalEligibility)
+}
+
+func (keeper Keeper) SetEligibility(ctx sdk.Context, proposalEligibility ProposalEligibility) {
+	store := ctx.KVStore(keeper.storeKey)
+	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(proposalEligibility)
+	store.Set(KeyEligibility(proposalEligibility.ProposalID), bz)
+
+}
+
+func (keeper Keeper) GetTreasuryWeeklyIncome(ctx sdk.Context) sdk.Dec {
+	communityTx := keeper.distrKeeper.GetCommunityTax(ctx)
+	weeklyProivssion := keeper.minKeeper.GetMinter(ctx).WeeklyProvisions
+	treasuryIncome := communityTx.Mul(weeklyProivssion)
+	treasuryIncome = treasuryIncome.Mul(FourWeeksProvission)
+	return treasuryIncome
+
 }

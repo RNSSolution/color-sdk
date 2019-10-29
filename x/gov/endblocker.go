@@ -95,6 +95,8 @@ func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk
 // ExecuteProposal Transfer funds on active proposal if voting end time reach
 func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags {
 	logger := ctx.Logger().With("module", "x/gov")
+	eligibilityQueue := make([]EligibilityDetails, EligibilityListCapcity)
+
 	// fetch active proposals whose voting periods have ended (are passed the block time)
 	activeIterator := keeper.ActiveProposalQueueIterator(ctx, ctx.BlockHeader().Time)
 	defer activeIterator.Close()
@@ -112,12 +114,13 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 
 		// ===TODO check if no remaining cycle left then refund Deposit
 		if passes && activeProposal.IsZeroRemainingCycle() {
-
-			keeper.RefundDeposits(ctx, activeProposal.ProposalID)
+			eligibility := NewEligibilityDetails(activeProposal.ProposalID, tallyResults.Yes, activeProposal.RequestedFund)
+			eligibilityQueue = Append(eligibilityQueue, eligibility)
 			activeProposal.Status = StatusPassed
 			tagValue = tags.ActionProposalPassed
-		} else if !passes && activeProposal.IsZeroRemainingCycle() {
-
+		} else if passes && !activeProposal.IsZeroRemainingCycle() {
+			activeProposal.ReduceCycleCount()
+		} else {
 			keeper.DeleteDeposits(ctx, activeProposal.ProposalID)
 			activeProposal.Status = StatusRejected
 			tagValue = tags.ActionProposalRejected
@@ -139,5 +142,8 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 		resTags = resTags.AppendTag(tags.ProposalID, fmt.Sprintf("%d", proposalID))
 		resTags = resTags.AppendTag(tags.ProposalResult, tagValue)
 	}
+
+	eligibilityQueue = Sort(eligibilityQueue)
+	keeper.TransferFunds(ctx, eligibilityQueue)
 	return resTags
 }

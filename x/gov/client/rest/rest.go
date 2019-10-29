@@ -61,7 +61,7 @@ type PostProposalReq struct {
 	Proposer       sdk.AccAddress `json:"proposer"`        // Address of the proposer
 	InitialDeposit sdk.Coins      `json:"initial_deposit"` // Coins to add to the proposal's deposit
 	RequestedFund  sdk.Coins      `json:"requested_fund"`  // Coins to add to the proposal's deposit
-	FundingCycle   sdk.Int        `json:"funding_cycle"`   /// Funding Cycle
+	FundingCycle   uint64         `json:"funding_cycle"`   /// Funding Cycle
 }
 
 // DepositReq defines the properties of a deposit request's body.

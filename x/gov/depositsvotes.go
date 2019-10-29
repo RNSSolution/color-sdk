@@ -65,6 +65,10 @@ func (d Deposits) String() string {
 	return out
 }
 
+func (d Deposit) EqualsID(id uint64) bool {
+	return d.ProposalID == id
+}
+
 // Returns whether 2 deposits are equal
 func (d Deposit) Equals(comp Deposit) bool {
 	return d.Depositor.Equals(comp.Depositor) && d.ProposalID == comp.ProposalID && d.Amount.IsEqual(comp.Amount)
