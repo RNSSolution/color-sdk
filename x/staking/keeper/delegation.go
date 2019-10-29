@@ -564,6 +564,15 @@ func (k Keeper) unbond(ctx sdk.Context, delAddr sdk.AccAddress, valAddr sdk.ValA
 		k.RemoveValidator(ctx, validator.OperatorAddress)
 	}
 
+	//Get total delegations of the delAddr
+	totalDelegation := k.GetTotalDelegatorDelegations(ctx,delAddr)
+	params:=k.GetParams(ctx)
+
+	//if delegations are less than min council coin value, remove the council member
+	if totalDelegation.LT(params.CouncilMemberMinCoin) {
+		k.DeleteCouncilMember(ctx,delAddr)
+	}
+
 	return amount, nil
 }
 
@@ -652,6 +661,8 @@ func (k Keeper) Undelegate(
 	ubd := k.SetUnbondingDelegationEntry(ctx, delAddr, valAddr, ctx.BlockHeight(), completionTime, returnAmount)
 	k.InsertUBDQueue(ctx, ubd, completionTime)
 
+	
+
 	return completionTime, nil
 }
 
@@ -690,6 +701,8 @@ func (k Keeper) CompleteUnbonding(ctx sdk.Context, delAddr sdk.AccAddress,
 	} else {
 		k.SetUnbondingDelegation(ctx, ubd)
 	}
+
+	
 
 	return nil
 }
