@@ -10,6 +10,7 @@ import (
 
 	abci "github.com/ColorPlatform/prism/abci/types"
 	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/crypto/ed25519"
 
 	sdk "github.com/ColorPlatform/color-sdk/types"
 	"github.com/ColorPlatform/color-sdk/x/auth"
@@ -148,8 +149,9 @@ func SortByteArrays(src [][]byte) [][]byte {
 }
 
 func testProposal() TextProposal {
-
-	return NewTextProposal("Test", "description", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 4)
+	var priv = ed25519.GenPrivKey()
+	var addr = sdk.AccAddress(priv.PubKey().Address())
+	return NewTextProposal("Test", "description", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 4, addr)
 }
 
 // checks if two proposals are equal (note: slow, for tests only)

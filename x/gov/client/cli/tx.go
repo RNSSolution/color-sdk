@@ -87,7 +87,6 @@ $ colorcli gov submit-proposal --title="Test Proposal" --description="My awesome
 
 			// Get from address
 			from := cliCtx.GetFromAddress()
-
 			// Pull associated account
 			account, err := cliCtx.GetAccount(from)
 			if err != nil {

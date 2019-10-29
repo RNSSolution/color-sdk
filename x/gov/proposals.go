@@ -19,13 +19,14 @@ type Proposal struct {
 	Status           ProposalStatus `json:"proposal_status"`    //  Status of the Proposal {Pending, Active, Passed, Rejected}
 	FinalTallyResult TallyResult    `json:"final_tally_result"` //  Result of Tallys
 
-	SubmitTime      time.Time `json:"submit_time"`       //  Time of the block where TxGovSubmitProposal was included
-	DepositEndTime  time.Time `json:"deposit_end_time"`  // Time that the Proposal would expire if deposit amount isn't met
-	TotalDeposit    sdk.Coins `json:"total_deposit"`     //  Current deposit on this proposal. Initial value is set at InitialDeposit	RequestedFund   sdk.Coins `json:"requested_fund"`    //  Fund Requested
-	RequestedFund   sdk.Coins `json:"requested_fund"`    //  Fund Requested
-	FundingCycle    uint64    `json:"funding_cycle"`     //   Funding Cycle
-	VotingStartTime time.Time `json:"voting_start_time"` //  Time of the block where MinDeposit was reached. -1 if MinDeposit is not reached
-	VotingEndTime   time.Time `json:"voting_end_time"`   // Time that the VotingPeriod for this proposal will end and votes will be tallied
+	SubmitTime      time.Time      `json:"submit_time"`       //  Time of the block where TxGovSubmitProposal was included
+	DepositEndTime  time.Time      `json:"deposit_end_time"`  // Time that the Proposal would expire if deposit amount isn't met
+	TotalDeposit    sdk.Coins      `json:"total_deposit"`     //  Current deposit on this proposal. Initial value is set at InitialDeposit	RequestedFund   sdk.Coins `json:"requested_fund"`    //  Fund Requested
+	RequestedFund   sdk.Coins      `json:"requested_fund"`    //  Fund Requested
+	FundingCycle    uint64         `json:"funding_cycle"`     //   Funding Cycle
+	VotingStartTime time.Time      `json:"voting_start_time"` //  Time of the block where MinDeposit was reached. -1 if MinDeposit is not reached
+	VotingEndTime   time.Time      `json:"voting_end_time"`   // Time that the VotingPeriod for this proposal will end and votes will be tallied
+	Proposer        sdk.AccAddress `json:"proposer"`          //  Address of the proposer
 }
 
 // nolint
@@ -58,6 +59,7 @@ type ProposalContent interface {
 	ProposalType() ProposalKind
 	GetRequestedFund() sdk.Coins
 	GetFundingCycle() uint64
+	GetProposer() sdk.AccAddress
 }
 
 // Proposals is an array of proposal
@@ -76,18 +78,20 @@ func (p Proposals) String() string {
 
 // Text Proposals
 type TextProposal struct {
-	Title         string    `json:"title"`          //  Title of the proposal
-	Description   string    `json:"description"`    //  Description of the proposal
-	RequestedFund sdk.Coins `json:"requested_fund"` // Requested Funds in Proposal
-	FundingCycle  uint64    `json:"fund_cycle"`     // Funding Cycle
+	Title         string         `json:"title"`          //  Title of the proposal
+	Description   string         `json:"description"`    //  Description of the proposal
+	RequestedFund sdk.Coins      `json:"requested_fund"` // Requested Funds in Proposal
+	FundingCycle  uint64         `json:"fund_cycle"`     // Funding Cycle
+	Proposer      sdk.AccAddress `json:"proposer"`       //  Address of the proposer
 }
 
-func NewTextProposal(title, description string, requestfund sdk.Coins, fundingcycle uint64) TextProposal {
+func NewTextProposal(title, description string, requestfund sdk.Coins, fundingcycle uint64, proposer sdk.AccAddress) TextProposal {
 	return TextProposal{
 		Title:         title,
 		Description:   description,
 		RequestedFund: requestfund,
 		FundingCycle:  fundingcycle,
+		Proposer:      proposer,
 	}
 }
 
@@ -100,15 +104,16 @@ func (tp TextProposal) GetDescription() string      { return tp.Description }
 func (tp TextProposal) ProposalType() ProposalKind  { return ProposalTypeText }
 func (tp TextProposal) GetRequestedFund() sdk.Coins { return tp.RequestedFund }
 func (tp TextProposal) GetFundingCycle() uint64     { return tp.FundingCycle }
+func (tp TextProposal) GetProposer() sdk.AccAddress { return tp.Proposer }
 
 // Software Upgrade Proposals
 type SoftwareUpgradeProposal struct {
 	TextProposal
 }
 
-func NewSoftwareUpgradeProposal(title, description string, requestfund sdk.Coins, fundingcycle uint64) SoftwareUpgradeProposal {
+func NewSoftwareUpgradeProposal(title, description string, requestfund sdk.Coins, fundingcycle uint64, proposer sdk.AccAddress) SoftwareUpgradeProposal {
 	return SoftwareUpgradeProposal{
-		TextProposal: NewTextProposal(title, description, requestfund, fundingcycle),
+		TextProposal: NewTextProposal(title, description, requestfund, fundingcycle, proposer),
 	}
 }
 
