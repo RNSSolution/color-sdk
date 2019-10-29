@@ -388,7 +388,6 @@ func (keeper Keeper) AddDeposit(ctx sdk.Context, proposalID uint64, depositorAdd
 	if (proposal.Status != StatusDepositPeriod) && (proposal.Status != StatusVotingPeriod) {
 		return ErrAlreadyFinishedProposal(keeper.codespace, proposalID), false
 	}
-
 	// Send coins from depositor's account to DepositedCoinsAccAddr account
 	// TODO: Don't use an account for this purpose; it's clumsy and prone to misuse.
 	_, err := keeper.ck.SendCoins(ctx, depositorAddr, DepositedCoinsAccAddr, depositAmount)

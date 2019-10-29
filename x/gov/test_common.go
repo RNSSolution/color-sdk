@@ -6,8 +6,6 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
 	sdk "github.com/ColorPlatform/color-sdk/types"
 	"github.com/ColorPlatform/color-sdk/x/auth"
 	"github.com/ColorPlatform/color-sdk/x/bank"
@@ -17,6 +15,8 @@ import (
 	"github.com/ColorPlatform/color-sdk/x/staking"
 	abci "github.com/ColorPlatform/prism/abci/types"
 	"github.com/ColorPlatform/prism/crypto"
+	"github.com/ColorPlatform/prism/crypto/ed25519"
+	"github.com/stretchr/testify/require"
 )
 
 // initialize the mock application for this module
@@ -155,8 +155,9 @@ func SortByteArrays(src [][]byte) [][]byte {
 }
 
 func testProposal() TextProposal {
-
-	return NewTextProposal("Test", "description", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 4)
+	var priv = ed25519.GenPrivKey()
+	var addr = sdk.AccAddress(priv.PubKey().Address())
+	return NewTextProposal("Test", "description", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 4, addr)
 }
 
 // checks if two proposals are equal (note: slow, for tests only)
