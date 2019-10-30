@@ -45,6 +45,7 @@ $ colorcli query staking validator cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9l
 	}
 }
 
+//
 func GetCmdQueryCouncilMember(storeName string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "councilmember [councilmember-addr]",
@@ -56,13 +57,13 @@ $ colorcli query staking councilmember color1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqh
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
-
 			cmAddr, err := sdk.AccAddressFromBech32(args[0])
 			if err != nil {
 				return err
 			}
 
 			res, err := cliCtx.QueryStore(staking.GetCouncilMemberKey(cmAddr), storeName)
+			fmt.Println(cmAddr)
 			if err != nil {
 				return err
 			}
