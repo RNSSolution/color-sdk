@@ -111,6 +111,8 @@ func simulationCreateMsgSubmitProposal(r *rand.Rand, sender simulation.Account) 
 		gov.ProposalTypeText,
 		sender.Address,
 		deposit,
+		deposit,
+		3,
 	)
 	if msg.ValidateBasic() != nil {
 		err = fmt.Errorf("expected msg to pass ValidateBasic: %s", msg.GetSignBytes())
@@ -210,8 +212,8 @@ func randomVotingOption(r *rand.Rand) gov.VoteOption {
 		return gov.OptionAbstain
 	case 2:
 		return gov.OptionNo
-	case 3:
-		return gov.OptionNoWithVeto
+		// case 3:
+		// 	return gov.OptionNoWithVeto
 	}
 	panic("should not happen")
 }

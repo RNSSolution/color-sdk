@@ -112,6 +112,7 @@ func SimulateFromSeed(tb testing.TB, app *baseapp.BaseApp,
 
 	logWriter := NewLogWriter(testingMode)
 
+	fmt.Println("=======Starting simulation ===============")
 	blockSimulator := createBlockSimulator(
 		testingMode, tb, t, params, eventStats.tally, invariants,
 		ops, operationQueue, timeOperationQueue,

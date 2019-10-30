@@ -177,7 +177,7 @@ func appStateRandomizedFn(r *rand.Rand, accs []simulation.Account, genesisTimest
 		TallyParams: gov.TallyParams{
 			Quorum:    sdk.NewDecWithPrec(334, 3),
 			Threshold: sdk.NewDecWithPrec(5, 1),
-			Veto:      sdk.NewDecWithPrec(334, 3),
+			// Veto:      sdk.NewDecWithPrec(334, 3),
 		},
 	}
 	fmt.Printf("Selected randomly generated governance parameters:\n\t%+v\n", govGenesis)

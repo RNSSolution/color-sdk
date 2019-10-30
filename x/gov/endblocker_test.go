@@ -1,6 +1,7 @@
 package gov
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -13,6 +14,8 @@ import (
 
 func TestTickExpiredDepositPeriod(t *testing.T) {
 	mapp, keeper, _, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+
+	fmt.Println("=============================TestTickExpiredDepositPeriod====================")
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
 	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})

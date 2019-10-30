@@ -614,12 +614,12 @@ func (keeper Keeper) setInitialFundingCycleID(ctx sdk.Context, fundingCycleID ui
 
 // GetLastFundingCycleID Get the last used funding cycle ID
 func (keeper Keeper) GetLastFundingCycleID(ctx sdk.Context) (fundingCycle uint64) {
-	fundingCycleID, err := keeper.peekCurrentFundingCycleID(ctx)
+	fundingCycle, err := keeper.peekCurrentFundingCycleID(ctx)
 	if err != nil {
 		return 0
 	}
-	fundingCycleID--
-	return
+	fundingCycle--
+	return fundingCycle
 }
 
 // peekCurrentFundingCycleID Peeks the next available ProposalID without incrementing it
@@ -633,6 +633,26 @@ func (keeper Keeper) peekCurrentFundingCycleID(ctx sdk.Context) (fundingCycleID 
 	return fundingCycleID, nil
 }
 
+// GetDeposits Gets all the deposits on a specific proposal as an sdk.Iterator
+func (keeper Keeper) GetFundingCyclesIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(keeper.storeKey)
+	return sdk.KVStorePrefixIterator(store, []byte(PrefixFudingCycleQueue))
+}
+
+func (keeper Keeper) GetFundingCycle(ctx sdk.Context) []FundingCycle {
+	// ===TOD0 add logic to transfer requted funding from treasury to this prosal
+	fundingCycles := []FundingCycle{}
+	fundingCycleIterator := keeper.GetFundingCyclesIterator(ctx)
+	defer fundingCycleIterator.Close()
+	for ; fundingCycleIterator.Valid(); fundingCycleIterator.Next() {
+		fundingCycle := &FundingCycle{}
+		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(fundingCycleIterator.Value(), fundingCycle)
+		fundingCycles = append(fundingCycles, *fundingCycle)
+
+	}
+	return fundingCycles
+}
+
 func (keeper Keeper) AddEligibilityQueue(ctx sdk.Context, proposalID uint64) {
 
 	proposalEligibility := ProposalEligibility{
@@ -643,10 +663,39 @@ func (keeper Keeper) AddEligibilityQueue(ctx sdk.Context, proposalID uint64) {
 	keeper.SetEligibility(ctx, proposalEligibility)
 }
 
+func (keeper Keeper) GetEligibilityIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(keeper.storeKey)
+	return sdk.KVStorePrefixIterator(store, []byte(PrefixEligibilityQueue))
+}
+
+func (keeper Keeper) GetEligibility(ctx sdk.Context) []ProposalEligibility {
+	// ===TOD0 add logic to transfer requited funding from treasury to this prosal
+	eligibilitylist := []ProposalEligibility{}
+	eligibilityIterator := keeper.GetEligibilityIterator(ctx)
+	defer eligibilityIterator.Close()
+	for ; eligibilityIterator.Valid(); eligibilityIterator.Next() {
+		eligibility := &ProposalEligibility{}
+		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(eligibilityIterator.Value(), eligibility)
+		eligibilitylist = append(eligibilitylist, *eligibility)
+
+	}
+	return eligibilitylist
+}
+
 func (keeper Keeper) SetEligibility(ctx sdk.Context, proposalEligibility ProposalEligibility) {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(proposalEligibility)
 	store.Set(KeyEligibility(proposalEligibility.ProposalID), bz)
+
+}
+
+func (keeper Keeper) SetEligibilityDetails(_eligibilityDetails []EligibilityDetails) {
+	for index, element := range _eligibilityDetails {
+		eligibility := ProposalEligibility{}
+		eligibility.ProposalID = element.ProposalID
+		eligibility.Rank = uint64(index + 1)
+
+	}
 
 }
 

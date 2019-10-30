@@ -16,6 +16,8 @@ var (
 	KeyNextFundingCycleID       = []byte("newFundingCycleID")
 	PrefixActiveProposalQueue   = []byte("activeProposalQueue")
 	PrefixInactiveProposalQueue = []byte("inactiveProposalQueue")
+	PrefixFudingCycleQueue      = []byte("fundingCycles")
+	PrefixEligibilityQueue      = []byte("proposalEligibility")
 )
 
 // Key for getting a specific proposal from the store
@@ -24,13 +26,28 @@ func KeyProposal(proposalID uint64) []byte {
 }
 
 // Key for getting a specific proposal from the store
-func KeyFundingCycle(proposalID uint64) []byte {
-	return []byte(fmt.Sprintf("cycles:%d", proposalID))
+func PrefixFudingCycle() []byte {
+	return bytes.Join([][]byte{
+		PrefixFudingCycleQueue,
+	}, KeyDelimiter)
+}
+
+// Key for getting a specific proposal from the store
+func KeyFundingCycle(fundingCycle uint64) []byte {
+	return bytes.Join([][]byte{
+		PrefixFudingCycleQueue,
+		[]byte(fmt.Sprintf("cycle:%d", fundingCycle)),
+		sdk.Uint64ToBigEndian(fundingCycle),
+	}, KeyDelimiter)
 }
 
 // Key for getting a specific proposal from the store
 func KeyEligibility(eligibilityID uint64) []byte {
-	return []byte(fmt.Sprintf("proposalEligibility:%d", eligibilityID))
+	return bytes.Join([][]byte{
+		PrefixFudingCycleQueue,
+		[]byte(fmt.Sprintf("proposalEligibility:%d", eligibilityID)),
+		sdk.Uint64ToBigEndian(eligibilityID),
+	}, KeyDelimiter)
 }
 
 // Key for getting a specific deposit from the store

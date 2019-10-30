@@ -11,6 +11,9 @@ import (
 func EndBlocker(ctx sdk.Context, keeper Keeper) sdk.Tags {
 	resTags := sdk.NewTags()
 	currentFundingCycle, empty := keeper.GetCurrentCycle(ctx)
+	fmt.Println("==============currentFundingCycle==============", currentFundingCycle)
+	fmt.Println("==============block==============", ctx.BlockHeader().Time)
+	fmt.Println("========keeper.GetDaysPassed(ctx)=========", keeper.GetDaysPassed(ctx))
 	if (keeper.GetDaysPassed(ctx) >= LimitFirstFundingCycle) && empty {
 		keeper.AddFundingCycle(ctx)
 	} else if currentFundingCycle.CheckEqualEndTime(ctx.BlockHeader().Time) {
@@ -149,5 +152,6 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 
 	eligibilityQueue = Sort(eligibilityQueue)
 	keeper.TransferFunds(ctx, eligibilityQueue)
+	keeper.SetEligibilityDetails(eligibilityQueue)
 	return resTags
 }
