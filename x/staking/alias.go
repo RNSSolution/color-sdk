@@ -42,6 +42,7 @@ type (
 var (
 	NewKeeper = keeper.NewKeeper
 
+	GetCouncilMemberKey          = keeper.GetCouncilMemberKey
 	GetValidatorKey              = keeper.GetValidatorKey
 	GetValidatorByConsAddrKey    = keeper.GetValidatorByConsAddrKey
 	GetValidatorsByPowerIndexKey = keeper.GetValidatorsByPowerIndexKey
