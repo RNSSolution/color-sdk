@@ -42,7 +42,7 @@ func getMockApp(t *testing.T, numGenAccs int, genState GenesisState, genAccs []a
 	distrKeeper := distr.NewKeeper(mapp.Cdc, keyDistr, pk.Subspace(distr.DefaultParamspace), ck, &sk, feeKeeper, distr.DefaultCodespace)
 
 	minKeeper := mint.NewKeeper(mapp.Cdc, keyMinting, pk.Subspace(mint.DefaultParamspace), &sk, feeKeeper)
-	keeper = NewKeeper(mapp.Cdc, distrKeeper, minKeeper, keyGov, pk, pk.Subspace("testgov"), ck, sk, DefaultCodespace)
+	keeper = NewKeeper(mapp.Cdc, distrKeeper, minKeeper, keyGov, pk, pk.Subspace("testgov"), ck, sk, sk, DefaultCodespace)
 
 	mapp.Router().AddRoute(RouterKey, NewHandler(keeper))
 	mapp.QueryRouter().AddRoute(QuerierRoute, NewQuerier(keeper))

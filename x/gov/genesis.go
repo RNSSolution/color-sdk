@@ -62,8 +62,7 @@ func DefaultGenesisState() GenesisState {
 		},
 		TallyParams: TallyParams{
 			Quorum:    sdk.NewDecWithPrec(334, 3),
-			Threshold: sdk.NewDecWithPrec(5, 1),
-			Veto:      sdk.NewDecWithPrec(334, 3),
+			Threshold: sdk.NewDecWithPrec(5, 2),
 		},
 	}
 }
@@ -89,11 +88,6 @@ func ValidateGenesis(data GenesisState) error {
 			threshold.String())
 	}
 
-	veto := data.TallyParams.Veto
-	if veto.IsNegative() || veto.GT(sdk.OneDec()) {
-		return fmt.Errorf("Governance vote veto threshold should be positive and less or equal to one, is %s",
-			veto.String())
-	}
 
 	if !data.DepositParams.MinDeposit.IsValid() {
 		return fmt.Errorf("Governance deposit amount must be a valid sdk.Coins amount, is %s",

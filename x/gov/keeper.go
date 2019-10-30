@@ -66,6 +66,9 @@ type Keeper struct {
 	// The reference to the CoinKeeper to modify balances
 	ck BankKeeper
 
+	// The reference to the StakingKeeper
+	stk StakingKeeper
+
 	// The ValidatorSet to get information about validators
 	vs sdk.ValidatorSet
 
@@ -88,7 +91,7 @@ type Keeper struct {
 // - users voting on proposals, with weight proportional to stake in the system
 // - and tallying the result of the vote.
 func NewKeeper(cdc *codec.Codec, dk distr.Keeper, mk mint.Keeper, key sdk.StoreKey, paramsKeeper params.Keeper,
-	paramSpace params.Subspace, ck BankKeeper, ds sdk.DelegationSet, codespace sdk.CodespaceType) Keeper {
+	paramSpace params.Subspace, ck BankKeeper, sk StakingKeeper, ds sdk.DelegationSet, codespace sdk.CodespaceType) Keeper {
 
 	return Keeper{
 		storeKey:     key,
@@ -97,6 +100,7 @@ func NewKeeper(cdc *codec.Codec, dk distr.Keeper, mk mint.Keeper, key sdk.StoreK
 		paramsKeeper: paramsKeeper,
 		paramSpace:   paramSpace.WithKeyTable(ParamKeyTable()),
 		ck:           ck,
+		stk:          sk,
 		ds:           ds,
 		vs:           ds.GetValidatorSet(),
 		cdc:          cdc,
@@ -649,8 +653,8 @@ func (keeper Keeper) SetEligibility(ctx sdk.Context, proposalEligibility Proposa
 func (keeper Keeper) GetTreasuryWeeklyIncome(ctx sdk.Context) sdk.Dec {
 	communityTx := keeper.distrKeeper.GetCommunityTax(ctx)
 	weeklyProivssion := keeper.minKeeper.GetMinter(ctx).WeeklyProvisions
-	treasuryIncome := communityTx.Mul(weeklyProivssion)
-	treasuryIncome = treasuryIncome.Mul(FourWeeksProvission)
+	treasuryIncome := weeklyProivssion.Mul(FourWeeksProvission)
+	treasuryIncome = treasuryIncome.Mul(communityTx)
 	return treasuryIncome
 
 }

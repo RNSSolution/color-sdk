@@ -13,6 +13,7 @@ import (
 // undelegating patch.
 const UndelegatePatchHeight = 482100
 
+
 // return a specific delegation
 func (k Keeper) GetDelegation(ctx sdk.Context,
 	delAddr sdk.AccAddress, valAddr sdk.ValAddress) (
@@ -41,6 +42,7 @@ func (k Keeper) GetAllDelegations(ctx sdk.Context) (delegations []types.Delegati
 	}
 	return delegations
 }
+
 
 // return all delegations to a specific validator. Useful for querier.
 func (k Keeper) GetValidatorDelegations(ctx sdk.Context, valAddr sdk.ValAddress) (delegations []types.Delegation) {
@@ -448,7 +450,7 @@ func (k Keeper) DequeueAllMatureRedelegationQueue(ctx sdk.Context, currTime time
 	return matureRedelegations
 }
 
-// Perform a delegation, set/update everything necessary within the store.
+// Delegate : Perform a delegation, set/update everything necessary within the store.
 func (k Keeper) Delegate(ctx sdk.Context, delAddr sdk.AccAddress, bondAmt sdk.Int,
 	validator types.Validator, subtractAccount bool) (newShares sdk.Dec, err sdk.Error) {
 
@@ -488,8 +490,24 @@ func (k Keeper) Delegate(ctx sdk.Context, delAddr sdk.AccAddress, bondAmt sdk.In
 	// Call the after-modification hook
 	k.AfterDelegationModified(ctx, delegation.DelegatorAddress, delegation.ValidatorAddress)
 
+	// get the total delegations of delegator
+	totalDelegation := k.GetTotalDelegatorDelegations(ctx,delAddr) 
+	params:=k.GetParams(ctx)
+
+	//add or update Council Member
+	if totalDelegation.GTE(params.CouncilMemberMinCoin) {
+		if _,found :=k.GetCouncilMember(ctx,delAddr); found {
+			k.SetCouncilMemberShares(ctx,delAddr,totalDelegation)
+			
+		}else{
+			cm := types.CouncilMember{delAddr, k.GetTotalDelegatorDelegations(ctx,delAddr)}
+			k.SetCouncilMember(ctx,cm)
+		}
+	}
+
 	return newShares, nil
 }
+
 
 // unbond a particular delegation and perform associated store operations
 func (k Keeper) unbond(ctx sdk.Context, delAddr sdk.AccAddress, valAddr sdk.ValAddress,
@@ -544,6 +562,15 @@ func (k Keeper) unbond(ctx sdk.Context, delAddr sdk.AccAddress, valAddr sdk.ValA
 	if validator.DelegatorShares.IsZero() && validator.Status == sdk.Unbonded {
 		// if not unbonded, we must instead remove validator in EndBlocker once it finishes its unbonding period
 		k.RemoveValidator(ctx, validator.OperatorAddress)
+	}
+
+	//Get total delegations of the delAddr
+	totalDelegation := k.GetTotalDelegatorDelegations(ctx,delAddr)
+	params:=k.GetParams(ctx)
+
+	//if delegations are less than min council coin value, remove the council member
+	if totalDelegation.LT(params.CouncilMemberMinCoin) {
+		k.DeleteCouncilMember(ctx,delAddr)
 	}
 
 	return amount, nil
@@ -634,6 +661,8 @@ func (k Keeper) Undelegate(
 	ubd := k.SetUnbondingDelegationEntry(ctx, delAddr, valAddr, ctx.BlockHeight(), completionTime, returnAmount)
 	k.InsertUBDQueue(ctx, ubd, completionTime)
 
+	
+
 	return completionTime, nil
 }
 
@@ -672,6 +701,8 @@ func (k Keeper) CompleteUnbonding(ctx sdk.Context, delAddr sdk.AccAddress,
 	} else {
 		k.SetUnbondingDelegation(ctx, ubd)
 	}
+
+	
 
 	return nil
 }

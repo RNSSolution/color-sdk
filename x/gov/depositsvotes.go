@@ -88,7 +88,6 @@ const (
 	OptionYes        VoteOption = 0x01
 	OptionAbstain    VoteOption = 0x02
 	OptionNo         VoteOption = 0x03
-	OptionNoWithVeto VoteOption = 0x04
 )
 
 // String to proposalType byte.  Returns ff if invalid.
@@ -100,8 +99,7 @@ func VoteOptionFromString(str string) (VoteOption, error) {
 		return OptionAbstain, nil
 	case "No":
 		return OptionNo, nil
-	case "NoWithVeto":
-		return OptionNoWithVeto, nil
+
 	default:
 		return VoteOption(0xff), fmt.Errorf("'%s' is not a valid vote option", str)
 	}
@@ -111,8 +109,7 @@ func VoteOptionFromString(str string) (VoteOption, error) {
 func validVoteOption(option VoteOption) bool {
 	if option == OptionYes ||
 		option == OptionAbstain ||
-		option == OptionNo ||
-		option == OptionNoWithVeto {
+		option == OptionNo {
 		return true
 	}
 	return false
@@ -159,8 +156,7 @@ func (vo VoteOption) String() string {
 		return "Abstain"
 	case OptionNo:
 		return "No"
-	case OptionNoWithVeto:
-		return "NoWithVeto"
+	
 	default:
 		return ""
 	}

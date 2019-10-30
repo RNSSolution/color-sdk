@@ -11,7 +11,6 @@ import (
 func EndBlocker(ctx sdk.Context, keeper Keeper) sdk.Tags {
 	resTags := sdk.NewTags()
 	currentFundingCycle, empty := keeper.GetCurrentCycle(ctx)
-	fmt.Println("====Current Cycle =====", empty, currentFundingCycle)
 	if (keeper.GetDaysPassed(ctx) >= LimitFirstFundingCycle) && empty {
 		keeper.AddFundingCycle(ctx)
 	} else if currentFundingCycle.CheckEqualEndTime(ctx.BlockHeader().Time) {
@@ -72,9 +71,14 @@ func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk
 		if !ok {
 			panic(fmt.Sprintf("proposal %d does not exist", proposalID))
 		}
-		passes, tallyResults := tally(ctx, keeper, activeProposal)
-
+		passes, tallyResults, _ := tally(ctx, keeper, activeProposal)
 		var tagValue = "In Voting Cycle"
+		if activeProposal.IsZeroRemainingCycle() {
+			keeper.DeleteDeposits(ctx, activeProposal.ProposalID)
+			activeProposal.Status = StatusPassed
+			tagValue = tags.ActionProposalRejected
+
+		}
 		activeProposal.FinalTallyResult = tallyResults
 		keeper.SetProposal(ctx, activeProposal)
 		//	keeper.RemoveFromActiveProposalQueue(ctx, activeProposal.VotingEndTime, activeProposal.ProposalID)
@@ -108,19 +112,19 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 		if !ok {
 			panic(fmt.Sprintf("proposal %d does not exist", proposalID))
 		}
-		passes, tallyResults := tally(ctx, keeper, activeProposal)
+		passes, tallyResults, _ := tally(ctx, keeper, activeProposal)
 
 		var tagValue string
 
 		// ===TODO check if no remaining cycle left then refund Deposit
-		if passes && activeProposal.IsZeroRemainingCycle() {
-			eligibility := NewEligibilityDetails(activeProposal.ProposalID, tallyResults.Yes, activeProposal.RequestedFund)
+		if passes && !activeProposal.IsZeroRemainingCycle() {
+			activeProposal.ReduceCycleCount()
+			passResult := tallyResults.Yes.Sub(tallyResults.No)
+			eligibility := NewEligibilityDetails(activeProposal.ProposalID, passResult, activeProposal.RequestedFund)
 			eligibilityQueue = Append(eligibilityQueue, eligibility)
 			activeProposal.Status = StatusPassed
 			tagValue = tags.ActionProposalPassed
-		} else if passes && !activeProposal.IsZeroRemainingCycle() {
-			activeProposal.ReduceCycleCount()
-		} else {
+		} else if !passes {
 			keeper.DeleteDeposits(ctx, activeProposal.ProposalID)
 			activeProposal.Status = StatusRejected
 			tagValue = tags.ActionProposalRejected
