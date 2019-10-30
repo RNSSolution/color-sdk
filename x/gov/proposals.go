@@ -3,6 +3,7 @@ package gov
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
@@ -381,4 +382,17 @@ func (tr TallyResult) String() string {
   Abstain:    %s
   No:         %s
   NoWithVeto: %s`, tr.Yes, tr.Abstain, tr.No)
+}
+
+///ExpectedTreasureIncome Calculate Funding requested must be no more than 50% of Treasury income per cycle
+func ExpectedTreasureIncome(keeper Keeper, ctx sdk.Context, Requestedfund sdk.Int) bool {
+	limit := keeper.GetTreasuryWeeklyIncome(ctx)
+	formula := 0.5 //Deduct 5%
+	num1, _ := strconv.ParseFloat(limit.String(), 64)
+	formula = formula * num1
+	var treasuryIncome sdk.Int = sdk.NewInt(int64(formula))
+	if !(Requestedfund.LT(treasuryIncome)) {
+		return true
+	}
+	return false
 }

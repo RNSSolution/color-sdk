@@ -47,8 +47,8 @@ func (msg MsgSubmitProposal) Type() string  { return TypeMsgSubmitProposal }
 
 // Implements Msg.
 func (msg MsgSubmitProposal) ValidateBasic() sdk.Error {
-	var MaxLimit sdk.Int = sdk.NewInt(1209600000000)
 	var FeeLimit sdk.Int = sdk.NewInt(10000000000)
+
 	if len(msg.Title) == 0 {
 		return ErrInvalidTitle(DefaultCodespace, "No title present in proposal")
 	}
@@ -78,9 +78,6 @@ func (msg MsgSubmitProposal) ValidateBasic() sdk.Error {
 	}
 	if msg.RequestedFund.AmountOf(sdk.DefaultBondDenom).IsZero() {
 		return sdk.ErrUnauthorized("Value Should be in uclr")
-	}
-	if (msg.RequestedFund.AmountOf(sdk.DefaultBondDenom)).GT(MaxLimit) {
-		return sdk.ErrUnauthorized("Value Should not be greater than 1209600000000")
 	}
 	if !msg.RequestedFund.IsValid() {
 		return sdk.ErrInvalidCoins(msg.RequestedFund.String())
