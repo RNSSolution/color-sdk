@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	abci "github.com/ColorPlatform/prism/abci/types"
+	"github.com/stretchr/testify/require"
 
 	"github.com/ColorPlatform/color-sdk/codec"
 	sdk "github.com/ColorPlatform/color-sdk/types"

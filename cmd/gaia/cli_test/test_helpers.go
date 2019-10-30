@@ -80,8 +80,8 @@ func NewFixtures(t *testing.T) *Fixtures {
 
 	return &Fixtures{
 		T:        t,
-		GDHome:   filepath.Join(tmpDir, ".gaiad"),
-		GCLIHome: filepath.Join(tmpDir, ".gaiacli"),
+		GDHome:   filepath.Join(tmpDir, ".colord"),
+		GCLIHome: filepath.Join(tmpDir, ".colorcli"),
 		RPCAddr:  servAddr,
 		P2PAddr:  p2pAddr,
 		Port:     port,
@@ -163,20 +163,20 @@ func (f *Fixtures) Flags() string {
 }
 
 //___________________________________________________________________________________
-// gaiad
+// colord
 
-// UnsafeResetAll is gaiad unsafe-reset-all
+// UnsafeResetAll is colord unsafe-reset-all
 func (f *Fixtures) UnsafeResetAll(flags ...string) {
-	cmd := fmt.Sprintf("../../../build/gaiad --home=%s unsafe-reset-all", f.GDHome)
+	cmd := fmt.Sprintf("../../../build/colord --home=%s unsafe-reset-all", f.GDHome)
 	executeWrite(f.T, addFlags(cmd, flags))
 	err := os.RemoveAll(filepath.Join(f.GDHome, "config", "gentx"))
 	require.NoError(f.T, err)
 }
 
-// GDInit is gaiad init
+// GDInit is colord init
 // NOTE: GDInit sets the ChainID for the Fixtures instance
 func (f *Fixtures) GDInit(moniker string, flags ...string) {
-	cmd := fmt.Sprintf("../../../build/gaiad init -o --home=%s %s", f.GDHome, moniker)
+	cmd := fmt.Sprintf("../../../build/colord init -o --home=%s %s", f.GDHome, moniker)
 	_, stderr := tests.ExecuteT(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 
 	var chainID string
@@ -191,78 +191,78 @@ func (f *Fixtures) GDInit(moniker string, flags ...string) {
 	f.ChainID = chainID
 }
 
-// AddGenesisAccount is gaiad add-genesis-account
+// AddGenesisAccount is colord add-genesis-account
 func (f *Fixtures) AddGenesisAccount(address sdk.AccAddress, coins sdk.Coins, flags ...string) {
-	cmd := fmt.Sprintf("../../../build/gaiad add-genesis-account %s %s --home=%s", address, coins, f.GDHome)
+	cmd := fmt.Sprintf("../../../build/colord add-genesis-account %s %s --home=%s", address, coins, f.GDHome)
 	executeWriteCheckErr(f.T, addFlags(cmd, flags))
 }
 
-// GenTx is gaiad gentx
+// GenTx is colord gentx
 func (f *Fixtures) GenTx(name string, flags ...string) {
-	cmd := fmt.Sprintf("../../../build/gaiad gentx --name=%s --home=%s --home-client=%s", name, f.GDHome, f.GCLIHome)
+	cmd := fmt.Sprintf("../../../build/colord gentx --name=%s --home=%s --home-client=%s", name, f.GDHome, f.GCLIHome)
 	executeWriteCheckErr(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
-// CollectGenTxs is gaiad collect-gentxs
+// CollectGenTxs is colord collect-gentxs
 func (f *Fixtures) CollectGenTxs(flags ...string) {
-	cmd := fmt.Sprintf("../../../build/gaiad collect-gentxs --home=%s", f.GDHome)
+	cmd := fmt.Sprintf("../../../build/colord collect-gentxs --home=%s", f.GDHome)
 	executeWriteCheckErr(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
-// GDStart runs gaiad start with the appropriate flags and returns a process
+// GDStart runs colord start with the appropriate flags and returns a process
 func (f *Fixtures) GDStart(flags ...string) *tests.Process {
-	cmd := fmt.Sprintf("../../../build/gaiad start --home=%s --rpc.laddr=%v --p2p.laddr=%v", f.GDHome, f.RPCAddr, f.P2PAddr)
+	cmd := fmt.Sprintf("../../../build/colord start --home=%s --rpc.laddr=%v --p2p.laddr=%v", f.GDHome, f.RPCAddr, f.P2PAddr)
 	proc := tests.GoExecuteTWithStdout(f.T, addFlags(cmd, flags))
 	tests.WaitForTMStart(f.Port)
 	tests.WaitForNextNBlocksTM(1, f.Port)
 	return proc
 }
 
-// GDTendermint returns the results of gaiad tendermint [query]
+// GDTendermint returns the results of colord tendermint [query]
 func (f *Fixtures) GDTendermint(query string) string {
-	cmd := fmt.Sprintf("../../../build/gaiad tendermint %s --home=%s", query, f.GDHome)
+	cmd := fmt.Sprintf("../../../build/colord tendermint %s --home=%s", query, f.GDHome)
 	success, stdout, stderr := executeWriteRetStdStreams(f.T, cmd)
 	require.Empty(f.T, stderr)
 	require.True(f.T, success)
 	return strings.TrimSpace(stdout)
 }
 
-// ValidateGenesis runs gaiad validate-genesis
+// ValidateGenesis runs colord validate-genesis
 func (f *Fixtures) ValidateGenesis() {
-	cmd := fmt.Sprintf("../../../build/gaiad validate-genesis --home=%s", f.GDHome)
+	cmd := fmt.Sprintf("../../../build/colord validate-genesis --home=%s", f.GDHome)
 	executeWriteCheckErr(f.T, cmd)
 }
 
 //___________________________________________________________________________________
-// gaiacli keys
+// colorcli keys
 
-// KeysDelete is gaiacli keys delete
+// KeysDelete is colorcli keys delete
 func (f *Fixtures) KeysDelete(name string, flags ...string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli keys delete --home=%s %s", f.GCLIHome, name)
+	cmd := fmt.Sprintf("../../../build/colorcli keys delete --home=%s %s", f.GCLIHome, name)
 	executeWrite(f.T, addFlags(cmd, append(append(flags, "-y"), "-f")))
 }
 
-// KeysAdd is gaiacli keys add
+// KeysAdd is colorcli keys add
 func (f *Fixtures) KeysAdd(name string, flags ...string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli keys add --home=%s %s", f.GCLIHome, name)
+	cmd := fmt.Sprintf("../../../build/colorcli keys add --home=%s %s", f.GCLIHome, name)
 	executeWriteCheckErr(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
-// KeysAddRecover prepares gaiacli keys add --recover
+// KeysAddRecover prepares colorcli keys add --recover
 func (f *Fixtures) KeysAddRecover(name, mnemonic string, flags ...string) (exitSuccess bool, stdout, stderr string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli keys add --home=%s --recover %s", f.GCLIHome, name)
+	cmd := fmt.Sprintf("../../../build/colorcli keys add --home=%s --recover %s", f.GCLIHome, name)
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass, mnemonic)
 }
 
-// KeysAddRecoverHDPath prepares gaiacli keys add --recover --account --index
+// KeysAddRecoverHDPath prepares colorcli keys add --recover --account --index
 func (f *Fixtures) KeysAddRecoverHDPath(name, mnemonic string, account uint32, index uint32, flags ...string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli keys add --home=%s --recover %s --account %d --index %d", f.GCLIHome, name, account, index)
+	cmd := fmt.Sprintf("../../../build/colorcli keys add --home=%s --recover %s --account %d --index %d", f.GCLIHome, name, account, index)
 	executeWriteCheckErr(f.T, addFlags(cmd, flags), app.DefaultKeyPass, mnemonic)
 }
 
-// KeysShow is gaiacli keys show
+// KeysShow is colorcli keys show
 func (f *Fixtures) KeysShow(name string, flags ...string) keys.KeyOutput {
-	cmd := fmt.Sprintf("../../../build/gaiacli keys show --home=%s %s", f.GCLIHome, name)
+	cmd := fmt.Sprintf("../../../build/colorcli keys show --home=%s %s", f.GCLIHome, name)
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var ko keys.KeyOutput
 	err := clientkeys.UnmarshalJSON([]byte(out), &ko)
@@ -279,20 +279,20 @@ func (f *Fixtures) KeyAddress(name string) sdk.AccAddress {
 }
 
 //___________________________________________________________________________________
-// gaiacli config
+// colorcli config
 
-// CLIConfig is gaiacli config
+// CLIConfig is colorcli config
 func (f *Fixtures) CLIConfig(key, value string, flags ...string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli config --home=%s %s %s", f.GCLIHome, key, value)
+	cmd := fmt.Sprintf("../../../build/colorcli config --home=%s %s %s", f.GCLIHome, key, value)
 	executeWriteCheckErr(f.T, addFlags(cmd, flags))
 }
 
 //___________________________________________________________________________________
-// gaiacli tx send/sign/broadcast
+// colorcli tx send/sign/broadcast
 
-// TxSend is gaiacli tx send
+// TxSend is colorcli tx send
 func (f *Fixtures) TxSend(from string, to sdk.AccAddress, amount sdk.Coin, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli tx send %s %s %v --from=%s", to, amount, f.Flags(), from)
+	cmd := fmt.Sprintf("../../../build/colorcli tx send %s %s %v --from=%s", to, amount, f.Flags(), from)
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
@@ -300,84 +300,84 @@ func (f *Fixtures) txSendWithConfirm(
 	from string, to sdk.AccAddress, amount sdk.Coin, confirm string, flags ...string,
 ) (bool, string, string) {
 
-	cmd := fmt.Sprintf("../../../build/gaiacli tx send %s %s %v --from=%s", to, amount, f.Flags(), from)
+	cmd := fmt.Sprintf("../../../build/colorcli tx send %s %s %v --from=%s", to, amount, f.Flags(), from)
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), confirm, app.DefaultKeyPass)
 }
 
-// TxSign is gaiacli tx sign
+// TxSign is colorcli tx sign
 func (f *Fixtures) TxSign(signer, fileName string, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli tx sign %v --from=%s %v", f.Flags(), signer, fileName)
+	cmd := fmt.Sprintf("../../../build/colorcli tx sign %v --from=%s %v", f.Flags(), signer, fileName)
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
-// TxBroadcast is gaiacli tx broadcast
+// TxBroadcast is colorcli tx broadcast
 func (f *Fixtures) TxBroadcast(fileName string, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli tx broadcast %v %v", f.Flags(), fileName)
+	cmd := fmt.Sprintf("../../../build/colorcli tx broadcast %v %v", f.Flags(), fileName)
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
-// TxEncode is gaiacli tx encode
+// TxEncode is colorcli tx encode
 func (f *Fixtures) TxEncode(fileName string, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli tx encode %v %v", f.Flags(), fileName)
+	cmd := fmt.Sprintf("../../../build/colorcli tx encode %v %v", f.Flags(), fileName)
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
-// TxMultisign is gaiacli tx multisign
+// TxMultisign is colorcli tx multisign
 func (f *Fixtures) TxMultisign(fileName, name string, signaturesFiles []string,
 	flags ...string) (bool, string, string) {
 
-	cmd := fmt.Sprintf("../../../build/gaiacli tx multisign %v %s %s %s", f.Flags(),
+	cmd := fmt.Sprintf("../../../build/colorcli tx multisign %v %s %s %s", f.Flags(),
 		fileName, name, strings.Join(signaturesFiles, " "),
 	)
 	return executeWriteRetStdStreams(f.T, cmd)
 }
 
 //___________________________________________________________________________________
-// gaiacli tx staking
+// colorcli tx staking
 
-// TxStakingCreateValidator is gaiacli tx staking create-validator
+// TxStakingCreateValidator is colorcli tx staking create-validator
 func (f *Fixtures) TxStakingCreateValidator(from, consPubKey string, amount sdk.Coin, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli tx staking create-validator %v --from=%s --pubkey=%s", f.Flags(), from, consPubKey)
+	cmd := fmt.Sprintf("../../../build/colorcli tx staking create-validator %v --from=%s --pubkey=%s", f.Flags(), from, consPubKey)
 	cmd += fmt.Sprintf(" --amount=%v --moniker=%v --commission-rate=%v", amount, from, "0.05")
 	cmd += fmt.Sprintf(" --commission-max-rate=%v --commission-max-change-rate=%v", "0.20", "0.10")
 	cmd += fmt.Sprintf(" --min-self-delegation=%v", "1")
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
-// TxStakingUnbond is gaiacli tx staking unbond
+// TxStakingUnbond is colorcli tx staking unbond
 func (f *Fixtures) TxStakingUnbond(from, shares string, validator sdk.ValAddress, flags ...string) bool {
-	cmd := fmt.Sprintf("../../../build/gaiacli tx staking unbond %s %v --from=%s %v", validator, shares, from, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli tx staking unbond %s %v --from=%s %v", validator, shares, from, f.Flags())
 	return executeWrite(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
 //___________________________________________________________________________________
-// gaiacli tx gov
+// colorcli tx gov
 
-// TxGovSubmitProposal is gaiacli tx gov submit-proposal
+// TxGovSubmitProposal is colorcli tx gov submit-proposal
 func (f *Fixtures) TxGovSubmitProposal(from, typ, title, description string, deposit sdk.Coin, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli tx gov submit-proposal %v --from=%s --type=%s", f.Flags(), from, typ)
+	cmd := fmt.Sprintf("../../../build/colorcli tx gov submit-proposal %v --from=%s --type=%s", f.Flags(), from, typ)
 	cmd += fmt.Sprintf(" --title=%s --description=%s --deposit=%s", title, description, deposit)
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
-// TxGovDeposit is gaiacli tx gov deposit
+// TxGovDeposit is colorcli tx gov deposit
 func (f *Fixtures) TxGovDeposit(proposalID int, from string, amount sdk.Coin, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli tx gov deposit %d %s --from=%s %v", proposalID, amount, from, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli tx gov deposit %d %s --from=%s %v", proposalID, amount, from, f.Flags())
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
-// TxGovVote is gaiacli tx gov vote
+// TxGovVote is colorcli tx gov vote
 func (f *Fixtures) TxGovVote(proposalID int, option gov.VoteOption, from string, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli tx gov vote %d %s --from=%s %v", proposalID, option, from, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli tx gov vote %d %s --from=%s %v", proposalID, option, from, f.Flags())
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
 //___________________________________________________________________________________
-// gaiacli query account
+// colorcli query account
 
-// QueryAccount is gaiacli query account
+// QueryAccount is colorcli query account
 func (f *Fixtures) QueryAccount(address sdk.AccAddress, flags ...string) auth.BaseAccount {
-	cmd := fmt.Sprintf("../../../build/gaiacli query account %s %v", address, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query account %s %v", address, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var initRes map[string]json.RawMessage
 	err := json.Unmarshal([]byte(out), &initRes)
@@ -392,11 +392,11 @@ func (f *Fixtures) QueryAccount(address sdk.AccAddress, flags ...string) auth.Ba
 }
 
 //___________________________________________________________________________________
-// gaiacli query txs
+// colorcli query txs
 
-// QueryTxs is gaiacli query txs
+// QueryTxs is colorcli query txs
 func (f *Fixtures) QueryTxs(page, limit int, tags ...string) []sdk.TxResponse {
-	cmd := fmt.Sprintf("../../../build/gaiacli query txs --page=%d --limit=%d --tags='%s' %v", page, limit, queryTags(tags), f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query txs --page=%d --limit=%d --tags='%s' %v", page, limit, queryTags(tags), f.Flags())
 	out, _ := tests.ExecuteT(f.T, cmd, "")
 	var txs []sdk.TxResponse
 	cdc := app.MakeCodec()
@@ -407,17 +407,17 @@ func (f *Fixtures) QueryTxs(page, limit int, tags ...string) []sdk.TxResponse {
 
 // QueryTxsInvalid query txs with wrong parameters and compare expected error
 func (f *Fixtures) QueryTxsInvalid(expectedErr error, page, limit int, tags ...string) {
-	cmd := fmt.Sprintf("../../../build/gaiacli query txs --page=%d --limit=%d --tags='%s' %v", page, limit, queryTags(tags), f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query txs --page=%d --limit=%d --tags='%s' %v", page, limit, queryTags(tags), f.Flags())
 	_, err := tests.ExecuteT(f.T, cmd, "")
 	require.EqualError(f.T, expectedErr, err)
 }
 
 //___________________________________________________________________________________
-// gaiacli query staking
+// colorcli query staking
 
-// QueryStakingValidator is gaiacli query staking validator
+// QueryStakingValidator is colorcli query staking validator
 func (f *Fixtures) QueryStakingValidator(valAddr sdk.ValAddress, flags ...string) staking.Validator {
-	cmd := fmt.Sprintf("../../../build/gaiacli query staking validator %s %v", valAddr, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query staking validator %s %v", valAddr, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var validator staking.Validator
 	cdc := app.MakeCodec()
@@ -426,9 +426,9 @@ func (f *Fixtures) QueryStakingValidator(valAddr sdk.ValAddress, flags ...string
 	return validator
 }
 
-// QueryStakingUnbondingDelegationsFrom is gaiacli query staking unbonding-delegations-from
+// QueryStakingUnbondingDelegationsFrom is colorcli query staking unbonding-delegations-from
 func (f *Fixtures) QueryStakingUnbondingDelegationsFrom(valAddr sdk.ValAddress, flags ...string) []staking.UnbondingDelegation {
-	cmd := fmt.Sprintf("../../../build/gaiacli query staking unbonding-delegations-from %s %v", valAddr, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query staking unbonding-delegations-from %s %v", valAddr, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var ubds []staking.UnbondingDelegation
 	cdc := app.MakeCodec()
@@ -437,9 +437,9 @@ func (f *Fixtures) QueryStakingUnbondingDelegationsFrom(valAddr sdk.ValAddress, 
 	return ubds
 }
 
-// QueryStakingDelegationsTo is gaiacli query staking delegations-to
+// QueryStakingDelegationsTo is colorcli query staking delegations-to
 func (f *Fixtures) QueryStakingDelegationsTo(valAddr sdk.ValAddress, flags ...string) []staking.Delegation {
-	cmd := fmt.Sprintf("../../../build/gaiacli query staking delegations-to %s %v", valAddr, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query staking delegations-to %s %v", valAddr, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var delegations []staking.Delegation
 	cdc := app.MakeCodec()
@@ -448,9 +448,9 @@ func (f *Fixtures) QueryStakingDelegationsTo(valAddr sdk.ValAddress, flags ...st
 	return delegations
 }
 
-// QueryStakingPool is gaiacli query staking pool
+// QueryStakingPool is colorcli query staking pool
 func (f *Fixtures) QueryStakingPool(flags ...string) staking.Pool {
-	cmd := fmt.Sprintf("../../../build/gaiacli query staking pool %v", f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query staking pool %v", f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var pool staking.Pool
 	cdc := app.MakeCodec()
@@ -459,9 +459,9 @@ func (f *Fixtures) QueryStakingPool(flags ...string) staking.Pool {
 	return pool
 }
 
-// QueryStakingParameters is gaiacli query staking parameters
+// QueryStakingParameters is colorcli query staking parameters
 func (f *Fixtures) QueryStakingParameters(flags ...string) staking.Params {
-	cmd := fmt.Sprintf("../../../build/gaiacli query staking params %v", f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query staking params %v", f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var params staking.Params
 	cdc := app.MakeCodec()
@@ -471,11 +471,11 @@ func (f *Fixtures) QueryStakingParameters(flags ...string) staking.Params {
 }
 
 //___________________________________________________________________________________
-// gaiacli query gov
+// colorcli query gov
 
-// QueryGovParamDeposit is gaiacli query gov param deposit
+// QueryGovParamDeposit is colorcli query gov param deposit
 func (f *Fixtures) QueryGovParamDeposit() gov.DepositParams {
-	cmd := fmt.Sprintf("../../../build/gaiacli query gov param deposit %s", f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query gov param deposit %s", f.Flags())
 	out, _ := tests.ExecuteT(f.T, cmd, "")
 	var depositParam gov.DepositParams
 	cdc := app.MakeCodec()
@@ -484,9 +484,9 @@ func (f *Fixtures) QueryGovParamDeposit() gov.DepositParams {
 	return depositParam
 }
 
-// QueryGovParamVoting is gaiacli query gov param voting
+// QueryGovParamVoting is colorcli query gov param voting
 func (f *Fixtures) QueryGovParamVoting() gov.VotingParams {
-	cmd := fmt.Sprintf("../../../build/gaiacli query gov param voting %s", f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query gov param voting %s", f.Flags())
 	out, _ := tests.ExecuteT(f.T, cmd, "")
 	var votingParam gov.VotingParams
 	cdc := app.MakeCodec()
@@ -495,9 +495,9 @@ func (f *Fixtures) QueryGovParamVoting() gov.VotingParams {
 	return votingParam
 }
 
-// QueryGovParamTallying is gaiacli query gov param tallying
+// QueryGovParamTallying is colorcli query gov param tallying
 func (f *Fixtures) QueryGovParamTallying() gov.TallyParams {
-	cmd := fmt.Sprintf("../../../build/gaiacli query gov param tallying %s", f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query gov param tallying %s", f.Flags())
 	out, _ := tests.ExecuteT(f.T, cmd, "")
 	var tallyingParam gov.TallyParams
 	cdc := app.MakeCodec()
@@ -506,9 +506,9 @@ func (f *Fixtures) QueryGovParamTallying() gov.TallyParams {
 	return tallyingParam
 }
 
-// QueryGovProposals is gaiacli query gov proposals
+// QueryGovProposals is colorcli query gov proposals
 func (f *Fixtures) QueryGovProposals(flags ...string) gov.Proposals {
-	cmd := fmt.Sprintf("../../../build/gaiacli query gov proposals %v", f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query gov proposals %v", f.Flags())
 	stdout, stderr := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	if strings.Contains(stderr, "No matching proposals found") {
 		return gov.Proposals{}
@@ -521,9 +521,9 @@ func (f *Fixtures) QueryGovProposals(flags ...string) gov.Proposals {
 	return out
 }
 
-// QueryGovProposal is gaiacli query gov proposal
+// QueryGovProposal is colorcli query gov proposal
 func (f *Fixtures) QueryGovProposal(proposalID int, flags ...string) gov.Proposal {
-	cmd := fmt.Sprintf("../../../build/gaiacli query gov proposal %d %v", proposalID, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query gov proposal %d %v", proposalID, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var proposal gov.Proposal
 	cdc := app.MakeCodec()
@@ -532,9 +532,9 @@ func (f *Fixtures) QueryGovProposal(proposalID int, flags ...string) gov.Proposa
 	return proposal
 }
 
-// QueryGovVote is gaiacli query gov vote
+// QueryGovVote is colorcli query gov vote
 func (f *Fixtures) QueryGovVote(proposalID int, voter sdk.AccAddress, flags ...string) gov.Vote {
-	cmd := fmt.Sprintf("../../../build/gaiacli query gov vote %d %s %v", proposalID, voter, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query gov vote %d %s %v", proposalID, voter, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var vote gov.Vote
 	cdc := app.MakeCodec()
@@ -543,9 +543,9 @@ func (f *Fixtures) QueryGovVote(proposalID int, voter sdk.AccAddress, flags ...s
 	return vote
 }
 
-// QueryGovVotes is gaiacli query gov votes
+// QueryGovVotes is colorcli query gov votes
 func (f *Fixtures) QueryGovVotes(proposalID int, flags ...string) []gov.Vote {
-	cmd := fmt.Sprintf("../../../build/gaiacli query gov votes %d %v", proposalID, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query gov votes %d %v", proposalID, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var votes []gov.Vote
 	cdc := app.MakeCodec()
@@ -554,9 +554,9 @@ func (f *Fixtures) QueryGovVotes(proposalID int, flags ...string) []gov.Vote {
 	return votes
 }
 
-// QueryGovDeposit is gaiacli query gov deposit
+// QueryGovDeposit is colorcli query gov deposit
 func (f *Fixtures) QueryGovDeposit(proposalID int, depositor sdk.AccAddress, flags ...string) gov.Deposit {
-	cmd := fmt.Sprintf("../../../build/gaiacli query gov deposit %d %s %v", proposalID, depositor, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query gov deposit %d %s %v", proposalID, depositor, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var deposit gov.Deposit
 	cdc := app.MakeCodec()
@@ -565,9 +565,9 @@ func (f *Fixtures) QueryGovDeposit(proposalID int, depositor sdk.AccAddress, fla
 	return deposit
 }
 
-// QueryGovDeposits is gaiacli query gov deposits
+// QueryGovDeposits is colorcli query gov deposits
 func (f *Fixtures) QueryGovDeposits(propsalID int, flags ...string) []gov.Deposit {
-	cmd := fmt.Sprintf("../../../build/gaiacli query gov deposits %d %v", propsalID, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query gov deposits %d %v", propsalID, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var deposits []gov.Deposit
 	cdc := app.MakeCodec()
@@ -581,7 +581,7 @@ func (f *Fixtures) QueryGovDeposits(propsalID int, flags ...string) []gov.Deposi
 
 // QuerySigningInfo returns the signing info for a validator
 func (f *Fixtures) QuerySigningInfo(val string) slashing.ValidatorSigningInfo {
-	cmd := fmt.Sprintf("../../../build/gaiacli query slashing signing-info %s %s", val, f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query slashing signing-info %s %s", val, f.Flags())
 	res, errStr := tests.ExecuteT(f.T, cmd, "")
 	require.Empty(f.T, errStr)
 	cdc := app.MakeCodec()
@@ -591,9 +591,9 @@ func (f *Fixtures) QuerySigningInfo(val string) slashing.ValidatorSigningInfo {
 	return sinfo
 }
 
-// QuerySlashingParams is gaiacli query slashing params
+// QuerySlashingParams is colorcli query slashing params
 func (f *Fixtures) QuerySlashingParams() slashing.Params {
-	cmd := fmt.Sprintf("../../../build/gaiacli query slashing params %s", f.Flags())
+	cmd := fmt.Sprintf("../../../build/colorcli query slashing params %s", f.Flags())
 	res, errStr := tests.ExecuteT(f.T, cmd, "")
 	require.Empty(f.T, errStr)
 	cdc := app.MakeCodec()
