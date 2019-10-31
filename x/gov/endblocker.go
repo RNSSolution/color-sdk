@@ -10,12 +10,12 @@ import (
 // EndBlocker Called every block, process inflation, update validator set
 func EndBlocker(ctx sdk.Context, keeper Keeper) sdk.Tags {
 	resTags := sdk.NewTags()
-	currentFundingCycle, empty := keeper.GetCurrentCycle(ctx)
-	fmt.Println("==============currentFundingCycle==============", currentFundingCycle)
-	fmt.Println("==============block==============", ctx.BlockHeader().Time)
-	fmt.Println("========keeper.GetDaysPassed(ctx)=========", keeper.GetDaysPassed(ctx))
-	if (keeper.GetDaysPassed(ctx) >= LimitFirstFundingCycle) && empty {
-		keeper.AddFundingCycle(ctx)
+	currentFundingCycle, err := keeper.GetCurrentCycle(ctx)
+	if err != nil {
+		if keeper.GetDaysPassed(ctx) >= LimitFirstFundingCycle {
+			keeper.AddFundingCycle(ctx)
+		}
+
 	} else if currentFundingCycle.CheckEqualEndTime(ctx.BlockHeader().Time) {
 		ExecuteProposal(ctx, keeper, resTags)
 		keeper.AddFundingCycle(ctx)
@@ -63,8 +63,10 @@ func UpdateInactiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) s
 // UpdateActiveProposals updates the prosal status on every block
 func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags {
 	logger := ctx.Logger().With("module", "x/gov")
+	eligibilityQueue := []EligibilityDetails{}
 	// fetch active proposals whose voting periods have ended (are passed the block time)
 	activeIterator := keeper.ActiveProposalQueueIterator(ctx, ctx.BlockHeader().Time)
+	var tagValue = "In Voting Cycle"
 	defer activeIterator.Close()
 	for ; activeIterator.Valid(); activeIterator.Next() {
 		var proposalID uint64
@@ -75,7 +77,10 @@ func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk
 			panic(fmt.Sprintf("proposal %d does not exist", proposalID))
 		}
 		passes, tallyResults, _ := tally(ctx, keeper, activeProposal)
-		var tagValue = "In Voting Cycle"
+		passResult := tallyResults.Yes.Sub(tallyResults.No)
+		eligibility := NewEligibilityDetails(activeProposal.ProposalID, passResult, activeProposal.RequestedFund)
+		eligibilityQueue = Append(eligibilityQueue, eligibility)
+
 		if activeProposal.IsZeroRemainingCycle() {
 			keeper.DeleteDeposits(ctx, activeProposal.ProposalID)
 			activeProposal.Status = StatusPassed
@@ -96,13 +101,15 @@ func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk
 		resTags = resTags.AppendTag(tags.ProposalID, fmt.Sprintf("%d", proposalID))
 		resTags = resTags.AppendTag(tags.ProposalResult, tagValue)
 	}
+	eligibilityQueue = SortProposalEligibility(eligibilityQueue)
+	keeper.SetEligibilityDetails(eligibilityQueue)
 	return resTags
 }
 
 // ExecuteProposal Transfer funds on active proposal if voting end time reach
 func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags {
 	logger := ctx.Logger().With("module", "x/gov")
-	eligibilityQueue := make([]EligibilityDetails, EligibilityListCapcity)
+	eligibilityQueue := []EligibilityDetails{}
 
 	// fetch active proposals whose voting periods have ended (are passed the block time)
 	activeIterator := keeper.ActiveProposalQueueIterator(ctx, ctx.BlockHeader().Time)
@@ -150,7 +157,7 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 		resTags = resTags.AppendTag(tags.ProposalResult, tagValue)
 	}
 
-	eligibilityQueue = Sort(eligibilityQueue)
+	eligibilityQueue = SortProposalEligibility(eligibilityQueue)
 	keeper.TransferFunds(ctx, eligibilityQueue)
 	keeper.SetEligibilityDetails(eligibilityQueue)
 	return resTags

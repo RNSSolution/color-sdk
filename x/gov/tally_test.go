@@ -28,7 +28,7 @@ func createValidators(t *testing.T, stakingHandler sdk.Handler, ctx sdk.Context,
 		valTokens := sdk.TokensFromTendermintPower(powerAmt[i])
 		valCreateMsg := staking.NewMsgCreateValidator(
 			addrs[i], pubkeys[i], sdk.NewCoin(sdk.DefaultBondDenom, valTokens),
-			testDescription, testCommissionMsg, sdk.OneInt(),
+			testDescription, testCommissionMsg, sdk.OneInt(), sdk.OneInt(), sdk.OneInt(),
 		)
 
 		res := stakingHandler(ctx, valCreateMsg)
@@ -53,7 +53,7 @@ func TestTallyNoOneVotes(t *testing.T) {
 	createValidators(t, stakingHandler, ctx, valAddrs, []int64{5, 5})
 	staking.EndBlocker(ctx, sk)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -62,7 +62,7 @@ func TestTallyNoOneVotes(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults := tally(ctx, keeper, proposal)
+	passes, tallyResults, _ := tally(ctx, keeper, proposal)
 
 	require.False(t, passes)
 	require.True(t, tallyResults.Equals(EmptyTallyResult()))
@@ -85,7 +85,7 @@ func TestTallyNoQuorum(t *testing.T) {
 	createValidators(t, stakingHandler, ctx, valAddrs, []int64{2, 5})
 	staking.EndBlocker(ctx, sk)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -97,7 +97,7 @@ func TestTallyNoQuorum(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, _ := tally(ctx, keeper, proposal)
+	passes, _, _ := tally(ctx, keeper, proposal)
 	require.False(t, passes)
 }
 
@@ -118,7 +118,7 @@ func TestTallyOnlyValidatorsAllYes(t *testing.T) {
 	createValidators(t, stakingHandler, ctx, valAddrs, []int64{5, 5})
 	staking.EndBlocker(ctx, sk)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -132,7 +132,7 @@ func TestTallyOnlyValidatorsAllYes(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults := tally(ctx, keeper, proposal)
+	passes, tallyResults, _ := tally(ctx, keeper, proposal)
 
 	require.True(t, passes)
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))
@@ -155,7 +155,7 @@ func TestTallyOnlyValidators51No(t *testing.T) {
 	createValidators(t, stakingHandler, ctx, valAddrs, []int64{5, 6})
 	staking.EndBlocker(ctx, sk)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -169,7 +169,7 @@ func TestTallyOnlyValidators51No(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, _ := tally(ctx, keeper, proposal)
+	passes, _, _ := tally(ctx, keeper, proposal)
 
 	require.False(t, passes)
 }
@@ -191,7 +191,7 @@ func TestTallyOnlyValidators51Yes(t *testing.T) {
 	createValidators(t, stakingHandler, ctx, valAddrs, []int64{6, 6, 7})
 	staking.EndBlocker(ctx, sk)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -207,7 +207,7 @@ func TestTallyOnlyValidators51Yes(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults := tally(ctx, keeper, proposal)
+	passes, tallyResults, _ := tally(ctx, keeper, proposal)
 
 	require.True(t, passes)
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))
@@ -230,7 +230,7 @@ func TestTallyOnlyValidatorsVetoed(t *testing.T) {
 	createValidators(t, stakingHandler, ctx, valAddrs, []int64{6, 6, 7})
 	staking.EndBlocker(ctx, sk)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -241,12 +241,12 @@ func TestTallyOnlyValidatorsVetoed(t *testing.T) {
 	require.Nil(t, err)
 	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionYes)
 	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionNoWithVeto)
+	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionNo)
 	require.Nil(t, err)
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults := tally(ctx, keeper, proposal)
+	passes, tallyResults, _ := tally(ctx, keeper, proposal)
 
 	require.False(t, passes)
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))
@@ -269,7 +269,7 @@ func TestTallyOnlyValidatorsAbstainPasses(t *testing.T) {
 	createValidators(t, stakingHandler, ctx, valAddrs, []int64{6, 6, 7})
 	staking.EndBlocker(ctx, sk)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -285,7 +285,7 @@ func TestTallyOnlyValidatorsAbstainPasses(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults := tally(ctx, keeper, proposal)
+	passes, tallyResults, _ := tally(ctx, keeper, proposal)
 
 	require.True(t, passes)
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))
@@ -308,7 +308,7 @@ func TestTallyOnlyValidatorsAbstainFails(t *testing.T) {
 	createValidators(t, stakingHandler, ctx, valAddrs, []int64{6, 6, 7})
 	staking.EndBlocker(ctx, sk)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -324,7 +324,7 @@ func TestTallyOnlyValidatorsAbstainFails(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults := tally(ctx, keeper, proposal)
+	passes, tallyResults, _ := tally(ctx, keeper, proposal)
 
 	require.False(t, passes)
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))
@@ -347,7 +347,7 @@ func TestTallyOnlyValidatorsNonVoter(t *testing.T) {
 	createValidators(t, stakingHandler, ctx, valAddrs, []int64{6, 6, 7})
 	staking.EndBlocker(ctx, sk)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -361,7 +361,7 @@ func TestTallyOnlyValidatorsNonVoter(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults := tally(ctx, keeper, proposal)
+	passes, tallyResults, _ := tally(ctx, keeper, proposal)
 
 	require.False(t, passes)
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))
@@ -388,7 +388,7 @@ func TestTallyDelgatorOverride(t *testing.T) {
 	delegator1Msg := staking.NewMsgDelegate(addrs[3], sdk.ValAddress(addrs[2]), sdk.NewCoin(sdk.DefaultBondDenom, delTokens))
 	stakingHandler(ctx, delegator1Msg)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -406,7 +406,7 @@ func TestTallyDelgatorOverride(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults := tally(ctx, keeper, proposal)
+	passes, tallyResults, _ := tally(ctx, keeper, proposal)
 
 	require.False(t, passes)
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))
@@ -433,7 +433,7 @@ func TestTallyDelgatorInherit(t *testing.T) {
 	delegator1Msg := staking.NewMsgDelegate(addrs[3], sdk.ValAddress(addrs[2]), sdk.NewCoin(sdk.DefaultBondDenom, delTokens))
 	stakingHandler(ctx, delegator1Msg)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -449,7 +449,7 @@ func TestTallyDelgatorInherit(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults := tally(ctx, keeper, proposal)
+	passes, tallyResults, _ := tally(ctx, keeper, proposal)
 
 	require.True(t, passes)
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))
@@ -478,7 +478,7 @@ func TestTallyDelgatorMultipleOverride(t *testing.T) {
 	delegator1Msg2 := staking.NewMsgDelegate(addrs[3], sdk.ValAddress(addrs[1]), sdk.NewCoin(sdk.DefaultBondDenom, delTokens))
 	stakingHandler(ctx, delegator1Msg2)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -496,7 +496,7 @@ func TestTallyDelgatorMultipleOverride(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults := tally(ctx, keeper, proposal)
+	passes, tallyResults, _ := tally(ctx, keeper, proposal)
 
 	require.False(t, passes)
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))
@@ -513,19 +513,19 @@ func TestTallyDelgatorMultipleInherit(t *testing.T) {
 
 	valTokens1 := sdk.TokensFromTendermintPower(25)
 	val1CreateMsg := staking.NewMsgCreateValidator(
-		sdk.ValAddress(addrs[0]), ed25519.GenPrivKey().PubKey(), sdk.NewCoin(sdk.DefaultBondDenom, valTokens1), testDescription, testCommissionMsg, sdk.OneInt(),
+		sdk.ValAddress(addrs[0]), ed25519.GenPrivKey().PubKey(), sdk.NewCoin(sdk.DefaultBondDenom, valTokens1), testDescription, testCommissionMsg, sdk.OneInt(), sdk.OneInt(), sdk.OneInt(),
 	)
 	stakingHandler(ctx, val1CreateMsg)
 
 	valTokens2 := sdk.TokensFromTendermintPower(6)
 	val2CreateMsg := staking.NewMsgCreateValidator(
-		sdk.ValAddress(addrs[1]), ed25519.GenPrivKey().PubKey(), sdk.NewCoin(sdk.DefaultBondDenom, valTokens2), testDescription, testCommissionMsg, sdk.OneInt(),
+		sdk.ValAddress(addrs[1]), ed25519.GenPrivKey().PubKey(), sdk.NewCoin(sdk.DefaultBondDenom, valTokens2), testDescription, testCommissionMsg, sdk.OneInt(), sdk.OneInt(), sdk.OneInt(),
 	)
 	stakingHandler(ctx, val2CreateMsg)
 
 	valTokens3 := sdk.TokensFromTendermintPower(7)
 	val3CreateMsg := staking.NewMsgCreateValidator(
-		sdk.ValAddress(addrs[2]), ed25519.GenPrivKey().PubKey(), sdk.NewCoin(sdk.DefaultBondDenom, valTokens3), testDescription, testCommissionMsg, sdk.OneInt(),
+		sdk.ValAddress(addrs[2]), ed25519.GenPrivKey().PubKey(), sdk.NewCoin(sdk.DefaultBondDenom, valTokens3), testDescription, testCommissionMsg, sdk.OneInt(), sdk.OneInt(), sdk.OneInt(),
 	)
 	stakingHandler(ctx, val3CreateMsg)
 
@@ -538,7 +538,7 @@ func TestTallyDelgatorMultipleInherit(t *testing.T) {
 
 	staking.EndBlocker(ctx, sk)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -554,7 +554,7 @@ func TestTallyDelgatorMultipleInherit(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults := tally(ctx, keeper, proposal)
+	passes, tallyResults, _ := tally(ctx, keeper, proposal)
 
 	require.False(t, passes)
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))
@@ -590,7 +590,7 @@ func TestTallyJailedValidator(t *testing.T) {
 
 	staking.EndBlocker(ctx, sk)
 
-	tp := TextProposal{"Test", "description"}
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
 	proposal, err := keeper.SubmitProposal(ctx, tp)
 	require.NoError(t, err)
 	proposalID := proposal.ProposalID
@@ -606,7 +606,7 @@ func TestTallyJailedValidator(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults := tally(ctx, keeper, proposal)
+	passes, tallyResults, _ := tally(ctx, keeper, proposal)
 
 	require.True(t, passes)
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))

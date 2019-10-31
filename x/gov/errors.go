@@ -21,6 +21,8 @@ const (
 	CodeInvalidVote             sdk.CodeType = 9
 	CodeInvalidGenesis          sdk.CodeType = 10
 	CodeInvalidProposalStatus   sdk.CodeType = 11
+	CodeAlreadyExistEligibility sdk.CodeType = 12
+	CodeInvalidEligibility      sdk.CodeType = 13
 )
 
 // Error constructors
@@ -63,4 +65,11 @@ func ErrInvalidVote(codespace sdk.CodespaceType, voteOption VoteOption) sdk.Erro
 
 func ErrInvalidGenesis(codespace sdk.CodespaceType, msg string) sdk.Error {
 	return sdk.NewError(codespace, CodeInvalidVote, msg)
+}
+
+func ErrAlreadyExistEligibility(codespace sdk.CodespaceType, msg string) sdk.Error {
+	return sdk.NewError(codespace, CodeAlreadyExistEligibility, msg)
+}
+func ErrInvalidEligibility(codespace sdk.CodespaceType, msg string) sdk.Error {
+	return sdk.NewError(codespace, CodeInvalidEligibility, msg)
 }

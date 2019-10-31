@@ -12,6 +12,7 @@ import (
 var (
 	KeyDelimiter = []byte(":")
 
+	KeyFirstBlock               = []byte("firstblock")
 	KeyNextProposalID           = []byte("newProposalID")
 	KeyNextFundingCycleID       = []byte("newFundingCycleID")
 	PrefixActiveProposalQueue   = []byte("activeProposalQueue")
@@ -44,7 +45,7 @@ func KeyFundingCycle(fundingCycle uint64) []byte {
 // Key for getting a specific proposal from the store
 func KeyEligibility(eligibilityID uint64) []byte {
 	return bytes.Join([][]byte{
-		PrefixFudingCycleQueue,
+		PrefixEligibilityQueue,
 		[]byte(fmt.Sprintf("proposalEligibility:%d", eligibilityID)),
 		sdk.Uint64ToBigEndian(eligibilityID),
 	}, KeyDelimiter)

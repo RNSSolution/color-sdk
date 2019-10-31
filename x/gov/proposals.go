@@ -379,6 +379,5 @@ func (tr TallyResult) String() string {
 	return fmt.Sprintf(`Tally Result:
   Yes:        %s
   Abstain:    %s
-  No:         %s
-  NoWithVeto: %s`, tr.Yes, tr.Abstain, tr.No)
+  No:         %s`, tr.Yes, tr.Abstain, tr.No)
 }

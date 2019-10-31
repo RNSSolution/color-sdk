@@ -14,8 +14,6 @@ const (
 	LimitFirstFundingCycle = 28
 	// FourWeeksHours calculate total hours in 4 weeks
 	FourWeeksHours = time.Hour * time.Duration(24*28)
-	//EligibilityListCapcity is the initial capcity for edibility list
-	EligibilityListCapcity = 15
 
 	DefaultBondDenom = "uclr"
 )
@@ -51,13 +49,6 @@ func Append(eligibilityList []EligibilityDetails, eligibility EligibilityDetails
 	return append(eligibilityList, eligibility)
 }
 
-func Sort(eligibilityList []EligibilityDetails) []EligibilityDetails {
-	sort.Slice(eligibilityList, func(i, j int) bool {
-		return eligibilityList[i].VotesCount.GT(eligibilityList[j].VotesCount)
-	})
-	return eligibilityList
-}
-
 func NewEligibilityDetails(proposalID uint64, votes sdk.Int, requestedFund sdk.Coins) EligibilityDetails {
 
 	var e EligibilityDetails
@@ -76,4 +67,11 @@ func VerifyAmount(totalRequested sdk.Coins, limit sdk.Dec) bool {
 		return false
 	}
 
+}
+
+func SortProposalEligibility(eligibilityList []EligibilityDetails) []EligibilityDetails {
+	sort.Slice(eligibilityList, func(i, j int) bool {
+		return eligibilityList[i].VotesCount.GT(eligibilityList[j].VotesCount)
+	})
+	return eligibilityList
 }

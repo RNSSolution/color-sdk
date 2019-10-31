@@ -217,3 +217,64 @@ func randomVotingOption(r *rand.Rand) gov.VoteOption {
 	}
 	panic("should not happen")
 }
+
+// SimulateMsgSubmitProposal simulates a msg Submit Proposal
+// Note: Currently doesn't ensure that the proposal txt is in JSON form
+func SimulateFundingCycle(k gov.Keeper) simulation.Operation {
+	handler := gov.NewHandler(k)
+	// The states are:
+	// column 1: All validators vote
+	// column 2: 90% vote
+	// column 3: 75% vote
+	// column 4: 40% vote
+	// column 5: 15% vote
+	// column 6: noone votes
+	// All columns sum to 100 for simplicity, values chosen by @valardragon semi-arbitrarily,
+	// feel free to change.
+	numVotesTransitionMatrix, _ := simulation.CreateTransitionMatrix([][]int{
+		{20, 10, 0, 0, 0, 0},
+		{55, 50, 20, 10, 0, 0},
+		{25, 25, 30, 25, 30, 15},
+		{0, 15, 30, 25, 30, 30},
+		{0, 0, 20, 30, 30, 30},
+		{0, 0, 0, 10, 10, 25},
+	})
+	statePercentageArray := []float64{1, .9, .75, .4, .15, 0}
+	curNumVotesState := 1
+	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simulation.Account) (
+		opMsg simulation.OperationMsg, fOps []simulation.FutureOperation, err error) {
+
+		// 1) submit proposal now
+		sender := simulation.RandomAcc(r, accs)
+		msg, err := simulationCreateMsgSubmitProposal(r, sender)
+		if err != nil {
+			return simulation.NoOpMsg(), nil, err
+		}
+		ok := simulateHandleMsgSubmitProposal(msg, handler, ctx)
+		opMsg = simulation.NewOperationMsg(msg, ok, "")
+		// don't schedule votes if proposal failed
+		if !ok {
+			return opMsg, nil, nil
+		}
+		proposalID := k.GetLastProposalID(ctx)
+		// 2) Schedule operations for votes
+		// 2.1) first pick a number of people to vote.
+		curNumVotesState = numVotesTransitionMatrix.NextState(r, curNumVotesState)
+		numVotes := int(math.Ceil(float64(len(accs)) * statePercentageArray[curNumVotesState]))
+		// 2.2) select who votes and when
+		whoVotes := r.Perm(len(accs))
+		// didntVote := whoVotes[numVotes:]
+		whoVotes = whoVotes[:numVotes]
+		votingPeriod := k.GetVotingParams(ctx).VotingPeriod
+		fops := make([]simulation.FutureOperation, numVotes+1)
+		for i := 0; i < numVotes; i++ {
+			whenVote := ctx.BlockHeader().Time.Add(time.Duration(r.Int63n(int64(votingPeriod.Seconds()))) * time.Second)
+			fops[i] = simulation.FutureOperation{BlockTime: whenVote, Op: operationSimulateMsgVote(k, accs[whoVotes[i]], proposalID)}
+		}
+		// 3) Make an operation to ensure slashes were done correctly. (Really should be a future invariant)
+		// TODO: Find a way to check if a validator was slashed other than just checking their balance a block
+		// before and after.
+
+		return opMsg, fops, nil
+	}
+}

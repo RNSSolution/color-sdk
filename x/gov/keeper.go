@@ -542,24 +542,51 @@ func (keeper Keeper) RemoveFromInactiveProposalQueue(ctx sdk.Context, endTime ti
 }
 
 // GetCurrentCycle return the active funding cycle
-func (keeper Keeper) GetCurrentCycle(ctx sdk.Context) (FundingCycle, bool) {
+func (keeper Keeper) GetCurrentCycle(ctx sdk.Context) (FundingCycle, sdk.Error) {
 
 	store := ctx.KVStore(keeper.storeKey)
 	lastFundingCycleID := KeyFundingCycle(keeper.GetLastFundingCycleID(ctx))
 	bz := store.Get(lastFundingCycleID)
 	if bz == nil {
-		return FundingCycle{}, false
+		return FundingCycle{}, ErrInvalidGenesis(keeper.codespace, "Currently no active funding cycle")
 	}
 	var fundingCycle FundingCycle
 	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &fundingCycle)
-	return fundingCycle, true
+	return fundingCycle, nil
 }
 
 // GetDaysPassed calculate total days passed since blockchain start
 func (keeper Keeper) GetDaysPassed(ctx sdk.Context) int {
-	genBlock := ctx.WithBlockHeight(FirstBlockHeight).BlockHeader().Time
+	firstBlockTime, err := keeper.GetBlockTime(ctx)
+	if err != nil {
+		keeper.SetBlockTime(ctx)
+		firstBlockTime = ctx.BlockHeader().Time
+	}
 	currentBlock := ctx.BlockHeader().Time
-	return int(currentBlock.Sub(genBlock).Hours() / 24)
+	return int(currentBlock.Sub(firstBlockTime).Hours() / 24)
+}
+
+func (keeper Keeper) SetBlockTime(ctx sdk.Context) sdk.Error {
+	store := ctx.KVStore(keeper.storeKey)
+	bz := store.Get(KeyFirstBlock)
+	if bz != nil {
+		return ErrInvalidGenesis(keeper.codespace, "First Block already set")
+	}
+	bz = keeper.cdc.MustMarshalBinaryLengthPrefixed(ctx.BlockHeader().Time)
+	store.Set(KeyFirstBlock, bz)
+	return nil
+
+}
+
+func (keeper Keeper) GetBlockTime(ctx sdk.Context) (firstblocktime time.Time, err sdk.Error) {
+	store := ctx.KVStore(keeper.storeKey)
+	bz := store.Get(KeyFirstBlock)
+	if bz == nil {
+		return ctx.BlockHeader().Time, ErrInvalidGenesis(keeper.codespace, "Fist block time  never set")
+	}
+	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &firstblocktime)
+	return firstblocktime, nil
+
 }
 
 // AddFundingCycle start a new funding cycle
@@ -640,7 +667,6 @@ func (keeper Keeper) GetFundingCyclesIterator(ctx sdk.Context) sdk.Iterator {
 }
 
 func (keeper Keeper) GetFundingCycle(ctx sdk.Context) []FundingCycle {
-	// ===TOD0 add logic to transfer requted funding from treasury to this prosal
 	fundingCycles := []FundingCycle{}
 	fundingCycleIterator := keeper.GetFundingCyclesIterator(ctx)
 	defer fundingCycleIterator.Close()
@@ -653,14 +679,33 @@ func (keeper Keeper) GetFundingCycle(ctx sdk.Context) []FundingCycle {
 	return fundingCycles
 }
 
-func (keeper Keeper) AddEligibilityQueue(ctx sdk.Context, proposalID uint64) {
-
+func (keeper Keeper) AddProposalEligibility(ctx sdk.Context, proposalID uint64) sdk.Error {
 	proposalEligibility := ProposalEligibility{
 		ProposalID: proposalID,
 		Rank:       0,
 		Expected:   false,
 	}
-	keeper.SetEligibility(ctx, proposalEligibility)
+	err := keeper.SetProposalEligibility(ctx, proposalEligibility)
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+func (keeper Keeper) SetProposalEligibility(ctx sdk.Context, proposalEligibility ProposalEligibility) sdk.Error {
+	store := ctx.KVStore(keeper.storeKey)
+	bz := store.Get(KeyEligibility(proposalEligibility.ProposalID))
+	if bz != nil {
+		return ErrAlreadyExistEligibility(keeper.codespace, "Proposal Eligibility already exist")
+	}
+	bz = keeper.cdc.MustMarshalBinaryLengthPrefixed(proposalEligibility)
+	if bz == nil {
+		return ErrInvalidEligibility(keeper.codespace, "Invalid proposal eligibility")
+	}
+	store.Set(KeyEligibility(proposalEligibility.ProposalID), bz)
+	return nil
+
 }
 
 func (keeper Keeper) GetEligibilityIterator(ctx sdk.Context) sdk.Iterator {
@@ -668,8 +713,7 @@ func (keeper Keeper) GetEligibilityIterator(ctx sdk.Context) sdk.Iterator {
 	return sdk.KVStorePrefixIterator(store, []byte(PrefixEligibilityQueue))
 }
 
-func (keeper Keeper) GetEligibility(ctx sdk.Context) []ProposalEligibility {
-	// ===TOD0 add logic to transfer requited funding from treasury to this prosal
+func (keeper Keeper) GetProposalEligibility(ctx sdk.Context) []ProposalEligibility {
 	eligibilitylist := []ProposalEligibility{}
 	eligibilityIterator := keeper.GetEligibilityIterator(ctx)
 	defer eligibilityIterator.Close()
@@ -680,13 +724,6 @@ func (keeper Keeper) GetEligibility(ctx sdk.Context) []ProposalEligibility {
 
 	}
 	return eligibilitylist
-}
-
-func (keeper Keeper) SetEligibility(ctx sdk.Context, proposalEligibility ProposalEligibility) {
-	store := ctx.KVStore(keeper.storeKey)
-	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(proposalEligibility)
-	store.Set(KeyEligibility(proposalEligibility.ProposalID), bz)
-
 }
 
 func (keeper Keeper) SetEligibilityDetails(_eligibilityDetails []EligibilityDetails) {

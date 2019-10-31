@@ -45,7 +45,7 @@ func TestMsgSubmitProposal(t *testing.T) {
 	}
 
 	for i, tc := range tests {
-		msg := NewMsgSubmitProposal(tc.title, tc.description, tc.proposalType, tc.proposerAddr, tc.initialDeposit)
+		msg := NewMsgSubmitProposal(tc.title, tc.description, tc.proposalType, tc.proposerAddr, tc.initialDeposit, tc.initialDeposit, 1)
 		if tc.expectPass {
 			require.NoError(t, msg.ValidateBasic(), "test: %v", i)
 		} else {
@@ -100,7 +100,6 @@ func TestMsgVote(t *testing.T) {
 		{0, addrs[0], OptionYes, true},
 		{0, sdk.AccAddress{}, OptionYes, false},
 		{0, addrs[0], OptionNo, true},
-		{0, addrs[0], OptionNoWithVeto, true},
 		{0, addrs[0], OptionAbstain, true},
 		{0, addrs[0], VoteOption(0x13), false},
 	}

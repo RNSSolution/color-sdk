@@ -163,6 +163,9 @@ test_unit:
 test_race:
 	@VERSION=$(VERSION) go test -mod=readonly -race $(PACKAGES_NOSIMULATION)
 
+test_race:
+	@VERSION=$(VERSION) go test -mod=readonly -race $(PACKAGES_NOSIMULATION)
+	
 test_sim_gaia_nondeterminism:
 	@echo "Running nondeterminism test..."
 	@go test -mod=readonly ./cmd/gaia/app -run TestAppStateDeterminism -SimulationEnabled=true -v -timeout 10m

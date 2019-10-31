@@ -13,9 +13,8 @@ import (
 )
 
 func TestTickExpiredDepositPeriod(t *testing.T) {
-	mapp, keeper, _, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
 
-	fmt.Println("=============================TestTickExpiredDepositPeriod====================")
+	mapp, keeper, _, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
 	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
@@ -28,7 +27,7 @@ func TestTickExpiredDepositPeriod(t *testing.T) {
 	require.False(t, inactiveQueue.Valid())
 	inactiveQueue.Close()
 
-	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)})
+	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
 
 	res := govHandler(ctx, newProposalMsg)
 	require.True(t, res.IsOK())
@@ -61,6 +60,7 @@ func TestTickExpiredDepositPeriod(t *testing.T) {
 }
 
 func TestTickMultipleExpiredDepositPeriod(t *testing.T) {
+
 	mapp, keeper, _, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
@@ -74,7 +74,7 @@ func TestTickMultipleExpiredDepositPeriod(t *testing.T) {
 	require.False(t, inactiveQueue.Valid())
 	inactiveQueue.Close()
 
-	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)})
+	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
 
 	res := govHandler(ctx, newProposalMsg)
 	require.True(t, res.IsOK())
@@ -91,7 +91,7 @@ func TestTickMultipleExpiredDepositPeriod(t *testing.T) {
 	require.False(t, inactiveQueue.Valid())
 	inactiveQueue.Close()
 
-	newProposalMsg2 := NewMsgSubmitProposal("Test2", "test2", ProposalTypeText, addrs[1], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)})
+	newProposalMsg2 := NewMsgSubmitProposal("Test2", "test2", ProposalTypeText, addrs[1], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
 	res = govHandler(ctx, newProposalMsg2)
 	require.True(t, res.IsOK())
 
@@ -137,7 +137,7 @@ func TestTickPassedDepositPeriod(t *testing.T) {
 	require.False(t, activeQueue.Valid())
 	activeQueue.Close()
 
-	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)})
+	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
 
 	res := govHandler(ctx, newProposalMsg)
 	require.True(t, res.IsOK())
@@ -184,7 +184,7 @@ func TestTickPassedVotingPeriod(t *testing.T) {
 	activeQueue.Close()
 
 	proposalCoins := sdk.Coins{sdk.NewCoin(sdk.DefaultBondDenom, sdk.TokensFromTendermintPower(5))}
-	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], proposalCoins)
+	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], proposalCoins, proposalCoins, 1)
 
 	res := govHandler(ctx, newProposalMsg)
 	require.True(t, res.IsOK())
@@ -224,4 +224,116 @@ func TestTickPassedVotingPeriod(t *testing.T) {
 	activeQueue = keeper.ActiveProposalQueueIterator(ctx, ctx.BlockHeader().Time)
 	require.False(t, activeQueue.Valid())
 	activeQueue.Close()
+}
+
+func TestTickPassedSubmitProposal(t *testing.T) {
+
+	mapp, keeper, _, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+	SortAddresses(addrs)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+	keeper.ck.SetSendEnabled(ctx, true)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
+	govHandler := NewHandler(keeper)
+	res := govHandler(ctx, newProposalMsg)
+	require.True(t, res.IsOK())
+	proposal, _ := keeper.GetProposal(ctx, 1)
+	require.Nil(t, proposal)
+
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	require.Empty(t, keeper.GetProposalEligibility(ctx))
+	newProposalMsg = NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
+	govHandler = NewHandler(keeper)
+	res = govHandler(ctx, newProposalMsg)
+	require.True(t, res.IsOK())
+
+	require.Equal(t, 1, len(keeper.GetProposalEligibility(ctx)))
+
+}
+
+func TestTickPassedLimitFirstFundingCycle(t *testing.T) {
+	t.Log("Starting TestTickPassedLimitFirstFundingCycle")
+
+	mapp, keeper, _, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+	SortAddresses(addrs)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+	keeper.ck.SetSendEnabled(ctx, true)
+
+	keeper.ck.SetSendEnabled(ctx, true)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+	_, err := keeper.GetCurrentCycle(ctx)
+	require.NotNil(t, err)
+	require.Equal(t, 0, keeper.GetDaysPassed(ctx))
+
+	header = abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	require.Equal(t, 28, keeper.GetDaysPassed(ctx))
+
+}
+
+func TestTickSortingProposalEligibility(t *testing.T) {
+
+	mapp, keeper, _, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+	SortAddresses(addrs)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+	keeper.ck.SetSendEnabled(ctx, true)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
+	govHandler := NewHandler(keeper)
+	res := govHandler(ctx, newProposalMsg)
+	require.True(t, res.IsOK())
+
+	newProposalMsg2 := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
+	res = govHandler(ctx, newProposalMsg2)
+	require.True(t, res.IsOK())
+
+	msg := NewMsgVote(addrs[0], 1, OptionYes)
+	res = govHandler(ctx, msg)
+	fmt.Println(res)
+	require.True(t, res.IsOK())
+
+	fmt.Println("eligilbity", keeper.GetProposalEligibility(ctx))
+
+	//require.Equal(t, 1, len(keeper.GetProposalEligibility(ctx)))
+
 }
