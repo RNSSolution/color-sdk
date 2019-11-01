@@ -75,7 +75,7 @@ func MakeTestCodec() *codec.Codec {
 func CreateTestInputDefault(t *testing.T, isCheckTx bool, initPower int64) (
 	sdk.Context, auth.AccountKeeper, Keeper, staking.Keeper, DummyFeeCollectionKeeper) {
 
-	communityTax := sdk.NewDecWithPrec(2, 2)
+	communityTax := sdk.NewDecWithPrec(20, 2)
 
 	ctx, ak, _, dk, sk, fck, _ := CreateTestInputAdvanced(t, isCheckTx, initPower, communityTax)
 	return ctx, ak, dk, sk, fck

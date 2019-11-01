@@ -104,15 +104,16 @@ func simulateHandleMsgSubmitProposal(msg gov.MsgSubmitProposal, handler sdk.Hand
 }
 
 func simulationCreateMsgSubmitProposal(r *rand.Rand, sender simulation.Account) (msg gov.MsgSubmitProposal, err error) {
-	deposit := randomDeposit(r)
+	fund := randomDeposit(r)
+	deposit := sdk.TokensFromTendermintPower(10000000000).Add(fund.AmountOf(sdk.DefaultBondDenom))
 	msg = gov.NewMsgSubmitProposal(
 		simulation.RandStringOfLength(r, 5),
 		simulation.RandStringOfLength(r, 5),
 		gov.ProposalTypeText,
 		sender.Address,
-		deposit,
-		deposit,
-		3,
+		sdk.Coins{sdk.NewCoin(sdk.DefaultBondDenom, deposit)},
+		fund,
+		uint64(simulation.RandIntBetween(r, 1, 6)),
 	)
 	if msg.ValidateBasic() != nil {
 		err = fmt.Errorf("expected msg to pass ValidateBasic: %s", msg.GetSignBytes())
@@ -189,7 +190,7 @@ func operationSimulateMsgVote(k gov.Keeper, acc simulation.Account, proposalID u
 // Pick a random deposit
 func randomDeposit(r *rand.Rand) sdk.Coins {
 	// TODO Choose based on account balance and min deposit
-	amount := int64(r.Intn(20)) + 1
+	amount := int64(r.Intn(10000000000)) + 1
 	return sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, amount)}
 }
 

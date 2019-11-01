@@ -61,6 +61,8 @@ func SupplyInvariants(k Keeper, f types.FeeCollectionKeeper,
 		pool := k.GetPool(ctx)
 		loose := sdk.ZeroDec()
 		bonded := sdk.ZeroDec()
+		CommunityPool := sdk.ZeroDec()
+		InitialTokens := sdk.TokensFromTendermintPower(10000000)
 		am.IterateAccounts(ctx, func(acc auth.Account) bool {
 			loose = loose.Add(acc.GetCoins().AmountOf(k.BondDenom(ctx)).ToDec())
 			return false
@@ -87,14 +89,17 @@ func SupplyInvariants(k Keeper, f types.FeeCollectionKeeper,
 		loose = loose.Add(f.GetCollectedFees(ctx).AmountOf(k.BondDenom(ctx)).ToDec())
 		// add community pool
 		loose = loose.Add(d.GetFeePoolCommunityCoins(ctx).AmountOf(k.BondDenom(ctx)))
-
+		// Community Pool Coins Variable
+		CommunityPool = CommunityPool.Add(pool.NotBondedTokens.ToDec())
+		//Add Initial Tokens of Community Pool
+		CommunityPool = CommunityPool.Add(InitialTokens.ToDec())
 		// Not-bonded tokens plus Starting Community Pool should equal coin supply plus unbonding delegations
 		// plus tokens on unbonded validators
-		// if !(pool.NotBondedTokens.ToDec().Add(d.GetFeePoolCommunityCoins(ctx).AmountOf(k.BondDenom(ctx)))).Equal(loose) {
-		// 	return fmt.Errorf("loose token invariance:\n"+
-		// 		"\tpool.NotBondedTokens: %v\n"+
-		// 		"\tsum of account tokens: %v", pool.NotBondedTokens, loose)
-		// }
+		if !(CommunityPool).Equal(loose) {
+			return fmt.Errorf("loose token invariance:\n"+
+				"\tpool.NotBondedTokens: %v\n"+
+				"\tsum of account tokens: %v", pool.NotBondedTokens, loose)
+		}
 
 		// Bonded tokens should equal sum of tokens with bonded validators
 		if !pool.BondedTokens.ToDec().Equal(bonded) {
