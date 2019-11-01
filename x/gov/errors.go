@@ -60,7 +60,7 @@ func ErrInvalidProposalType(codespace sdk.CodespaceType, proposalType ProposalKi
 }
 
 func ErrInvalidTreasureIncome(codespace sdk.CodespaceType, proposalType ProposalKind) sdk.Error {
-	return sdk.NewError(codespace, CodeInvalidProposalType, fmt.Sprintf("Funding requested must be no more than 50 Percent of Treasury income per cycle", proposalType))
+	return sdk.NewError(codespace, CodeInvalidProposalType, fmt.Sprintf("Funding requested must be no more than 50 Percent of Treasury income per cycle"))
 }
 
 func ErrInvalidVote(codespace sdk.CodespaceType, voteOption VoteOption) sdk.Error {
