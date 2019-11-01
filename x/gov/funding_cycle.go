@@ -2,6 +2,7 @@ package gov
 
 import (
 	"sort"
+	"strconv"
 	"time"
 
 	sdk "github.com/ColorPlatform/color-sdk/types"
@@ -27,17 +28,22 @@ type FundingCycle struct {
 
 // CheckEqualEndTime Peeks the next available ProposalID without incrementing it
 func (fs FundingCycle) CheckEqualEndTime(currentTime time.Time) bool {
-	if currentTime.Equal(fs.CycleEndTime) {
+	if currentTime.After(fs.CycleEndTime) {
 		return true
 	}
 	return false
+
+}
+func GetPercentageAmount(amount sdk.Dec, percentage float64) sdk.Dec {
+	num1, _ := strconv.ParseFloat(amount.String(), 64)
+	percentage = percentage * num1
+	return sdk.NewDec(int64(percentage))
 
 }
 
 type ProposalEligibility struct {
 	ProposalID uint64 `json:"proposal_id"` //  ID of the proposal
 	Rank       uint64 `json:"rank"`        //  rank of the proposal
-	Expected   bool   `json:"expected"`    //  expected change of getting fund
 }
 type EligibilityDetails struct {
 	ProposalID    uint64    `json:"proposal_id"` //  ID of the proposal

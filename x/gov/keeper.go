@@ -116,20 +116,21 @@ func (keeper Keeper) SubmitProposal(ctx sdk.Context, content ProposalContent) (p
 	}
 
 	submitTime := ctx.BlockHeader().Time
-	depositPeriod := keeper.GetDepositParams(ctx).MaxDepositPeriod
+	//depositPeriod := keeper.GetDepositParams(ctx).MaxDepositPeriod
 
 	proposal = Proposal{
-		ProposalContent:  content,
-		ProposalID:       proposalID,
-		Status:           StatusDepositPeriod,
-		FinalTallyResult: EmptyTallyResult(),
-		TotalDeposit:     sdk.NewCoins(),
-		SubmitTime:       submitTime,
-		DepositEndTime:   submitTime.Add(depositPeriod),
+		ProposalContent:       content,
+		ProposalID:            proposalID,
+		Status:                StatusDepositPeriod,
+		FinalTallyResult:      EmptyTallyResult(),
+		TotalDeposit:          sdk.NewCoins(),
+		RemainingFundingCycle: content.GetFundingCycle(),
+		SubmitTime:            submitTime,
+		DepositEndTime:        submitTime,
 	}
-
 	keeper.SetProposal(ctx, proposal)
-	keeper.InsertInactiveProposalQueue(ctx, proposal.DepositEndTime, proposalID)
+	//keeper.InsertInactiveProposalQueue(ctx, proposal.DepositEndTime, proposalID)
+	keeper.activateVotingPeriod(ctx, proposal)
 	return
 }
 
@@ -261,11 +262,11 @@ func (keeper Keeper) peekCurrentProposalID(ctx sdk.Context) (proposalID uint64, 
 
 func (keeper Keeper) activateVotingPeriod(ctx sdk.Context, proposal Proposal) {
 	proposal.VotingStartTime = ctx.BlockHeader().Time
-	proposal.VotingEndTime = proposal.VotingStartTime.Add(FourWeeksHours)
+	proposal.VotingEndTime = proposal.VotingStartTime
 	proposal.Status = StatusVotingPeriod
 	keeper.SetProposal(ctx, proposal)
 
-	keeper.RemoveFromInactiveProposalQueue(ctx, proposal.DepositEndTime, proposal.ProposalID)
+	//keeper.RemoveFromInactiveProposalQueue(ctx, proposal.DepositEndTime, proposal.ProposalID)
 	keeper.InsertActiveProposalQueue(ctx, proposal.VotingEndTime, proposal.ProposalID)
 }
 
@@ -452,7 +453,8 @@ func (keeper Keeper) RefundDeposits(ctx sdk.Context, proposalID uint64) {
 func (keeper Keeper) TransferFunds(ctx sdk.Context, eligibilityList []EligibilityDetails) {
 
 	totalFundCount := sdk.NewCoins()
-	limit := keeper.GetTreasuryWeeklyIncome(ctx)
+	weeklyIncome := keeper.GetTreasuryWeeklyIncome(ctx)
+	limit := GetPercentageAmount(weeklyIncome, 0.5)
 	for _, eligibility := range eligibilityList {
 
 		// RNS TODO update login from generic loop to specific id
@@ -556,14 +558,13 @@ func (keeper Keeper) GetCurrentCycle(ctx sdk.Context) (FundingCycle, sdk.Error) 
 }
 
 // GetDaysPassed calculate total days passed since blockchain start
-func (keeper Keeper) GetDaysPassed(ctx sdk.Context) int {
+func (keeper Keeper) GetDaysPassed(ctx sdk.Context) (int, sdk.Error) {
 	firstBlockTime, err := keeper.GetBlockTime(ctx)
 	if err != nil {
-		keeper.SetBlockTime(ctx)
-		firstBlockTime = ctx.BlockHeader().Time
+		return 0, err
 	}
 	currentBlock := ctx.BlockHeader().Time
-	return int(currentBlock.Sub(firstBlockTime).Hours() / 24)
+	return int(currentBlock.Sub(firstBlockTime).Hours() / 24), nil
 }
 
 func (keeper Keeper) SetBlockTime(ctx sdk.Context) sdk.Error {
@@ -683,7 +684,6 @@ func (keeper Keeper) AddProposalEligibility(ctx sdk.Context, proposalID uint64) 
 	proposalEligibility := ProposalEligibility{
 		ProposalID: proposalID,
 		Rank:       0,
-		Expected:   false,
 	}
 	err := keeper.SetProposalEligibility(ctx, proposalEligibility)
 	if err != nil {
@@ -695,15 +695,12 @@ func (keeper Keeper) AddProposalEligibility(ctx sdk.Context, proposalID uint64) 
 
 func (keeper Keeper) SetProposalEligibility(ctx sdk.Context, proposalEligibility ProposalEligibility) sdk.Error {
 	store := ctx.KVStore(keeper.storeKey)
-	bz := store.Get(KeyEligibility(proposalEligibility.ProposalID))
-	if bz != nil {
-		return ErrAlreadyExistEligibility(keeper.codespace, "Proposal Eligibility already exist")
-	}
-	bz = keeper.cdc.MustMarshalBinaryLengthPrefixed(proposalEligibility)
+	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(proposalEligibility)
 	if bz == nil {
 		return ErrInvalidEligibility(keeper.codespace, "Invalid proposal eligibility")
 	}
 	store.Set(KeyEligibility(proposalEligibility.ProposalID), bz)
+
 	return nil
 
 }
@@ -726,11 +723,12 @@ func (keeper Keeper) GetProposalEligibility(ctx sdk.Context) []ProposalEligibili
 	return eligibilitylist
 }
 
-func (keeper Keeper) SetEligibilityDetails(_eligibilityDetails []EligibilityDetails) {
+func (keeper Keeper) SetEligibilityDetails(ctx sdk.Context, _eligibilityDetails []EligibilityDetails) {
 	for index, element := range _eligibilityDetails {
 		eligibility := ProposalEligibility{}
 		eligibility.ProposalID = element.ProposalID
 		eligibility.Rank = uint64(index + 1)
+		keeper.SetProposalEligibility(ctx, eligibility)
 
 	}
 

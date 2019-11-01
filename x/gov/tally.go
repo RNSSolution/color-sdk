@@ -4,13 +4,11 @@ import (
 	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
-
 // councilMemberGovInfo used for tallying
 type councilMemberGovInfo struct {
-	Address		sdk.AccAddress	//councilMember Address
-	Power		sdk.Dec			//CouncilMember Power
+	Address sdk.AccAddress //councilMember Address
+	Power   sdk.Dec        //CouncilMember Power
 }
-
 
 // CalulcateCouncilPower : calculates total power of council members
 func (keeper Keeper) CalulcateCouncilPower(ctx sdk.Context) sdk.Dec {
@@ -19,16 +17,16 @@ func (keeper Keeper) CalulcateCouncilPower(ctx sdk.Context) sdk.Dec {
 	defer councilmemberIterator.Close()
 	total := sdk.NewDec(0)
 
-	for ; councilmemberIterator.Valid(); councilmemberIterator.Next(){
+	for ; councilmemberIterator.Valid(); councilmemberIterator.Next() {
 		cm := &councilMemberGovInfo{}
-		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(councilmemberIterator.Value(),cm)
-		total= total.Add(cm.Power)
+		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(councilmemberIterator.Value(), cm)
+		total = total.Add(cm.Power)
 	}
 	return total
 }
 
-func tally(ctx sdk.Context, keeper Keeper, 
-	proposal Proposal) (passes bool, tallyResults TallyResult,neutral bool) {
+func tally(ctx sdk.Context, keeper Keeper,
+	proposal Proposal) (passes bool, tallyResults TallyResult, neutral bool) {
 
 	results := make(map[VoteOption]sdk.Dec)
 	results[OptionYes] = sdk.ZeroDec()
@@ -43,22 +41,21 @@ func tally(ctx sdk.Context, keeper Keeper,
 		vote := &Vote{}
 		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(votesIterator.Value(), vote)
 
-		if cmpower,found:=keeper.stk.GetCouncilMemberShares(ctx,vote.Voter); found{
+		if cmpower, found := keeper.stk.GetCouncilMemberShares(ctx, vote.Voter); found {
 			results[vote.Option] = results[vote.Option].Add(cmpower)
 			totalVotingPower = totalVotingPower.Add(cmpower)
 		}
 	}
-	
+
 	tallyParams := keeper.GetTallyParams(ctx)
 	tallyResults = NewTallyResultFromMap(results)
 	totalCouncilPower := keeper.CalulcateCouncilPower(ctx)
 	threshold := totalCouncilPower.Mul(tallyParams.Threshold)
 
-
-	// If there is not enough quorum of votes, return neutral signal
+	//If there is not enough quorum of votes, return neutral signal
 	percentVoting := totalVotingPower.Quo(totalCouncilPower)
 	if percentVoting.LT(tallyParams.Quorum) {
-		return false, tallyResults,true
+		return false, tallyResults, true
 	}
 
 	// If yes_votes minus no_votes is greater than the threshold, the proposal passes
@@ -72,5 +69,5 @@ func tally(ctx sdk.Context, keeper Keeper,
 	}
 
 	// If the voting is neutral, return neutral signal
-	return false,tallyResults, true
-	}
+	return false, tallyResults, true
+}

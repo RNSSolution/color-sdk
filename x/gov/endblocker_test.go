@@ -1,7 +1,6 @@
 package gov
 
 import (
-	"fmt"
 	"testing"
 	"time"
 
@@ -10,6 +9,7 @@ import (
 	abci "github.com/ColorPlatform/prism/abci/types"
 
 	sdk "github.com/ColorPlatform/color-sdk/types"
+	"github.com/ColorPlatform/color-sdk/x/staking"
 )
 
 func TestTickExpiredDepositPeriod(t *testing.T) {
@@ -287,7 +287,8 @@ func TestTickPassedLimitFirstFundingCycle(t *testing.T) {
 	EndBlocker(ctx, keeper)
 	_, err := keeper.GetCurrentCycle(ctx)
 	require.NotNil(t, err)
-	require.Equal(t, 0, keeper.GetDaysPassed(ctx))
+	days, err := keeper.GetDaysPassed(ctx)
+	require.Equal(t, 0, days)
 
 	header = abci.Header{Height: mapp.LastBlockHeight() + 1}
 	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
@@ -296,14 +297,14 @@ func TestTickPassedLimitFirstFundingCycle(t *testing.T) {
 	newHeader.Height = 2
 	ctx = ctx.WithBlockHeader(newHeader)
 	EndBlocker(ctx, keeper)
-
-	require.Equal(t, 28, keeper.GetDaysPassed(ctx))
+	days, err = keeper.GetDaysPassed(ctx)
+	require.Equal(t, 28, days)
 
 }
 
 func TestTickSortingProposalEligibility(t *testing.T) {
 
-	mapp, keeper, _, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
 	SortAddresses(addrs)
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
@@ -313,27 +314,124 @@ func TestTickSortingProposalEligibility(t *testing.T) {
 	keeper.ck.SetSendEnabled(ctx, true)
 
 	newHeader := ctx.BlockHeader()
-	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
 	newHeader.Height = 1
 	ctx = ctx.WithBlockHeader(newHeader)
 	EndBlocker(ctx, keeper)
 
+	// Crating validators
+
+	stakingHandler := staking.NewHandler(sk)
+
+	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
+	for i, addr := range addrs[:3] {
+		valAddrs[i] = sdk.ValAddress(addr)
+	}
+
+	createValidators(t, stakingHandler, ctx, valAddrs, []int64{50000, 7, 8})
+	staking.EndBlocker(ctx, sk)
+
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 3
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	//
+
 	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
 	govHandler := NewHandler(keeper)
 	res := govHandler(ctx, newProposalMsg)
+
+	require.True(t, res.IsOK())
+
+	msg := NewMsgVote(addrs[0], 1, OptionYes)
+	res = govHandler(ctx, msg)
+
 	require.True(t, res.IsOK())
 
 	newProposalMsg2 := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
 	res = govHandler(ctx, newProposalMsg2)
 	require.True(t, res.IsOK())
 
-	msg := NewMsgVote(addrs[0], 1, OptionYes)
-	res = govHandler(ctx, msg)
-	fmt.Println(res)
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 4
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	eligibility_list := keeper.GetProposalEligibility(ctx)
+	require.Equal(t, uint64(1), eligibility_list[0].ProposalID)
+
+	//TODO working have to be done
+
+}
+
+func TestTickTransferFunds(t *testing.T) {
+
+	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+	SortAddresses(addrs)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+	keeper.ck.SetSendEnabled(ctx, true)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	// Crating validators
+
+	stakingHandler := staking.NewHandler(sk)
+
+	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
+	for i, addr := range addrs[:3] {
+		valAddrs[i] = sdk.ValAddress(addr)
+	}
+
+	createValidators(t, stakingHandler, ctx, valAddrs, []int64{50000, 7, 8})
+	staking.EndBlocker(ctx, sk)
+
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 3
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	//
+
+	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
+	govHandler := NewHandler(keeper)
+	res := govHandler(ctx, newProposalMsg)
+
 	require.True(t, res.IsOK())
 
-	fmt.Println("eligilbity", keeper.GetProposalEligibility(ctx))
+	msg := NewMsgVote(addrs[0], 1, OptionYes)
+	res = govHandler(ctx, msg)
 
-	//require.Equal(t, 1, len(keeper.GetProposalEligibility(ctx)))
+	require.True(t, res.IsOK())
+
+	newProposalMsg2 := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
+	res = govHandler(ctx, newProposalMsg2)
+	require.True(t, res.IsOK())
+
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 4
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	// Add time of end cycle
+
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 4
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	//TODO working have to be done
 
 }
