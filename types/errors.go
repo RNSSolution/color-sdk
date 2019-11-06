@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/pkg/errors"
 	cmn "github.com/ColorPlatform/prism/libs/common"
+	"github.com/pkg/errors"
 
 	abci "github.com/ColorPlatform/prism/abci/types"
 )
@@ -44,6 +44,7 @@ const (
 	CodeTooManySignatures CodeType = 15
 	CodeGasOverflow       CodeType = 16
 	CodeNoSignatures      CodeType = 17
+	CodeZeroVotingPower   CodeType = 17
 
 	// CodespaceRoot is a codespace for error codes in this file only.
 	// Notice that 0 is an "unset" codespace, which can be overridden with
@@ -151,6 +152,9 @@ func ErrNoSignatures(msg string) Error {
 }
 func ErrGasOverflow(msg string) Error {
 	return newErrorWithRootCodespace(CodeGasOverflow, msg)
+}
+func ErrZeroVotingPower(msg string) Error {
+	return newErrorWithRootCodespace(CodeZeroVotingPower, msg)
 }
 
 //----------------------------------------

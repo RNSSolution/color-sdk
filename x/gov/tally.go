@@ -11,7 +11,7 @@ type councilMemberGovInfo struct {
 }
 
 // CalulcateCouncilPower : calculates total power of council members
-func (keeper Keeper) CalulcateCouncilPower(ctx sdk.Context) sdk.Dec {
+func (keeper Keeper) CalculateCouncilPower(ctx sdk.Context) (sdk.Dec, sdk.Error) {
 
 	councilmemberIterator := keeper.stk.GetCouncilMemberIterator(ctx)
 	defer councilmemberIterator.Close()
@@ -22,7 +22,10 @@ func (keeper Keeper) CalulcateCouncilPower(ctx sdk.Context) sdk.Dec {
 		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(councilmemberIterator.Value(), cm)
 		total = total.Add(cm.Power)
 	}
-	return total
+	if total.Equal(sdk.ZeroDec()) {
+		return total, sdk.ErrZeroVotingPower("Totaol council voting power is zero")
+	}
+	return total, nil
 }
 
 func tally(ctx sdk.Context, keeper Keeper,
@@ -49,9 +52,12 @@ func tally(ctx sdk.Context, keeper Keeper,
 
 	tallyParams := keeper.GetTallyParams(ctx)
 	tallyResults = NewTallyResultFromMap(results)
-	totalCouncilPower := keeper.CalulcateCouncilPower(ctx)
-	threshold := totalCouncilPower.Mul(tallyParams.Threshold)
+	totalCouncilPower, err := keeper.CalculateCouncilPower(ctx)
+	if err != nil {
+		return false, tallyResults, true
+	}
 
+	threshold := totalCouncilPower.Mul(tallyParams.Threshold)
 	//If there is not enough quorum of votes, return neutral signal
 	percentVoting := totalVotingPower.Quo(totalCouncilPower)
 	if percentVoting.LT(tallyParams.Quorum) {

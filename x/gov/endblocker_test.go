@@ -328,7 +328,7 @@ func TestTickSortingProposalEligibility(t *testing.T) {
 		valAddrs[i] = sdk.ValAddress(addr)
 	}
 
-	createValidators(t, stakingHandler, ctx, valAddrs, []int64{50000, 7, 8})
+	createValidators(t, stakingHandler, ctx, valAddrs, []int64{5, 7, 8})
 	staking.EndBlocker(ctx, sk)
 
 	newHeader = ctx.BlockHeader()
