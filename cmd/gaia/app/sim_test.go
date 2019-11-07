@@ -20,14 +20,19 @@ import (
 	"github.com/ColorPlatform/color-sdk/baseapp"
 	sdk "github.com/ColorPlatform/color-sdk/types"
 	"github.com/ColorPlatform/color-sdk/x/auth"
-	"github.com/ColorPlatform/color-sdk/x/bank"
+	authsim "github.com/ColorPlatform/color-sdk/x/auth/simulation"
+	bank "github.com/ColorPlatform/color-sdk/x/bank"
+	banksim "github.com/ColorPlatform/color-sdk/x/bank/simulation"
 	distr "github.com/ColorPlatform/color-sdk/x/distribution"
+	distrsim "github.com/ColorPlatform/color-sdk/x/distribution/simulation"
 	"github.com/ColorPlatform/color-sdk/x/gov"
 	govsim "github.com/ColorPlatform/color-sdk/x/gov/simulation"
 	"github.com/ColorPlatform/color-sdk/x/mint"
 	"github.com/ColorPlatform/color-sdk/x/simulation"
 	"github.com/ColorPlatform/color-sdk/x/slashing"
+	slashingsim "github.com/ColorPlatform/color-sdk/x/slashing/simulation"
 	"github.com/ColorPlatform/color-sdk/x/staking"
+	stakingsim "github.com/ColorPlatform/color-sdk/x/staking/simulation"
 )
 
 var (
@@ -267,21 +272,21 @@ func appStateFn(r *rand.Rand, accs []simulation.Account, genesisTimestamp time.T
 
 func testAndRunTxs(app *GaiaApp) []simulation.WeightedOperation {
 	return []simulation.WeightedOperation{
-		// {5, authsim.SimulateDeductFee(app.accountKeeper, app.feeCollectionKeeper)},
-		// {100, banksim.SimulateMsgSend(app.accountKeeper, app.bankKeeper)},
-		// {10, banksim.SimulateSingleInputMsgMultiSend(app.accountKeeper, app.bankKeeper)},
-		// {50, distrsim.SimulateMsgSetWithdrawAddress(app.accountKeeper, app.distrKeeper)},
-		// {50, distrsim.SimulateMsgWithdrawDelegatorReward(app.accountKeeper, app.distrKeeper)},
-		// {50, distrsim.SimulateMsgWithdrawValidatorCommission(app.accountKeeper, app.distrKeeper)},
-		// {5, govsim.SimulateSubmittingVotingAndSlashingForProposal(app.govKeeper)},
-		// {100, govsim.SimulateMsgDeposit(app.govKeeper)},
+		{5, authsim.SimulateDeductFee(app.accountKeeper, app.feeCollectionKeeper)},
+		{100, banksim.SimulateMsgSend(app.accountKeeper, app.bankKeeper)},
+		{10, banksim.SimulateSingleInputMsgMultiSend(app.accountKeeper, app.bankKeeper)},
+		{50, distrsim.SimulateMsgSetWithdrawAddress(app.accountKeeper, app.distrKeeper)},
+		{50, distrsim.SimulateMsgWithdrawDelegatorReward(app.accountKeeper, app.distrKeeper)},
+		{50, distrsim.SimulateMsgWithdrawValidatorCommission(app.accountKeeper, app.distrKeeper)},
+		{5, govsim.SimulateSubmittingVotingAndSlashingForProposal(app.govKeeper)},
+		{100, govsim.SimulateMsgDeposit(app.govKeeper)},
 		{10, govsim.SimulateFundingCycle(app.govKeeper)},
-		// {100, stakingsim.SimulateMsgCreateValidator(app.accountKeeper, app.stakingKeeper)},
-		// {5, stakingsim.SimulateMsgEditValidator(app.stakingKeeper)},
-		// {100, stakingsim.SimulateMsgDelegate(app.accountKeeper, app.stakingKeeper)},
-		// {100, stakingsim.SimulateMsgUndelegate(app.accountKeeper, app.stakingKeeper)},
-		// {100, stakingsim.SimulateMsgBeginRedelegate(app.accountKeeper, app.stakingKeeper)},
-		// {100, slashingsim.SimulateMsgUnjail(app.slashingKeeper)},
+		{100, stakingsim.SimulateMsgCreateValidator(app.accountKeeper, app.stakingKeeper)},
+		{5, stakingsim.SimulateMsgEditValidator(app.stakingKeeper)},
+		{100, stakingsim.SimulateMsgDelegate(app.accountKeeper, app.stakingKeeper)},
+		{100, stakingsim.SimulateMsgUndelegate(app.accountKeeper, app.stakingKeeper)},
+		{100, stakingsim.SimulateMsgBeginRedelegate(app.accountKeeper, app.stakingKeeper)},
+		{100, slashingsim.SimulateMsgUnjail(app.slashingKeeper)},
 	}
 }
 
