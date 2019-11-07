@@ -23,6 +23,8 @@ const (
 	CodeInvalidProposalStatus   sdk.CodeType = 11
 	CodeAlreadyExistEligibility sdk.CodeType = 12
 	CodeInvalidEligibility      sdk.CodeType = 13
+	CodeInvalidCycle            sdk.CodeType = 14
+	CodeInvalidCouncil          sdk.CodeType = 15
 )
 
 // Error constructors
@@ -76,4 +78,10 @@ func ErrAlreadyExistEligibility(codespace sdk.CodespaceType, msg string) sdk.Err
 }
 func ErrInvalidEligibility(codespace sdk.CodespaceType, msg string) sdk.Error {
 	return sdk.NewError(codespace, CodeInvalidEligibility, msg)
+}
+func ErrInvalidCycle(codespace sdk.CodespaceType, msg string) sdk.Error {
+	return sdk.NewError(codespace, CodeInvalidCycle, msg)
+}
+func ErrInvalidCouncilMember(codespace sdk.CodespaceType, address sdk.AccAddress) sdk.Error {
+	return sdk.NewError(codespace, CodeInvalidCouncil, fmt.Sprintf("Address %s is not a Council Member", address))
 }

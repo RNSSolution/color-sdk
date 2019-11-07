@@ -95,7 +95,7 @@ type TextProposal struct {
 	Title         string         `json:"title"`          //  Title of the proposal
 	Description   string         `json:"description"`    //  Description of the proposal
 	RequestedFund sdk.Coins      `json:"requested_fund"` // Requested Funds in Proposal
-	FundingCycle  uint64         `json:"fund_cycle"`     // Funding Cycle
+	FundingCycle  uint64         `json:"funding_cycle"`  // Funding Cycle
 	Proposer      sdk.AccAddress `json:"proposer"`       //  Address of the proposer
 }
 

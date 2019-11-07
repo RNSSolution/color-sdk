@@ -26,7 +26,7 @@ type MsgSubmitProposal struct {
 	Proposer       sdk.AccAddress `json:"proposer"`        //  Address of the proposer
 	InitialDeposit sdk.Coins      `json:"initial_deposit"` //  Initial deposit paid by sender. Must be strictly positive.
 	RequestedFund  sdk.Coins      `json:"requested_fund"`  //  Requested Proposal Fund
-	FundingCycle   uint64         `json:"fund_cycle"`      //  Fund Cycle
+	FundingCycle   uint64         `json:"funding_cycle"`   //  Fund Cycle
 }
 
 func NewMsgSubmitProposal(title, description string, proposalType ProposalKind, proposer sdk.AccAddress, initialDeposit, requestedFund sdk.Coins, fundingcycle uint64) MsgSubmitProposal {

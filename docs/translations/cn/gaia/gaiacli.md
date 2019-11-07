@@ -488,7 +488,7 @@ gaiacli query delegations-to <account_cosmosval>
 + `type` : 提案类型。值必须是 *Text*（目前还不支持*SoftwareUpgrade*和*ParameterChange*类型）。
 
 ```bash
-gaiacli tx gov submit-proposal \
+colorcli tx gov submit-proposal \
   --title=<title> \
   --description=<description> \
   --type=<Text/ParameterChange/SoftwareUpgrade> \

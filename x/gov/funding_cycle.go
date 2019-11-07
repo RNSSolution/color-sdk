@@ -26,7 +26,7 @@ type FundingCycle struct {
 	CycleEndTime   time.Time `json:"cycle_end_time"`   //  Time that the funding cycle to end
 }
 
-// CheckEqualEndTime Peeks the next available ProposalID without incrementing it
+// CheckEqualEndTime Check Current Time of Blockchain
 func (fs FundingCycle) CheckEqualEndTime(currentTime time.Time) bool {
 	if currentTime.After(fs.CycleEndTime) {
 		return true
@@ -80,4 +80,22 @@ func SortProposalEligibility(eligibilityList []EligibilityDetails) []Eligibility
 		return eligibilityList[i].VotesCount.GT(eligibilityList[j].VotesCount)
 	})
 	return eligibilityList
+}
+
+//CheckCycleActive Stop Funding on last two days of Funding Cycle
+func (keeper Keeper) CheckCycleActive(ctx sdk.Context) bool {
+	currentFundingCycle, err := keeper.GetCurrentCycle(ctx)
+	if err == nil {
+		timeblock := ctx.BlockHeader().Time
+		diff := currentFundingCycle.CycleEndTime.Sub(currentFundingCycle.CycleStartTime)
+		//Difference Between Funding Cycle Time is not Zero
+		if diff.Hours()-(7*4*24) != 0 {
+			return false
+		}
+		if !timeblock.After(currentFundingCycle.CycleEndTime.AddDate(0, 0, -2)) {
+			return true
+		}
+		return false
+	}
+	return false
 }

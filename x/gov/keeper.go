@@ -309,6 +309,14 @@ func (keeper Keeper) setTallyParams(ctx sdk.Context, tallyParams TallyParams) {
 
 // AddVote Adds a vote on a specific proposal
 func (keeper Keeper) AddVote(ctx sdk.Context, proposalID uint64, voterAddr sdk.AccAddress, option VoteOption) sdk.Error {
+	_, chk := keeper.stk.GetCouncilMemberShares(ctx, voterAddr)
+	if chk == false {
+		return ErrInvalidCouncilMember(keeper.codespace, voterAddr)
+	}
+	activeCycle := keeper.CheckCycleActive(ctx)
+	if activeCycle == false {
+		return ErrInvalidCycle(keeper.codespace, "No Active Cycle Found.")
+	}
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	if !ok {
 		return ErrUnknownProposal(keeper.codespace, proposalID)

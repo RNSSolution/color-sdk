@@ -412,7 +412,6 @@ func TestTickTransferFunds(t *testing.T) {
 
 	msg := NewMsgVote(addrs[0], 1, OptionYes)
 	res = govHandler(ctx, msg)
-
 	require.True(t, res.IsOK())
 
 	newProposalMsg2 := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
@@ -433,5 +432,121 @@ func TestTickTransferFunds(t *testing.T) {
 	EndBlocker(ctx, keeper)
 
 	//TODO working have to be done
+
+}
+
+func TestVotingofSubmittedProposalBasic(t *testing.T) {
+
+	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+	SortAddresses(addrs)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+	keeper.ck.SetSendEnabled(ctx, true)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
+	govHandler := NewHandler(keeper)
+	res := govHandler(ctx, newProposalMsg)
+	require.True(t, res.IsOK())
+	_, _ = keeper.GetProposal(ctx, 1)
+
+	stakingHandler := staking.NewHandler(sk)
+
+	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
+	for i, addr := range addrs[:3] {
+		valAddrs[i] = sdk.ValAddress(addr)
+	}
+
+	createValidators(t, stakingHandler, ctx, valAddrs, []int64{50000, 7, 8})
+	staking.EndBlocker(ctx, sk)
+
+	msg := NewMsgVote(addrs[0], 1, OptionYes)
+	res = govHandler(ctx, msg)
+	vote, found := keeper.GetVote(ctx, msg.ProposalID, msg.Voter)
+	require.True(t, found)
+	require.Equal(t, addrs[0], vote.Voter)
+	require.Equal(t, msg.ProposalID, vote.ProposalID)
+	require.Equal(t, msg.Option, vote.Option)
+	//require.True(t, res.IsOK())
+
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 3
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	require.Equal(t, 1, len(keeper.GetProposalEligibility(ctx)))
+
+}
+
+func TestVotingofSubmittedProposalAdvance(t *testing.T) {
+
+	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+	SortAddresses(addrs)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+	keeper.ck.SetSendEnabled(ctx, true)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
+	govHandler := NewHandler(keeper)
+	res := govHandler(ctx, newProposalMsg)
+	require.True(t, res.IsOK())
+	_, _ = keeper.GetProposal(ctx, 1)
+
+	stakingHandler := staking.NewHandler(sk)
+
+	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
+	for i, addr := range addrs[:3] {
+		valAddrs[i] = sdk.ValAddress(addr)
+	}
+
+	createValidators(t, stakingHandler, ctx, valAddrs, []int64{50000, 7, 8})
+	staking.EndBlocker(ctx, sk)
+
+	msg := NewMsgVote(addrs[0], 1, OptionYes)
+	res = govHandler(ctx, msg)
+	vote, found := keeper.GetVote(ctx, msg.ProposalID, msg.Voter)
+	require.True(t, found)
+	require.Equal(t, addrs[0], vote.Voter)
+	require.Equal(t, msg.ProposalID, vote.ProposalID)
+	require.Equal(t, msg.Option, vote.Option)
+	//require.True(t, res.IsOK())
+
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 3
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	require.Equal(t, 1, len(keeper.GetProposalEligibility(ctx)))
 
 }
