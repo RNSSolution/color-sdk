@@ -79,7 +79,7 @@ func getInitChainer(mapp *mock.App, keeper Keeper, stakingKeeper staking.Keeper,
 		mapp.InitChainer(ctx, req)
 
 		stakingGenesis := staking.DefaultGenesisState()
-		tokens := sdk.TokensFromTendermintPower(100000)
+		tokens := sdk.TokensFromTendermintPower(2000000)
 		stakingGenesis.Pool.NotBondedTokens = tokens
 
 		validators, err := staking.InitGenesis(ctx, stakingKeeper, stakingGenesis)
