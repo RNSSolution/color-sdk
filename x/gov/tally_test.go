@@ -2,6 +2,7 @@ package gov
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
 
@@ -69,7 +70,7 @@ func TestTallyNoOneVotes(t *testing.T) {
 	require.True(t, tallyResults.Equals(EmptyTallyResult()))
 }
 
-func TestTallyOnlyValidatorsAllYes(t *testing.T) {
+func TestTallyAllYes(t *testing.T) {
 	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
@@ -77,6 +78,12 @@ func TestTallyOnlyValidatorsAllYes(t *testing.T) {
 
 	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
 	stakingHandler := staking.NewHandler(sk)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
 
 	valAddrs := make([]sdk.ValAddress, len(addrs[:2]))
 	for i, addr := range addrs[:2] {
@@ -93,6 +100,14 @@ func TestTallyOnlyValidatorsAllYes(t *testing.T) {
 	proposal.Status = StatusVotingPeriod
 	keeper.SetProposal(ctx, proposal)
 
+	// update blockchain time (add four weeks time)
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	//add votes on proposal
 	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
 	require.Nil(t, err)
 	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionYes)
@@ -107,7 +122,7 @@ func TestTallyOnlyValidatorsAllYes(t *testing.T) {
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))
 }
 
-func TestTallyOnlyValidatorsAllNo(t *testing.T) {
+func TestTallyAllNo(t *testing.T) {
 	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
@@ -115,6 +130,12 @@ func TestTallyOnlyValidatorsAllNo(t *testing.T) {
 
 	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
 	stakingHandler := staking.NewHandler(sk)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
 
 	valAddrs := make([]sdk.ValAddress, len(addrs[:2]))
 	for i, addr := range addrs[:2] {
@@ -130,6 +151,13 @@ func TestTallyOnlyValidatorsAllNo(t *testing.T) {
 	proposalID := proposal.ProposalID
 	proposal.Status = StatusVotingPeriod
 	keeper.SetProposal(ctx, proposal)
+
+	// update blockchain time (add four weeks time)
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
 
 	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionNo)
 	require.Nil(t, err)
@@ -145,7 +173,7 @@ func TestTallyOnlyValidatorsAllNo(t *testing.T) {
 	require.False(t, tallyResults.Equals(EmptyTallyResult()))
 }
 
-func TestTallyOnlyValidators51No(t *testing.T) {
+func TestTally66No(t *testing.T) {
 	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
@@ -153,6 +181,12 @@ func TestTallyOnlyValidators51No(t *testing.T) {
 
 	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
 	stakingHandler := staking.NewHandler(sk)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
 
 	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
 	for i, addr := range addrs[:3] {
@@ -169,6 +203,13 @@ func TestTallyOnlyValidators51No(t *testing.T) {
 	proposal.Status = StatusVotingPeriod
 	keeper.SetProposal(ctx, proposal)
 
+	// update blockchain time (add four weeks time)
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
 	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
 	require.Nil(t, err)
 	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionNo)
@@ -178,12 +219,13 @@ func TestTallyOnlyValidators51No(t *testing.T) {
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, _, _ := tally(ctx, keeper, proposal)
+	passes, _, neutral := tally(ctx, keeper, proposal)
 
 	require.False(t, passes)
+	require.False(t, neutral)
 }
 
-func TestTallyNoQuorum(t *testing.T) {
+func TestTally66Yes(t *testing.T) {
 	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
@@ -191,13 +233,224 @@ func TestTallyNoQuorum(t *testing.T) {
 
 	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
 	stakingHandler := staking.NewHandler(sk)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
+	for i, addr := range addrs[:3] {
+		valAddrs[i] = sdk.ValAddress(addr)
+	}
+
+	createValidators(t, stakingHandler, ctx, valAddrs, []int64{50000, 50000, 50000})
+	staking.EndBlocker(ctx, sk)
+
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
+	proposal, err := keeper.SubmitProposal(ctx, tp)
+	require.NoError(t, err)
+	proposalID := proposal.ProposalID
+	proposal.Status = StatusVotingPeriod
+	keeper.SetProposal(ctx, proposal)
+
+	// update blockchain time (add four weeks time)
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
+	require.Nil(t, err)
+	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionYes)
+	require.Nil(t, err)
+	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionNo)
+	require.Nil(t, err)
+
+	proposal, ok := keeper.GetProposal(ctx, proposalID)
+	require.True(t, ok)
+	passes, _, neutral := tally(ctx, keeper, proposal)
+
+	require.True(t, passes)
+	require.False(t, neutral)
+}
+
+func TestTallyNeutral(t *testing.T) {
+	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+	stakingHandler := staking.NewHandler(sk)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
+	for i, addr := range addrs[:3] {
+		valAddrs[i] = sdk.ValAddress(addr)
+	}
+
+	createValidators(t, stakingHandler, ctx, valAddrs, []int64{50000, 50000, 50000})
+	staking.EndBlocker(ctx, sk)
+
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
+	proposal, err := keeper.SubmitProposal(ctx, tp)
+	require.NoError(t, err)
+	proposalID := proposal.ProposalID
+	proposal.Status = StatusVotingPeriod
+	keeper.SetProposal(ctx, proposal)
+
+	// update blockchain time (add four weeks time)
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
+	require.Nil(t, err)
+	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionNo)
+	require.Nil(t, err)
+	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionAbstain)
+	require.Nil(t, err)
+
+	proposal, ok := keeper.GetProposal(ctx, proposalID)
+	require.True(t, ok)
+	passes, _, neutral := tally(ctx, keeper, proposal)
+
+	require.False(t, passes)
+	require.True(t, neutral)
+}
+
+func TestTallyAllAbstain(t *testing.T) {
+	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+	stakingHandler := staking.NewHandler(sk)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
+	for i, addr := range addrs[:3] {
+		valAddrs[i] = sdk.ValAddress(addr)
+	}
+
+	createValidators(t, stakingHandler, ctx, valAddrs, []int64{50000, 50000, 50000})
+	staking.EndBlocker(ctx, sk)
+
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
+	proposal, err := keeper.SubmitProposal(ctx, tp)
+	require.NoError(t, err)
+	proposalID := proposal.ProposalID
+	proposal.Status = StatusVotingPeriod
+	keeper.SetProposal(ctx, proposal)
+
+	// update blockchain time (add four weeks time)
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionAbstain)
+	require.Nil(t, err)
+	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionAbstain)
+	require.Nil(t, err)
+	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionAbstain)
+	require.Nil(t, err)
+
+	proposal, ok := keeper.GetProposal(ctx, proposalID)
+	require.True(t, ok)
+	passes, _, neutral := tally(ctx, keeper, proposal)
+
+	require.False(t, passes)
+	require.True(t, neutral)
+}
+
+func TestTallyQuorum(t *testing.T) {
+	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+	stakingHandler := staking.NewHandler(sk)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
+	for i, addr := range addrs[:3] {
+		valAddrs[i] = sdk.ValAddress(addr)
+	}
+
+	createValidators(t, stakingHandler, ctx, valAddrs, []int64{1000000, 50000, 50000})
+	staking.EndBlocker(ctx, sk)
+
+	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
+	proposal, err := keeper.SubmitProposal(ctx, tp)
+	require.NoError(t, err)
+	proposalID := proposal.ProposalID
+	proposal.Status = StatusVotingPeriod
+	keeper.SetProposal(ctx, proposal)
+
+	// update blockchain time (add four weeks time)
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	//only one council member votes
+	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionNo)
+	require.Nil(t, err)
+
+	proposal, ok := keeper.GetProposal(ctx, proposalID)
+	require.True(t, ok)
+	passes, _, neutral := tally(ctx, keeper, proposal)
+
+	require.False(t, passes)
+	require.True(t, neutral)
+}
+
+func TestTallyExactQuorumPass(t *testing.T) {
+	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+	stakingHandler := staking.NewHandler(sk)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
 
 	valAddrs := make([]sdk.ValAddress, len(addrs[:2]))
 	for i, addr := range addrs[:2] {
 		valAddrs[i] = sdk.ValAddress(addr)
 	}
 
-	createValidators(t, stakingHandler, ctx, valAddrs, []int64{2, 5})
+	createValidators(t, stakingHandler, ctx, valAddrs, []int64{850000, 150000})
 	staking.EndBlocker(ctx, sk)
 
 	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
@@ -207,55 +460,28 @@ func TestTallyNoQuorum(t *testing.T) {
 	proposal.Status = StatusVotingPeriod
 	keeper.SetProposal(ctx, proposal)
 
-	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
-	require.Nil(t, err)
+	// update blockchain time (add four weeks time)
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
 
-	proposal, ok := keeper.GetProposal(ctx, proposalID)
-	require.True(t, ok)
-	passes, _, _ := tally(ctx, keeper, proposal)
-	require.False(t, passes)
-}
-
-func TestTallyOnlyValidators51Yes(t *testing.T) {
-	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
-
-	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
-	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
-
-	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
-	stakingHandler := staking.NewHandler(sk)
-
-	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
-	for i, addr := range addrs[:3] {
-		valAddrs[i] = sdk.ValAddress(addr)
-	}
-
-	createValidators(t, stakingHandler, ctx, valAddrs, []int64{6, 6, 7})
-	staking.EndBlocker(ctx, sk)
-
-	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
-	proposal, err := keeper.SubmitProposal(ctx, tp)
-	require.NoError(t, err)
-	proposalID := proposal.ProposalID
-	proposal.Status = StatusVotingPeriod
-	keeper.SetProposal(ctx, proposal)
-
-	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
-	require.Nil(t, err)
+	//only one council member votes
+	// err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
+	// require.Nil(t, err)
 	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionYes)
 	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionNo)
-	require.Nil(t, err)
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults, _ := tally(ctx, keeper, proposal)
+	passes, _, neutral := tally(ctx, keeper, proposal)
 
 	require.True(t, passes)
-	require.False(t, tallyResults.Equals(EmptyTallyResult()))
+	require.False(t, neutral)
 }
 
-func TestTallyOnlyValidatorsVetoed(t *testing.T) {
+func TestTallyExactQuorumFail(t *testing.T) {
 	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
@@ -264,12 +490,18 @@ func TestTallyOnlyValidatorsVetoed(t *testing.T) {
 	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
 	stakingHandler := staking.NewHandler(sk)
 
-	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
-	for i, addr := range addrs[:3] {
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	valAddrs := make([]sdk.ValAddress, len(addrs[:2]))
+	for i, addr := range addrs[:2] {
 		valAddrs[i] = sdk.ValAddress(addr)
 	}
 
-	createValidators(t, stakingHandler, ctx, valAddrs, []int64{6, 6, 7})
+	createValidators(t, stakingHandler, ctx, valAddrs, []int64{850001, 150000})
 	staking.EndBlocker(ctx, sk)
 
 	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
@@ -279,22 +511,29 @@ func TestTallyOnlyValidatorsVetoed(t *testing.T) {
 	proposal.Status = StatusVotingPeriod
 	keeper.SetProposal(ctx, proposal)
 
-	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
-	require.Nil(t, err)
+	// update blockchain time (add four weeks time)
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
+	//only one council member votes
+	// err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
+	// require.Nil(t, err)
 	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionYes)
 	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionNo)
-	require.Nil(t, err)
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults, _ := tally(ctx, keeper, proposal)
+	passes, _, neutral := tally(ctx, keeper, proposal)
 
 	require.False(t, passes)
-	require.False(t, tallyResults.Equals(EmptyTallyResult()))
+	require.True(t, neutral)
 }
 
-func TestTallyOnlyValidatorsAbstainPasses(t *testing.T) {
+// Test exact threshold value for yes and no votes
+func TestTallyExactThreshold(t *testing.T) {
 	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
@@ -303,12 +542,18 @@ func TestTallyOnlyValidatorsAbstainPasses(t *testing.T) {
 	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
 	stakingHandler := staking.NewHandler(sk)
 
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+
 	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
 	for i, addr := range addrs[:3] {
 		valAddrs[i] = sdk.ValAddress(addr)
 	}
 
-	createValidators(t, stakingHandler, ctx, valAddrs, []int64{6, 6, 7})
+	createValidators(t, stakingHandler, ctx, valAddrs, []int64{850000, 50001, 100000})
 	staking.EndBlocker(ctx, sk)
 
 	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
@@ -318,338 +563,36 @@ func TestTallyOnlyValidatorsAbstainPasses(t *testing.T) {
 	proposal.Status = StatusVotingPeriod
 	keeper.SetProposal(ctx, proposal)
 
-	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionAbstain)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionNo)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionYes)
-	require.Nil(t, err)
+	// update blockchain time (add four weeks time)
+	newHeader = ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(FourWeeksHours)
+	newHeader.Height = 2
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
 
-	proposal, ok := keeper.GetProposal(ctx, proposalID)
-	require.True(t, ok)
-	passes, tallyResults, _ := tally(ctx, keeper, proposal)
-
-	require.True(t, passes)
-	require.False(t, tallyResults.Equals(EmptyTallyResult()))
-}
-
-func TestTallyOnlyValidatorsAbstainFails(t *testing.T) {
-	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
-
-	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
-	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
-
-	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
-	stakingHandler := staking.NewHandler(sk)
-
-	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
-	for i, addr := range addrs[:3] {
-		valAddrs[i] = sdk.ValAddress(addr)
-	}
-
-	createValidators(t, stakingHandler, ctx, valAddrs, []int64{6, 6, 7})
-	staking.EndBlocker(ctx, sk)
-
-	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
-	proposal, err := keeper.SubmitProposal(ctx, tp)
-	require.NoError(t, err)
-	proposalID := proposal.ProposalID
-	proposal.Status = StatusVotingPeriod
-	keeper.SetProposal(ctx, proposal)
-
+	//only one council member votes
 	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionAbstain)
 	require.Nil(t, err)
 	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionYes)
 	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionNo)
+	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionAbstain)
 	require.Nil(t, err)
 
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults, _ := tally(ctx, keeper, proposal)
-
-	require.False(t, passes)
-	require.False(t, tallyResults.Equals(EmptyTallyResult()))
-}
-
-func TestTallyOnlyValidatorsNonVoter(t *testing.T) {
-	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
-
-	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
-	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
-
-	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
-	stakingHandler := staking.NewHandler(sk)
-
-	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
-	for i, addr := range addrs[:3] {
-		valAddrs[i] = sdk.ValAddress(addr)
-	}
-
-	createValidators(t, stakingHandler, ctx, valAddrs, []int64{6, 6, 7})
-	staking.EndBlocker(ctx, sk)
-
-	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
-	proposal, err := keeper.SubmitProposal(ctx, tp)
-	require.NoError(t, err)
-	proposalID := proposal.ProposalID
-	proposal.Status = StatusVotingPeriod
-	keeper.SetProposal(ctx, proposal)
-
-	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionYes)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionNo)
-	require.Nil(t, err)
-
-	proposal, ok := keeper.GetProposal(ctx, proposalID)
-	require.True(t, ok)
-	passes, tallyResults, _ := tally(ctx, keeper, proposal)
-
-	require.False(t, passes)
-	require.False(t, tallyResults.Equals(EmptyTallyResult()))
-}
-
-func TestTallyDelgatorOverride(t *testing.T) {
-	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
-
-	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
-	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
-
-	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
-	stakingHandler := staking.NewHandler(sk)
-
-	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
-	for i, addr := range addrs[:3] {
-		valAddrs[i] = sdk.ValAddress(addr)
-	}
-
-	createValidators(t, stakingHandler, ctx, valAddrs, []int64{5, 6, 7})
-	staking.EndBlocker(ctx, sk)
-
-	delTokens := sdk.TokensFromTendermintPower(30)
-	delegator1Msg := staking.NewMsgDelegate(addrs[3], sdk.ValAddress(addrs[2]), sdk.NewCoin(sdk.DefaultBondDenom, delTokens))
-	stakingHandler(ctx, delegator1Msg)
-
-	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
-	proposal, err := keeper.SubmitProposal(ctx, tp)
-	require.NoError(t, err)
-	proposalID := proposal.ProposalID
-	proposal.Status = StatusVotingPeriod
-	keeper.SetProposal(ctx, proposal)
-
-	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionYes)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionYes)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[3], OptionNo)
-	require.Nil(t, err)
-
-	proposal, ok := keeper.GetProposal(ctx, proposalID)
-	require.True(t, ok)
-	passes, tallyResults, _ := tally(ctx, keeper, proposal)
-
-	require.False(t, passes)
-	require.False(t, tallyResults.Equals(EmptyTallyResult()))
-}
-
-func TestTallyDelgatorInherit(t *testing.T) {
-	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
-
-	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
-	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
-
-	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
-	stakingHandler := staking.NewHandler(sk)
-
-	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
-	for i, addr := range addrs[:3] {
-		valAddrs[i] = sdk.ValAddress(addr)
-	}
-
-	createValidators(t, stakingHandler, ctx, valAddrs, []int64{5, 6, 7})
-	staking.EndBlocker(ctx, sk)
-
-	delTokens := sdk.TokensFromTendermintPower(30)
-	delegator1Msg := staking.NewMsgDelegate(addrs[3], sdk.ValAddress(addrs[2]), sdk.NewCoin(sdk.DefaultBondDenom, delTokens))
-	stakingHandler(ctx, delegator1Msg)
-
-	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
-	proposal, err := keeper.SubmitProposal(ctx, tp)
-	require.NoError(t, err)
-	proposalID := proposal.ProposalID
-	proposal.Status = StatusVotingPeriod
-	keeper.SetProposal(ctx, proposal)
-
-	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionNo)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionNo)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionYes)
-	require.Nil(t, err)
-
-	proposal, ok := keeper.GetProposal(ctx, proposalID)
-	require.True(t, ok)
-	passes, tallyResults, _ := tally(ctx, keeper, proposal)
+	passes, _, neutral := tally(ctx, keeper, proposal)
 
 	require.True(t, passes)
-	require.False(t, tallyResults.Equals(EmptyTallyResult()))
-}
+	require.False(t, neutral)
 
-func TestTallyDelgatorMultipleOverride(t *testing.T) {
-	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
-
-	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
-	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
-
-	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
-	stakingHandler := staking.NewHandler(sk)
-
-	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
-	for i, addr := range addrs[:3] {
-		valAddrs[i] = sdk.ValAddress(addr)
-	}
-
-	createValidators(t, stakingHandler, ctx, valAddrs, []int64{5, 6, 7})
-	staking.EndBlocker(ctx, sk)
-
-	delTokens := sdk.TokensFromTendermintPower(10)
-	delegator1Msg := staking.NewMsgDelegate(addrs[3], sdk.ValAddress(addrs[2]), sdk.NewCoin(sdk.DefaultBondDenom, delTokens))
-	stakingHandler(ctx, delegator1Msg)
-	delegator1Msg2 := staking.NewMsgDelegate(addrs[3], sdk.ValAddress(addrs[1]), sdk.NewCoin(sdk.DefaultBondDenom, delTokens))
-	stakingHandler(ctx, delegator1Msg2)
-
-	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
-	proposal, err := keeper.SubmitProposal(ctx, tp)
-	require.NoError(t, err)
-	proposalID := proposal.ProposalID
-	proposal.Status = StatusVotingPeriod
-	keeper.SetProposal(ctx, proposal)
-
-	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionYes)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionYes)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[3], OptionNo)
-	require.Nil(t, err)
-
-	proposal, ok := keeper.GetProposal(ctx, proposalID)
-	require.True(t, ok)
-	passes, tallyResults, _ := tally(ctx, keeper, proposal)
-
-	require.False(t, passes)
-	require.False(t, tallyResults.Equals(EmptyTallyResult()))
-}
-
-func TestTallyDelgatorMultipleInherit(t *testing.T) {
-	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
-
-	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
-	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
-
-	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
-	stakingHandler := staking.NewHandler(sk)
-
-	valTokens1 := sdk.TokensFromTendermintPower(25)
-	val1CreateMsg := staking.NewMsgCreateValidator(
-		sdk.ValAddress(addrs[0]), ed25519.GenPrivKey().PubKey(), sdk.NewCoin(sdk.DefaultBondDenom, valTokens1), testDescription, testCommissionMsg, sdk.OneInt(), sdk.OneInt(), sdk.OneInt(),
-	)
-	stakingHandler(ctx, val1CreateMsg)
-
-	valTokens2 := sdk.TokensFromTendermintPower(6)
-	val2CreateMsg := staking.NewMsgCreateValidator(
-		sdk.ValAddress(addrs[1]), ed25519.GenPrivKey().PubKey(), sdk.NewCoin(sdk.DefaultBondDenom, valTokens2), testDescription, testCommissionMsg, sdk.OneInt(), sdk.OneInt(), sdk.OneInt(),
-	)
-	stakingHandler(ctx, val2CreateMsg)
-
-	valTokens3 := sdk.TokensFromTendermintPower(7)
-	val3CreateMsg := staking.NewMsgCreateValidator(
-		sdk.ValAddress(addrs[2]), ed25519.GenPrivKey().PubKey(), sdk.NewCoin(sdk.DefaultBondDenom, valTokens3), testDescription, testCommissionMsg, sdk.OneInt(), sdk.OneInt(), sdk.OneInt(),
-	)
-	stakingHandler(ctx, val3CreateMsg)
-
-	delTokens := sdk.TokensFromTendermintPower(10)
-	delegator1Msg := staking.NewMsgDelegate(addrs[3], sdk.ValAddress(addrs[2]), sdk.NewCoin(sdk.DefaultBondDenom, delTokens))
-	stakingHandler(ctx, delegator1Msg)
-
-	delegator1Msg2 := staking.NewMsgDelegate(addrs[3], sdk.ValAddress(addrs[1]), sdk.NewCoin(sdk.DefaultBondDenom, delTokens))
-	stakingHandler(ctx, delegator1Msg2)
-
-	staking.EndBlocker(ctx, sk)
-
-	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
-	proposal, err := keeper.SubmitProposal(ctx, tp)
-	require.NoError(t, err)
-	proposalID := proposal.ProposalID
-	proposal.Status = StatusVotingPeriod
-	keeper.SetProposal(ctx, proposal)
-
-	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
-	require.Nil(t, err)
+	// council member changes vote
 	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionNo)
 	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionNo)
-	require.Nil(t, err)
 
-	proposal, ok := keeper.GetProposal(ctx, proposalID)
+	proposal, ok = keeper.GetProposal(ctx, proposalID)
 	require.True(t, ok)
-	passes, tallyResults, _ := tally(ctx, keeper, proposal)
+	passes, _, neutral = tally(ctx, keeper, proposal)
 
 	require.False(t, passes)
-	require.False(t, tallyResults.Equals(EmptyTallyResult()))
-}
-
-func TestTallyJailedValidator(t *testing.T) {
-	mapp, keeper, sk, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
-
-	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
-	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
-
-	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
-	stakingHandler := staking.NewHandler(sk)
-
-	valAddrs := make([]sdk.ValAddress, len(addrs[:3]))
-	for i, addr := range addrs[:3] {
-		valAddrs[i] = sdk.ValAddress(addr)
-	}
-
-	createValidators(t, stakingHandler, ctx, valAddrs, []int64{25, 6, 7})
-	staking.EndBlocker(ctx, sk)
-
-	delTokens := sdk.TokensFromTendermintPower(10)
-	delegator1Msg := staking.NewMsgDelegate(addrs[3], sdk.ValAddress(addrs[2]), sdk.NewCoin(sdk.DefaultBondDenom, delTokens))
-	stakingHandler(ctx, delegator1Msg)
-
-	delegator1Msg2 := staking.NewMsgDelegate(addrs[3], sdk.ValAddress(addrs[1]), sdk.NewCoin(sdk.DefaultBondDenom, delTokens))
-	stakingHandler(ctx, delegator1Msg2)
-
-	val2, found := sk.GetValidator(ctx, sdk.ValAddress(addrs[1]))
-	require.True(t, found)
-	sk.Jail(ctx, sdk.ConsAddress(val2.ConsPubKey.Address()))
-
-	staking.EndBlocker(ctx, sk)
-
-	tp := TextProposal{"Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0]}
-	proposal, err := keeper.SubmitProposal(ctx, tp)
-	require.NoError(t, err)
-	proposalID := proposal.ProposalID
-	proposal.Status = StatusVotingPeriod
-	keeper.SetProposal(ctx, proposal)
-
-	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[1], OptionNo)
-	require.Nil(t, err)
-	err = keeper.AddVote(ctx, proposalID, addrs[2], OptionNo)
-	require.Nil(t, err)
-
-	proposal, ok := keeper.GetProposal(ctx, proposalID)
-	require.True(t, ok)
-	passes, tallyResults, _ := tally(ctx, keeper, proposal)
-
-	require.True(t, passes)
-	require.False(t, tallyResults.Equals(EmptyTallyResult()))
+	require.False(t, neutral)
 }

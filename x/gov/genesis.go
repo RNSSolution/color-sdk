@@ -61,7 +61,7 @@ func DefaultGenesisState() GenesisState {
 			VotingPeriod: DefaultPeriod,
 		},
 		TallyParams: TallyParams{
-			Quorum:    sdk.NewDecWithPrec(334, 3),
+			Quorum:    sdk.NewDecWithPrec(150, 3),
 			Threshold: sdk.NewDecWithPrec(5, 2),
 		},
 	}
@@ -87,7 +87,6 @@ func ValidateGenesis(data GenesisState) error {
 		return fmt.Errorf("Governance vote threshold should be positive and less or equal to one, is %s",
 			threshold.String())
 	}
-
 
 	if !data.DepositParams.MinDeposit.IsValid() {
 		return fmt.Errorf("Governance deposit amount must be a valid sdk.Coins amount, is %s",
