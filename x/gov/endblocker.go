@@ -9,6 +9,7 @@ import (
 
 // EndBlocker Called every block, process inflation, update validator set
 func EndBlocker(ctx sdk.Context, keeper Keeper) sdk.Tags {
+	fmt.Println("---------Endblocker------------")
 	resTags := sdk.NewTags()
 	currentFundingCycle, err := keeper.GetCurrentCycle(ctx)
 	if err != nil {

@@ -1,6 +1,7 @@
 package gov
 
 import (
+	"fmt"
 	"time"
 
 	codec "github.com/ColorPlatform/color-sdk/codec"
@@ -315,6 +316,7 @@ func (keeper Keeper) AddVote(ctx sdk.Context, proposalID uint64, voterAddr sdk.A
 	}
 	activeCycle := keeper.CheckCycleActive(ctx)
 	if activeCycle == false {
+
 		return ErrInvalidCycle(keeper.codespace, "No Active Cycle Found.")
 	}
 	proposal, ok := keeper.GetProposal(ctx, proposalID)
@@ -743,6 +745,7 @@ func (keeper Keeper) SetEligibilityDetails(ctx sdk.Context, _eligibilityDetails 
 }
 
 func (keeper Keeper) GetTreasuryWeeklyIncome(ctx sdk.Context) sdk.Dec {
+	fmt.Println("0000000", keeper.distrKeeper.GetCommunityTax(ctx))
 	communityTx := keeper.distrKeeper.GetCommunityTax(ctx)
 	weeklyProivssion := keeper.minKeeper.GetMinter(ctx).WeeklyProvisions
 	treasuryIncome := weeklyProivssion.Mul(FourWeeksProvission)

@@ -1,6 +1,7 @@
 package gov
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -32,6 +33,7 @@ func createValidators(t *testing.T, stakingHandler sdk.Handler, ctx sdk.Context,
 		)
 
 		res := stakingHandler(ctx, valCreateMsg)
+		fmt.Println(res)
 		require.True(t, res.IsOK())
 	}
 }
