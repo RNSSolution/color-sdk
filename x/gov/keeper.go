@@ -1,6 +1,7 @@
 package gov
 
 import (
+	"fmt"
 	"time"
 
 	codec "github.com/ColorPlatform/color-sdk/codec"
@@ -459,36 +460,28 @@ func (keeper Keeper) RefundDeposits(ctx sdk.Context, proposalID uint64) {
 
 // TransferFunds Transfer funds from treasury to depositor
 func (keeper Keeper) TransferFunds(ctx sdk.Context, eligibilityList []EligibilityDetails) {
-
+	fmt.Println("=============== Entering Transfer Funds ===============")
 	totalFundCount := sdk.NewCoins()
 	weeklyIncome := keeper.GetTreasuryWeeklyIncome(ctx)
 	limit := GetPercentageAmount(weeklyIncome, 0.5)
 	for _, eligibility := range eligibilityList {
+		activeProposal, ok := keeper.GetProposal(ctx, eligibility.ProposalID)
+		if !ok {
+			panic(fmt.Sprintf("proposal %d does not exist", eligibility.ProposalID))
+		}
+		totalFundCount = totalFundCount.Add(eligibility.RequestedFund)
+		if VerifyAmount(totalFundCount, limit) {
+			fmt.Println("=============== Transfer funds to  ===============", activeProposal.GetProposer())
 
-		// RNS TODO update login from generic loop to specific id
-		depositsIterator := keeper.GetDeposits(ctx, eligibility.ProposalID)
-		defer depositsIterator.Close()
-		for ; depositsIterator.Valid(); depositsIterator.Next() {
-			deposit := &Deposit{}
-			keeper.cdc.MustUnmarshalBinaryLengthPrefixed(depositsIterator.Value(), deposit)
-			totalFundCount = totalFundCount.Add(eligibility.RequestedFund)
-			if VerifyAmount(totalFundCount, limit) {
-				_, err := keeper.ck.SendCoins(ctx, DepositedCoinsAccAddr, deposit.Depositor, eligibility.RequestedFund)
-				if err != nil {
-					panic("should not happen")
-				}
-
-				//Refund deposited amount
-				_, err_refund := keeper.ck.SendCoins(ctx, DepositedCoinsAccAddr, deposit.Depositor, deposit.Amount)
-				if err_refund != nil {
-					panic("should not happen")
-				}
-
+			err := keeper.distrKeeper.DistributeFeePool(ctx, eligibility.RequestedFund, activeProposal.GetProposer())
+			if err != nil {
+				panic("should not happen")
 			}
 
 		}
 
 	}
+	fmt.Println("=============== Exiting Transfer Funds ===============")
 
 }
 
@@ -709,6 +702,18 @@ func (keeper Keeper) SetProposalEligibility(ctx sdk.Context, proposalEligibility
 	}
 	store.Set(KeyEligibility(proposalEligibility.ProposalID), bz)
 
+	return nil
+
+}
+func (keeper Keeper) DeleteProposalEligibility(ctx sdk.Context, proposalID uint64) sdk.Error {
+	store := ctx.KVStore(keeper.storeKey)
+	bz := store.Get(KeyEligibility(proposalID))
+	if bz == nil {
+		return ErrInvalidEligibility(keeper.codespace, "Proposal Eligiblity not found")
+	}
+	eligibility := &ProposalEligibility{}
+	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, eligibility)
+	store.Delete(KeyEligibility(proposalID))
 	return nil
 
 }

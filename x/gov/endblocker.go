@@ -21,6 +21,7 @@ func EndBlocker(ctx sdk.Context, keeper Keeper) sdk.Tags {
 		}
 
 	} else if currentFundingCycle.CheckEqualEndTime(ctx.BlockHeader().Time) {
+		fmt.Println("=============== Excuting Funding Cycle End ===============")
 		ExecuteProposal(ctx, keeper, resTags)
 		keeper.AddFundingCycle(ctx)
 	}
@@ -126,11 +127,9 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 		if !ok {
 			panic(fmt.Sprintf("proposal %d does not exist", proposalID))
 		}
-		passes, tallyResults, _ := tally(ctx, keeper, activeProposal)
-
+		passes, tallyResults, nutural := tally(ctx, keeper, activeProposal)
+		fmt.Println("Tally result ", passes)
 		var tagValue string
-
-		// ===TODO check if no remaining cycle left then refund Deposit
 		if passes {
 			activeProposal.ReduceCycleCount()
 			passResult := tallyResults.Yes.Sub(tallyResults.No)
@@ -140,7 +139,11 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 			tagValue = tags.ActionProposalPassed
 
 		}
-		if !passes || activeProposal.IsZeroRemainingCycle() {
+		if activeProposal.IsZeroRemainingCycle() {
+			keeper.RefundDeposits(ctx, activeProposal.ProposalID)
+			keeper.DeleteProposalEligibility(ctx, activeProposal.ProposalID)
+		}
+		if !passes && !nutural {
 			keeper.DeleteDeposits(ctx, activeProposal.ProposalID)
 			activeProposal.Status = StatusRejected
 			tagValue = tags.ActionProposalRejected

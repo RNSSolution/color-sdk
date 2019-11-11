@@ -12,10 +12,10 @@ const (
 	// FirstBlockHeight condation of block heigh reach to 1
 	FirstBlockHeight = 1
 	// LimitFirstFundingCycle condation first funding cycle should start after 4 weeks
-	LimitFirstFundingCycle = 28
+	LimitFirstFundingCycle = 0
 	// FourWeeksHours calculate total hours in 4 weeks
-	FourWeeksHours = time.Hour * time.Duration(24*28)
-
+	//	FourWeeksHours = time.Hour * time.Duration(24*28)
+	FourWeeksHours   = time.Minute * time.Duration(1)
 	DefaultBondDenom = "uclr"
 )
 
