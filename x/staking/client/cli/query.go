@@ -45,11 +45,11 @@ $ colorcli query staking validator cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9l
 	}
 }
 
-//
+// GetCmdQueryCouncilMember implements the CouncilMember query command.
 func GetCmdQueryCouncilMember(storeName string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "councilmember [councilmember-addr]",
-		Short: "Query a councilmember",
+		Use:   "councilmember [member-addr]",
+		Short: "Query a councilcember",
 		Long: strings.TrimSpace(`Query details about an individual councilmember:
 
 $ colorcli query staking councilmember color1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
@@ -57,22 +57,22 @@ $ colorcli query staking councilmember color1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqh
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			cmAddr, err := sdk.AccAddressFromBech32(args[0])
+
+			addr, err := sdk.AccAddressFromBech32(args[0])
 			if err != nil {
 				return err
 			}
 
-			res, err := cliCtx.QueryStore(staking.GetCouncilMemberKey(cmAddr), storeName)
-			fmt.Println(cmAddr)
+			res, err := cliCtx.QueryStore(staking.GetCouncilMemberKey(addr), storeName)
 			if err != nil {
 				return err
 			}
 
 			if len(res) == 0 {
-				return fmt.Errorf("No Council Member found with address %s", cmAddr)
+				return fmt.Errorf("No council member found with address %s", addr)
 			}
 
-			return cliCtx.PrintOutput(types.MustUnmarshalValidator(cdc, res))
+			return cliCtx.PrintOutput(types.MustUnmarshalCouncilMember(cdc, res))
 		},
 	}
 }
@@ -101,6 +101,34 @@ $ colorcli query staking validators
 			}
 
 			return cliCtx.PrintOutput(validators)
+		},
+	}
+}
+
+// GetCmdQueryCouncilMembers implements the query all CouncilMembers command.
+func GetCmdQueryCouncilMembers(storeName string, cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "councilmembers",
+		Short: "Query for all CouncilMembers",
+		Args:  cobra.NoArgs,
+		Long: strings.TrimSpace(`Query details about all CouncilMembers on a network:
+
+$ colorcli query staking councilmembers
+`),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			resKVs, err := cliCtx.QuerySubspace(staking.CouncilMemberKey, storeName)
+			if err != nil {
+				return err
+			}
+
+			var cms staking.CouncilMembers
+			for _, kv := range resKVs {
+				cms = append(cms, types.MustUnmarshalCouncilMember(cdc, kv.Value))
+			}
+
+			return cliCtx.PrintOutput(cms)
 		},
 	}
 }
