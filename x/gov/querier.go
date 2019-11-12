@@ -11,18 +11,20 @@ import (
 
 // query endpoints supported by the governance Querier
 const (
-	QueryParams    = "params"
-	QueryProposals = "proposals"
-	QueryProposal  = "proposal"
-	QueryDeposits  = "deposits"
-	QueryDeposit   = "deposit"
-	QueryVotes     = "votes"
-	QueryVote      = "vote"
-	QueryTally     = "tally"
-
-	ParamDeposit  = "deposit"
-	ParamVoting   = "voting"
-	ParamTallying = "tallying"
+	QueryParams       = "params"
+	QueryProposals    = "proposals"
+	QueryProposal     = "proposal"
+	QueryDeposits     = "deposits"
+	QueryDeposit      = "deposit"
+	QueryVotes        = "votes"
+	QueryVote         = "vote"
+	QueryTally        = "tally"
+	QueryCycle        = "fundingcycle"
+	QueryCycles       = "fundingcycles"
+	QueryEligiblities = "eligiblities"
+	ParamDeposit      = "deposit"
+	ParamVoting       = "voting"
+	ParamTallying     = "tallying"
 )
 
 func NewQuerier(keeper Keeper) sdk.Querier {
@@ -44,6 +46,12 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 			return queryVote(ctx, path[1:], req, keeper)
 		case QueryTally:
 			return queryTally(ctx, path[1:], req, keeper)
+		case QueryCycle:
+			return queryFuncingCycle(ctx, path[1:], req, keeper)
+		case QueryCycles:
+			return queryFuncingCycles(ctx, path[1:], req, keeper)
+		case QueryEligiblities:
+			return queryEligiblities(ctx, path[1:], req, keeper)
 		default:
 			return nil, sdk.ErrUnknownRequest("unknown gov query endpoint")
 		}
@@ -218,7 +226,7 @@ func queryTally(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 		tallyResult = proposal.FinalTallyResult
 	} else {
 		// proposal is in voting period
-		_, tallyResult,_ = tally(ctx, keeper, proposal)
+		_, tallyResult, _ = tally(ctx, keeper, proposal)
 	}
 
 	bz, err := codec.MarshalJSONIndent(keeper.cdc, tallyResult)
@@ -282,6 +290,59 @@ func queryProposals(ctx sdk.Context, path []string, req abci.RequestQuery, keepe
 	proposals := keeper.GetProposalsFiltered(ctx, params.Voter, params.Depositor, params.ProposalStatus, params.Limit)
 
 	bz, err := codec.MarshalJSONIndent(keeper.cdc, proposals)
+	if err != nil {
+		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("could not marshal result to JSON", err.Error()))
+	}
+	return bz, nil
+}
+
+// creates a new instance of QueryProposalParams
+func NewQueryFuncingCycleParams(fndingCycleID uint64) QueryFuncingCycleParams {
+	return QueryFuncingCycleParams{
+		CycleID: fndingCycleID,
+	}
+}
+
+// Params for query 'custom/gov/proposals'
+type QueryFuncingCycleParams struct {
+	CycleID uint64
+}
+
+func queryFuncingCycle(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
+	var params QueryFuncingCycleParams
+	err := keeper.cdc.UnmarshalJSON(req.Data, &params)
+	if err != nil {
+		return nil, sdk.ErrUnknownRequest(sdk.AppendMsgToErr("incorrectly formatted request data", err.Error()))
+	}
+
+	fundingCycle, found := keeper.GetFundingCycle(ctx, params.CycleID)
+	if !found {
+		return nil, sdk.ErrInternal("funding cycle not found")
+	}
+
+	bz, err := codec.MarshalJSONIndent(keeper.cdc, fundingCycle)
+	if err != nil {
+		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("could not marshal result to JSON", err.Error()))
+	}
+	return bz, nil
+}
+
+func queryFuncingCycles(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
+
+	fundingCycles := keeper.GetAllFundingCycle(ctx)
+
+	bz, err := codec.MarshalJSONIndent(keeper.cdc, fundingCycles)
+	if err != nil {
+		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("could not marshal result to JSON", err.Error()))
+	}
+	return bz, nil
+}
+
+func queryEligiblities(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
+
+	eligiblites := keeper.GetProposalEligibility(ctx)
+
+	bz, err := codec.MarshalJSONIndent(keeper.cdc, eligiblites)
 	if err != nil {
 		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("could not marshal result to JSON", err.Error()))
 	}

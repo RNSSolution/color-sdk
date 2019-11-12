@@ -37,6 +37,9 @@ func (mc ModuleClient) GetQueryCmd() *cobra.Command {
 		govCli.GetCmdQueryProposer(mc.storeKey, mc.cdc),
 		govCli.GetCmdQueryDeposit(mc.storeKey, mc.cdc),
 		govCli.GetCmdQueryDeposits(mc.storeKey, mc.cdc),
+		govCli.GetCmdQueryFundingCycle(mc.storeKey, mc.cdc),
+		govCli.GetCmdQueryFundingCycles(mc.storeKey, mc.cdc),
+		govCli.GetCmdQueryEligiblities(mc.storeKey, mc.cdc),
 		govCli.GetCmdQueryTally(mc.storeKey, mc.cdc))...)
 
 	return govQueryCmd

@@ -464,29 +464,20 @@ func (keeper Keeper) TransferFunds(ctx sdk.Context, eligibilityList []Eligibilit
 
 	totalFundCount := sdk.NewCoins()
 	weeklyIncome := keeper.GetTreasuryWeeklyIncome(ctx)
-	limit := GetPercentageAmount(weeklyIncome, 0.5)
+	limit := sdk.NewInt(GetPercentageAmount(weeklyIncome, 0.5))
+
 	for _, eligibility := range eligibilityList {
-
-		// RNS TODO update login from generic loop to specific id
-		depositsIterator := keeper.GetDeposits(ctx, eligibility.ProposalID)
-		defer depositsIterator.Close()
-		for ; depositsIterator.Valid(); depositsIterator.Next() {
-			deposit := &Deposit{}
-			keeper.cdc.MustUnmarshalBinaryLengthPrefixed(depositsIterator.Value(), deposit)
-			totalFundCount = totalFundCount.Add(eligibility.RequestedFund)
-			if VerifyAmount(totalFundCount, limit) {
-				_, err := keeper.ck.SendCoins(ctx, DepositedCoinsAccAddr, deposit.Depositor, eligibility.RequestedFund)
-				if err != nil {
-					panic("should not happen")
-				}
-
-				//Refund deposited amount
-				_, err_refund := keeper.ck.SendCoins(ctx, DepositedCoinsAccAddr, deposit.Depositor, deposit.Amount)
-				if err_refund != nil {
-					panic("should not happen")
-				}
-
+		if VerifyAmount(totalFundCount, limit) {
+			activeProposal, ok := keeper.GetProposal(ctx, eligibility.ProposalID)
+			if !ok {
+				panic(fmt.Sprintf("proposal %d does not exist", eligibility.ProposalID))
 			}
+
+			err := keeper.distrKeeper.DistributeFeePool(ctx, eligibility.RequestedFund, activeProposal.GetProposer())
+			if err != nil {
+				panic("should not happen")
+			}
+			totalFundCount = totalFundCount.Add(eligibility.RequestedFund)
 
 		}
 
@@ -677,8 +668,8 @@ func (keeper Keeper) GetFundingCyclesIterator(ctx sdk.Context) sdk.Iterator {
 	return sdk.KVStorePrefixIterator(store, []byte(PrefixFudingCycleQueue))
 }
 
-func (keeper Keeper) GetFundingCycle(ctx sdk.Context) []FundingCycle {
-	fundingCycles := []FundingCycle{}
+func (keeper Keeper) GetAllFundingCycle(ctx sdk.Context) FundingCycles {
+	fundingCycles := FundingCycles{}
 	fundingCycleIterator := keeper.GetFundingCyclesIterator(ctx)
 	defer fundingCycleIterator.Close()
 	for ; fundingCycleIterator.Valid(); fundingCycleIterator.Next() {
@@ -688,6 +679,21 @@ func (keeper Keeper) GetFundingCycle(ctx sdk.Context) []FundingCycle {
 
 	}
 	return fundingCycles
+}
+
+//GetFundingCycle
+func (keeper Keeper) GetFundingCycle(ctx sdk.Context, CycleID uint64) (FundingCycle, bool) {
+
+	store := ctx.KVStore(keeper.storeKey)
+	fundingCycleID := KeyFundingCycle(CycleID)
+	bz := store.Get(fundingCycleID)
+	if bz == nil {
+		return FundingCycle{}, false
+	}
+	var fundingCycle FundingCycle
+	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &fundingCycle)
+	return fundingCycle, true
+
 }
 
 func (keeper Keeper) AddProposalEligibility(ctx sdk.Context, proposalID uint64) sdk.Error {
@@ -720,8 +726,8 @@ func (keeper Keeper) GetEligibilityIterator(ctx sdk.Context) sdk.Iterator {
 	return sdk.KVStorePrefixIterator(store, []byte(PrefixEligibilityQueue))
 }
 
-func (keeper Keeper) GetProposalEligibility(ctx sdk.Context) []ProposalEligibility {
-	eligibilitylist := []ProposalEligibility{}
+func (keeper Keeper) GetProposalEligibility(ctx sdk.Context) ProposalEligibilitys {
+	eligibilitylist := ProposalEligibilitys{}
 	eligibilityIterator := keeper.GetEligibilityIterator(ctx)
 	defer eligibilityIterator.Close()
 	for ; eligibilityIterator.Valid(); eligibilityIterator.Next() {
@@ -745,7 +751,6 @@ func (keeper Keeper) SetEligibilityDetails(ctx sdk.Context, _eligibilityDetails 
 }
 
 func (keeper Keeper) GetTreasuryWeeklyIncome(ctx sdk.Context) sdk.Dec {
-	fmt.Println("0000000", keeper.distrKeeper.GetCommunityTax(ctx))
 	communityTx := keeper.distrKeeper.GetCommunityTax(ctx)
 	weeklyProivssion := keeper.minKeeper.GetMinter(ctx).WeeklyProvisions
 	treasuryIncome := weeklyProivssion.Mul(FourWeeksProvission)

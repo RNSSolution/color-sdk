@@ -50,3 +50,19 @@ func TestEligibilitySorting(t *testing.T) {
 	require.Equal(t, uint64(2), eligibilityQueue[0].ProposalID)
 
 }
+
+func TestVerifyFunction(t *testing.T) {
+	valTokens := sdk.TokensFromTendermintPower(6)
+	coins := sdk.Coins{sdk.NewCoin(sdk.DefaultBondDenom, valTokens)}
+
+	totalFundCount := sdk.NewCoins()
+	//weeklyIncome := sdk.NewDec(10)
+	limit := sdk.NewInt(5)
+
+	result := VerifyAmount(totalFundCount, limit)
+	require.True(t, result)
+	totalFundCount = totalFundCount.Add(coins)
+	result = VerifyAmount(totalFundCount, limit)
+	require.False(t, result)
+
+}
