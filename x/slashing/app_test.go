@@ -3,9 +3,9 @@ package slashing
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	abci "github.com/ColorPlatform/prism/abci/types"
 	"github.com/ColorPlatform/prism/crypto/secp256k1"
+	"github.com/stretchr/testify/require"
 
 	sdk "github.com/ColorPlatform/color-sdk/types"
 	"github.com/ColorPlatform/color-sdk/x/auth"
@@ -109,8 +109,7 @@ func TestSlashingMsgs(t *testing.T) {
 	commission := staking.NewCommissionMsg(sdk.ZeroDec(), sdk.ZeroDec(), sdk.ZeroDec())
 
 	createValidatorMsg := staking.NewMsgCreateValidator(
-		sdk.ValAddress(addr1), priv1.PubKey(), bondCoin, description, commission, sdk.OneInt(),
-	)
+		sdk.ValAddress(addr1), priv1.PubKey(), bondCoin, description, commission, sdk.OneInt(), sdk.OneInt(), sdk.OneInt())
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
 	mock.SignCheckDeliver(t, mapp.Cdc, mapp.BaseApp, header, []sdk.Msg{createValidatorMsg}, []uint64{0}, []uint64{0}, true, true, priv1)
