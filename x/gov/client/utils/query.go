@@ -250,3 +250,18 @@ func QueryProposalByID(proposalID uint64, cliCtx context.CLIContext, cdc *codec.
 	}
 	return res, err
 }
+
+// QueryProposalByID takes a proposalID and returns a proposal
+func QueryFundingCycleByID(fundingCycleID uint64, cliCtx context.CLIContext, cdc *codec.Codec, queryRoute string) ([]byte, error) {
+	params := gov.NewQueryFuncingCycleParams(fundingCycleID)
+	bz, err := cdc.MarshalJSON(params)
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/fundingcycle", queryRoute), bz)
+	if err != nil {
+		return nil, err
+	}
+	return res, err
+}

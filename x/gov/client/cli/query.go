@@ -517,4 +517,112 @@ $ gaiacli query gov proposer 1
 	}
 }
 
+// GetCmdQueryFundingCycles implements the command to query for funding cycles.
+func GetCmdQueryFundingCycle(queryRoute string, cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "fundingcycle [fundingcycle -id]",
+		Args:  cobra.ExactArgs(1),
+		Short: "Query funding cycle by identifier",
+		Long: strings.TrimSpace(`
+Query funding cycle by identifier.
+
+Example:
+$ colorcli query gov fundingcycle 1
+`),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			// validate that the proposal id is a uint
+			fundingCycleID, err := strconv.ParseUint(args[0], 10, 64)
+			if err != nil {
+				return fmt.Errorf("fundingcyle-id %s not a valid uint, please input a valid proposal-id", args[0])
+			}
+
+			// Query the proposal
+			res, err := gcutils.QueryFundingCycleByID(fundingCycleID, cliCtx, cdc, queryRoute)
+			if err != nil {
+				return err
+			}
+
+			var fundingcycle gov.FundingCycle
+			cdc.MustUnmarshalJSON(res, &fundingcycle)
+			return cliCtx.PrintOutput(fundingcycle)
+		},
+	}
+}
+
+// GetCmdQueryProposals implements a query proposals command.
+func GetCmdQueryFundingCycles(queryRoute string, cdc *codec.Codec) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "fundingcycles",
+		Short: "Query fundingcycles",
+		Long: strings.TrimSpace(`
+Query for a all fundingcycles:
+
+$ colorcli query gov fundingcycles
+
+`),
+		RunE: func(cmd *cobra.Command, args []string) error {
+
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/fundingcycles", queryRoute), nil)
+			if err != nil {
+				return err
+			}
+
+			var fundingCycles gov.FundingCycles
+			err = cdc.UnmarshalJSON(res, &fundingCycles)
+			if err != nil {
+				return err
+			}
+
+			if len(fundingCycles) == 0 {
+				return fmt.Errorf("No funding cycle found")
+			}
+
+			return cliCtx.PrintOutput(fundingCycles) // nolint:errcheck
+		},
+	}
+
+	return cmd
+}
+
+// GetCmdQueryProposals implements a query proposals command.
+func GetCmdQueryEligiblities(queryRoute string, cdc *codec.Codec) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "eligiblities",
+		Short: "Query eligiblities",
+		Long: strings.TrimSpace(`
+Query for a all eligiblities:
+
+$ colorcli query gov eligiblities
+
+`),
+		RunE: func(cmd *cobra.Command, args []string) error {
+
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/eligiblities", queryRoute), nil)
+			if err != nil {
+				return err
+			}
+
+			var eligiblities gov.ProposalEligibilitys
+			err = cdc.UnmarshalJSON(res, &eligiblities)
+			if err != nil {
+				return err
+			}
+
+			if len(eligiblities) == 0 {
+				return fmt.Errorf("No eligiblity found")
+			}
+
+			return cliCtx.PrintOutput(eligiblities) // nolint:errcheck
+		},
+	}
+
+	return cmd
+}
+
 // DONTCOVER

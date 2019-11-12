@@ -1,6 +1,7 @@
 package gov
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -33,6 +34,7 @@ func createValidators(t *testing.T, stakingHandler sdk.Handler, ctx sdk.Context,
 		)
 
 		res := stakingHandler(ctx, valCreateMsg)
+		fmt.Println(res)
 		require.True(t, res.IsOK())
 	}
 }

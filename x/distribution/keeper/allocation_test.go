@@ -1,10 +1,11 @@
 package keeper
 
 import (
+	"fmt"
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	abci "github.com/ColorPlatform/prism/abci/types"
+	"github.com/stretchr/testify/require"
 
 	sdk "github.com/ColorPlatform/color-sdk/types"
 	"github.com/ColorPlatform/color-sdk/x/staking"
@@ -17,7 +18,7 @@ func TestAllocateTokensToValidatorWithCommission(t *testing.T) {
 	// create validator with 50% commission
 	commission := staking.NewCommissionMsg(sdk.NewDecWithPrec(5, 1), sdk.NewDecWithPrec(5, 1), sdk.NewDec(0))
 	msg := staking.NewMsgCreateValidator(valOpAddr1, valConsPk1,
-		sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(100)), staking.Description{}, commission, sdk.OneInt())
+		sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(100)), staking.Description{}, commission, sdk.OneInt(), sdk.OneInt(), sdk.OneInt())
 	require.True(t, sh(ctx, msg).IsOK())
 	val := sk.Validator(ctx, valOpAddr1)
 
@@ -44,13 +45,13 @@ func TestAllocateTokensToManyValidators(t *testing.T) {
 	// create validator with 50% commission
 	commission := staking.NewCommissionMsg(sdk.NewDecWithPrec(5, 1), sdk.NewDecWithPrec(5, 1), sdk.NewDec(0))
 	msg := staking.NewMsgCreateValidator(valOpAddr1, valConsPk1,
-		sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(100)), staking.Description{}, commission, sdk.OneInt())
+		sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(100)), staking.Description{}, commission, sdk.OneInt(), sdk.OneInt(), sdk.OneInt())
 	require.True(t, sh(ctx, msg).IsOK())
 
 	// create second validator with 0% commission
 	commission = staking.NewCommissionMsg(sdk.NewDec(0), sdk.NewDec(0), sdk.NewDec(0))
 	msg = staking.NewMsgCreateValidator(valOpAddr2, valConsPk2,
-		sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(100)), staking.Description{}, commission, sdk.OneInt())
+		sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(100)), staking.Description{}, commission, sdk.OneInt(), sdk.OneInt(), sdk.OneInt())
 	require.True(t, sh(ctx, msg).IsOK())
 
 	abciValA := abci.Validator{
@@ -106,24 +107,25 @@ func TestAllocateTokensToManyValidators(t *testing.T) {
 func TestAllocateTokensTruncation(t *testing.T) {
 	communityTax := sdk.NewDec(0)
 	ctx, _, _, k, sk, fck, _ := CreateTestInputAdvanced(t, false, 1000000, communityTax)
+	fmt.Println("====", k.GetCommunityTax(ctx))
 	sh := staking.NewHandler(sk)
 
 	// create validator with 10% commission
 	commission := staking.NewCommissionMsg(sdk.NewDecWithPrec(1, 1), sdk.NewDecWithPrec(1, 1), sdk.NewDec(0))
 	msg := staking.NewMsgCreateValidator(valOpAddr1, valConsPk1,
-		sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(110)), staking.Description{}, commission, sdk.OneInt())
+		sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(110)), staking.Description{}, commission, sdk.OneInt(), sdk.OneInt(), sdk.OneInt())
 	require.True(t, sh(ctx, msg).IsOK())
 
 	// create second validator with 10% commission
 	commission = staking.NewCommissionMsg(sdk.NewDecWithPrec(1, 1), sdk.NewDecWithPrec(1, 1), sdk.NewDec(0))
 	msg = staking.NewMsgCreateValidator(valOpAddr2, valConsPk2,
-		sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(100)), staking.Description{}, commission, sdk.OneInt())
+		sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(100)), staking.Description{}, commission, sdk.OneInt(), sdk.OneInt(), sdk.OneInt())
 	require.True(t, sh(ctx, msg).IsOK())
 
 	// create third validator with 10% commission
 	commission = staking.NewCommissionMsg(sdk.NewDecWithPrec(1, 1), sdk.NewDecWithPrec(1, 1), sdk.NewDec(0))
 	msg = staking.NewMsgCreateValidator(valOpAddr3, valConsPk3,
-		sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(100)), staking.Description{}, commission, sdk.OneInt())
+		sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(100)), staking.Description{}, commission, sdk.OneInt(), sdk.OneInt(), sdk.OneInt())
 	require.True(t, sh(ctx, msg).IsOK())
 
 	abciValA := abci.Validator{

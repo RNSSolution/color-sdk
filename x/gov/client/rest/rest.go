@@ -26,6 +26,7 @@ const (
 	RestVoter          = "voter"
 	RestProposalStatus = "status"
 	RestNumLimit       = "limit"
+	RestFundingCycleID = "fundingcycle-id"
 )
 
 // RegisterRoutes - Central function to define routes that get registered by the main application
@@ -50,6 +51,9 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec) 
 	r.HandleFunc(fmt.Sprintf("/gov/proposals/{%s}/tally", RestProposalID), queryTallyOnProposalHandlerFn(cdc, cliCtx)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/gov/proposals/{%s}/votes", RestProposalID), queryVotesOnProposalHandlerFn(cdc, cliCtx)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/gov/proposals/{%s}/votes/{%s}", RestProposalID, RestVoter), queryVoteHandlerFn(cdc, cliCtx)).Methods("GET")
+
+	r.HandleFunc("/gov/fundingcycles", queryFundingCycles(cdc, cliCtx)).Methods("GET")
+	r.HandleFunc(fmt.Sprintf("/gov/fundingcycles/{%s}", RestFundingCycleID), queryFudningCycleHandlerFn(cdc, cliCtx)).Methods("GET")
 }
 
 // PostProposalReq defines the properties of a proposal request's body.
@@ -599,6 +603,54 @@ func queryTallyOnProposalHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) 
 		}
 
 		res, err := cliCtx.QueryWithData("custom/gov/tally", bz)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusInternalServerError, err.Error())
+			return
+		}
+
+		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
+	}
+}
+
+// todo: Split this functionality into helper functions to remove the above
+func queryFundingCycles(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+
+		res, err := cliCtx.QueryWithData("custom/gov/fundingcycles", nil)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusInternalServerError, err.Error())
+			return
+		}
+
+		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
+	}
+}
+
+func queryFudningCycleHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		strFundingCycleID := vars[RestFundingCycleID]
+
+		if len(strFundingCycleID) == 0 {
+			err := errors.New("fundingCycleID required but not specified")
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		fundingCycleID, ok := rest.ParseUint64OrReturnBadRequest(w, strFundingCycleID)
+		if !ok {
+			return
+		}
+
+		params := gov.NewQueryFuncingCycleParams(fundingCycleID)
+
+		bz, err := cdc.MarshalJSON(params)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		res, err := cliCtx.QueryWithData("custom/gov/fundingcycle", bz)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusInternalServerError, err.Error())
 			return

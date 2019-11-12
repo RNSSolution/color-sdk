@@ -1,8 +1,10 @@
 package gov
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
+	"strings"
 	"time"
 
 	sdk "github.com/ColorPlatform/color-sdk/types"
@@ -12,9 +14,9 @@ const (
 	// FirstBlockHeight condation of block heigh reach to 1
 	FirstBlockHeight = 1
 	// LimitFirstFundingCycle condation first funding cycle should start after 4 weeks
-	LimitFirstFundingCycle = 28
+	LimitFirstFundingCycle = 0
 	// FourWeeksHours calculate total hours in 4 weeks
-	FourWeeksHours = time.Hour * time.Duration(24*28)
+	FourWeeksHours = time.Minute * time.Duration(1)
 
 	DefaultBondDenom = "uclr"
 )
@@ -26,6 +28,16 @@ type FundingCycle struct {
 	CycleEndTime   time.Time `json:"cycle_end_time"`   //  Time that the funding cycle to end
 }
 
+func (fs FundingCycle) String() string {
+	return fmt.Sprintf(`
+	CycleID:                    %d
+	Cycle Start Time:           %s
+	Cycle End Time:             %s
+`,
+		fs.CycleID, fs.CycleStartTime, fs.CycleEndTime,
+	)
+}
+
 // CheckEqualEndTime Check Current Time of Blockchain
 func (fs FundingCycle) CheckEqualEndTime(currentTime time.Time) bool {
 	if currentTime.After(fs.CycleEndTime) {
@@ -34,17 +46,42 @@ func (fs FundingCycle) CheckEqualEndTime(currentTime time.Time) bool {
 	return false
 
 }
-func GetPercentageAmount(amount sdk.Dec, percentage float64) sdk.Dec {
+func GetPercentageAmount(amount sdk.Dec, percentage float64) int64 {
 	num1, _ := strconv.ParseFloat(amount.String(), 64)
 	percentage = percentage * num1
-	return sdk.NewDec(int64(percentage))
+	return int64(percentage)
 
+}
+
+type FundingCycles []FundingCycle
+
+// nolint
+func (fs FundingCycles) String() string {
+	out := "ID - [StartTime] [EndTime]\n"
+	for _, cycle := range fs {
+		out += fmt.Sprintf("%d - [%s] [%s]\n",
+			cycle.CycleID, cycle.CycleStartTime, cycle.CycleEndTime)
+	}
+	return strings.TrimSpace(out)
 }
 
 type ProposalEligibility struct {
 	ProposalID uint64 `json:"proposal_id"` //  ID of the proposal
 	Rank       uint64 `json:"rank"`        //  rank of the proposal
 }
+
+type ProposalEligibilitys []ProposalEligibility
+
+// nolint
+func (pl ProposalEligibilitys) String() string {
+	out := "ProposalID - [Rank]\n"
+	for _, eligiblity := range pl {
+		out += fmt.Sprintf("%d - [%d]\n",
+			eligiblity.ProposalID, eligiblity.Rank)
+	}
+	return strings.TrimSpace(out)
+}
+
 type EligibilityDetails struct {
 	ProposalID    uint64    `json:"proposal_id"` //  ID of the proposal
 	VotesCount    sdk.Int   `json:"votes_count"` //  rank of the proposal
@@ -64,10 +101,9 @@ func NewEligibilityDetails(proposalID uint64, votes sdk.Int, requestedFund sdk.C
 	return e
 
 }
-func VerifyAmount(totalRequested sdk.Coins, limit sdk.Dec) bool {
-	ts := totalRequested.AmountOf(DefaultBondDenom).Int64()
-	l := limit.Int64()
-	if l <= ts {
+func VerifyAmount(totalRequested sdk.Coins, limit sdk.Int) bool {
+	ts := totalRequested.AmountOf(DefaultBondDenom)
+	if ts.LTE(limit) {
 		return true
 	} else {
 		return false
