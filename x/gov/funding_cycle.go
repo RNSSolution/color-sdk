@@ -14,11 +14,14 @@ const (
 	// FirstBlockHeight condation of block heigh reach to 1
 	FirstBlockHeight = 1
 	// LimitFirstFundingCycle condation first funding cycle should start after 4 weeks
-	LimitFirstFundingCycle = 4
+	//LimitFirstFundingCycle = 4
+	LimitFirstFundingCycle = 0
 	// FourWeeksHours calculate total hours in 4 weeks
-	FourWeeksHours = time.Hour * time.Duration(24*28)
-	//FourWeeksHours   = time.Minute * time.Duration(2)
-	DefaultBondDenom = "uclr"
+	//FourWeeksHours = time.Hour * time.Duration(24*28)
+	FourWeeksHours = time.Minute * time.Duration(2)
+	//StopFundingBeforeDays = -2 //stop on last two days of funding cycle
+	StopFundingBeforeDays = 0 //stop on last two days of funding cycle
+	DefaultBondDenom      = "uclr"
 )
 
 // FundingCycle controlling proposal cycles
@@ -123,12 +126,7 @@ func (keeper Keeper) CheckCycleActive(ctx sdk.Context) bool {
 	currentFundingCycle, err := keeper.GetCurrentCycle(ctx)
 	if err == nil {
 		timeblock := ctx.BlockHeader().Time
-		diff := currentFundingCycle.CycleEndTime.Sub(currentFundingCycle.CycleStartTime)
-		//Difference Between Funding Cycle Time is not Zero
-		if diff.Hours()-(7*4*24) != 0 {
-			return false
-		}
-		if !timeblock.After(currentFundingCycle.CycleEndTime.AddDate(0, 0, -2)) {
+		if !timeblock.After(currentFundingCycle.CycleEndTime.AddDate(0, 0, StopFundingBeforeDays)) {
 			return true
 		}
 		return false

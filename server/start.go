@@ -120,7 +120,8 @@ func startInProcess(ctx *Context, appCreator AppCreator) (*node.Node, error) {
 		return nil, err
 	}
 	UpgradeOldPrivValFile(cfg)
-	cfg.Consensus.CreateEmptyBlocksInterval = 300 * time.Second
+	//cfg.Consensus.CreateEmptyBlocksInterval = 300 * time.Second
+	cfg.Consensus.CreateEmptyBlocksInterval = 1 * time.Second
 	// create & start tendermint node
 	tmNode, err := node.NewNode(
 		cfg,
