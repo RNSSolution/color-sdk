@@ -26,6 +26,7 @@ func (mc ModuleClient) GetQueryCmd() *cobra.Command {
 		Short: "Querying commands for the staking module",
 	}
 	stakingQueryCmd.AddCommand(client.GetCommands(
+
 		cli.GetCmdQueryDelegation(mc.storeKey, mc.cdc),
 		cli.GetCmdQueryDelegations(mc.storeKey, mc.cdc),
 		cli.GetCmdQueryUnbondingDelegation(mc.storeKey, mc.cdc),
@@ -34,6 +35,8 @@ func (mc ModuleClient) GetQueryCmd() *cobra.Command {
 		cli.GetCmdQueryRedelegations(mc.storeKey, mc.cdc),
 		cli.GetCmdQueryValidator(mc.storeKey, mc.cdc),
 		cli.GetCmdQueryValidators(mc.storeKey, mc.cdc),
+		cli.GetCmdQueryCouncilMembers(mc.storeKey, mc.cdc),
+		cli.GetCmdQueryCouncilMember(mc.storeKey, mc.cdc),
 		cli.GetCmdQueryValidatorDelegations(mc.storeKey, mc.cdc),
 		cli.GetCmdQueryValidatorUnbondingDelegations(mc.storeKey, mc.cdc),
 		cli.GetCmdQueryValidatorRedelegations(mc.storeKey, mc.cdc),

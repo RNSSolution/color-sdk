@@ -15,6 +15,7 @@ type (
 	DistributionKeeper      = types.DistributionKeeper
 	Validator               = types.Validator
 	Validators              = types.Validators
+	CouncilMembers          = types.CouncilMembers
 	Description             = types.Description
 	Commission              = types.Commission
 	CommissionMsg           = types.CommissionMsg
@@ -42,6 +43,7 @@ type (
 var (
 	NewKeeper = keeper.NewKeeper
 
+	GetCouncilMemberKey          = keeper.GetCouncilMemberKey
 	GetValidatorKey              = keeper.GetValidatorKey
 	GetValidatorByConsAddrKey    = keeper.GetValidatorByConsAddrKey
 	GetValidatorsByPowerIndexKey = keeper.GetValidatorsByPowerIndexKey
@@ -51,6 +53,7 @@ var (
 	LastValidatorPowerKey        = keeper.LastValidatorPowerKey
 	LastTotalPowerKey            = keeper.LastTotalPowerKey
 	ValidatorsKey                = keeper.ValidatorsKey
+	CouncilMemberKey             = keeper.CouncilMembersKey
 	ValidatorsByConsAddrKey      = keeper.ValidatorsByConsAddrKey
 	ValidatorsByPowerIndexKey    = keeper.ValidatorsByPowerIndexKey
 	DelegationKey                = keeper.DelegationKey

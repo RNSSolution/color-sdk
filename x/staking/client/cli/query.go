@@ -20,7 +20,7 @@ func GetCmdQueryValidator(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query a validator",
 		Long: strings.TrimSpace(`Query details about an individual validator:
 
-$ gaiacli query staking validator cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
+$ colorcli query staking validator cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -45,6 +45,38 @@ $ gaiacli query staking validator cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ld
 	}
 }
 
+// GetCmdQueryCouncilMember implements the CouncilMember query command.
+func GetCmdQueryCouncilMember(storeName string, cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "councilmember [member-addr]",
+		Short: "Query a councilcember",
+		Long: strings.TrimSpace(`Query details about an individual councilmember:
+
+$ colorcli query staking councilmember color1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
+`),
+		Args: cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			addr, err := sdk.AccAddressFromBech32(args[0])
+			if err != nil {
+				return err
+			}
+
+			res, err := cliCtx.QueryStore(staking.GetCouncilMemberKey(addr), storeName)
+			if err != nil {
+				return err
+			}
+
+			if len(res) == 0 {
+				return fmt.Errorf("No council member found with address %s", addr)
+			}
+
+			return cliCtx.PrintOutput(types.MustUnmarshalCouncilMember(cdc, res))
+		},
+	}
+}
+
 // GetCmdQueryValidators implements the query all validators command.
 func GetCmdQueryValidators(storeName string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
@@ -53,7 +85,7 @@ func GetCmdQueryValidators(storeName string, cdc *codec.Codec) *cobra.Command {
 		Args:  cobra.NoArgs,
 		Long: strings.TrimSpace(`Query details about all validators on a network:
 
-$ gaiacli query staking validators
+$ colorcli query staking validators
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -73,6 +105,34 @@ $ gaiacli query staking validators
 	}
 }
 
+// GetCmdQueryCouncilMembers implements the query all CouncilMembers command.
+func GetCmdQueryCouncilMembers(storeName string, cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "councilmembers",
+		Short: "Query for all CouncilMembers",
+		Args:  cobra.NoArgs,
+		Long: strings.TrimSpace(`Query details about all CouncilMembers on a network:
+
+$ colorcli query staking councilmembers
+`),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			resKVs, err := cliCtx.QuerySubspace(staking.CouncilMemberKey, storeName)
+			if err != nil {
+				return err
+			}
+
+			var cms staking.CouncilMembers
+			for _, kv := range resKVs {
+				cms = append(cms, types.MustUnmarshalCouncilMember(cdc, kv.Value))
+			}
+
+			return cliCtx.PrintOutput(cms)
+		},
+	}
+}
+
 // GetCmdQueryValidatorUnbondingDelegations implements the query all unbonding delegatations from a validator command.
 func GetCmdQueryValidatorUnbondingDelegations(storeKey string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
@@ -80,7 +140,7 @@ func GetCmdQueryValidatorUnbondingDelegations(storeKey string, cdc *codec.Codec)
 		Short: "Query all unbonding delegatations from a validator",
 		Long: strings.TrimSpace(`Query delegations that are unbonding _from_ a validator:
 
-$ gaiacli query staking unbonding-delegations-from cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
+$ colorcli query staking unbonding-delegations-from cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -116,7 +176,7 @@ func GetCmdQueryValidatorRedelegations(storeKey string, cdc *codec.Codec) *cobra
 		Short: "Query all outgoing redelegatations from a validator",
 		Long: strings.TrimSpace(`Query delegations that are redelegating _from_ a validator:
 
-$ gaiacli query staking redelegations-from cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
+$ colorcli query staking redelegations-from cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -152,7 +212,7 @@ func GetCmdQueryDelegation(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query a delegation based on address and validator address",
 		Long: strings.TrimSpace(`Query delegations for an individual delegator on an individual validator:
 
-$ gaiacli query staking delegation cosmos1gghjut3ccd8ay0zduzj64hwre2fxs9ld75ru9p cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
+$ colorcli query staking delegation cosmos1gghjut3ccd8ay0zduzj64hwre2fxs9ld75ru9p cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
 `),
 		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -191,7 +251,7 @@ func GetCmdQueryDelegations(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query all delegations made by one delegator",
 		Long: strings.TrimSpace(`Query delegations for an individual delegator on all validators:
 
-$ gaiacli query staking delegations cosmos1gghjut3ccd8ay0zduzj64hwre2fxs9ld75ru9p
+$ colorcli query staking delegations cosmos1gghjut3ccd8ay0zduzj64hwre2fxs9ld75ru9p
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -225,7 +285,7 @@ func GetCmdQueryValidatorDelegations(storeKey string, cdc *codec.Codec) *cobra.C
 		Short: "Query all delegations made to one validator",
 		Long: strings.TrimSpace(`Query delegations on an individual validator:
 
-$ gaiacli query staking delegations-to cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
+$ colorcli query staking delegations-to cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -262,7 +322,7 @@ func GetCmdQueryUnbondingDelegation(storeName string, cdc *codec.Codec) *cobra.C
 		Short: "Query an unbonding-delegation record based on delegator and validator address",
 		Long: strings.TrimSpace(`Query unbonding delegations for an individual delegator on an individual validator:
 
-$ gaiacli query staking unbonding-delegation cosmos1gghjut3ccd8ay0zduzj64hwre2fxs9ld75ru9p cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
+$ colorcli query staking unbonding-delegation cosmos1gghjut3ccd8ay0zduzj64hwre2fxs9ld75ru9p cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
 `),
 		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -297,7 +357,7 @@ func GetCmdQueryUnbondingDelegations(storeName string, cdc *codec.Codec) *cobra.
 		Short: "Query all unbonding-delegations records for one delegator",
 		Long: strings.TrimSpace(`Query unbonding delegations for an individual delegator:
 
-$ gaiacli query staking unbonding-delegation cosmos1gghjut3ccd8ay0zduzj64hwre2fxs9ld75ru9p
+$ colorcli query staking unbonding-delegation cosmos1gghjut3ccd8ay0zduzj64hwre2fxs9ld75ru9p
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -331,7 +391,7 @@ func GetCmdQueryRedelegation(storeName string, cdc *codec.Codec) *cobra.Command 
 		Short: "Query a redelegation record based on delegator and a source and destination validator address",
 		Long: strings.TrimSpace(`Query a redelegation record  for an individual delegator between a source and destination validator:
 
-$ gaiacli query staking redelegation cosmos1gghjut3ccd8ay0zduzj64hwre2fxs9ld75ru9p cosmosvaloper1l2rsakp388kuv9k8qzq6lrm9taddae7fpx59wm cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
+$ colorcli query staking redelegation cosmos1gghjut3ccd8ay0zduzj64hwre2fxs9ld75ru9p cosmosvaloper1l2rsakp388kuv9k8qzq6lrm9taddae7fpx59wm cosmosvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
 `),
 		Args: cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -371,7 +431,7 @@ func GetCmdQueryRedelegations(storeName string, cdc *codec.Codec) *cobra.Command
 		Short: "Query all redelegations records for one delegator",
 		Long: strings.TrimSpace(`Query all redelegation records for an individual delegator:
 
-$ gaiacli query staking redelegation cosmos1gghjut3ccd8ay0zduzj64hwre2fxs9ld75ru9p
+$ colorcli query staking redelegation cosmos1gghjut3ccd8ay0zduzj64hwre2fxs9ld75ru9p
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -404,7 +464,7 @@ func GetCmdQueryPool(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query the current staking pool values",
 		Long: strings.TrimSpace(`Query values for amounts stored in the staking pool:
 
-$ gaiacli query staking pool
+$ colorcli query staking pool
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -427,7 +487,7 @@ func GetCmdQueryParams(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query the current staking parameters information",
 		Long: strings.TrimSpace(`Query values set as staking parameters:
 
-$ gaiacli query staking params
+$ colorcli query staking params
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
