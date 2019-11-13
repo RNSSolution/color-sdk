@@ -461,7 +461,6 @@ func (keeper Keeper) RefundDeposits(ctx sdk.Context, proposalID uint64) {
 
 // TransferFunds Transfer funds from treasury to depositor
 func (keeper Keeper) TransferFunds(ctx sdk.Context, eligibilityList []EligibilityDetails) {
-
 	totalFundCount := sdk.NewCoins()
 	weeklyIncome := keeper.GetTreasuryWeeklyIncome(ctx)
 	limit := sdk.NewInt(GetPercentageAmount(weeklyIncome, 0.5))
@@ -717,6 +716,18 @@ func (keeper Keeper) SetProposalEligibility(ctx sdk.Context, proposalEligibility
 	}
 	store.Set(KeyEligibility(proposalEligibility.ProposalID), bz)
 
+	return nil
+
+}
+func (keeper Keeper) DeleteProposalEligibility(ctx sdk.Context, proposalID uint64) sdk.Error {
+	store := ctx.KVStore(keeper.storeKey)
+	bz := store.Get(KeyEligibility(proposalID))
+	if bz == nil {
+		return ErrInvalidEligibility(keeper.codespace, "Proposal Eligiblity not found")
+	}
+	eligibility := &ProposalEligibility{}
+	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, eligibility)
+	store.Delete(KeyEligibility(proposalID))
 	return nil
 
 }

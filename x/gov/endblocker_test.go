@@ -385,7 +385,6 @@ func TestTickTransferFunds(t *testing.T) {
 
 	SortAddresses(addrs)
 	//CreateTestInputAdvanced1(t, false, 1000000, communityTax, 10, GenesisState{}, nil)
-	fmt.Println("7777777", keeper.distrKeeper.GetCommunityTax(ctx))
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
 	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
 	mapp.EndBlock(abci.RequestEndBlock{Height: 1})

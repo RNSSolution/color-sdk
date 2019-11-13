@@ -53,14 +53,14 @@ func (p Proposal) String() string {
 func (p Proposal) IsZeroRemainingCycle() bool {
 	return p.RemainingFundingCycle == 0
 }
-func (p Proposal) ReduceCycleCount() {
+func (p Proposal) ReduceCycleCount() Proposal {
 
 	if p.RemainingFundingCycle <= 0 {
 		panic("Remaining funding Cycle cannot be less then zero")
 	} else {
 		p.RemainingFundingCycle = p.RemainingFundingCycle - 1
 	}
-
+	return p
 }
 
 // ProposalContent is an interface that has title, description, and proposaltype

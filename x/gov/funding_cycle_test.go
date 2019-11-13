@@ -66,3 +66,19 @@ func TestVerifyFunction(t *testing.T) {
 	require.False(t, result)
 
 }
+
+func TestEligibilityDelation(t *testing.T) {
+
+	mapp, keeper, _, _, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+	keeper.ck.SetSendEnabled(ctx, true)
+
+	err := keeper.AddProposalEligibility(ctx, 1)
+	err = keeper.AddProposalEligibility(ctx, 2)
+	fmt.Println(err)
+	fmt.Println(keeper.GetProposalEligibility(ctx))
+}

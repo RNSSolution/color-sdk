@@ -54,6 +54,8 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec) 
 
 	r.HandleFunc("/gov/fundingcycles", queryFundingCycles(cdc, cliCtx)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/gov/fundingcycles/{%s}", RestFundingCycleID), queryFudningCycleHandlerFn(cdc, cliCtx)).Methods("GET")
+
+	r.HandleFunc("/gov/eligiblities", queryEligiblities(cdc, cliCtx)).Methods("GET")
 }
 
 // PostProposalReq defines the properties of a proposal request's body.
@@ -651,6 +653,20 @@ func queryFudningCycleHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) htt
 		}
 
 		res, err := cliCtx.QueryWithData("custom/gov/fundingcycle", bz)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusInternalServerError, err.Error())
+			return
+		}
+
+		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
+	}
+}
+
+// todo: Split this functionality into helper functions to remove the above
+func queryEligiblities(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+
+		res, err := cliCtx.QueryWithData("custom/gov/eligiblities", nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusInternalServerError, err.Error())
 			return

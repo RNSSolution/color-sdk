@@ -16,8 +16,8 @@ const (
 	// LimitFirstFundingCycle condation first funding cycle should start after 4 weeks
 	LimitFirstFundingCycle = 0
 	// FourWeeksHours calculate total hours in 4 weeks
-	FourWeeksHours = time.Minute * time.Duration(1)
-
+	FourWeeksHours = time.Hour * time.Duration(24*28)
+	//FourWeeksHours   = time.Minute * time.Duration(2)
 	DefaultBondDenom = "uclr"
 )
 

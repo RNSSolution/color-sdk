@@ -97,3 +97,28 @@ func TestProposalSubmission(t *testing.T) {
 	EndBlocker(ctx, keeper)
 
 }
+
+func TestProposalIsZeroRemainingCycle(t *testing.T) {
+
+	mapp, keeper, _, addrs, _, _ := getMockApp(t, 10, GenesisState{}, nil)
+	SortAddresses(addrs)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+	keeper.ck.SetSendEnabled(ctx, true)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = ctx.BlockHeader().Time.Add(time.Duration(1) * time.Second)
+	newHeader.Height = 1
+	ctx = ctx.WithBlockHeader(newHeader)
+	EndBlocker(ctx, keeper)
+	var content ProposalContent
+	content = NewTextProposal("Test", "test", sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1, addrs[0])
+	proposal, _ := keeper.SubmitProposal(ctx, content)
+	proposal = proposal.ReduceCycleCount()
+	fmt.Println(proposal)
+	require.True(t, proposal.IsZeroRemainingCycle())
+
+}

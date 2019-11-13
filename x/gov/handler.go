@@ -26,12 +26,8 @@ func NewHandler(keeper Keeper) sdk.Handler {
 
 func handleMsgSubmitProposal(ctx sdk.Context, keeper Keeper, msg MsgSubmitProposal) sdk.Result {
 	var content ProposalContent
-	// if ExpectedTreasureIncome(keeper, ctx, msg.RequestedFund.AmountOf(sdk.DefaultBondDenom)) {
-	// 	return ErrInvalidTreasureIncome(keeper.codespace, msg.ProposalType).Result()
-	// }
-	_, empty := keeper.GetCurrentCycle(ctx)
-	if empty != nil {
-		return empty.Result()
+	if ExpectedTreasureIncome(keeper, ctx, msg.RequestedFund.AmountOf(sdk.DefaultBondDenom)) {
+		return ErrInvalidTreasureIncome(keeper.codespace, msg.ProposalType).Result()
 	}
 	switch msg.ProposalType {
 	case ProposalTypeText:
