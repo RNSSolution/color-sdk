@@ -7,13 +7,19 @@ import (
 	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
+const (
+	weeklyProvision int64 = 362880000000
+	mintingSpeed int64 = 60000
+	deflationtime = 60*60*24*7*52
+)
+
 // Minter represents the minting state.
 type Minter struct {
 	Deflation        sdk.Dec `json:"deflation"`         // current annual inflation rate
 	WeeklyProvisions sdk.Dec `json:"weekly_provisions"` // current weekly expected provisions
 	MintingSpeed sdk.Dec `json:"minting_speed"` //current minting speed per second
 	DeflationTime time.Time `json:"deflation_time"` //next deflation time
-	BlockTime time.Time 	`json:"block_time"` //timestamp of last block
+	BlockTime time.Time 	`json:"block_time"` //timestamp of block
 }
 
 // NewMinter returns a new Minter object with the given inflation and annual
@@ -33,10 +39,10 @@ func NewMinter(deflation, weeklyProvisions sdk.Dec, mintingspeed sdk.Dec,
 func InitialMinter(deflation sdk.Dec) Minter {
 	return NewMinter(
 		deflation,
-		sdk.NewDec(362880000000),
-		sdk.NewDec(60000),
-		time.Now().UTC().AddDate(0, 0, 7 * 52),
-		time.Now().UTC(),
+		sdk.NewDec(weeklyProvision), 				//initial value of weekly provision
+		sdk.NewDec(mintingSpeed), 						//initial minting speed
+		time.Now().UTC().Add(time.Second * deflationtime), // first deflation time stamp
+		time.Now().UTC(), //current time 
 	)
 }
 

@@ -28,7 +28,7 @@ func BeginBlocker(ctx sdk.Context, k Keeper) {
 // function to check  block height and time and update timestamps if needed.
 func updateWeeklySupply(params Params,minter *Minter, currentTime time.Time) {
 	  if currentTime.After(minter.DeflationTime) {
-		minter.DeflationTime = minter.DeflationTime.AddDate(0, 0, 7 * 52)
+		minter.DeflationTime = minter.DeflationTime.Add(time.Second* deflationtime)
 		minter.WeeklyProvisions, minter.MintingSpeed = minter.NewWeeklySupply(params)
 	 }
 }
