@@ -89,7 +89,6 @@ func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk
 			eligibilityQueue = Append(eligibilityQueue, eligibility)
 
 		} else {
-			fmt.Println("Not passes deleting eligibity")
 			keeper.DeleteProposalEligibility(ctx, activeProposal.ProposalID)
 		}
 		activeProposal.FinalTallyResult = tallyResults
@@ -128,9 +127,13 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 			panic(fmt.Sprintf("proposal %d does not exist", proposalID))
 		}
 		passes, tallyResults, nutural := tally(ctx, keeper, activeProposal)
+		passResult := tallyResults.Yes.Sub(tallyResults.No)
 		var tagValue string
 		if passes {
 
+			fmt.Println("active proposal", activeProposal)
+			eligibility := NewEligibilityDetails(activeProposal.ProposalID, passResult, activeProposal.GetRequestedFund())
+			eligibilityQueue = Append(eligibilityQueue, eligibility)
 			activeProposal.Status = StatusPassed
 			tagValue = tags.ActionProposalPassed
 			activeProposal = activeProposal.ReduceCycleCount()
@@ -138,14 +141,9 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 				keeper.RefundDeposits(ctx, activeProposal.ProposalID)
 				keeper.DeleteProposalEligibility(ctx, activeProposal.ProposalID)
 				keeper.DeleteProposal(ctx, activeProposal.ProposalID)
-			} else {
-				passResult := tallyResults.Yes.Sub(tallyResults.No)
-				eligibility := NewEligibilityDetails(activeProposal.ProposalID, passResult, activeProposal.RequestedFund)
-				eligibilityQueue = Append(eligibilityQueue, eligibility)
 			}
 
 		}
-
 		if !passes && !nutural {
 			keeper.DeleteDeposits(ctx, activeProposal.ProposalID)
 			activeProposal.Status = StatusRejected
@@ -171,6 +169,5 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 
 	eligibilityQueue = SortProposalEligibility(eligibilityQueue)
 	keeper.TransferFunds(ctx, eligibilityQueue)
-	keeper.SetEligibilityDetails(ctx, eligibilityQueue)
 	return resTags
 }
