@@ -70,6 +70,18 @@ func registerQueryRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Co
 		validatorsHandlerFn(cliCtx, cdc),
 	).Methods("GET")
 
+	//Get all Council Members
+	r.HandleFunc(
+		"/staking/councilmembers",
+		councilmembersHandlerFn(cliCtx, cdc),
+	).Methods("GET")
+
+	// Get a single council member info
+	r.HandleFunc(
+		"/staking/councilmembers/{councilmemberAddr}",
+		councilmemberHandlerFn(cliCtx, cdc),
+	).Methods("GET")
+
 	// Get a single validator info
 	r.HandleFunc(
 		"/staking/validators/{validatorAddr}",
@@ -280,6 +292,42 @@ func validatorsHandlerFn(cliCtx context.CLIContext, cdc *codec.Codec) http.Handl
 		}
 		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
 	}
+}
+
+// HTTP request handler to query list of council members
+func councilmembersHandlerFn(cliCtx context.CLIContext, cdc *codec.Codec) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		_, page, _, err := rest.ParseHTTPArgs(r)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		params := staking.NewQueryCouncilMembersParams(page)
+		bz, err := cdc.MarshalJSON(params)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+		route := fmt.Sprintf("custom/%s/%s", staking.QuerierRoute, staking.QueryCouncilMembers)
+		res, err := cliCtx.QueryWithData(route, bz)
+
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusInternalServerError, err.Error())
+			return
+		}
+		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
+
+	}
+}
+
+func councilmemberHandlerFn(cliCtx context.CLIContext, cdc *codec.Codec) http.HandlerFunc {
+	return queryCouncilMember(cliCtx, cdc, "custom/staking/councilmember")
 }
 
 // HTTP request handler to query the validator information from a given validator address

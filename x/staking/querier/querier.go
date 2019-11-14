@@ -16,6 +16,8 @@ import (
 const (
 	QueryValidators                    = "validators"
 	QueryValidator                     = "validator"
+	QueryCouncilMembers                = "councilmembers"
+	QueryCouncilMember                 = "councilmember"
 	QueryDelegatorDelegations          = "delegatorDelegations"
 	QueryDelegatorUnbondingDelegations = "delegatorUnbondingDelegations"
 	QueryRedelegations                 = "redelegations"
@@ -39,6 +41,10 @@ func NewQuerier(k keep.Keeper, cdc *codec.Codec) sdk.Querier {
 			return queryValidators(ctx, cdc, req, k)
 		case QueryValidator:
 			return queryValidator(ctx, cdc, req, k)
+		case QueryCouncilMembers:
+			return queryCouncilMembers(ctx, cdc, req, k)
+		case QueryCouncilMember:
+			return queryCouncilMember(ctx, cdc, req, k)
 		case QueryValidatorDelegations:
 			return queryValidatorDelegations(ctx, cdc, req, k)
 		case QueryValidatorUnbondingDelegations:
@@ -178,6 +184,24 @@ func queryValidators(ctx sdk.Context, cdc *codec.Codec, req abci.RequestQuery, k
 	}
 
 	res, err := codec.MarshalJSONIndent(cdc, filteredVals)
+	if err != nil {
+		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("failed to JSON marshal result: %s", err.Error()))
+	}
+
+	return res, nil
+}
+
+func queryCouncilMembers(ctx sdk.Context, cdc *codec.Codec, req abci.RequestQuery, k keep.Keeper) ([]byte, sdk.Error) {
+	var params QueryCouncilMembersParams
+
+	err := cdc.UnmarshalJSON(req.Data, &params)
+	if err != nil {
+		return nil, sdk.ErrInternal(fmt.Sprintf("failed to parse params: %s", err))
+	}
+
+	cms := k.GetAllCouncilMembers(ctx)
+
+	res, err := codec.MarshalJSONIndent(cdc, cms)
 	if err != nil {
 		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("failed to JSON marshal result: %s", err.Error()))
 	}
@@ -431,4 +455,14 @@ type QueryValidatorsParams struct {
 
 func NewQueryValidatorsParams(page, limit int, status string) QueryValidatorsParams {
 	return QueryValidatorsParams{page, limit, status}
+}
+
+// QueryCouncilMembersParams defines the params for following Queries:
+// - 'custom/staking/councilmembers'
+type QueryCouncilMembersParams struct {
+	Page int
+}
+
+func NewQueryCouncilMembersParams(page int) QueryCouncilMembersParams {
+	return QueryCouncilMembersParams{page}
 }
