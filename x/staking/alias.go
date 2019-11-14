@@ -101,15 +101,19 @@ var (
 	NewMsgUndelegate      = types.NewMsgUndelegate
 	NewMsgBeginRedelegate = types.NewMsgBeginRedelegate
 
-	NewQuerier               = querier.NewQuerier
-	NewQueryDelegatorParams  = querier.NewQueryDelegatorParams
-	NewQueryValidatorParams  = querier.NewQueryValidatorParams
-	NewQueryBondsParams      = querier.NewQueryBondsParams
-	NewQueryValidatorsParams = querier.NewQueryValidatorsParams
+	NewQuerier                   = querier.NewQuerier
+	NewQueryDelegatorParams      = querier.NewQueryDelegatorParams
+	NewQueryValidatorParams      = querier.NewQueryValidatorParams
+	NewQueryBondsParams          = querier.NewQueryBondsParams
+	NewQueryValidatorsParams     = querier.NewQueryValidatorsParams
+	NewQueryCouncilMembersParams = querier.NewQueryCouncilMembersParams
+	NewQueryCouncilMemberParams  = querier.NewQueryCouncilMemberParams
 )
 
 const (
 	QueryValidators                    = querier.QueryValidators
+	QueryCouncilMembers                = querier.QueryCouncilMembers
+	QueryCouncilMember                 = querier.QueryCouncilMember
 	QueryValidator                     = querier.QueryValidator
 	QueryValidatorDelegations          = querier.QueryValidatorDelegations
 	QueryValidatorRedelegations        = querier.QueryValidatorRedelegations

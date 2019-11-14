@@ -122,3 +122,31 @@ func queryValidator(cliCtx context.CLIContext, cdc *codec.Codec, endpoint string
 		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
 	}
 }
+
+func queryCouncilMember(cliCtx context.CLIContext, cdc *codec.Codec, endpoint string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		bech32cmAddr := vars["councilmemberAddr"]
+
+		memberAddr, err := sdk.AccAddressFromBech32(bech32cmAddr)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		params := staking.NewQueryCouncilMemberParams(memberAddr)
+
+		bz, err := cdc.MarshalJSON(params)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		res, err := cliCtx.QueryWithData(endpoint, bz)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusInternalServerError, err.Error())
+			return
+		}
+		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
+	}
+}
