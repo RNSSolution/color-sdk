@@ -12,7 +12,7 @@ import (
 
 const (
 	//MaxCycleCount store the max limit for proposal
-	MaxCycleCount = 6
+	MaxCycleCount = 2
 )
 
 // Proposal is a struct used by gov module internally
