@@ -502,7 +502,6 @@ func (k Keeper) Delegate(ctx sdk.Context, delAddr sdk.AccAddress, bondAmt sdk.In
 			k.SetCouncilMember(ctx, cm)
 		}
 	}
-	fmt.Println(k.GetAllCouncilMembers(ctx))
 
 	return newShares, nil
 }
