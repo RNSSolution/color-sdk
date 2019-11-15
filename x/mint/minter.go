@@ -9,29 +9,29 @@ import (
 
 const (
 	weeklyProvision int64 = 362880000000
-	mintingSpeed int64 = 60000
-	deflationtime = 60*60*24*7*52
+	mintingSpeed    int64 = 600000
+	deflationtime         = 60 * 60 * 24 * 7 * 52
 )
 
 // Minter represents the minting state.
 type Minter struct {
-	Deflation        sdk.Dec `json:"deflation"`         // current annual inflation rate
-	WeeklyProvisions sdk.Dec `json:"weekly_provisions"` // current weekly expected provisions
-	MintingSpeed sdk.Dec `json:"minting_speed"` //current minting speed per second
-	DeflationTime time.Time `json:"deflation_time"` //next deflation time
-	BlockTime time.Time 	`json:"block_time"` //timestamp of block
+	Deflation        sdk.Dec   `json:"deflation"`         // current annual inflation rate
+	WeeklyProvisions sdk.Dec   `json:"weekly_provisions"` // current weekly expected provisions
+	MintingSpeed     sdk.Dec   `json:"minting_speed"`     //current minting speed per second
+	DeflationTime    time.Time `json:"deflation_time"`    //next deflation time
+	BlockTime        time.Time `json:"block_time"`        //timestamp of block
 }
 
 // NewMinter returns a new Minter object with the given inflation and annual
 // provisions values.
-func NewMinter(deflation, weeklyProvisions sdk.Dec, mintingspeed sdk.Dec, 
+func NewMinter(deflation, weeklyProvisions sdk.Dec, mintingspeed sdk.Dec,
 	deflationtime time.Time, blocktime time.Time) Minter {
 	return Minter{
 		Deflation:        deflation,
 		WeeklyProvisions: weeklyProvisions,
-		MintingSpeed: mintingspeed,
-		DeflationTime : deflationtime,
-		BlockTime	: blocktime,
+		MintingSpeed:     mintingspeed,
+		DeflationTime:    deflationtime,
+		BlockTime:        blocktime,
 	}
 }
 
@@ -39,10 +39,10 @@ func NewMinter(deflation, weeklyProvisions sdk.Dec, mintingspeed sdk.Dec,
 func InitialMinter(deflation sdk.Dec) Minter {
 	return NewMinter(
 		deflation,
-		sdk.NewDec(weeklyProvision), 				//initial value of weekly provision
-		sdk.NewDec(mintingSpeed), 						//initial minting speed
-		time.Now().UTC().Add(time.Second * deflationtime), // first deflation time stamp
-		time.Now().UTC(), //current time 
+		sdk.NewDec(weeklyProvision), //initial value of weekly provision
+		sdk.NewDec(mintingSpeed),    //initial minting speed
+		time.Now().UTC().Add(time.Second*deflationtime), // first deflation time stamp
+		time.Now().UTC(), //current time
 	)
 }
 
@@ -63,11 +63,11 @@ func validateMinter(minter Minter) error {
 }
 
 // NewWeeklySupply reduces the amount of weekly supply by 5%
-func (m Minter) NewWeeklySupply(params Params) (sdk.Dec,sdk.Dec) {
+func (m Minter) NewWeeklySupply(params Params) (sdk.Dec, sdk.Dec) {
 	provisionAmt := m.WeeklyProvisions.QuoInt(sdk.NewInt(int64(params.BlocksPerWeek)))
-	
+
 	return m.WeeklyProvisions.Sub(m.Deflation.Mul(m.WeeklyProvisions)),
-	provisionAmt
+		provisionAmt
 }
 
 // BlockProvision returns the provisions for a block based on the annual
