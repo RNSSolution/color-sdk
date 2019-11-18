@@ -114,6 +114,7 @@ func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk
 func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags {
 	logger := ctx.Logger().With("module", "x/gov")
 	eligibilityQueue := []EligibilityDetails{}
+	var tagValue string
 
 	// fetch active proposals whose voting periods have ended (are passed the block time)
 	activeIterator := keeper.ActiveProposalQueueIterator(ctx, ctx.BlockHeader().Time)
@@ -126,12 +127,12 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 		if !ok {
 			panic(fmt.Sprintf("proposal %d does not exist", proposalID))
 		}
+
 		passes, tallyResults, nutural := tally(ctx, keeper, activeProposal)
 		passResult := tallyResults.Yes.Sub(tallyResults.No)
-		var tagValue string
+
 		if passes {
 
-			fmt.Println("active proposal", activeProposal)
 			eligibility := NewEligibilityDetails(activeProposal.ProposalID, passResult, activeProposal.GetRequestedFund())
 			eligibilityQueue = Append(eligibilityQueue, eligibility)
 			activeProposal.Status = StatusPassed
@@ -143,19 +144,24 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 				keeper.DeleteProposal(ctx, activeProposal.ProposalID)
 			}
 
-		}
-		if !passes && !nutural {
+		} else if !passes && !nutural {
 			keeper.DeleteDeposits(ctx, activeProposal.ProposalID)
 			activeProposal.Status = StatusRejected
 			tagValue = tags.ActionProposalRejected
+		} else {
+			activeProposal.FundingCycleCount = activeProposal.FundingCycleCount + 1
+			maxCycleLimit := activeProposal.CheckMaxCycleCount()
+			if maxCycleLimit {
+				keeper.DeleteProposalEligibility(ctx, activeProposal.ProposalID)
+				keeper.DeleteProposal(ctx, activeProposal.ProposalID)
+				activeProposal.Status = StatusRejected
+				tagValue = tags.ActionProposalRejected
+
+			}
+
 		}
 
 		activeProposal.FinalTallyResult = tallyResults
-		keeper.SetProposal(ctx, activeProposal)
-
-		// TODO check if no remaining cycle left then delete proposal
-		//	keeper.RemoveFromActiveProposalQueue(ctx, activeProposal.VotingEndTime, activeProposal.ProposalID)
-
 		logger.Info(
 			fmt.Sprintf(
 				"proposal %d (%s) tallied; passed: %v",
@@ -163,8 +169,14 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 			),
 		)
 
+		keeper.SetProposal(ctx, activeProposal)
+
+		// TODO check if no remaining cycle left then delete proposal
+		//	keeper.RemoveFromActiveProposalQueue(ctx, activeProposal.VotingEndTime, activeProposal.ProposalID)
+
 		resTags = resTags.AppendTag(tags.ProposalID, fmt.Sprintf("%d", proposalID))
 		resTags = resTags.AppendTag(tags.ProposalResult, tagValue)
+
 	}
 
 	eligibilityQueue = SortProposalEligibility(eligibilityQueue)

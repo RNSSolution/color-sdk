@@ -10,6 +10,11 @@ import (
 	sdk "github.com/ColorPlatform/color-sdk/types"
 )
 
+const (
+	//MaxCycleCount store the max limit for proposal
+	MaxCycleCount = 2
+)
+
 // Proposal is a struct used by gov module internally
 // embedds ProposalContent with additional fields to record the status of the proposal process
 type Proposal struct {
@@ -24,6 +29,7 @@ type Proposal struct {
 	TotalDeposit          sdk.Coins      `json:"total_deposit"`           //  Current deposit on this proposal. Initial value is set at InitialDeposit	RequestedFund   sdk.Coins `json:"requested_fund"`    //  Fund Requested
 	RequestedFund         sdk.Coins      `json:"requested_fund"`          //  Fund Requested
 	RemainingFundingCycle uint64         `json:"remaining_funding_cycle"` //   Remaining Funding Cycle
+	FundingCycleCount     uint64         `json:"funding_cycle_count"`     //   Remaining Funding Cycle
 	VotingStartTime       time.Time      `json:"voting_start_time"`       //  Time of the block where MinDeposit was reached. -1 if MinDeposit is not reached
 	VotingEndTime         time.Time      `json:"voting_end_time"`         // Time that the VotingPeriod for this proposal will end and votes will be tallied
 	Proposer              sdk.AccAddress `json:"proposer"`                //  Address of the proposer
@@ -40,18 +46,21 @@ func (p Proposal) String() string {
   Total Deposit:      %s
   Requested Fund:     %s
   Funding Cycle:      %d
-  Remaining Cycle:    %d
   Voting Start Time:  %s
   Voting End Time:    %s
   Description:        %s`,
 		p.ProposalID, p.GetTitle(), p.ProposalType(),
 		p.Status, p.SubmitTime, p.DepositEndTime,
-		p.TotalDeposit, p.GetRequestedFund(), p.GetFundingCycle(), p.RemainingFundingCycle, p.VotingStartTime, p.VotingEndTime, p.GetDescription(),
+		p.TotalDeposit, p.GetRequestedFund(), p.GetFundingCycle(), p.VotingStartTime, p.VotingEndTime, p.GetDescription(),
 	)
 }
 
 func (p Proposal) IsZeroRemainingCycle() bool {
 	return p.RemainingFundingCycle == 0
+}
+
+func (p Proposal) CheckMaxCycleCount() bool {
+	return p.FundingCycleCount == MaxCycleCount
 }
 func (p Proposal) ReduceCycleCount() Proposal {
 
