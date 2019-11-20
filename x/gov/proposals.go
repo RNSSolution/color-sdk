@@ -27,13 +27,11 @@ type Proposal struct {
 	SubmitTime            time.Time      `json:"submit_time"`             //  Time of the block where TxGovSubmitProposal was included
 	DepositEndTime        time.Time      `json:"deposit_end_time"`        // Time that the Proposal would expire if deposit amount isn't met
 	TotalDeposit          sdk.Coins      `json:"total_deposit"`           //  Current deposit on this proposal. Initial value is set at InitialDeposit	RequestedFund   sdk.Coins `json:"requested_fund"`    //  Fund Requested
-	RequestedFund         sdk.Coins      `json:"requested_fund"`          //  Fund Requested
 	RemainingFundingCycle uint64         `json:"remaining_funding_cycle"` //   Remaining Funding Cycle
 	FundingCycleCount     uint64         `json:"funding_cycle_count"`     //   Remaining Funding Cycle
 	Ranking               sdk.Int        `json:"ranking"`                 //   Remaining Funding Cycle
 	VotingStartTime       time.Time      `json:"voting_start_time"`       //  Time of the block where MinDeposit was reached. -1 if MinDeposit is not reached
 	VotingEndTime         time.Time      `json:"voting_end_time"`         // Time that the VotingPeriod for this proposal will end and votes will be tallied
-	Proposer              sdk.AccAddress `json:"proposer"`                //  Address of the proposer
 }
 
 // nolint

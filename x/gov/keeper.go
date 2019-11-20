@@ -1,6 +1,7 @@
 package gov
 
 import (
+	"fmt"
 	"time"
 
 	codec "github.com/ColorPlatform/color-sdk/codec"
@@ -130,8 +131,13 @@ func (keeper Keeper) SubmitProposal(ctx sdk.Context, content ProposalContent) (p
 		DepositEndTime:        submitTime,
 	}
 	keeper.SetProposal(ctx, proposal)
-	//keeper.InsertInactiveProposalQueue(ctx, proposal.DepositEndTime, proposalID)
-	keeper.activateVotingPeriod(ctx, proposal)
+	_, err = keeper.GetCurrentCycle(ctx)
+	if err != nil {
+		keeper.InsertInactiveProposalQueue(ctx, proposal.DepositEndTime, proposalID)
+	} else {
+		keeper.activateVotingPeriod(ctx, proposal)
+	}
+
 	return
 }
 
@@ -267,7 +273,7 @@ func (keeper Keeper) activateVotingPeriod(ctx sdk.Context, proposal Proposal) {
 	proposal.Status = StatusVotingPeriod
 	keeper.SetProposal(ctx, proposal)
 
-	//keeper.RemoveFromInactiveProposalQueue(ctx, proposal.DepositEndTime, proposal.ProposalID)
+	keeper.RemoveFromInactiveProposalQueue(ctx, proposal.DepositEndTime, proposal.ProposalID)
 	keeper.InsertActiveProposalQueue(ctx, proposal.VotingEndTime, proposal.ProposalID)
 }
 
@@ -468,11 +474,11 @@ func (keeper Keeper) TransferFunds(ctx sdk.Context, proposals []Proposal) {
 	for _, proposal := range proposals {
 		if VerifyAmount(totalFundCount, limit) {
 
-			err := keeper.distrKeeper.DistributeFeePool(ctx, proposal.RequestedFund, proposal.GetProposer())
+			err := keeper.distrKeeper.DistributeFeePool(ctx, proposal.GetRequestedFund(), proposal.GetProposer())
 			if err != nil {
 				panic("should not happen")
 			}
-			totalFundCount = totalFundCount.Add(proposal.RequestedFund)
+			totalFundCount = totalFundCount.Add(proposal.GetRequestedFund())
 
 		}
 
@@ -537,6 +543,22 @@ func (keeper Keeper) InsertInactiveProposalQueue(ctx sdk.Context, endTime time.T
 func (keeper Keeper) RemoveFromInactiveProposalQueue(ctx sdk.Context, endTime time.Time, proposalID uint64) {
 	store := ctx.KVStore(keeper.storeKey)
 	store.Delete(KeyInactiveProposalQueueProposal(endTime, proposalID))
+}
+
+func (keeper Keeper) RemoveFromInactiveProposalQueueIterator(ctx sdk.Context) {
+
+	inactiveIterator := keeper.InactiveProposalQueueIterator(ctx, ctx.BlockHeader().Time)
+	defer inactiveIterator.Close()
+	for ; inactiveIterator.Valid(); inactiveIterator.Next() {
+		var proposalID uint64
+
+		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(inactiveIterator.Value(), &proposalID)
+		inactiveProposal, ok := keeper.GetProposal(ctx, proposalID)
+		if !ok {
+			panic(fmt.Sprintf("proposal %d does not exist", proposalID))
+		}
+		keeper.activateVotingPeriod(ctx, inactiveProposal)
+	}
 }
 
 // GetCurrentCycle return the active funding cycle
@@ -714,8 +736,12 @@ func (keeper Keeper) GetEligibilityIterator(ctx sdk.Context) sdk.Iterator {
 
 func (keeper Keeper) SetEligibilityDetails(ctx sdk.Context, proposals []Proposal) {
 	for index, proposal := range proposals {
-		proposal.Ranking = sdk.NewInt(int64(index + 1))
-		keeper.SetProposal(ctx, proposal)
+		updatedProposal, ok := keeper.GetProposal(ctx, proposal.ProposalID)
+		if !ok {
+			panic(fmt.Sprintf("proposal %d does not exist", proposal.ProposalID))
+		}
+		updatedProposal.Ranking = sdk.NewInt(int64(index + 1))
+		keeper.SetProposal(ctx, updatedProposal)
 
 	}
 

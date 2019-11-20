@@ -16,8 +16,8 @@ func EndBlocker(ctx sdk.Context, keeper Keeper) sdk.Tags {
 		days, err := keeper.GetDaysPassed(ctx)
 		if err != nil {
 			keeper.SetBlockTime(ctx)
-			days, _ = keeper.GetDaysPassed(ctx)
 		} else if days >= LimitFirstFundingCycle {
+			keeper.RemoveFromInactiveProposalQueueIterator(ctx)
 			keeper.AddFundingCycle(ctx)
 		}
 
@@ -132,7 +132,6 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 		passes, tallyResults, nutural := tally(ctx, keeper, activeProposal)
 
 		if passes {
-
 			proposals = append(proposals, activeProposal)
 			results = append(results, tallyResults)
 			activeProposal.Status = StatusPassed
