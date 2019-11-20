@@ -257,13 +257,12 @@ func TestTickPassedSubmitProposal(t *testing.T) {
 	ctx = ctx.WithBlockHeader(newHeader)
 	EndBlocker(ctx, keeper)
 
-	require.Empty(t, keeper.GetProposalEligibility(ctx))
 	newProposalMsg = NewMsgSubmitProposal("Test", "test", ProposalTypeText, addrs[0], sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 5)}, 1)
 	govHandler = NewHandler(keeper)
 	res = govHandler(ctx, newProposalMsg)
 	require.True(t, res.IsOK())
-
-	require.Equal(t, 1, len(keeper.GetProposalEligibility(ctx)))
+	proposal, _ = keeper.GetProposal(ctx, 1)
+	fmt.Println(proposal)
 
 }
 
@@ -371,9 +370,6 @@ func TestTickSortingProposalEligibility(t *testing.T) {
 	newHeader.Height = 4
 	ctx = ctx.WithBlockHeader(newHeader)
 	EndBlocker(ctx, keeper)
-
-	eligibility_list := keeper.GetProposalEligibility(ctx)
-	require.Equal(t, uint64(1), eligibility_list[0].ProposalID)
 
 }
 
@@ -502,8 +498,6 @@ func TestVotingSubmittedProposalBasic(t *testing.T) {
 	ctx = ctx.WithBlockHeader(newHeader)
 	EndBlocker(ctx, keeper)
 
-	require.Equal(t, 1, len(keeper.GetProposalEligibility(ctx)))
-
 }
 
 func TestVotingSubmittedProposalAdvance(t *testing.T) {
@@ -565,7 +559,5 @@ func TestVotingSubmittedProposalAdvance(t *testing.T) {
 	res = govHandler(ctx, msg)
 	vote, found = keeper.GetVote(ctx, msg.ProposalID, msg.Voter)
 	require.False(t, found)
-
-	require.Equal(t, 1, len(keeper.GetProposalEligibility(ctx)))
 
 }

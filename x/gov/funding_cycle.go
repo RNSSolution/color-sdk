@@ -16,8 +16,8 @@ const (
 	// LimitFirstFundingCycle condation first funding cycle should start after 4 weeks
 	LimitFirstFundingCycle = 0
 	// FourWeeksHours calculate total hours in 4 weeks
-	FourWeeksHours        = time.Hour * time.Duration(24*28)
-	StopFundingBeforeDays = -2 //stop on last two days of funding cycle
+	FourWeeksHours        = time.Minute * time.Duration(2)
+	StopFundingBeforeDays = 0 //stop on last two days of funding cycle
 	DefaultBondDenom      = "uclr"
 )
 
@@ -66,35 +66,14 @@ func (fs FundingCycles) String() string {
 }
 
 type ProposalEligibility struct {
-	ProposalID uint64 `json:"proposal_id"` //  ID of the proposal
-	Rank       uint64 `json:"rank"`        //  rank of the proposal
-}
-
-type ProposalEligibilitys []ProposalEligibility
-
-// nolint
-func (pl ProposalEligibilitys) String() string {
-	out := "ProposalID - [Rank]\n"
-	for _, eligiblity := range pl {
-		out += fmt.Sprintf("%d - [%d]\n",
-			eligiblity.ProposalID, eligiblity.Rank)
-	}
-	return strings.TrimSpace(out)
-}
-
-type EligibilityDetails struct {
 	ProposalID    uint64    `json:"proposal_id"` //  ID of the proposal
 	VotesCount    sdk.Int   `json:"votes_count"` //  rank of the proposal
 	RequestedFund sdk.Coins `json:"votes_count"` //  rank of the proposal
 }
 
-func Append(eligibilityList []EligibilityDetails, eligibility EligibilityDetails) []EligibilityDetails {
-	return append(eligibilityList, eligibility)
-}
+func NewEligibilityDetails(proposalID uint64, votes sdk.Int, requestedFund sdk.Coins) ProposalEligibility {
 
-func NewEligibilityDetails(proposalID uint64, votes sdk.Int, requestedFund sdk.Coins) EligibilityDetails {
-
-	var e EligibilityDetails
+	var e ProposalEligibility
 	e.ProposalID = proposalID
 	e.VotesCount = votes
 	e.RequestedFund = requestedFund
@@ -111,11 +90,14 @@ func VerifyAmount(totalRequested sdk.Coins, limit sdk.Int) bool {
 
 }
 
-func SortProposalEligibility(eligibilityList []EligibilityDetails) []EligibilityDetails {
-	sort.Slice(eligibilityList, func(i, j int) bool {
-		return eligibilityList[i].VotesCount.GT(eligibilityList[j].VotesCount)
+func SortProposalEligibility(proposals []Proposal, results []TallyResult) []Proposal {
+	sort.Slice(proposals, func(i, j int) bool {
+		votesA := results[i].Yes.Sub(results[i].No)
+		votesB := results[i].Yes.Sub(results[i].No)
+
+		return votesA.GT(votesB)
 	})
-	return eligibilityList
+	return proposals
 }
 
 //CheckCycleActive Stop Funding on last two days of Funding Cycle

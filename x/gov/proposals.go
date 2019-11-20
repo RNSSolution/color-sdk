@@ -30,6 +30,7 @@ type Proposal struct {
 	RequestedFund         sdk.Coins      `json:"requested_fund"`          //  Fund Requested
 	RemainingFundingCycle uint64         `json:"remaining_funding_cycle"` //   Remaining Funding Cycle
 	FundingCycleCount     uint64         `json:"funding_cycle_count"`     //   Remaining Funding Cycle
+	Ranking               sdk.Int        `json:"ranking"`                 //   Remaining Funding Cycle
 	VotingStartTime       time.Time      `json:"voting_start_time"`       //  Time of the block where MinDeposit was reached. -1 if MinDeposit is not reached
 	VotingEndTime         time.Time      `json:"voting_end_time"`         // Time that the VotingPeriod for this proposal will end and votes will be tallied
 	Proposer              sdk.AccAddress `json:"proposer"`                //  Address of the proposer
@@ -39,6 +40,7 @@ type Proposal struct {
 func (p Proposal) String() string {
 	return fmt.Sprintf(`Proposal %d:
   Title:              %s
+  Ranking             %s
   Type:               %s
   Status:             %s
   Submit Time:        %s
@@ -49,7 +51,7 @@ func (p Proposal) String() string {
   Voting Start Time:  %s
   Voting End Time:    %s
   Description:        %s`,
-		p.ProposalID, p.GetTitle(), p.ProposalType(),
+		p.ProposalID, p.GetTitle(), p.Ranking, p.ProposalType(),
 		p.Status, p.SubmitTime, p.DepositEndTime,
 		p.TotalDeposit, p.GetRequestedFund(), p.GetFundingCycle(), p.VotingStartTime, p.VotingEndTime, p.GetDescription(),
 	)
