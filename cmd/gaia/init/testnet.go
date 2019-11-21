@@ -132,7 +132,7 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 
 	config.LogLevel = "main:info,state:info,*:error"
 	config.ProfListenAddress = "0.0.0.0:6060"
-	config.Consensus.TimeoutCommit = 200*time.Millisecond
+	config.Consensus.TimeoutCommit = 200 * time.Millisecond
 
 	var (
 		accs     []app.GenesisAccount
@@ -158,7 +158,6 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 			} else {
 				config.LogLevel = "main:info,state:info,*:error"
 			}
-
 
 			config.SetRoot(nodeDir)
 
@@ -228,7 +227,7 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 				return err
 			}
 
-			accStakingTokens := sdk.TokensFromTendermintPower(5555555)
+			accStakingTokens := sdk.TokensFromTendermintPower(17777778)
 			accs = append(accs, app.GenesisAccount{
 				Address: addr,
 				Coins: sdk.Coins{
@@ -236,7 +235,7 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 				},
 			})
 
-			valTokens := sdk.TokensFromTendermintPower(1000000)
+			valTokens := sdk.TokensFromTendermintPower(45000)
 			msg := staking.NewMsgCreateValidator(
 				sdk.ValAddress(addr),
 				valPubKeys[i],
@@ -293,7 +292,6 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 	if err := initGenFiles(cdc, chainID, accs, genFiles, numLeagues*numValidators, genVals); err != nil {
 		return err
 	}
-
 
 	err := collectGenFiles(
 		cdc, config, chainID, genVals, monikers, nodeIDs, valPubKeys, numLeagues*numValidators,
@@ -398,7 +396,6 @@ func collectGenFiles(
 		config.P2P.AllowDuplicateIP = true
 		config.P2P.MaxNumInboundPeers = 100
 		//config.P2P.MaxNumOutboundPeers = 100
-
 
 		config.SetRoot(nodeDir)
 
