@@ -131,8 +131,13 @@ func (keeper Keeper) SubmitProposal(ctx sdk.Context, content ProposalContent) (p
 		DepositEndTime:        submitTime,
 	}
 	keeper.SetProposal(ctx, proposal)
-	//keeper.InsertInactiveProposalQueue(ctx, proposal.DepositEndTime, proposalID)
-	keeper.activateVotingPeriod(ctx, proposal)
+	_, err = keeper.GetCurrentCycle(ctx)
+	if err != nil {
+		keeper.InsertInactiveProposalQueue(ctx, proposal.DepositEndTime, proposalID)
+	} else {
+		keeper.activateVotingPeriod(ctx, proposal)
+	}
+
 	return
 }
 
@@ -268,7 +273,7 @@ func (keeper Keeper) activateVotingPeriod(ctx sdk.Context, proposal Proposal) {
 	proposal.Status = StatusVotingPeriod
 	keeper.SetProposal(ctx, proposal)
 
-	//keeper.RemoveFromInactiveProposalQueue(ctx, proposal.DepositEndTime, proposal.ProposalID)
+	keeper.RemoveFromInactiveProposalQueue(ctx, proposal.DepositEndTime, proposal.ProposalID)
 	keeper.InsertActiveProposalQueue(ctx, proposal.VotingEndTime, proposal.ProposalID)
 }
 
@@ -461,23 +466,19 @@ func (keeper Keeper) RefundDeposits(ctx sdk.Context, proposalID uint64) {
 }
 
 // TransferFunds Transfer funds from treasury to depositor
-func (keeper Keeper) TransferFunds(ctx sdk.Context, eligibilityList []EligibilityDetails) {
+func (keeper Keeper) TransferFunds(ctx sdk.Context, proposals []Proposal) {
 	totalFundCount := sdk.NewCoins()
 	weeklyIncome := keeper.GetTreasuryWeeklyIncome(ctx)
 	limit := sdk.NewInt(GetPercentageAmount(weeklyIncome, 0.5))
 
-	for _, eligibility := range eligibilityList {
+	for _, proposal := range proposals {
 		if VerifyAmount(totalFundCount, limit) {
-			activeProposal, ok := keeper.GetProposal(ctx, eligibility.ProposalID)
-			if !ok {
-				panic(fmt.Sprintf("proposal %d does not exist", eligibility.ProposalID))
-			}
 
-			err := keeper.distrKeeper.DistributeFeePool(ctx, eligibility.RequestedFund, activeProposal.GetProposer())
+			err := keeper.distrKeeper.DistributeFeePool(ctx, proposal.GetRequestedFund(), proposal.GetProposer())
 			if err != nil {
 				panic("should not happen")
 			}
-			totalFundCount = totalFundCount.Add(eligibility.RequestedFund)
+			totalFundCount = totalFundCount.Add(proposal.GetRequestedFund())
 
 		}
 
@@ -542,6 +543,22 @@ func (keeper Keeper) InsertInactiveProposalQueue(ctx sdk.Context, endTime time.T
 func (keeper Keeper) RemoveFromInactiveProposalQueue(ctx sdk.Context, endTime time.Time, proposalID uint64) {
 	store := ctx.KVStore(keeper.storeKey)
 	store.Delete(KeyInactiveProposalQueueProposal(endTime, proposalID))
+}
+
+func (keeper Keeper) RemoveFromInactiveProposalQueueIterator(ctx sdk.Context) {
+
+	inactiveIterator := keeper.InactiveProposalQueueIterator(ctx, ctx.BlockHeader().Time)
+	defer inactiveIterator.Close()
+	for ; inactiveIterator.Valid(); inactiveIterator.Next() {
+		var proposalID uint64
+
+		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(inactiveIterator.Value(), &proposalID)
+		inactiveProposal, ok := keeper.GetProposal(ctx, proposalID)
+		if !ok {
+			panic(fmt.Sprintf("proposal %d does not exist", proposalID))
+		}
+		keeper.activateVotingPeriod(ctx, inactiveProposal)
+	}
 }
 
 // GetCurrentCycle return the active funding cycle
@@ -696,19 +713,6 @@ func (keeper Keeper) GetFundingCycle(ctx sdk.Context, CycleID uint64) (FundingCy
 
 }
 
-func (keeper Keeper) AddProposalEligibility(ctx sdk.Context, proposalID uint64) sdk.Error {
-	proposalEligibility := ProposalEligibility{
-		ProposalID: proposalID,
-		Rank:       0,
-	}
-	err := keeper.SetProposalEligibility(ctx, proposalEligibility)
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
 func (keeper Keeper) SetProposalEligibility(ctx sdk.Context, proposalEligibility ProposalEligibility) sdk.Error {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(proposalEligibility)
@@ -720,17 +724,9 @@ func (keeper Keeper) SetProposalEligibility(ctx sdk.Context, proposalEligibility
 	return nil
 
 }
-func (keeper Keeper) DeleteProposalEligibility(ctx sdk.Context, proposalID uint64) sdk.Error {
-	store := ctx.KVStore(keeper.storeKey)
-	bz := store.Get(KeyEligibility(proposalID))
-	if bz == nil {
-		return ErrInvalidEligibility(keeper.codespace, "Proposal Eligiblity not found")
-	}
-	eligibility := &ProposalEligibility{}
-	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, eligibility)
-	store.Delete(KeyEligibility(proposalID))
-	return nil
-
+func (keeper Keeper) DeleteProposalEligibility(ctx sdk.Context, proposal Proposal) {
+	proposal.Ranking = sdk.ZeroInt()
+	keeper.SetProposal(ctx, proposal)
 }
 
 func (keeper Keeper) GetEligibilityIterator(ctx sdk.Context) sdk.Iterator {
@@ -738,25 +734,14 @@ func (keeper Keeper) GetEligibilityIterator(ctx sdk.Context) sdk.Iterator {
 	return sdk.KVStorePrefixIterator(store, []byte(PrefixEligibilityQueue))
 }
 
-func (keeper Keeper) GetProposalEligibility(ctx sdk.Context) ProposalEligibilitys {
-	eligibilitylist := ProposalEligibilitys{}
-	eligibilityIterator := keeper.GetEligibilityIterator(ctx)
-	defer eligibilityIterator.Close()
-	for ; eligibilityIterator.Valid(); eligibilityIterator.Next() {
-		eligibility := &ProposalEligibility{}
-		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(eligibilityIterator.Value(), eligibility)
-		eligibilitylist = append(eligibilitylist, *eligibility)
-
-	}
-	return eligibilitylist
-}
-
-func (keeper Keeper) SetEligibilityDetails(ctx sdk.Context, _eligibilityDetails []EligibilityDetails) {
-	for index, element := range _eligibilityDetails {
-		eligibility := ProposalEligibility{}
-		eligibility.ProposalID = element.ProposalID
-		eligibility.Rank = uint64(index + 1)
-		keeper.SetProposalEligibility(ctx, eligibility)
+func (keeper Keeper) SetEligibilityDetails(ctx sdk.Context, proposals []Proposal) {
+	for index, proposal := range proposals {
+		updatedProposal, ok := keeper.GetProposal(ctx, proposal.ProposalID)
+		if !ok {
+			panic(fmt.Sprintf("proposal %d does not exist", proposal.ProposalID))
+		}
+		updatedProposal.Ranking = sdk.NewInt(int64(index + 1))
+		keeper.SetProposal(ctx, updatedProposal)
 
 	}
 

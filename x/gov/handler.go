@@ -43,7 +43,6 @@ func handleMsgSubmitProposal(ctx sdk.Context, keeper Keeper, msg MsgSubmitPropos
 	}
 	proposalID := proposal.ProposalID
 	proposalIDStr := fmt.Sprintf("%d", proposalID)
-	keeper.AddProposalEligibility(ctx, proposalID)
 
 	err, votingStarted := keeper.AddDeposit(ctx, proposalID, msg.Proposer, msg.InitialDeposit)
 	if err != nil {

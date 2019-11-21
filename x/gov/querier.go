@@ -11,20 +11,19 @@ import (
 
 // query endpoints supported by the governance Querier
 const (
-	QueryParams       = "params"
-	QueryProposals    = "proposals"
-	QueryProposal     = "proposal"
-	QueryDeposits     = "deposits"
-	QueryDeposit      = "deposit"
-	QueryVotes        = "votes"
-	QueryVote         = "vote"
-	QueryTally        = "tally"
-	QueryCycle        = "fundingcycle"
-	QueryCycles       = "fundingcycles"
-	QueryEligiblities = "eligiblities"
-	ParamDeposit      = "deposit"
-	ParamVoting       = "voting"
-	ParamTallying     = "tallying"
+	QueryParams    = "params"
+	QueryProposals = "proposals"
+	QueryProposal  = "proposal"
+	QueryDeposits  = "deposits"
+	QueryDeposit   = "deposit"
+	QueryVotes     = "votes"
+	QueryVote      = "vote"
+	QueryTally     = "tally"
+	QueryCycle     = "fundingcycle"
+	QueryCycles    = "fundingcycles"
+	ParamDeposit   = "deposit"
+	ParamVoting    = "voting"
+	ParamTallying  = "tallying"
 )
 
 func NewQuerier(keeper Keeper) sdk.Querier {
@@ -50,8 +49,6 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 			return queryFuncingCycle(ctx, path[1:], req, keeper)
 		case QueryCycles:
 			return queryFuncingCycles(ctx, path[1:], req, keeper)
-		case QueryEligiblities:
-			return queryEligiblities(ctx, path[1:], req, keeper)
 		default:
 			return nil, sdk.ErrUnknownRequest("unknown gov query endpoint")
 		}
@@ -332,17 +329,6 @@ func queryFuncingCycles(ctx sdk.Context, path []string, req abci.RequestQuery, k
 	fundingCycles := keeper.GetAllFundingCycle(ctx)
 
 	bz, err := codec.MarshalJSONIndent(keeper.cdc, fundingCycles)
-	if err != nil {
-		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("could not marshal result to JSON", err.Error()))
-	}
-	return bz, nil
-}
-
-func queryEligiblities(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
-
-	eligiblites := keeper.GetProposalEligibility(ctx)
-
-	bz, err := codec.MarshalJSONIndent(keeper.cdc, eligiblites)
 	if err != nil {
 		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("could not marshal result to JSON", err.Error()))
 	}

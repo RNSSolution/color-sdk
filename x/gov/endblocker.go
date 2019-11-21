@@ -16,8 +16,8 @@ func EndBlocker(ctx sdk.Context, keeper Keeper) sdk.Tags {
 		days, err := keeper.GetDaysPassed(ctx)
 		if err != nil {
 			keeper.SetBlockTime(ctx)
-			days, _ = keeper.GetDaysPassed(ctx)
 		} else if days >= LimitFirstFundingCycle {
+			keeper.RemoveFromInactiveProposalQueueIterator(ctx)
 			keeper.AddFundingCycle(ctx)
 		}
 
@@ -68,7 +68,8 @@ func UpdateInactiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) s
 // UpdateActiveProposals updates the prosal status on every block
 func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags {
 	logger := ctx.Logger().With("module", "x/gov")
-	eligibilityQueue := []EligibilityDetails{}
+	proposals := []Proposal{}
+	results := []TallyResult{}
 	// fetch active proposals whose voting periods have ended (are passed the block time)
 	activeIterator := keeper.ActiveProposalQueueIterator(ctx, ctx.BlockHeader().Time)
 	var tagValue = "In Voting Cycle"
@@ -82,14 +83,13 @@ func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk
 			panic(fmt.Sprintf("proposal %d does not exist", proposalID))
 		}
 		passes, tallyResults, _ := tally(ctx, keeper, activeProposal)
-		passResult := tallyResults.Yes.Sub(tallyResults.No)
 
 		if passes {
-			eligibility := NewEligibilityDetails(activeProposal.ProposalID, passResult, activeProposal.RequestedFund)
-			eligibilityQueue = Append(eligibilityQueue, eligibility)
+			proposals = append(proposals, activeProposal)
+			results = append(results, tallyResults)
 
 		} else {
-			keeper.DeleteProposalEligibility(ctx, activeProposal.ProposalID)
+			keeper.DeleteProposalEligibility(ctx, activeProposal)
 		}
 		activeProposal.FinalTallyResult = tallyResults
 		keeper.SetProposal(ctx, activeProposal)
@@ -105,15 +105,16 @@ func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk
 		resTags = resTags.AppendTag(tags.ProposalID, fmt.Sprintf("%d", proposalID))
 		resTags = resTags.AppendTag(tags.ProposalResult, tagValue)
 	}
-	eligibilityQueue = SortProposalEligibility(eligibilityQueue)
-	keeper.SetEligibilityDetails(ctx, eligibilityQueue)
+	proposals = SortProposalEligibility(proposals, results)
+	keeper.SetEligibilityDetails(ctx, proposals)
 	return resTags
 }
 
 // ExecuteProposal Transfer funds on active proposal if voting end time reach
 func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags {
 	logger := ctx.Logger().With("module", "x/gov")
-	eligibilityQueue := []EligibilityDetails{}
+	proposals := []Proposal{}
+	results := []TallyResult{}
 	var tagValue string
 
 	// fetch active proposals whose voting periods have ended (are passed the block time)
@@ -129,18 +130,16 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 		}
 
 		passes, tallyResults, nutural := tally(ctx, keeper, activeProposal)
-		passResult := tallyResults.Yes.Sub(tallyResults.No)
 
 		if passes {
-
-			eligibility := NewEligibilityDetails(activeProposal.ProposalID, passResult, activeProposal.GetRequestedFund())
-			eligibilityQueue = Append(eligibilityQueue, eligibility)
+			proposals = append(proposals, activeProposal)
+			results = append(results, tallyResults)
 			activeProposal.Status = StatusPassed
 			tagValue = tags.ActionProposalPassed
 			activeProposal = activeProposal.ReduceCycleCount()
 			if activeProposal.IsZeroRemainingCycle() {
 				keeper.RefundDeposits(ctx, activeProposal.ProposalID)
-				keeper.DeleteProposalEligibility(ctx, activeProposal.ProposalID)
+				keeper.DeleteProposalEligibility(ctx, activeProposal)
 				keeper.DeleteProposal(ctx, activeProposal.ProposalID)
 			}
 
@@ -152,7 +151,7 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 			activeProposal.FundingCycleCount = activeProposal.FundingCycleCount + 1
 			maxCycleLimit := activeProposal.CheckMaxCycleCount()
 			if maxCycleLimit {
-				keeper.DeleteProposalEligibility(ctx, activeProposal.ProposalID)
+				keeper.DeleteProposalEligibility(ctx, activeProposal)
 				keeper.DeleteProposal(ctx, activeProposal.ProposalID)
 				activeProposal.Status = StatusRejected
 				tagValue = tags.ActionProposalRejected
@@ -179,7 +178,8 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 
 	}
 
-	eligibilityQueue = SortProposalEligibility(eligibilityQueue)
-	keeper.TransferFunds(ctx, eligibilityQueue)
+	proposals = SortProposalEligibility(proposals, results)
+	keeper.SetEligibilityDetails(ctx, proposals)
+	keeper.TransferFunds(ctx, proposals)
 	return resTags
 }
