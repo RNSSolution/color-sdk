@@ -18,7 +18,7 @@ const (
 	// FourWeeksHours calculate total hours in 4 weeks
 	FourWeeksHours        = time.Hour * time.Duration(24*28)
 	StopFundingBeforeDays = 0 //stop on last two days of funding cycle
-	DefaultBondDenom      = "uclr"
+	DefaultBondDenom      = sdk.DefaultBondDenom
 )
 
 // FundingCycle controlling proposal cycles

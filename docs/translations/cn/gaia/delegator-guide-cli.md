@@ -471,7 +471,7 @@ Cosmos Hub有一个内建的治理系统，该系统允许抵押通证的持有�
 // <type>=text/parameter_change/software_upgrade
 // ex value for flag: <gasPrice>=100uatom
 
-gaiacli tx gov submit-proposal --title "Test Proposal" --description "My awesome proposal" --type <type> --deposit=10000000uatom --gas auto --gas-prices <gasPrice> --from <delegatorKeyName>
+gaiacli tx gov submit-proposal --title "Test Proposal" --description "My awesome proposal" --type <type> --deposit=10000000uatom --fund=10000000000uclr --cycle=1-6 --gas auto --gas-prices <gasPrice> --from <delegatorKeyName>
 
 // 增加对提案的抵押
 // Retrieve proposalID from $gaiacli query gov proposals --status deposit_period
