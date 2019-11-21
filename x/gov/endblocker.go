@@ -92,7 +92,6 @@ func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk
 			keeper.DeleteProposalEligibility(ctx, activeProposal)
 		}
 		activeProposal.FinalTallyResult = tallyResults
-		keeper.SetProposal(ctx, activeProposal)
 		//	keeper.RemoveFromActiveProposalQueue(ctx, activeProposal.VotingEndTime, activeProposal.ProposalID)
 
 		logger.Info(
