@@ -23,9 +23,10 @@ const (
 
 // FundingCycle controlling proposal cycles
 type FundingCycle struct {
-	CycleID        uint64    `json:"cycle_id"`         //  ID of the proposal
-	CycleStartTime time.Time `json:"cycle_start_time"` //  Time of the funding cycle to start
-	CycleEndTime   time.Time `json:"cycle_end_time"`   //  Time that the funding cycle to end
+	CycleID         uint64    `json:"cycle_id"`         //  ID of the proposal
+	CycleStartTime  time.Time `json:"cycle_start_time"` //  Time of the funding cycle to start
+	CycleEndTime    time.Time `json:"cycle_end_time"`   //  Time that the funding cycle to end
+	FundedProposals []uint64  `json:"funded_proposals"` // Funded proposals in a funding cycle
 }
 
 func (fs FundingCycle) String() string {
@@ -33,8 +34,9 @@ func (fs FundingCycle) String() string {
 	CycleID:                    %d
 	Cycle Start Time:           %s
 	Cycle End Time:             %s
+	Funded Proposals: 	%s
 `,
-		fs.CycleID, fs.CycleStartTime, fs.CycleEndTime,
+		fs.CycleID, fs.CycleStartTime, fs.CycleEndTime, fs.FundedProposals,
 	)
 }
 
