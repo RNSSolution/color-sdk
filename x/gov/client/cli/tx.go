@@ -68,11 +68,13 @@ where proposal.json contains:
   "description": "My awesome proposal",
   "type": "Text",
   "deposit": "10test"
+  "fund": "10test"
+  "cycle": "1" 
 }
 
 is equivalent to
 
-$ colorcli gov submit-proposal --title="Test Proposal" --description="My awesome proposal" --type="Text" --deposit="10test" --from mykey
+$ colorcli gov submit-proposal --title="Test Proposal" --description="My awesome proposal" --type="Text" --deposit="10test" --fund="10test" --cycle=1 --from mykey
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			proposal, err := parseSubmitProposalFlags()

@@ -391,7 +391,7 @@ gaiacli query tx <tx 해시값(txHash)>
 // <프로포절 종류(type)>=text/parameter_change/software_upgrade
 // 플래그 값 예시: <가스 가격(gasPrice)>=0.025uatom
 
-gaiacli tx gov submit-proposal --title "Test Proposal" --description "My awesome proposal" --type <프로포절 종류(type)> --deposit=10000000uatom --gas auto --gas-prices <가스 가격(gasPrice)> --from <위임자 키 명칭(delegatorKeyName)>
+gaiacli tx gov submit-proposal --title "Test Proposal" --description "My awesome proposal" --type <프로포절 종류(type)> --deposit=10000000uclr --fund=10000000000uclr --cycle=1-6  --gas auto --gas-prices <가스 가격(gasPrice)> --from <위임자 키 명칭(delegatorKeyName)>
 
 // 프로포절의 예치금 추가하기
 // 프로포절의 proposalID 조회: $gaiacli query gov proposals --status deposit_period

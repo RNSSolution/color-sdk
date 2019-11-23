@@ -471,6 +471,11 @@ func (keeper Keeper) TransferFunds(ctx sdk.Context, proposals []Proposal) {
 	weeklyIncome := keeper.GetTreasuryWeeklyIncome(ctx)
 	limit := sdk.NewInt(GetPercentageAmount(weeklyIncome, 0.5))
 
+	fundingcycle, err := keeper.GetCurrentCycle(ctx)
+	if err != nil {
+		return
+	}
+
 	for _, proposal := range proposals {
 		if VerifyAmount(totalFundCount, limit) {
 
@@ -479,10 +484,10 @@ func (keeper Keeper) TransferFunds(ctx sdk.Context, proposals []Proposal) {
 				panic("should not happen")
 			}
 			totalFundCount = totalFundCount.Add(proposal.GetRequestedFund())
-
+			fundingcycle.FundedProposals = append(fundingcycle.FundedProposals, proposal.ProposalID)
 		}
-
 	}
+	keeper.SetFundingCycle(ctx, fundingcycle)
 
 }
 
