@@ -2,7 +2,7 @@ module github.com/ColorPlatform/color-sdk
 
 require (
 	bou.ke/monkey v1.0.1 // indirect
-	github.com/ColorPlatform/prism v0.31.6-0.20191113032950-b356cadddb85
+	github.com/ColorPlatform/prism v0.31.6-0.20191122022543-ce78f8f1af2e
 	github.com/RNSSolution/iavl v0.0.1
 	github.com/bartekn/go-bip39 v0.0.0-20171116152956-a05967ea095d
 	github.com/bgentry/speakeasy v0.1.0
