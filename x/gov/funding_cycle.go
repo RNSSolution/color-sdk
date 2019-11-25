@@ -16,7 +16,7 @@ const (
 	// LimitFirstFundingCycle condation first funding cycle should start after 4 weeks
 	LimitFirstFundingCycle = 0
 	// FourWeeksHours calculate total hours in 4 weeks
-	FourWeeksHours        = time.Hour * time.Duration(24*28)
+	FourWeeksHours        = time.Minute * time.Duration(10)
 	StopFundingBeforeDays = 0 //stop on last two days of funding cycle
 	DefaultBondDenom      = sdk.DefaultBondDenom
 )

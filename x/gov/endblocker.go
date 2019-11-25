@@ -103,6 +103,7 @@ func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk
 
 		resTags = resTags.AppendTag(tags.ProposalID, fmt.Sprintf("%d", proposalID))
 		resTags = resTags.AppendTag(tags.ProposalResult, tagValue)
+		keeper.SetProposal(ctx, activeProposal)
 	}
 	proposals = SortProposalEligibility(proposals, results)
 	keeper.SetEligibilityDetails(ctx, proposals)
@@ -133,10 +134,10 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 		if passes {
 			proposals = append(proposals, activeProposal)
 			results = append(results, tallyResults)
-			activeProposal.Status = StatusPassed
-			tagValue = tags.ActionProposalPassed
 			activeProposal = activeProposal.ReduceCycleCount()
 			if activeProposal.IsZeroRemainingCycle() {
+				activeProposal.Status = StatusPassed
+				tagValue = tags.ActionProposalPassed
 				keeper.RefundDeposits(ctx, activeProposal.ProposalID)
 				keeper.DeleteProposalEligibility(ctx, activeProposal)
 				keeper.DeleteProposal(ctx, activeProposal.ProposalID)
