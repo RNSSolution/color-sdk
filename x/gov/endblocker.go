@@ -82,11 +82,14 @@ func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk
 		if !ok {
 			panic(fmt.Sprintf("proposal %d does not exist", proposalID))
 		}
-		passes, tallyResults, _ := tally(ctx, keeper, activeProposal)
+		passes, tallyResults, netural := tally(ctx, keeper, activeProposal)
 
 		if passes {
 			proposals = append(proposals, activeProposal)
 			results = append(results, tallyResults)
+
+		} else if !passes && netural {
+			activeProposal.Ranking = sdk.NewInt(int64(0))
 
 		} else {
 			keeper.DeleteProposalEligibility(ctx, activeProposal)
