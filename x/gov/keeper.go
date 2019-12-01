@@ -477,14 +477,25 @@ func (keeper Keeper) TransferFunds(ctx sdk.Context, proposals []Proposal) {
 	}
 
 	for _, proposal := range proposals {
+
+		totalFundCount = totalFundCount.Add(proposal.GetRequestedFund())
 		if VerifyAmount(totalFundCount, limit) {
+
+			proposal = proposal.ReduceCycleCount()
+			if proposal.IsZeroRemainingCycle() {
+				proposal.Status = StatusPassed
+				keeper.RefundDeposits(ctx, proposal.ProposalID)
+				keeper.DeleteProposalEligibility(ctx, proposal)
+				keeper.RemoveFromInactiveProposalQueue(ctx, proposal.DepositEndTime, proposal.ProposalID)
+				keeper.RemoveFromActiveProposalQueue(ctx, proposal.VotingEndTime, proposal.ProposalID)
+			}
 
 			err := keeper.distrKeeper.DistributeFeePool(ctx, proposal.GetRequestedFund(), proposal.GetProposer())
 			if err != nil {
 				panic("should not happen")
 			}
-			totalFundCount = totalFundCount.Add(proposal.GetRequestedFund())
 			fundingcycle.FundedProposals = append(fundingcycle.FundedProposals, proposal.ProposalID)
+			keeper.SetProposal(ctx, proposal)
 		}
 	}
 	keeper.SetFundingCycle(ctx, fundingcycle)

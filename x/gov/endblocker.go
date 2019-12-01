@@ -137,14 +137,6 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 		if passes {
 			proposals = append(proposals, activeProposal)
 			results = append(results, tallyResults)
-			activeProposal = activeProposal.ReduceCycleCount()
-			if activeProposal.IsZeroRemainingCycle() {
-				activeProposal.Status = StatusPassed
-				tagValue = tags.ActionProposalPassed
-				keeper.RefundDeposits(ctx, activeProposal.ProposalID)
-				keeper.DeleteProposalEligibility(ctx, activeProposal)
-				keeper.DeleteProposal(ctx, activeProposal.ProposalID)
-			}
 
 		} else if !passes && !nutural {
 			keeper.DeleteDeposits(ctx, activeProposal.ProposalID)
@@ -155,7 +147,8 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 			maxCycleLimit := activeProposal.CheckMaxCycleCount()
 			if maxCycleLimit {
 				keeper.DeleteProposalEligibility(ctx, activeProposal)
-				keeper.DeleteProposal(ctx, activeProposal.ProposalID)
+				keeper.RemoveFromInactiveProposalQueue(ctx, activeProposal.DepositEndTime, activeProposal.ProposalID)
+				keeper.RemoveFromActiveProposalQueue(ctx, activeProposal.VotingEndTime, activeProposal.ProposalID)
 				activeProposal.Status = StatusRejected
 				tagValue = tags.ActionProposalRejected
 
