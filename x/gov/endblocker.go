@@ -88,12 +88,11 @@ func UpdateActiveProposals(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk
 			proposals = append(proposals, activeProposal)
 			results = append(results, tallyResults)
 
-		} else if !passes && netural {
-			activeProposal.Ranking = sdk.NewInt(int64(0))
+		} else if !passes || netural {
+			activeProposal.Ranking = sdk.ZeroInt()
 
-		} else {
-			keeper.DeleteProposalEligibility(ctx, activeProposal)
 		}
+
 		activeProposal.FinalTallyResult = tallyResults
 		//	keeper.RemoveFromActiveProposalQueue(ctx, activeProposal.VotingEndTime, activeProposal.ProposalID)
 
@@ -132,25 +131,32 @@ func ExecuteProposal(ctx sdk.Context, keeper Keeper, resTags sdk.Tags) sdk.Tags 
 			panic(fmt.Sprintf("proposal %d does not exist", proposalID))
 		}
 
-		passes, tallyResults, nutural := tally(ctx, keeper, activeProposal)
+		passes, tallyResults, netural := tally(ctx, keeper, activeProposal)
 
 		if passes {
 			proposals = append(proposals, activeProposal)
 			results = append(results, tallyResults)
 
-		} else if !passes && !nutural {
+		} else if !passes && !netural {
+			keeper.DeleteProposalEligibility(ctx, activeProposal)
 			keeper.DeleteDeposits(ctx, activeProposal.ProposalID)
+			keeper.RemoveFromInactiveProposalQueue(ctx, activeProposal.DepositEndTime, activeProposal.ProposalID)
+			keeper.RemoveFromActiveProposalQueue(ctx, activeProposal.VotingEndTime, activeProposal.ProposalID)
 			activeProposal.Status = StatusRejected
 			tagValue = tags.ActionProposalRejected
-		} else {
+			activeProposal.Ranking = sdk.ZeroInt()
+
+		} else if !passes && netural {
 			activeProposal.FundingCycleCount = activeProposal.FundingCycleCount + 1
 			maxCycleLimit := activeProposal.CheckMaxCycleCount()
 			if maxCycleLimit {
 				keeper.DeleteProposalEligibility(ctx, activeProposal)
+				keeper.DeleteDeposits(ctx, activeProposal.ProposalID)
 				keeper.RemoveFromInactiveProposalQueue(ctx, activeProposal.DepositEndTime, activeProposal.ProposalID)
 				keeper.RemoveFromActiveProposalQueue(ctx, activeProposal.VotingEndTime, activeProposal.ProposalID)
 				activeProposal.Status = StatusRejected
 				tagValue = tags.ActionProposalRejected
+				activeProposal.Ranking = sdk.ZeroInt()
 
 			}
 

@@ -488,6 +488,7 @@ func (keeper Keeper) TransferFunds(ctx sdk.Context, proposals []Proposal) {
 				keeper.DeleteProposalEligibility(ctx, proposal)
 				keeper.RemoveFromInactiveProposalQueue(ctx, proposal.DepositEndTime, proposal.ProposalID)
 				keeper.RemoveFromActiveProposalQueue(ctx, proposal.VotingEndTime, proposal.ProposalID)
+				proposal.Ranking = sdk.ZeroInt()
 			}
 
 			err := keeper.distrKeeper.DistributeFeePool(ctx, proposal.GetRequestedFund(), proposal.GetProposer())
