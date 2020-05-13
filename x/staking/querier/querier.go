@@ -16,6 +16,8 @@ import (
 const (
 	QueryValidators                    = "validators"
 	QueryValidator                     = "validator"
+	QueryCouncilMembers                = "councilmembers"
+	QueryCouncilMember                 = "councilmember"
 	QueryDelegatorDelegations          = "delegatorDelegations"
 	QueryDelegatorUnbondingDelegations = "delegatorUnbondingDelegations"
 	QueryRedelegations                 = "redelegations"
@@ -39,6 +41,10 @@ func NewQuerier(k keep.Keeper, cdc *codec.Codec) sdk.Querier {
 			return queryValidators(ctx, cdc, req, k)
 		case QueryValidator:
 			return queryValidator(ctx, cdc, req, k)
+		case QueryCouncilMembers:
+			return queryCouncilMembers(ctx, cdc, req, k)
+		case QueryCouncilMember:
+			return queryCouncilMember(ctx, cdc, req, k)
 		case QueryValidatorDelegations:
 			return queryValidatorDelegations(ctx, cdc, req, k)
 		case QueryValidatorUnbondingDelegations:
@@ -94,6 +100,18 @@ type QueryValidatorParams struct {
 func NewQueryValidatorParams(validatorAddr sdk.ValAddress) QueryValidatorParams {
 	return QueryValidatorParams{
 		ValidatorAddr: validatorAddr,
+	}
+}
+
+// denies the params for following queires:
+// - 'custom/staking/councilmember'
+type QueryCouncilMemberParams struct {
+	CouncilMemberAddr sdk.AccAddress
+}
+
+func NewQueryCouncilMemberParams(memberAddr sdk.AccAddress) QueryCouncilMemberParams {
+	return QueryCouncilMemberParams{
+		CouncilMemberAddr: memberAddr,
 	}
 }
 
@@ -173,6 +191,24 @@ func queryValidators(ctx sdk.Context, cdc *codec.Codec, req abci.RequestQuery, k
 	return res, nil
 }
 
+func queryCouncilMembers(ctx sdk.Context, cdc *codec.Codec, req abci.RequestQuery, k keep.Keeper) ([]byte, sdk.Error) {
+	var params QueryCouncilMembersParams
+
+	err := cdc.UnmarshalJSON(req.Data, &params)
+	if err != nil {
+		return nil, sdk.ErrInternal(fmt.Sprintf("failed to parse params: %s", err))
+	}
+
+	cms := k.GetAllCouncilMembers(ctx)
+
+	res, err := codec.MarshalJSONIndent(cdc, cms)
+	if err != nil {
+		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("failed to JSON marshal result: %s", err.Error()))
+	}
+
+	return res, nil
+}
+
 func queryValidator(ctx sdk.Context, cdc *codec.Codec, req abci.RequestQuery, k keep.Keeper) (res []byte, err sdk.Error) {
 	var params QueryValidatorParams
 
@@ -187,6 +223,27 @@ func queryValidator(ctx sdk.Context, cdc *codec.Codec, req abci.RequestQuery, k 
 	}
 
 	res, errRes = codec.MarshalJSONIndent(cdc, validator)
+	if errRes != nil {
+		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("could not marshal result to JSON", errRes.Error()))
+	}
+	return res, nil
+}
+
+func queryCouncilMember(ctx sdk.Context, cdc *codec.Codec, req abci.RequestQuery, k keep.Keeper) (res []byte, err sdk.Error) {
+	var params QueryCouncilMemberParams
+
+	errRes := cdc.UnmarshalJSON(req.Data, &params)
+	if errRes != nil {
+		return []byte{}, sdk.ErrInternal(fmt.Sprintf("failed to parse params: %s", err))
+	}
+
+	cm, found := k.GetCouncilMember(ctx, params.CouncilMemberAddr)
+	if !found {
+		return []byte{}, types.ErrNoCouncilMemberFound(types.DefaultCodespace)
+	}
+
+	res, errRes = codec.MarshalJSONIndent(cdc, cm)
+
 	if errRes != nil {
 		return nil, sdk.ErrInternal(sdk.AppendMsgToErr("could not marshal result to JSON", errRes.Error()))
 	}
@@ -398,4 +455,14 @@ type QueryValidatorsParams struct {
 
 func NewQueryValidatorsParams(page, limit int, status string) QueryValidatorsParams {
 	return QueryValidatorsParams{page, limit, status}
+}
+
+// QueryCouncilMembersParams defines the params for following Queries:
+// - 'custom/staking/councilmembers'
+type QueryCouncilMembersParams struct {
+	Page int
+}
+
+func NewQueryCouncilMembersParams(page int) QueryCouncilMembersParams {
+	return QueryCouncilMembersParams{page}
 }

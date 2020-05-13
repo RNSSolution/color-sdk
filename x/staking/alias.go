@@ -15,6 +15,7 @@ type (
 	DistributionKeeper      = types.DistributionKeeper
 	Validator               = types.Validator
 	Validators              = types.Validators
+	CouncilMembers          = types.CouncilMembers
 	Description             = types.Description
 	Commission              = types.Commission
 	CommissionMsg           = types.CommissionMsg
@@ -42,6 +43,7 @@ type (
 var (
 	NewKeeper = keeper.NewKeeper
 
+	GetCouncilMemberKey          = keeper.GetCouncilMemberKey
 	GetValidatorKey              = keeper.GetValidatorKey
 	GetValidatorByConsAddrKey    = keeper.GetValidatorByConsAddrKey
 	GetValidatorsByPowerIndexKey = keeper.GetValidatorsByPowerIndexKey
@@ -51,6 +53,7 @@ var (
 	LastValidatorPowerKey        = keeper.LastValidatorPowerKey
 	LastTotalPowerKey            = keeper.LastTotalPowerKey
 	ValidatorsKey                = keeper.ValidatorsKey
+	CouncilMemberKey             = keeper.CouncilMembersKey
 	ValidatorsByConsAddrKey      = keeper.ValidatorsByConsAddrKey
 	ValidatorsByPowerIndexKey    = keeper.ValidatorsByPowerIndexKey
 	DelegationKey                = keeper.DelegationKey
@@ -98,15 +101,19 @@ var (
 	NewMsgUndelegate      = types.NewMsgUndelegate
 	NewMsgBeginRedelegate = types.NewMsgBeginRedelegate
 
-	NewQuerier               = querier.NewQuerier
-	NewQueryDelegatorParams  = querier.NewQueryDelegatorParams
-	NewQueryValidatorParams  = querier.NewQueryValidatorParams
-	NewQueryBondsParams      = querier.NewQueryBondsParams
-	NewQueryValidatorsParams = querier.NewQueryValidatorsParams
+	NewQuerier                   = querier.NewQuerier
+	NewQueryDelegatorParams      = querier.NewQueryDelegatorParams
+	NewQueryValidatorParams      = querier.NewQueryValidatorParams
+	NewQueryBondsParams          = querier.NewQueryBondsParams
+	NewQueryValidatorsParams     = querier.NewQueryValidatorsParams
+	NewQueryCouncilMembersParams = querier.NewQueryCouncilMembersParams
+	NewQueryCouncilMemberParams  = querier.NewQueryCouncilMemberParams
 )
 
 const (
 	QueryValidators                    = querier.QueryValidators
+	QueryCouncilMembers                = querier.QueryCouncilMembers
+	QueryCouncilMember                 = querier.QueryCouncilMember
 	QueryValidator                     = querier.QueryValidator
 	QueryValidatorDelegations          = querier.QueryValidatorDelegations
 	QueryValidatorRedelegations        = querier.QueryValidatorRedelegations
